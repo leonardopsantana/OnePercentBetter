@@ -11,6 +11,7 @@ Repo dedicated to follow the best things on android world
     Created a rule to not allow empty PRs
     Thanks the developer for a new PR :) 
 
+
   KTLint - lint for kotlin classes
     Helps write better code with formatting and a set of default rules (https://github.com/pinterest/ktlint)   
 
