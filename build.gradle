@@ -53,7 +53,7 @@ buildscript {
 
 subprojects {
     apply from: "../buildscripts/ktlint.gradle"
-//    apply from: "../buildscripts/detekt.gradle"
+    apply from: "../buildscripts/detekt.gradle"
 //    apply from: "../buildscripts/versionsplugin.gradle"
 //    apply from: "../buildscripts/kover.gradle"
 }
