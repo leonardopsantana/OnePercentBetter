@@ -9,9 +9,11 @@ Repo dedicated to follow the best things on android world
   
   Danger - automated messages on PRs
     Created a rule to not allow empty PRs
-    Thanks the developer for a new PR :) 
+    Thanks the developer for a new PR and others messages in PRs:) 
 
 
   KTLint - lint for kotlin classes
     Helps write better code with formatting and a set of default rules (https://github.com/pinterest/ktlint)   
 
+
+  DETEKT - Helps write better code by checking the code increasing the quality (https://github.com/detekt/detekt)
