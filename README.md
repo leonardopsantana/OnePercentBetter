@@ -18,3 +18,6 @@ Repo dedicated to follow the best things on android world
 
   DETEKT - alerts for code smells, bad implementations...
     Helps write better code by checking the code increasing the quality (https://github.com/detekt/detekt)
+  
+  GITHOOKS - setup phases for pre-commit and pre-push so we can format and detekt code
+    Gradle step do installGitHooks on every clean

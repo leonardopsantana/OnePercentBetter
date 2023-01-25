@@ -48,7 +48,9 @@ buildscript {
     }
 }
 
-//apply from: "buildscripts/git-hooks.gradle"
+apply plugin:'base'
+
+apply from: "buildscripts/git-hooks.gradle"
 //apply from: "buildscripts/versions.gradle"
 
 subprojects {
@@ -61,7 +63,7 @@ subprojects {
 //task clean(type: Delete) {
 //    delete rootProject.buildDir
 //}
-//
-//afterEvaluate {
-//    tasks['clean'].dependsOn installGitHooks
-//}
+
+afterEvaluate {
+    tasks['clean'].dependsOn installGitHooks
+}
