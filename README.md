@@ -9,7 +9,7 @@ Repo dedicated to follow the best things on android world
   
   Danger - automated messages on PRs
     Created a rule to not allow empty PRs
-    Thanks the developer for a new PR and others messages in PRs:) 
+    Thanks the developer for a new PR and others messages in PRs :) 
 
 
   KTLint - lint for kotlin classes
