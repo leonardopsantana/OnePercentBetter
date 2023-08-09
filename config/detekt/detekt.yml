@@ -769,8 +769,8 @@ style:
   UnusedPrivateClass:
     active: true
   UnusedPrivateMember:
-    active: false
-    allowedNames: '(_|ignored|expected|serialVersionUID)'
+    active: true
+    allowedNames: '(_|ignored|expected|serialVersionUID|.*Preview)'
   UseAnyOrNoneInsteadOfFind:
     active: false
   UseArrayLiteralsInAnnotations:

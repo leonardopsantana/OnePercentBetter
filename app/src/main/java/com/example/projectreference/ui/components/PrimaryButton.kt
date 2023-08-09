@@ -47,12 +47,10 @@ fun PrimaryButton(
     name = "Night mode",
     uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
-
 @Preview(
     name = "Day mode",
     uiMode = Configuration.UI_MODE_NIGHT_NO
 )
-
 @Composable
 private fun PrimaryButtonPreview() {
     TOATheme {
