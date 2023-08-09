@@ -22,3 +22,6 @@ Repo dedicated to follow the best things on android world
   
   THEME USING COMPOSE LIBRARY:  
     Colors -[ app palette Typographic - urbanist by google fonts]()
+  
+  COMPONENTS:
+    - Primary and Secondary buttons
