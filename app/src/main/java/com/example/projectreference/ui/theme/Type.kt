@@ -1,12 +1,11 @@
-package com.example.leo_projectreference.ui.theme
+package com.example.projectreference.ui.theme
 
-import androidx.compose.material.Text
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.sp
-import com.example.leo_projectreference.R
+import com.example.projectreference.R
 
 private val UrbanistExtraBold = FontFamily(Font(R.font.urbanist_extrabold))
 private val UrbanistBold = FontFamily(Font(R.font.urbanist_bold))

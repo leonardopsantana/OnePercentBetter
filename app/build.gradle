@@ -7,7 +7,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.leo_projectreference"
+        applicationId "com.example.projectreference"
         minSdk 21
         minSdkVersion 21
         targetSdk 32

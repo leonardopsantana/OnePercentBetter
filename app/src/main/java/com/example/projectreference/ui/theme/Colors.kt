@@ -1,4 +1,5 @@
-package com.example.leo_projectreference.ui.theme
+@file:Suppress("MagicNumber")
+package com.example.projectreference.ui.theme
 
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors

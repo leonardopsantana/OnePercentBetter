@@ -1,4 +1,4 @@
-package com.example.leo_projectreference
+package com.example.projectreference
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -7,8 +7,8 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import com.example.leo_projectreference.ui.components.PrimaryButton
-import com.example.leo_projectreference.ui.theme.TOATheme
+import com.example.projectreference.ui.components.PrimaryButton
+import com.example.projectreference.ui.theme.TOATheme
 
 class MainActivity : ComponentActivity() {
 
@@ -17,7 +17,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             TOATheme {
-                //A surface container using the 'background' color from the theme
+                // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
                     Greeting("Android")
                 }
