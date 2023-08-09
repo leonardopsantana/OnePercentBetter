@@ -27,8 +27,7 @@ fun TOATextField(
 ) {
 
     OutlinedTextField(
-        value = text, 
-        onValueChange = onTextChanged,
+        value = text, onValueChange = onTextChanged,
         label = {
             Text(text = labelText)
         },
@@ -54,7 +53,8 @@ private fun FilledTAOTextFieldPreview() {
             TOATextField(
                 text = "TOA Text Field",
                 onTextChanged = {},
-                labelText = "Label")
+                labelText = "Label"
+            )
         }
     }
 }
@@ -74,7 +74,8 @@ private fun EmptyTAOTextFieldPreview() {
             TOATextField(
                 text = "",
                 onTextChanged = {},
-                labelText = "Label")
+                labelText = "Label"
+            )
         }
     }
 }
