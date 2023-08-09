@@ -16,7 +16,12 @@ import com.example.projectreference.ui.theme.TextFieldShape
 
 /**
  * This is a custom implementation of an [OutlineTextField] to ensure that is has the TOA branding and
- * styling as expected
+ * styling as expected.
+ *
+ * @param[text] The current text inside the input.
+ * @param[onTextChanged] A callback invoked whenever the user modifies the text inside this input.
+ * @param[labelText] The label that shows above the input when focused
+ * @param[modifier] An optional [Modifier] to configure this component
  */
 @Composable
 fun TOATextField(
