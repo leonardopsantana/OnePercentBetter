@@ -8,5 +8,6 @@ package com.example.projectreference.ui.login
  */
 data class LoginViewState(
     val userName: String,
-    val password: String
+    val password: String,
+    val showProgress: Boolean = false
 )
