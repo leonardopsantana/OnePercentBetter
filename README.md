@@ -21,7 +21,10 @@ Repo dedicated to follow the best things on android world
     Gradle step do installGitHooks on every clean
   
   THEME USING COMPOSE LIBRARY:  
-    Colors -[ app palette Typographic - urbanist by google fonts]()
-  
-  COMPONENTS:
-    - Primary and Secondary buttons
+    Colors - app palette 
+    Typographic - urbanist by google fonts
+    Buttons - primary and secondary
+    Inputs - textfield outline
+    Logo - add drawable resource
+    LoginUI - first screen with compose
+    
