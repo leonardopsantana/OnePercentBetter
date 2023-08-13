@@ -1,4 +1,4 @@
-package com.example.projectreference.ui.theme
+package com.example.projectreference.core.ui.theme
 
 import android.annotation.SuppressLint
 import androidx.compose.material.MaterialTheme

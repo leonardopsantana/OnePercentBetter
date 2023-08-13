@@ -1,5 +1,5 @@
 @file:Suppress("MagicNumber")
-package com.example.projectreference.ui.theme
+package com.example.projectreference.core.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

@@ -1,4 +1,4 @@
-package com.example.projectreference.ui.components
+package com.example.projectreference.core.ui.components
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,8 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.projectreference.R
-import com.example.projectreference.ui.theme.TOATheme
-import com.example.projectreference.ui.theme.TextFieldShape
+import com.example.projectreference.core.ui.theme.TOATheme
+import com.example.projectreference.core.ui.theme.TextFieldShape
 
 /**
  * This is a custom implementation of an [OutlineTextField] to ensure that is has the TOA branding and

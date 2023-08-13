@@ -7,8 +7,8 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import com.example.projectreference.ui.components.PrimaryButton
-import com.example.projectreference.ui.theme.TOATheme
+import com.example.projectreference.core.ui.components.PrimaryButton
+import com.example.projectreference.core.ui.theme.TOATheme
 
 class MainActivity : ComponentActivity() {
 
