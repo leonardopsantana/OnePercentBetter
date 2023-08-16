@@ -2,21 +2,18 @@ package com.example.projectreference.login.domain.model
 
 /**
  * A collection of possible results for an attempt to login the user.
- * @param: [authToken] Token for other's requests
  */
 
-sealed class LoginResult {
+sealed class LoginState {
     /**
      * This attempt to login was successful
      */
-    data class Success(
-        val authToken: String
-    ) : LoginResult()
+    object Success : LoginState()
 
     /**
      * This will be returned for unsuccessful when attempting to login.
      */
-    sealed class Failure : LoginResult() {
+    sealed class Failure : LoginState() {
         /**
          * This will be returned if there was no account matching the requested credentials.
          */
