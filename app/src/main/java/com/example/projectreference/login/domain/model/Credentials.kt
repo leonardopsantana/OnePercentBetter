@@ -1,12 +1,10 @@
 package com.example.projectreference.login.domain.model
 
 @JvmInline
-@Suppress("UnusedPrivateMember")
-value class Email(private val email: String)
+value class Email(val value: String)
 
 @JvmInline
-@Suppress("UnusedPrivateMember")
-value class Password(private val email: String)
+value class Password(val value: String)
 
 data class Credentials(
     val email: Email,

@@ -1,10 +1,14 @@
 package com.example.projectreference.login.domain.usecase
 
 import com.example.projectreference.core.data.Result
+import com.example.projectreference.login.domain.model.AuthToken
 import com.example.projectreference.login.domain.model.Credentials
 import com.example.projectreference.login.domain.model.InvalidCredentialsException
 import com.example.projectreference.login.domain.model.LoginResponse
 import com.example.projectreference.login.domain.model.LoginState
+import com.example.projectreference.login.domain.model.RefreshToken
+import com.example.projectreference.login.domain.model.Token
+import com.example.projectreference.login.domain.repository.TokenRepository
 import com.example.projectreference.login.domain.repository.LoginRepository
 
 /**
@@ -12,12 +16,15 @@ import com.example.projectreference.login.domain.repository.LoginRepository
  * via the [loginRepository]
  */
 class ProdCredentialsLoginUseCase(
-    private val loginRepository: LoginRepository
+    private val loginRepository: LoginRepository,
+    private val tokenRepository: TokenRepository
 ) : CredentialsLoginUseCase {
     override suspend fun invoke(credentials: Credentials): LoginState {
         return when (val repoResult = loginRepository.login(credentials)) {
             is Result.Success -> {
-                //store token
+                tokenRepository.storeToken(
+                    repoResult.data.token
+                )
                 LoginState.Success
             }
 

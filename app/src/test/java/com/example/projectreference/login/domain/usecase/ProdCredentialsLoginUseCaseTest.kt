@@ -1,88 +1,114 @@
 package com.example.projectreference.login.domain.usecase
 
-import com.example.projectreference.login.domain.model.LoginResponse
 import com.example.projectreference.core.data.Result
 import com.example.projectreference.fakes.FakeLoginRepository
+import com.example.projectreference.fakes.FakeTokenRepository
+import com.example.projectreference.login.domain.model.AuthToken
 import com.example.projectreference.login.domain.model.Credentials
 import com.example.projectreference.login.domain.model.Email
 import com.example.projectreference.login.domain.model.InvalidCredentialsException
+import com.example.projectreference.login.domain.model.LoginResponse
 import com.example.projectreference.login.domain.model.LoginState
 import com.example.projectreference.login.domain.model.Password
+import com.example.projectreference.login.domain.model.RefreshToken
+import com.example.projectreference.login.domain.model.Token
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.test.runTest
+import org.junit.Before
 import org.junit.Test
 
 class ProdCredentialsLoginUseCaseTest {
 
+    private val defaultCredentials = Credentials(
+        email = Email("leonardopontes.santana@gmail.com"),
+        password = Password("123456")
+    )
+
+    private val defaultToken = Token(
+        authToken = AuthToken("Auth"),
+        refreshToken = RefreshToken("Refresh")
+    )
+
+    private lateinit var loginRepository: FakeLoginRepository
+    private lateinit var tokenRepository: FakeTokenRepository
+
+    @Before
+    fun setUp(){
+        loginRepository = FakeLoginRepository()
+        tokenRepository = FakeTokenRepository()
+    }
+
+
     @Test
     fun testSuccessfulLogin() = runTest {
-        val inputCredentials = Credentials(
-            email = Email("leonardopontes.santana@gmail.com"),
-            password = Password("123456")
-        )
-
         val loginResponse = Result.Success(
             LoginResponse(
-                authToken = "Success"
+                token = defaultToken
             )
         )
 
-        val loginRepository = FakeLoginRepository().apply {
+        loginRepository.apply {
             mockLoginWithCredentials(
-                inputCredentials,
+                defaultCredentials,
                 loginResponse
             )
         }
 
-        val useCase = ProdCredentialsLoginUseCase(loginRepository.mock)
-        val useCaseResult = useCase(inputCredentials)
+        val useCase = ProdCredentialsLoginUseCase(
+            loginRepository = loginRepository.mock,
+            tokenRepository = tokenRepository.mock
+        )
+        val useCaseResult = useCase(defaultCredentials)
 
         assertThat(useCaseResult).isEqualTo(LoginState.Success)
+        tokenRepository.verifyTokenStore(defaultToken)
     }
 
     @Test
     fun testUnknownFailureLogin() = runTest {
-        val inputCredentials = Credentials(
-            email = Email("leonardopontes.santana@gmail.com"),
-            password = Password("123456")
-        )
-
         val loginResponse: Result<LoginResponse> = Result.Error(Throwable("Error"))
 
-        val loginRepository = FakeLoginRepository().apply {
+        val loginRepository = loginRepository.apply {
             mockLoginWithCredentials(
-                inputCredentials,
+                defaultCredentials,
                 loginResponse
             )
         }
 
-        val useCase = ProdCredentialsLoginUseCase(loginRepository.mock)
-        val useCaseResult = useCase(inputCredentials)
+        val tokenRepository = tokenRepository
+
+        val useCase = ProdCredentialsLoginUseCase(
+            loginRepository = loginRepository.mock,
+            tokenRepository = tokenRepository.mock
+        )
+
+        val useCaseResult = useCase(defaultCredentials)
 
         assertThat(useCaseResult).isEqualTo(LoginState.Failure.Unknown)
+        tokenRepository.verifyNoTokenStore()
     }
 
     @Test
     fun testInvalidCredentialsLogin() = runTest {
-        val inputCredentials = Credentials(
-            email = Email("leonardopontes.santana@gmail.com"),
-            password = Password("123456")
-        )
-
         val loginResponse: Result<LoginResponse> = Result.Error(
             InvalidCredentialsException()
         )
 
-        val loginRepository = FakeLoginRepository().apply {
+        loginRepository.apply {
             mockLoginWithCredentials(
-                inputCredentials,
+                defaultCredentials,
                 loginResponse
             )
         }
 
-        val useCase = ProdCredentialsLoginUseCase(loginRepository.mock)
-        val useCaseResult = useCase(inputCredentials)
+        val useCase = ProdCredentialsLoginUseCase(
+            loginRepository = loginRepository.mock,
+            tokenRepository = tokenRepository.mock
+        )
+
+        val useCaseResult = useCase(defaultCredentials)
 
         assertThat(useCaseResult).isEqualTo(LoginState.Failure.InvalidCredentials)
+        tokenRepository.verifyNoTokenStore()
     }
 }
