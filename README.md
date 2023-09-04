@@ -29,7 +29,9 @@ Repo dedicated to follow the best things on android world
     LoginUI - first screen with compose
 
   ARCH:
-    
+    Usecase
+    Repository
+
     
 
     
