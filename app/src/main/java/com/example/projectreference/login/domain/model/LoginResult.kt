@@ -4,16 +4,16 @@ package com.example.projectreference.login.domain.model
  * A collection of possible results for an attempt to login the user.
  */
 
-sealed class LoginState {
+sealed class LoginResult {
     /**
      * This attempt to login was successful
      */
-    object Success : LoginState()
+    object Success : LoginResult()
 
     /**
      * This will be returned for unsuccessful when attempting to login.
      */
-    sealed class Failure : LoginState() {
+    sealed class Failure : LoginResult() {
         /**
          * This will be returned if there was no account matching the requested credentials.
          */

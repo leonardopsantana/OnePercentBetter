@@ -33,7 +33,8 @@ fun SecondaryButton(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    contentColor: Color = MaterialTheme.colors.primary
+    contentColor: Color = MaterialTheme.colors.primary,
+    isEnabled : Boolean = true
 ) {
     val buttonColors = textButtonColors(
         contentColor = contentColor,
@@ -44,7 +45,8 @@ fun SecondaryButton(
         modifier = modifier
             .height(dimensionResource(id = R.dimen.button_height))
             .fillMaxWidth(),
-        colors = buttonColors
+        colors = buttonColors,
+        enabled = isEnabled
     ) {
         Text(
             text = text.toUpperCase(Locale.current)
@@ -55,13 +57,15 @@ fun SecondaryButton(
 @Preview(
     name = "Night mode",
     uiMode = Configuration.UI_MODE_NIGHT_YES,
+    group = "Enabled"
 )
 @Preview(
     name = "Day mode",
-    uiMode = Configuration.UI_MODE_NIGHT_NO
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+    group = "Enabled"
 )
 @Composable
-private fun SecondaryButtonPreview() {
+private fun SecondaryEnabledButtonPreview() {
     TOATheme {
         Surface {
             SecondaryButton(
@@ -71,3 +75,27 @@ private fun SecondaryButtonPreview() {
         }
     }
 }
+
+@Preview(
+    name = "Night mode",
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    group = "Disabled"
+)
+@Preview(
+    name = "Day mode",
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+    group = "Disabled"
+)
+@Composable
+private fun SecondaryDisabledButtonPreview() {
+    TOATheme {
+        Surface {
+            SecondaryButton(
+                text = "Secondary Button",
+                onClick = {},
+                isEnabled = false
+            )
+        }
+    }
+}
+

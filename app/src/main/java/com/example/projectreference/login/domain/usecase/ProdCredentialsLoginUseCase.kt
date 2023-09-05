@@ -4,7 +4,7 @@ import com.example.projectreference.core.data.Result
 import com.example.projectreference.login.domain.model.Credentials
 import com.example.projectreference.login.domain.model.InvalidCredentialsException
 import com.example.projectreference.login.domain.model.LoginResponse
-import com.example.projectreference.login.domain.model.LoginState
+import com.example.projectreference.login.domain.model.LoginResult
 import com.example.projectreference.login.domain.repository.LoginRepository
 import com.example.projectreference.login.domain.repository.TokenRepository
 
@@ -16,13 +16,13 @@ class ProdCredentialsLoginUseCase(
     private val loginRepository: LoginRepository,
     private val tokenRepository: TokenRepository
 ) : CredentialsLoginUseCase {
-    override suspend fun invoke(credentials: Credentials): LoginState {
+    override suspend fun invoke(credentials: Credentials): LoginResult {
         return when (val repoResult = loginRepository.login(credentials)) {
             is Result.Success -> {
                 tokenRepository.storeToken(
                     repoResult.data.token
                 )
-                LoginState.Success
+                LoginResult.Success
             }
 
             is Result.Error -> {
@@ -33,16 +33,16 @@ class ProdCredentialsLoginUseCase(
 
     /**
      * Checks the possible error scenarios for the [repoResult] and maps to an appropriate
-     * [LoginState.Failure].
+     * [LoginResult.Failure].
      */
     private fun loginResultForError(repoResult: Result.Error<LoginResponse>) =
         when (repoResult.error) {
             is InvalidCredentialsException -> {
-                LoginState.Failure.InvalidCredentials
+                LoginResult.Failure.InvalidCredentials
             }
 
             else -> {
-                LoginState.Failure.Unknown
+                LoginResult.Failure.Unknown
             }
         }
 }

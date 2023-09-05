@@ -1,22 +1,62 @@
 package com.example.projectreference.login.ui
 
+import com.example.projectreference.login.domain.model.Credentials
+
 /**
- * This defines the state of the login screen
+ * A sealed class defining all possible states of our login screen.
  *
- * @param[email] The current text entered in the email field.
- * @param [password] The current text entered in the password field.
- * @param [showProgress] True if we want to show a loading indicator on the screen, false otherwise.
- * @param [errorMessage] If supplied, an error message explaining why a user could not log in.
- * @param [emailInputErrorMessage] If supplied, an error message explaining the problem with the
- * e-mail input
- * @param [passwordEmailInputErrorMessage] If supplied, an error message explaining a problem with
- * the password input
+ * @property [credentials] The current credentials entered by the user.
+ * @property [buttonsEnabled] The state of the buttons in the UI enabled or not
  */
-data class LoginViewState(
-    val email: String,
-    val password: String,
-    val showProgress: Boolean = false,
-    val errorMessage: String?,
-    val emailInputErrorMessage: String?,
-    val passwordEmailInputErrorMessage: String?
-)
+sealed class LoginViewState(
+    open val credentials: Credentials,
+    open val buttonsEnabled: Boolean = true
+) {
+    /**
+     * The initial state of the screen with nothing input
+     */
+    object Initial : LoginViewState(
+        credentials = Credentials()
+    )
+
+    /**
+     * The initial state of the screen as the user is entering email information
+     */
+    data class Active(
+        override val credentials: Credentials
+    ) : LoginViewState(
+        credentials = credentials
+    )
+
+    /**
+     * The initial state of the screen as the user is attempting to log in
+     */
+    data class Submitting(
+        override val credentials: Credentials
+    ) : LoginViewState(
+        credentials = credentials,
+        buttonsEnabled = false
+    )
+
+    /**
+     * The initial state of the screen as some error occurred during the log in
+     */
+    data class SubmissionError(
+        override val credentials: Credentials,
+        val errorMessage: String
+    ) : LoginViewState(
+        credentials = credentials
+    )
+
+    /**
+     * The initial state of the screen as the user inserted incorrect credentials pattern
+     */
+    data class InputError(
+        override val credentials: Credentials,
+        val emailInputErrorMessage: String?,
+        val passwordEmailInputErrorMessage: String?
+    ) : LoginViewState(
+        credentials = credentials
+    )
+
+}

@@ -8,7 +8,7 @@ import com.example.projectreference.login.domain.model.Credentials
 import com.example.projectreference.login.domain.model.Email
 import com.example.projectreference.login.domain.model.InvalidCredentialsException
 import com.example.projectreference.login.domain.model.LoginResponse
-import com.example.projectreference.login.domain.model.LoginState
+import com.example.projectreference.login.domain.model.LoginResult
 import com.example.projectreference.login.domain.model.Password
 import com.example.projectreference.login.domain.model.RefreshToken
 import com.example.projectreference.login.domain.model.Token
@@ -59,7 +59,7 @@ class ProdCredentialsLoginUseCaseTest {
         )
         val useCaseResult = useCase(defaultCredentials)
 
-        assertThat(useCaseResult).isEqualTo(LoginState.Success)
+        assertThat(useCaseResult).isEqualTo(LoginResult.Success)
         tokenRepository.verifyTokenStore(defaultToken)
     }
 
@@ -83,7 +83,7 @@ class ProdCredentialsLoginUseCaseTest {
 
         val useCaseResult = useCase(defaultCredentials)
 
-        assertThat(useCaseResult).isEqualTo(LoginState.Failure.Unknown)
+        assertThat(useCaseResult).isEqualTo(LoginResult.Failure.Unknown)
         tokenRepository.verifyNoTokenStore()
     }
 
@@ -107,7 +107,7 @@ class ProdCredentialsLoginUseCaseTest {
 
         val useCaseResult = useCase(defaultCredentials)
 
-        assertThat(useCaseResult).isEqualTo(LoginState.Failure.InvalidCredentials)
+        assertThat(useCaseResult).isEqualTo(LoginResult.Failure.InvalidCredentials)
         tokenRepository.verifyNoTokenStore()
     }
 }

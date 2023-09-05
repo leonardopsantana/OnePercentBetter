@@ -32,7 +32,8 @@ fun PrimaryButton(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    backgroundColor: Color = MaterialTheme.colors.primary
+    backgroundColor: Color = MaterialTheme.colors.primary,
+    isEnabled: Boolean = true
 ) {
     val buttonColors = buttonColors(
         backgroundColor = backgroundColor,
@@ -44,7 +45,8 @@ fun PrimaryButton(
         shape = ButtonShape,
         modifier = modifier
             .height(dimensionResource(id = R.dimen.button_height))
-            .fillMaxWidth()
+            .fillMaxWidth(),
+        enabled = isEnabled
     ) {
         Text(
             text = text.toUpperCase(Locale.current),
@@ -61,11 +63,31 @@ fun PrimaryButton(
     uiMode = Configuration.UI_MODE_NIGHT_NO
 )
 @Composable
-private fun PrimaryButtonPreview() {
+private fun PrimaryEnabledButtonPreview() {
     TOATheme {
         PrimaryButton(
             text = "Primary Button",
             onClick = {},
+            isEnabled = true
+        )
+    }
+}
+
+@Preview(
+    name = "Night mode",
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+)
+@Preview(
+    name = "Day mode",
+    uiMode = Configuration.UI_MODE_NIGHT_NO
+)
+@Composable
+private fun PrimaryDisabledButtonPreview() {
+    TOATheme {
+        PrimaryButton(
+            text = "Primary Button",
+            onClick = {},
+            isEnabled = false
         )
     }
 }
