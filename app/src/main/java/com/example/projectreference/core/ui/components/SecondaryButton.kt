@@ -34,7 +34,7 @@ fun SecondaryButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     contentColor: Color = MaterialTheme.colors.primary,
-    isEnabled : Boolean = true
+    isEnabled: Boolean = true
 ) {
     val buttonColors = textButtonColors(
         contentColor = contentColor,
@@ -98,4 +98,3 @@ private fun SecondaryDisabledButtonPreview() {
         }
     }
 }
-
