@@ -28,7 +28,8 @@ import com.example.projectreference.R
 import com.example.projectreference.core.ui.components.PrimaryButton
 import com.example.projectreference.core.ui.components.SecondaryButton
 import com.example.projectreference.core.ui.components.TOATextField
-import com.example.projectreference.core.ui.core.VerticalSpacer
+import com.example.projectreference.core.ui.components.UIText
+import com.example.projectreference.core.ui.components.VerticalSpacer
 import com.example.projectreference.core.ui.theme.TOATheme
 import com.example.projectreference.login.domain.model.Credentials
 import com.example.projectreference.login.domain.model.Email
@@ -113,7 +114,7 @@ private fun LogoInputsColumn(
 
         if (viewState is LoginViewState.SubmissionError) {
             Text(
-                text = viewState.errorMessage,
+                text = "UIText.ge",
                 color = MaterialTheme.colors.error,
                 modifier = Modifier.padding(top = 12.dp)
             )
@@ -134,6 +135,7 @@ private fun SignUpButton(onSignUpClicked: () -> Unit, isEnabled: Boolean) {
     SecondaryButton(
         text = stringResource(R.string.sign_up),
         onClick = onSignUpClicked,
+        isEnabled = isEnabled
     )
 }
 
@@ -224,7 +226,7 @@ class LoginViewStateProvider : PreviewParameterProvider<LoginViewState> {
                 LoginViewState.Submitting(activeCredentials),
                 LoginViewState.SubmissionError(
                     credentials = activeCredentials,
-                    errorMessage = "Something went wrong."
+                    errorMessage = UIText.StringText("Something went wrong.")
                 ),
                 LoginViewState.InputError(
                     credentials = activeCredentials,

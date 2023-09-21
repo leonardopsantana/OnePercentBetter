@@ -1,5 +1,6 @@
 package com.example.projectreference.login.ui
 
+import com.example.projectreference.core.ui.components.UIText
 import com.example.projectreference.login.domain.model.Credentials
 
 /**
@@ -43,7 +44,7 @@ sealed class LoginViewState(
      */
     data class SubmissionError(
         override val credentials: Credentials,
-        val errorMessage: String
+        val errorMessage: UIText
     ) : LoginViewState(
         credentials = credentials
     )
