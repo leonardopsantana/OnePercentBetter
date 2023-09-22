@@ -19,6 +19,7 @@ Repo dedicated to follow the best things on android world
   
   GITHOOKS - setup phases for pre-commit and pre-push so we can format and detekt code
     Gradle step do installGitHooks on every clean
+
   
   THEME USING COMPOSE LIBRARY:  
     Colors - app palette 
@@ -28,9 +29,13 @@ Repo dedicated to follow the best things on android world
     Logo - add drawable resource
     LoginUI - first screen with compose
 
+  TESTS:
+    TURBINE - Testing Flows
+    Junit rule - Coroutine main override
+    Truth - Assertions semantically good to use
+
   ARCH:
-    Usecase
-    Repository
+    Screen > ViewModel(MVI) > UseCase > Repository
 
     
 
