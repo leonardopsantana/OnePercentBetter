@@ -1,5 +1,6 @@
 package com.example.projectreference.login.ui
 
+import com.example.projectreference.CoroutinesTestRule
 import com.example.projectreference.R
 import com.example.projectreference.core.ui.components.UIText
 import com.example.projectreference.login.domain.model.Credentials
@@ -10,15 +11,14 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 
 class LoginViewModelTest {
     private lateinit var testRobot: LoginViewModelRobot
 
-    private val defaultCredentials = Credentials(
-        email = Email("leonardopontes.santana@gmail.com"),
-        password = Password("dummyPass")
-    )
+    @get:Rule
+    val coroutinesTestRule = CoroutinesTestRule()
 
     @Before
     fun setUp() {
@@ -33,7 +33,7 @@ class LoginViewModelTest {
         val initialState = LoginViewState.Initial
         val emailEnteredState = LoginViewState.Active(Credentials(Email(testEmail)))
         val emailAndPasswordEnteredState =
-            LoginViewState.Active(Credentials(Email(testPassword), Password(testPassword)))
+            LoginViewState.Active(Credentials(Email(testEmail), Password(testPassword)))
 
         val expectedViewStates = listOf(
             initialState,
@@ -45,39 +45,55 @@ class LoginViewModelTest {
             .buildViewModel()
             .assertViewStatesAfterAction(
                 action = {
-                    this.enterEmail(testEmail)
-                    this.enterPassword(testPassword)
+                    enterEmail(testEmail)
+                    enterPassword(testPassword)
                 },
                 viewStates = expectedViewStates
             )
     }
 
-//    @Test
-//    fun testInvalidCredentialLogin() = runTest {
-//
-//        val credentials = defaultCredentials
-//
-//        testRobot.buildViewModel()
-//            .enterEmail(credentials.email.value)
-//            .enterPassword(credentials.password.value)
-//            .clickLoginButton()
-//            .assertViewState(
-//                LoginViewState.Submitting(
-//                    credentials = credentials
-//                )
-//            )
-//            .mockLoginResultForCredentials(
-//                credentials = credentials,
-//                result = LoginResult.Failure.InvalidCredentials
-//            )
-//            .assertViewStates(
-//                listOf(
-//                    LoginViewState.Initial,
-//                    LoginViewState.SubmissionError(
-//                        credentials = defaultCredentials,
-//                        errorMessage = UIText.ResourceText(R.string.error_invalid_credentials)
-//                    )
-//                )
-//            )
-//    }
+    @Test
+    fun testSubmitInvalidCredentials() = runTest {
+        val testEmail = "leonardopontes.santana@gmail.com"
+        val testPassword = "pass123"
+        val completedCredentials = Credentials(
+            email = Email(testEmail),
+            password = Password(testPassword)
+        )
+
+        val initialState = LoginViewState.Initial
+        val emailEnteredState = LoginViewState.Active(Credentials(Email(testEmail)))
+        val emailAndPasswordEnteredState =
+            LoginViewState.Active(completedCredentials)
+        val submittingState = LoginViewState.Submitting(
+            credentials = completedCredentials
+        )
+        val submissionErrorState = LoginViewState.SubmissionError(
+            credentials = completedCredentials,
+            errorMessage = UIText.ResourceText(R.string.error_invalid_credentials)
+        )
+
+        val expectedViewStates = listOf(
+            initialState,
+            emailEnteredState,
+            emailAndPasswordEnteredState,
+            submittingState,
+            submissionErrorState
+        )
+
+        testRobot
+            .buildViewModel()
+            .mockLoginResultForCredentials(
+                credentials = completedCredentials,
+                result = LoginResult.Failure.InvalidCredentials
+            )
+            .assertViewStatesAfterAction(
+                action = {
+                    enterEmail(testEmail)
+                    enterPassword(testPassword)
+                    clickLoginButton()
+                },
+                viewStates = expectedViewStates
+            )
+    }
 }
