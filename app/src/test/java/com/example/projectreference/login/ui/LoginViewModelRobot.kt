@@ -1,5 +1,6 @@
 package com.example.projectreference.login.ui
 
+import app.cash.turbine.test
 import com.example.projectreference.fakes.FakeCredentialsLoginUseCase
 import com.example.projectreference.login.domain.model.Credentials
 import com.example.projectreference.login.domain.model.LoginResult
@@ -40,5 +41,18 @@ class LoginViewModelRobot {
 
     fun assertViewState(expectedViewState: LoginViewState) = apply {
         assertThat(viewModel.viewState.value).isEqualTo(expectedViewState)
+    }
+
+    suspend fun assertViewStatesAfterAction(
+        action: LoginViewModelRobot.() -> Unit,
+        viewStates: List<LoginViewState>
+    ) = apply {
+        viewModel.viewState.test {
+            action()
+
+            for (state in viewStates) {
+                assertThat(awaitItem()).isEqualTo(state)
+            }
+        }
     }
 }

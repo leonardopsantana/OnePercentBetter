@@ -16,6 +16,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -30,6 +31,7 @@ import com.example.projectreference.core.ui.components.SecondaryButton
 import com.example.projectreference.core.ui.components.TOATextField
 import com.example.projectreference.core.ui.components.UIText
 import com.example.projectreference.core.ui.components.VerticalSpacer
+import com.example.projectreference.core.ui.components.getString
 import com.example.projectreference.core.ui.theme.TOATheme
 import com.example.projectreference.login.domain.model.Credentials
 import com.example.projectreference.login.domain.model.Email
@@ -114,7 +116,7 @@ private fun LogoInputsColumn(
 
         if (viewState is LoginViewState.SubmissionError) {
             Text(
-                text = "UIText.ge",
+                text = viewState.errorMessage.getString(LocalContext.current),
                 color = MaterialTheme.colors.error,
                 modifier = Modifier.padding(top = 12.dp)
             )
