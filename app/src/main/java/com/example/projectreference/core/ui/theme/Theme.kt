@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 fun TOATheme(
     content: @Composable() () -> Unit
 ) {
-    val colors = lightColorPalette
+    val colors = lightColorPallete
 
     MaterialTheme(
         colors = colors,
