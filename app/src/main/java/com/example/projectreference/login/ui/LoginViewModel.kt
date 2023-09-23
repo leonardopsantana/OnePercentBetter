@@ -54,7 +54,10 @@ class LoginViewModel(
                     )
                 }
 
-                LoginResult.Failure.Unknown -> _viewState.value
+                LoginResult.Failure.Unknown -> LoginViewState.SubmissionError(
+                    credentials = currentCredentials,
+                    errorMessage = UIText.ResourceText(R.string.error_login_failure)
+                )
                 LoginResult.Success -> _viewState.value
             }
         }

@@ -70,11 +70,13 @@ fun LoginContent(
                 onSignUpClicked = onSignUpClicked
             )
 
-            CircularProgressIndicator(
-                modifier = Modifier
-                    .wrapContentSize()
-                    .align(Alignment.Center)
-            )
+            if (viewState is LoginViewState.Submitting) {
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .wrapContentSize()
+                        .align(Alignment.Center)
+                )
+            }
         }
     }
 }

@@ -7,22 +7,35 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.projectreference.core.ui.components.PrimaryButton
 import com.example.projectreference.core.ui.theme.TOATheme
+import com.example.projectreference.login.domain.usecase.DemoCredentialsLoginUseCase
+import com.example.projectreference.login.domain.usecase.ProdCredentialsLoginUseCase
+import com.example.projectreference.login.ui.LoginScreen
+import com.example.projectreference.login.ui.LoginViewModel
 
 class MainActivity : ComponentActivity() {
+    private lateinit var loginViewModel: LoginViewModel
+    private val loginViewModelFactory = object : ViewModelProvider.Factory {
+
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            val useCase = DemoCredentialsLoginUseCase()
+
+            return LoginViewModel(useCase) as T
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        loginViewModel =
+            ViewModelProvider(this, loginViewModelFactory).get(LoginViewModel::class.java)
+
         setContent {
             TOATheme {
-                // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background) {
-                    Greeting("Android")
-                }
-
-                PrimaryButton(text = "Test", onClick = { /*TODO*/ })
+                LoginScreen(viewModel = loginViewModel)
             }
         }
     }
