@@ -1,6 +1,5 @@
 package com.example.projectreference.login.ui
 
-import androidx.compose.runtime.currentRecomposeScope
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.projectreference.R
@@ -41,6 +40,10 @@ class LoginViewModel(
     fun loginButtonClicked() {
         val currentCredentials = _viewState.value.credentials
 
+        if (!validateCredentials(credentials = currentCredentials)) {
+            return
+        }
+
         _viewState.value = LoginViewState.Submitting(credentials = currentCredentials)
 
         viewModelScope.launch {
@@ -58,6 +61,7 @@ class LoginViewModel(
                     credentials = currentCredentials,
                     errorMessage = UIText.ResourceText(R.string.error_login_failure)
                 )
+
                 LoginResult.Success -> _viewState.value
             }
         }
@@ -67,6 +71,23 @@ class LoginViewModel(
         TODO()
     }
 
+    /**
+     * Given some [credentials], ensure that we've been provided valid information that can used
+     * to log in. If not, update the current [viewState] accordingly, and return whether or not to
+     * to proceed.
+     */
+    private fun validateCredentials(credentials: Credentials): Boolean {
+        val hasEmail = credentials.email.value.isNotEmpty()
+        val hasPassword = credentials.password.value.isNotEmpty()
+
+        _viewState.value = LoginViewState.Active(
+            credentials = credentials,
+            emailInputErrorMessage = if (hasEmail) null else UIText.ResourceText(R.string.error_empty_email),
+            passwordEmailInputErrorMessage = if (hasPassword) null else UIText.ResourceText(R.string.error_empty_password)
+        )
+
+        return hasEmail && hasPassword
+    }
 }
 
 fun Credentials.withUpdatedEmail(email: String): Credentials {

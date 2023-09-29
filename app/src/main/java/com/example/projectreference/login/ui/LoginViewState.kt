@@ -24,7 +24,9 @@ sealed class LoginViewState(
      * The initial state of the screen as the user is entering email information
      */
     data class Active(
-        override val credentials: Credentials
+        override val credentials: Credentials,
+        val emailInputErrorMessage: UIText? = null,
+        val passwordEmailInputErrorMessage: UIText? = null
     ) : LoginViewState(
         credentials = credentials
     )
@@ -45,17 +47,6 @@ sealed class LoginViewState(
     data class SubmissionError(
         override val credentials: Credentials,
         val errorMessage: UIText
-    ) : LoginViewState(
-        credentials = credentials
-    )
-
-    /**
-     * The initial state of the screen as the user inserted incorrect credentials pattern
-     */
-    data class InputError(
-        override val credentials: Credentials,
-        val emailInputErrorMessage: String?,
-        val passwordEmailInputErrorMessage: String?
     ) : LoginViewState(
         credentials = credentials
     )

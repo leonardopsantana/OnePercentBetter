@@ -5,7 +5,6 @@ import com.example.projectreference.login.domain.model.LoginResult
 import com.example.projectreference.login.domain.usecase.CredentialsLoginUseCase
 import io.mockk.coEvery
 import io.mockk.mockk
-import kotlin.coroutines.resume
 
 class FakeCredentialsLoginUseCase {
 
@@ -22,5 +21,4 @@ class FakeCredentialsLoginUseCase {
             mock(credentials)
         } returns result
     }
-
 }

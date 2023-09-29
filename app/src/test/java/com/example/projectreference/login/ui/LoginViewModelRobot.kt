@@ -39,11 +39,14 @@ class LoginViewModelRobot {
         viewModel.signUpButtonClicked()
     }
 
-    fun assertViewState(expectedViewState: LoginViewState) = apply {
-        assertThat(viewModel.viewState.value).isEqualTo(expectedViewState)
-    }
-
-    suspend fun assertViewStatesAfterAction(
+    /**
+     * Launch a coroutine that will observe our [viewModel]'s view state and ensure that we consume
+     * all of the supplied [viewStates] in the same order that they are supplied.
+     *
+     * We should call this near the front of the test, to ensure that every view state we emit
+     * can be collected by this.
+     */
+    suspend fun expectedViewStates(
         action: LoginViewModelRobot.() -> Unit,
         viewStates: List<LoginViewState>
     ) = apply {
@@ -54,7 +57,7 @@ class LoginViewModelRobot {
                 assertThat(awaitItem()).isEqualTo(state)
             }
 
-
+            this.cancel()
         }
     }
 }

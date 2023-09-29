@@ -16,7 +16,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -105,7 +104,8 @@ private fun LogoInputsColumn(
         EmailInput(
             text = viewState.credentials.email.value,
             onTextChanged = onEmailChanged,
-            errorMessage = (viewState as? LoginViewState.InputError)?.emailInputErrorMessage
+            errorMessage =
+            (viewState as? LoginViewState.Active)?.emailInputErrorMessage?.getString()
         )
 
         VerticalSpacer(height = 12.dp)
@@ -113,12 +113,14 @@ private fun LogoInputsColumn(
         PasswordInput(
             text = viewState.credentials.password.value,
             onTextChanged = onPasswordChanged,
-            errorMessage = (viewState as? LoginViewState.InputError)?.passwordEmailInputErrorMessage
+            errorMessage = (viewState as? LoginViewState.Active)?.passwordEmailInputErrorMessage?.getString(
+
+            )
         )
 
         if (viewState is LoginViewState.SubmissionError) {
             Text(
-                text = viewState.errorMessage.getString(LocalContext.current),
+                text = viewState.errorMessage.getString(),
                 color = MaterialTheme.colors.error,
                 modifier = Modifier.padding(top = 12.dp)
             )
@@ -226,16 +228,18 @@ class LoginViewStateProvider : PreviewParameterProvider<LoginViewState> {
 
             return sequenceOf(
                 LoginViewState.Initial,
-                LoginViewState.Active(activeCredentials),
+                LoginViewState.Active(
+                    credentials = activeCredentials,
+                ),
                 LoginViewState.Submitting(activeCredentials),
                 LoginViewState.SubmissionError(
                     credentials = activeCredentials,
                     errorMessage = UIText.StringText("Something went wrong.")
                 ),
-                LoginViewState.InputError(
+                LoginViewState.Active(
                     credentials = activeCredentials,
-                    emailInputErrorMessage = "Please enter an email.",
-                    passwordEmailInputErrorMessage = "Please enter a password"
+                    emailInputErrorMessage = UIText.StringText("Please enter an email."),
+                    passwordEmailInputErrorMessage = UIText.StringText("Please enter a password")
                 ),
             )
         }
