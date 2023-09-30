@@ -146,6 +146,7 @@ class LoginViewModelTest {
         val credentials =  Credentials()
 
         val initialState = LoginViewState.Initial
+        val submittingState = LoginViewState.Submitting(credentials = credentials)
         val invalidInputsState = LoginViewState.Active(
             credentials = credentials,
             emailInputErrorMessage = UIText.ResourceText(R.string.error_empty_email),
@@ -154,11 +155,19 @@ class LoginViewModelTest {
 
         val expectedViewStates = listOf(
             initialState,
+            submittingState,
             invalidInputsState,
         )
 
         testRobot
             .buildViewModel()
+            .mockLoginResultForCredentials(
+                credentials = credentials,
+                result = LoginResult.Failure.EmptyCredentials(
+                    emptyEmail = true,
+                    emptyPassword = true
+                )
+            )
             .expectedViewStates(
                 action = {
                     clickLoginButton()

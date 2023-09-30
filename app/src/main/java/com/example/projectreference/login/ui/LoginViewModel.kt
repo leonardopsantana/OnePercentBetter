@@ -40,10 +40,6 @@ class LoginViewModel(
     fun loginButtonClicked() {
         val currentCredentials = _viewState.value.credentials
 
-        if (!validateCredentials(credentials = currentCredentials)) {
-            return
-        }
-
         _viewState.value = LoginViewState.Submitting(credentials = currentCredentials)
 
         viewModelScope.launch {
@@ -63,6 +59,9 @@ class LoginViewModel(
                 )
 
                 LoginResult.Success -> _viewState.value
+                is LoginResult.Failure.EmptyCredentials -> {
+                    loginResult.toActiveLoginViewState(currentCredentials)
+                }
             }
         }
     }
@@ -90,10 +89,22 @@ class LoginViewModel(
     }
 }
 
-fun Credentials.withUpdatedEmail(email: String): Credentials {
+private fun Credentials.withUpdatedEmail(email: String): Credentials {
     return this.copy(email = Email(email))
 }
 
-fun Credentials.withUpdatedPassword(password: String): Credentials {
+private fun Credentials.withUpdatedPassword(password: String): Credentials {
     return this.copy(password = Password(password))
+}
+
+private fun LoginResult.Failure.EmptyCredentials.toActiveLoginViewState(
+    currentCredentials: Credentials,
+): LoginViewState {
+    return LoginViewState.Active(
+        credentials = currentCredentials,
+        emailInputErrorMessage = UIText.ResourceText(R.string.error_empty_email)
+            .takeIf { this.emptyEmail },
+        passwordEmailInputErrorMessage = UIText.ResourceText(R.string.error_empty_password)
+            .takeIf { this.emptyEmail }
+    )
 }

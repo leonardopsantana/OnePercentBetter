@@ -1,5 +1,7 @@
 package com.example.projectreference.login.domain.model
 
+import java.io.File
+
 /**
  * A collection of possible results for an attempt to login the user.
  */
@@ -23,5 +25,14 @@ sealed class LoginResult {
          * This will be returned if there was any unknown errors
          */
         object Unknown : Failure()
+
+        /**
+         * This will be returned when the user tries to login when either of the input fields
+         * are left empty.
+         */
+        data class EmptyCredentials(
+            val emptyEmail: Boolean,
+            val emptyPassword: Boolean
+        ) : Failure()
     }
 }
