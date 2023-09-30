@@ -37,14 +37,19 @@ class ProdCredentialsLoginUseCase(
         }
     }
 
-    private fun validateCredentials(currentCredentials: Credentials): LoginResult.Failure.EmptyCredentials? {
-        val emptyEmail = currentCredentials.email.value.isEmpty()
-        val emptyPassword = currentCredentials.password.value.isEmpty()
+    /**
+     * Given some [currentCredentials], ensure that we've been provided valid information that can used
+     * to log in. If not, update the current [viewState] accordingly, and return whether or not to
+     * to proceed.
+     */
+    private fun validateCredentials(credentials: Credentials): LoginResult.Failure.EmptyCredentials? {
+        val emptyEmail = credentials.email.value.isEmpty()
+        val emptyPassword = credentials.password.value.isEmpty()
 
         return if (emptyEmail || emptyPassword) {
             LoginResult.Failure.EmptyCredentials(
                 emptyEmail = emptyEmail,
-                emptyPassword = emptyPassword
+                emptyPassword = emptyPassword,
             )
         } else {
             null

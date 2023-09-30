@@ -48,7 +48,7 @@ class LoginViewModelRobot {
      */
     suspend fun expectedViewStates(
         action: LoginViewModelRobot.() -> Unit,
-        viewStates: List<LoginViewState>
+        viewStates: List<LoginViewState>,
     ) = apply {
         viewModel.viewState.test {
             action()

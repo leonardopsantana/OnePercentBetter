@@ -11,7 +11,7 @@ class FakeCredentialsLoginUseCase {
     val mock: CredentialsLoginUseCase = mockk()
 
     /**
-     * Emits the supplied [result] to our [loginResultContinuation]
+     * Emits the supplied [result]
      */
     fun mockLoginResultForCredentials(
         credentials: Credentials,

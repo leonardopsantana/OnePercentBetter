@@ -26,7 +26,7 @@ sealed class LoginViewState(
     data class Active(
         override val credentials: Credentials,
         val emailInputErrorMessage: UIText? = null,
-        val passwordEmailInputErrorMessage: UIText? = null
+        val passwordInputErrorMessage: UIText? = null
     ) : LoginViewState(
         credentials = credentials
     )

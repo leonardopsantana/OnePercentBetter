@@ -143,14 +143,14 @@ class LoginViewModelTest {
     @Test
     fun testSubmitWithoutCredentials() = runTest {
 
-        val credentials =  Credentials()
+        val credentials = Credentials()
 
         val initialState = LoginViewState.Initial
         val submittingState = LoginViewState.Submitting(credentials = credentials)
         val invalidInputsState = LoginViewState.Active(
             credentials = credentials,
             emailInputErrorMessage = UIText.ResourceText(R.string.error_empty_email),
-            passwordEmailInputErrorMessage = UIText.ResourceText(R.string.error_empty_password)
+            passwordInputErrorMessage = UIText.ResourceText(R.string.error_empty_password)
         )
 
         val expectedViewStates = listOf(
@@ -175,4 +175,55 @@ class LoginViewModelTest {
                 viewStates = expectedViewStates
             )
     }
+
+//    @Test
+//    fun testClearErrorsAfterInput() = runTest {
+//        val credentials = Credentials()
+//        val testEmail = "leonardopontes.santana@mail.com"
+//        val testPassword = "Hunter2"
+//
+//        val initialState = LoginViewState.Initial
+//        val submittingState = LoginViewState.Submitting(
+//            credentials = credentials,
+//        )
+//        val invalidInputsState = LoginViewState.Active(
+//            credentials = credentials,
+//            emailInputErrorMessage = UIText.ResourceText(R.string.error_empty_email),
+//            passwordInputErrorMessage = UIText.ResourceText(R.string.error_empty_password),
+//        )
+//        val emailInputState = LoginViewState.Active(
+//            credentials = Credentials(email = Email(testEmail)),
+//            emailInputErrorMessage = null,
+//            passwordInputErrorMessage = UIText.ResourceText(R.string.error_empty_password),
+//        )
+//        val passwordInputState = LoginViewState.Active(
+//            credentials = Credentials(email = Email(testEmail), password = Password(testPassword)),
+//            emailInputErrorMessage = null,
+//            passwordInputErrorMessage = null,
+//        )
+//
+//        testRobot
+//            .buildViewModel()
+//            .mockLoginResultForCredentials(
+//                credentials = credentials,
+//                result = LoginResult.Failure.EmptyCredentials(
+//                    emptyEmail = true,
+//                    emptyPassword = true,
+//                )
+//            )
+//            .expectedViewStates(
+//                action = {
+//                    clickLoginButton()
+//                    enterEmail(testEmail)
+////                    enterPassword(testPassword)
+//                },
+//                viewStates = listOf(
+//                    initialState,
+//                    submittingState,
+//                    invalidInputsState,
+//                    emailInputState,
+////                    passwordInputState,
+//                ),
+//            )
+//    }
 }

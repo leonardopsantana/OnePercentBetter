@@ -23,69 +23,60 @@ class LoginViewModel(
 
     fun emailChanged(email: String) {
         val currentCredentials = _viewState.value.credentials
+        val currentPasswordErrorMessage =
+            (_viewState.value as? LoginViewState.Active)?.passwordInputErrorMessage
 
         _viewState.value = LoginViewState.Active(
-            credentials = currentCredentials.withUpdatedEmail(email = email)
+            credentials = currentCredentials.withUpdatedEmail(email),
+            emailInputErrorMessage = null,
+            passwordInputErrorMessage = currentPasswordErrorMessage,
         )
     }
 
     fun passwordChanged(password: String) {
         val currentCredentials = _viewState.value.credentials
+        val currentEmailErrorMessage = (_viewState.value as? LoginViewState.Active)?.emailInputErrorMessage
 
         _viewState.value = LoginViewState.Active(
-            credentials = currentCredentials.withUpdatedPassword(password = password)
+            credentials = currentCredentials.withUpdatedPassword(password),
+            passwordInputErrorMessage = null,
+            emailInputErrorMessage = currentEmailErrorMessage,
         )
     }
 
     fun loginButtonClicked() {
         val currentCredentials = _viewState.value.credentials
 
-        _viewState.value = LoginViewState.Submitting(credentials = currentCredentials)
+        _viewState.value = LoginViewState.Submitting(
+            credentials = currentCredentials,
+        )
 
         viewModelScope.launch {
             val loginResult = credentialsLoginUseCase(currentCredentials)
 
             _viewState.value = when (loginResult) {
-                LoginResult.Failure.InvalidCredentials -> {
+                is LoginResult.Failure.InvalidCredentials -> {
                     LoginViewState.SubmissionError(
                         credentials = currentCredentials,
-                        errorMessage = UIText.ResourceText(R.string.error_invalid_credentials)
+                        errorMessage = UIText.ResourceText(R.string.error_invalid_credentials),
                     )
                 }
-
-                LoginResult.Failure.Unknown -> LoginViewState.SubmissionError(
-                    credentials = currentCredentials,
-                    errorMessage = UIText.ResourceText(R.string.error_login_failure)
-                )
-
-                LoginResult.Success -> _viewState.value
+                is LoginResult.Failure.Unknown -> {
+                    LoginViewState.SubmissionError(
+                        credentials = currentCredentials,
+                        errorMessage = UIText.ResourceText(R.string.error_login_failure),
+                    )
+                }
                 is LoginResult.Failure.EmptyCredentials -> {
                     loginResult.toActiveLoginViewState(currentCredentials)
                 }
+                else -> _viewState.value
             }
         }
     }
 
     fun signUpButtonClicked() {
         TODO()
-    }
-
-    /**
-     * Given some [credentials], ensure that we've been provided valid information that can used
-     * to log in. If not, update the current [viewState] accordingly, and return whether or not to
-     * to proceed.
-     */
-    private fun validateCredentials(credentials: Credentials): Boolean {
-        val hasEmail = credentials.email.value.isNotEmpty()
-        val hasPassword = credentials.password.value.isNotEmpty()
-
-        _viewState.value = LoginViewState.Active(
-            credentials = credentials,
-            emailInputErrorMessage = if (hasEmail) null else UIText.ResourceText(R.string.error_empty_email),
-            passwordEmailInputErrorMessage = if (hasPassword) null else UIText.ResourceText(R.string.error_empty_password)
-        )
-
-        return hasEmail && hasPassword
     }
 }
 
@@ -97,14 +88,14 @@ private fun Credentials.withUpdatedPassword(password: String): Credentials {
     return this.copy(password = Password(password))
 }
 
-private fun LoginResult.Failure.EmptyCredentials.toActiveLoginViewState(
-    currentCredentials: Credentials,
-): LoginViewState {
+private fun LoginResult.Failure.EmptyCredentials.toActiveLoginViewState(credentials: Credentials): LoginViewState {
     return LoginViewState.Active(
-        credentials = currentCredentials,
-        emailInputErrorMessage = UIText.ResourceText(R.string.error_empty_email)
-            .takeIf { this.emptyEmail },
-        passwordEmailInputErrorMessage = UIText.ResourceText(R.string.error_empty_password)
-            .takeIf { this.emptyEmail }
+        credentials = credentials,
+        emailInputErrorMessage = UIText.ResourceText(R.string.error_empty_email).takeIf {
+            this.emptyEmail
+        },
+        passwordInputErrorMessage = UIText.ResourceText(R.string.error_empty_password).takeIf {
+            this.emptyPassword
+        },
     )
 }

@@ -113,9 +113,7 @@ private fun LogoInputsColumn(
         PasswordInput(
             text = viewState.credentials.password.value,
             onTextChanged = onPasswordChanged,
-            errorMessage = (viewState as? LoginViewState.Active)?.passwordEmailInputErrorMessage?.getString(
-
-            )
+            errorMessage = (viewState as? LoginViewState.Active)?.passwordInputErrorMessage?.getString()
         )
 
         if (viewState is LoginViewState.SubmissionError) {
@@ -239,7 +237,7 @@ class LoginViewStateProvider : PreviewParameterProvider<LoginViewState> {
                 LoginViewState.Active(
                     credentials = activeCredentials,
                     emailInputErrorMessage = UIText.StringText("Please enter an email."),
-                    passwordEmailInputErrorMessage = UIText.StringText("Please enter a password")
+                    passwordInputErrorMessage = UIText.StringText("Please enter a password")
                 ),
             )
         }
