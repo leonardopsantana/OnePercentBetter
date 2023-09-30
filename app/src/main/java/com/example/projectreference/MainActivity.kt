@@ -11,27 +11,18 @@ import com.example.projectreference.core.ui.theme.TOATheme
 import com.example.projectreference.login.domain.usecase.DemoCredentialsLoginUseCase
 import com.example.projectreference.login.ui.LoginScreen
 import com.example.projectreference.login.ui.LoginViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private lateinit var loginViewModel: LoginViewModel
-    private val loginViewModelFactory = object : ViewModelProvider.Factory {
-
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            val useCase = DemoCredentialsLoginUseCase()
-
-            return LoginViewModel(useCase) as T
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        loginViewModel =
-            ViewModelProvider(this, loginViewModelFactory).get(LoginViewModel::class.java)
-
         setContent {
             TOATheme {
-                LoginScreen(viewModel = loginViewModel)
+//                LoginScreen(viewModel = viewModel())
             }
         }
     }
