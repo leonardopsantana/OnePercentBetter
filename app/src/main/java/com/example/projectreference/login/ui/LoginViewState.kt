@@ -50,4 +50,12 @@ sealed class LoginViewState(
     ) : LoginViewState(
         credentials = credentials
     )
+
+    /**
+     * The state when the user logs in with success
+     */
+    object Completed : LoginViewState(
+        credentials = Credentials(),
+        buttonsEnabled = false
+    )
 }

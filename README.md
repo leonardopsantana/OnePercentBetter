@@ -19,7 +19,6 @@ Repo dedicated to follow the best things on android world
   
   GITHOOKS - setup phases for pre-commit and pre-push so we can format and detekt code
     Gradle step do installGitHooks on every clean
-
   
   THEME USING COMPOSE LIBRARY:  
     Colors - app palette 
@@ -33,6 +32,9 @@ Repo dedicated to follow the best things on android world
     TURBINE - Testing Flows
     Junit rule - Coroutine main override
     Truth - Assertions semantically good to use
+
+  DEPENDENCY INJECTION:
+    HILT
 
   ARCH:
     Screen > ViewModel(MVI) > UseCase > Repository
