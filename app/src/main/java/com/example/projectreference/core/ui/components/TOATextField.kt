@@ -35,7 +35,8 @@ fun TOATextField(
     labelText: String,
     modifier: Modifier = Modifier,
     errorMessage: String? = null,
-    visualTransformation: VisualTransformation = VisualTransformation.None
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    enabled: Boolean = true
 ) {
 
     Column {
@@ -50,7 +51,8 @@ fun TOATextField(
                 .heightIn(dimensionResource(id = R.dimen.text_field_height))
                 .fillMaxWidth(),
             isError = (errorMessage != null),
-            visualTransformation = visualTransformation
+            visualTransformation = visualTransformation,
+            enabled = enabled
         )
 
         if (errorMessage != null) {
