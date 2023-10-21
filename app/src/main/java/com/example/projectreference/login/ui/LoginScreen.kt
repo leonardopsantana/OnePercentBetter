@@ -19,15 +19,6 @@ fun LoginScreen(
 ) {
     val viewState = viewModel.viewState.collectAsState()
 
-    val coroutineScope = rememberCoroutineScope()
-
-    SideEffect {
-        coroutineScope.launch {
-            viewModel.loginCompletedChannel.receive()
-            onLoginCompleted.invoke()
-        }
-    }
-
     LoginContent(
         viewState = viewState.value,
         onEmailChanged = viewModel::emailChanged,
