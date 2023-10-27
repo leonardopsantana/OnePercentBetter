@@ -62,6 +62,9 @@ dependencies {
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     kapt "com.google.dagger:hilt-compiler:$hiltVersion"
 
+    //Accompanist
+    implementation "com.google.accompanist:accompanist-insets-ui:$accompanistVersion"
+
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'junit:junit:4.12'
     testImplementation 'io.mockk:mockk:1.12.0'

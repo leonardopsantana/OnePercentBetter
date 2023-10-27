@@ -1,7 +1,5 @@
 package com.example.projectreference.login.domain.model
 
-import java.io.File
-
 /**
  * A collection of possible results for an attempt to login the user.
  */

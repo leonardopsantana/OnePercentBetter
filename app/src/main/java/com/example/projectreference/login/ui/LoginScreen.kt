@@ -1,12 +1,8 @@
 package com.example.projectreference.login.ui
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.hilt.navigation.compose.hiltViewModel
-import kotlinx.coroutines.launch
 
 /**
  * All this composable should manage is consuming a [viewModel], observing its state, and

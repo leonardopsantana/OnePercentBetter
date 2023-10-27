@@ -12,7 +12,7 @@ import javax.inject.Inject
  * This is a sample [LoginRepository] that does not interact with any real data source, but allows
  * us to quickly modify return values for manual testing.
  */
-class DemoLoginRepositoryImpl @Inject constructor(): LoginRepository {
+class DemoLoginRepositoryImpl @Inject constructor() : LoginRepository {
     override suspend fun login(credentials: Credentials): Result<LoginResponse> {
         val defaultToken = Token(
             AuthToken(""),

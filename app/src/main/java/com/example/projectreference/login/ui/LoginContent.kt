@@ -4,8 +4,9 @@ import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -20,6 +21,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -91,21 +93,23 @@ private fun LogoInputsColumn(
     onEmailChanged: (String) -> Unit,
     onPasswordChanged: (String) -> Unit,
     onLoginClicked: () -> Unit,
-    onSignUpClicked: () -> Unit
+    onSignUpClicked: () -> Unit,
+    contentPadding: PaddingValues = PaddingValues(dimensionResource(id = R.dimen.screen_padding))
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(dimensionResource(id = R.dimen.screen_padding))
+            .padding(
+                start = contentPadding.calculateStartPadding(LocalLayoutDirection.current),
+                end = contentPadding.calculateEndPadding(LocalLayoutDirection.current),
+            )
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Spacer(modifier = Modifier.weight(1F))
+        VerticalSpacer(height = contentPadding.calculateTopPadding())
 
-        AppLogo()
-
-        Spacer(modifier = Modifier.weight(1F))
+        AppLogo(modifier = Modifier.padding(88.dp))
 
         EmailInput(
             text = viewState.credentials.email.value,
@@ -114,7 +118,7 @@ private fun LogoInputsColumn(
             (viewState as? LoginViewState.Active)?.emailInputErrorMessage?.getString(),
             enabled = viewState.inputsEnabled,
 
-            )
+        )
 
         VerticalSpacer(height = 12.dp)
 
@@ -140,6 +144,8 @@ private fun LogoInputsColumn(
         VerticalSpacer(height = 12.dp)
 
         SignUpButton(onSignUpClicked = onSignUpClicked, isEnabled = viewState.inputsEnabled)
+
+        VerticalSpacer(height = contentPadding.calculateBottomPadding())
     }
 }
 
@@ -198,12 +204,14 @@ private fun EmailInput(
 }
 
 @Composable
-private fun AppLogo() {
+private fun AppLogo(
+    modifier: Modifier
+) {
     Image(
         painter =
         painterResource(id = R.drawable.ic_toa_checkmark),
         contentDescription = stringResource(R.string.app_logo_content_description),
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth(APP_LOGO_WIDTH_PERCENTAGE)
     )
 }

@@ -15,5 +15,4 @@ class DemoTokenRepositoryImpl @Inject constructor() : TokenRepository {
     override suspend fun fetchToken(): Token? {
         return null
     }
-
 }

@@ -24,6 +24,9 @@ buildscript {
         // https://github.com/Kotlin/kotlinx-kover/releases
         koverVersion = "0.4.1"
 
+        // https://google.github.io/accompanist/
+        accompanistVersion = "0.28.0"
+
         ext.jacocoAndroidVersion = "0.2"
 
         ext.coverallsVersion = "2.12.0"

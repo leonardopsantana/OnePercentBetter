@@ -7,8 +7,6 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 
-
-
 /**
  * This module is responsible for defining the creation of any use cases dependencies
  * used in the application.
@@ -22,6 +20,5 @@ abstract class UseCaseModule {
     @Binds
     abstract fun bindsCredentialsLoginUseCase(
         credentialsLoginUseCase: ProdCredentialsLoginUseCase
-    ) : CredentialsLoginUseCase
-
+    ): CredentialsLoginUseCase
 }

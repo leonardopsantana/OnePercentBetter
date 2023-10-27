@@ -130,5 +130,4 @@ class ProdCredentialsLoginUseCaseTest {
         loginRepository.verifyNoLoginCall()
         tokenRepository.verifyNoTokenStore()
     }
-
 }

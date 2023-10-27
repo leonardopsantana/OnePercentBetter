@@ -215,14 +215,14 @@ class LoginViewModelTest {
 //                action = {
 //                    clickLoginButton()
 //                    enterEmail(testEmail)
-////                    enterPassword(testPassword)
+// //                    enterPassword(testPassword)
 //                },
 //                viewStates = listOf(
 //                    initialState,
 //                    submittingState,
 //                    invalidInputsState,
 //                    emailInputState,
-////                    passwordInputState,
+// //                    passwordInputState,
 //                ),
 //            )
 //    }
