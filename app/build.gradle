@@ -9,7 +9,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.projectreference"
+        applicationId "com.onepercentbetter"
         minSdk 21
         minSdkVersion 21
         targetSdk 32
@@ -39,7 +39,7 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.0-alpha02"
     }
-    namespace 'com.example.projectreference'
+    namespace 'com.onepercentbetter'
 }
 
 dependencies {
