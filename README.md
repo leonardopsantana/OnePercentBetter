@@ -52,7 +52,7 @@ clicks, etc. will be passed to the ViewModel which determines what action needs 
 If a screen has multiple complex views or multiple responsibilities, it's possible to reference
 multiple ViewModel dependencies.
 
-# Things done:
+# Tech stack:
   GITHUB actions - CI build
     Created some workflows inside .github folder that will trigger in defined steps
     Definition of PR check that must be done in order to get the PR merged
