@@ -1,4 +1,4 @@
-## App Architecture
+# App Architecture
 
 This app follows a MVVM architecture pattern throughout the project. Below is the architecture
 diagram for the Login Screen, though every screen in the app should follow the same organization.
