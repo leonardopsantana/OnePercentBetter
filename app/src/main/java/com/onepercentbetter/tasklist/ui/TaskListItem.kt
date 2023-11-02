@@ -19,7 +19,6 @@ import com.onepercentbetter.core.ui.components.OPBTextButton
 import com.onepercentbetter.core.ui.theme.OPBTheme
 import com.onepercentbetter.tasklist.domain.model.Task
 
-
 /**
  * This displays a list item for a given [task].
  */
@@ -45,7 +44,6 @@ fun TaskListItem(
                 onDoneClicked = onDoneClicked
             )
         }
-
     }
 }
 

@@ -66,10 +66,6 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun onInputFocused(focusState: FocusState) {
-
-    }
-
     private fun handleLoginResult(currentCredentials: Credentials, loginResult: LoginResult) {
         _viewState.value = when (loginResult) {
             is LoginResult.Failure.InvalidCredentials -> {
@@ -96,8 +92,6 @@ class LoginViewModel @Inject constructor(
             is LoginResult.Failure.EmptyCredentials -> {
                 loginResult.toActiveLoginViewState(currentCredentials)
             }
-
-            else -> _viewState.value
         }
     }
 

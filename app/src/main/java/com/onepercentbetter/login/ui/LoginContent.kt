@@ -33,9 +33,9 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.onepercentbetter.R
+import com.onepercentbetter.core.ui.components.OnePercentBetterTextField
 import com.onepercentbetter.core.ui.components.PrimaryButton
 import com.onepercentbetter.core.ui.components.SecondaryButton
-import com.onepercentbetter.core.ui.components.OnePercentBetterTextField
 import com.onepercentbetter.core.ui.components.UIText
 import com.onepercentbetter.core.ui.components.VerticalSpacer
 import com.onepercentbetter.core.ui.components.getString
@@ -119,7 +119,7 @@ private fun LogoInputsColumn(
             (viewState as? LoginViewState.Active)?.emailInputErrorMessage?.getString(),
             enabled = viewState.inputsEnabled,
 
-            )
+        )
 
         VerticalSpacer(height = 12.dp)
 

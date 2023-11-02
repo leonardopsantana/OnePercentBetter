@@ -24,7 +24,6 @@ fun OPBTextButton(
     }
 }
 
-
 @Preview(
     name = "Night mode",
     uiMode = Configuration.UI_MODE_NIGHT_YES,
