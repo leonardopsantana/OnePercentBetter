@@ -8,7 +8,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
 import androidx.core.view.WindowCompat
-import com.onepercentbetter.core.ui.theme.OnePercentBetterTheme
+import com.onepercentbetter.core.ui.theme.OPBTheme
 import com.onepercentbetter.login.ui.LoginScreen
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -35,7 +35,7 @@ class MainActivity : ComponentActivity() {
             }
 
             setContent {
-                OnePercentBetterTheme {
+                OPBTheme {
                     ProvideWindowInsets {
                         LoginScreen(
                             onLoginCompleted = {

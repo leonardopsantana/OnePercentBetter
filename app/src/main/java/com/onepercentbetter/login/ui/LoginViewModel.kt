@@ -1,5 +1,6 @@
 package com.onepercentbetter.login.ui
 
+import androidx.compose.ui.focus.FocusState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.onepercentbetter.R
@@ -63,6 +64,10 @@ class LoginViewModel @Inject constructor(
 
             handleLoginResult(currentCredentials, loginResult)
         }
+    }
+
+    fun onInputFocused(focusState: FocusState) {
+
     }
 
     private fun handleLoginResult(currentCredentials: Credentials, loginResult: LoginResult) {

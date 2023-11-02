@@ -18,7 +18,7 @@ import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.tooling.preview.Preview
 import com.onepercentbetter.R
 import com.onepercentbetter.core.ui.theme.ButtonShape
-import com.onepercentbetter.core.ui.theme.OnePercentBetterTheme
+import com.onepercentbetter.core.ui.theme.OPBTheme
 
 /**
  * This is custom [Button] that provides shape and styling expected
@@ -66,7 +66,7 @@ fun SecondaryButton(
 )
 @Composable
 private fun SecondaryEnabledButtonPreview() {
-    OnePercentBetterTheme {
+    OPBTheme {
         Surface {
             SecondaryButton(
                 text = "Secondary Button",
@@ -88,7 +88,7 @@ private fun SecondaryEnabledButtonPreview() {
 )
 @Composable
 private fun SecondaryDisabledButtonPreview() {
-    OnePercentBetterTheme {
+    OPBTheme {
         Surface {
             SecondaryButton(
                 text = "Secondary Button",

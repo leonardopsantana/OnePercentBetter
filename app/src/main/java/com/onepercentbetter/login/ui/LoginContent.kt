@@ -39,7 +39,7 @@ import com.onepercentbetter.core.ui.components.OnePercentBetterTextField
 import com.onepercentbetter.core.ui.components.UIText
 import com.onepercentbetter.core.ui.components.VerticalSpacer
 import com.onepercentbetter.core.ui.components.getString
-import com.onepercentbetter.core.ui.theme.OnePercentBetterTheme
+import com.onepercentbetter.core.ui.theme.OPBTheme
 import com.onepercentbetter.login.domain.model.Credentials
 import com.onepercentbetter.login.domain.model.Email
 import com.onepercentbetter.login.domain.model.Password
@@ -237,7 +237,7 @@ private fun EmptyLoginContentPreview(
     @PreviewParameter(LoginViewStateProvider::class)
     loginViewState: LoginViewState
 ) {
-    OnePercentBetterTheme {
+    OPBTheme {
         LoginContent(
             viewState = loginViewState,
             onEmailChanged = {},

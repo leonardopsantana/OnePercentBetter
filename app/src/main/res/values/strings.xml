@@ -18,4 +18,6 @@
     <string name="error_login_failure">There was a problem logging in. Please check your internet connection and try again.</string>
     <string name="error_empty_email">Please enter an e-mail</string>
     <string name="error_empty_password">Please enter a password</string>
+    <string name="reschedule">reschedule</string>
+    <string name="done">done</string>
 </resources>

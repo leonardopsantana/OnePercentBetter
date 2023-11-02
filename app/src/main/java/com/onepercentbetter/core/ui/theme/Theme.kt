@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 
 @SuppressLint("NewApi")
 @Composable
-fun OnePercentBetterTheme(
+fun OPBTheme(
     content: @Composable() () -> Unit
 ) {
     val colors = lightColorPallete

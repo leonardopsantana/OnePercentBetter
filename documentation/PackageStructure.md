@@ -19,7 +19,7 @@ another - which is then split by use cases, repositories and model classes.
 |       |-- components
 |       |   |-- PrimaryButton.kt
 |       |   |-- SecondaryButton.kt
-|       |   |-- TOATextField.kt
+|       |   |-- OPBTextField.kt
 |       |   |-- UIText.kt
 |       |   |-- VerticalSpacer.kt
 |       |-- theme
