@@ -83,7 +83,9 @@ private fun Done(onDoneClicked: () -> Unit) {
 private fun TaskText(text: String) {
     Text(
         text = text,
-        modifier = Modifier.fillMaxWidth().padding(8.dp)
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp)
     )
 }
 
