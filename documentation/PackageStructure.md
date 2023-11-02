@@ -5,6 +5,7 @@ core module with classes that are shared across the app. Within a feature packag
 split by responsibility. The ui code will go into one package, while the domain information in 
 another - which is then split by use cases, repositories and model classes.
 
+```
 |-- onepercentbetter
 |-- MainActivity.kt
 |-- OnePercentBetterApp.kt
@@ -29,11 +30,11 @@ another - which is then split by use cases, repositories and model classes.
 |-- login
 |-- domain
 |   |-- model
-|   |   |-- Credentials.kt
+|   |   |-- CredentialsModel.kt
 |   |   |-- InvalidCredentialsException.kt
 |   |   |-- LoginResponse.kt
 |   |   |-- LoginResult.kt
-|   |   |-- Token.kt
+|   |   |-- TokenModel.kt
 |   |-- repository
 |   |   |-- DemoLoginRepositoryImpl.kt
 |   |   |-- DemoTokenRepositoryImpl.kt
@@ -48,3 +49,4 @@ another - which is then split by use cases, repositories and model classes.
 |-- LoginScreen.kt
 |-- LoginViewModel.kt
 |-- LoginViewState.kt
+```
