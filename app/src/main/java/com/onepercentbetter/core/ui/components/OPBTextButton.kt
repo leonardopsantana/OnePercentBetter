@@ -1,6 +1,7 @@
 package com.onepercentbetter.core.ui.components
 
 import android.content.res.Configuration
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
@@ -19,7 +20,8 @@ fun OPBTextButton(
 ) {
     TextButton(onClick = { onClick }) {
         Text(
-            text = text.toUpperCase(Locale.current)
+            text = text.toUpperCase(Locale.current),
+            style = MaterialTheme.typography.caption
         )
     }
 }
