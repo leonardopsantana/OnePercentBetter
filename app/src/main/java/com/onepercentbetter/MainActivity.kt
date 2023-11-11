@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material.MaterialTheme
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
 import androidx.core.view.WindowCompat
@@ -22,29 +24,32 @@ class MainActivity : ComponentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         setContent {
-            val systemUiController = rememberSystemUiController()
-            val useDarkIcons = MaterialTheme.colors.isLight
+            OPBTheme {
+                ConfigureSystemBars()
 
-            SideEffect {
-                // Update all of the system bar colors to be transparent, and use
-                // dark icons if we're in light theme
-                systemUiController.setSystemBarsColor(
-                    color = Color.Transparent,
-                    darkIcons = useDarkIcons
-                )
-            }
-
-            setContent {
-                OPBTheme {
-                    ProvideWindowInsets {
-                        LoginScreen(
-                            onLoginCompleted = {
-                                Log.d("MainActivity", "Login has been completed")
-                            }
-                        )
-                    }
+                ProvideWindowInsets {
+                    LoginScreen(
+                        onLoginCompleted = {
+                            Log.d("MainActivity", "Login has been completed")
+                        }
+                    )
                 }
             }
+        }
+    }
+
+    @Composable
+    private fun ConfigureSystemBars() {
+        val systemUiController = rememberSystemUiController()
+        val useDarkIcons = !isSystemInDarkTheme()
+
+        SideEffect {
+            // Update all of the system bar colors to be transparent, and use
+            // dark icons if we're in light theme
+            systemUiController.setSystemBarsColor(
+                color = Color.Transparent,
+                darkIcons = useDarkIcons
+            )
         }
     }
 }

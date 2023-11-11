@@ -1,9 +1,9 @@
-package com.example.onepercentbetter.fakes
+package com.onepercentbetter.fakes
 
-import com.example.onepercentbetter.core.data.Result
-import com.example.onepercentbetter.login.domain.model.Credentials
-import com.example.onepercentbetter.login.domain.model.LoginResponse
-import com.example.onepercentbetter.login.domain.repository.LoginRepository
+import com.onepercentbetter.core.data.Result
+import com.onepercentbetter.login.domain.model.Credentials
+import com.onepercentbetter.login.domain.model.LoginResponse
+import com.onepercentbetter.login.domain.repository.LoginRepository
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk

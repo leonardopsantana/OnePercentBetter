@@ -1,9 +1,9 @@
-package com.example.onepercentbetter.login.ui
+package com.onepercentbetter.login.ui
 
 import app.cash.turbine.test
-import com.example.onepercentbetter.fakes.FakeCredentialsLoginUseCase
-import com.example.onepercentbetter.login.domain.model.Credentials
-import com.example.onepercentbetter.login.domain.model.LoginResult
+import com.onepercentbetter.fakes.FakeCredentialsLoginUseCase
+import com.onepercentbetter.login.domain.model.Credentials
+import com.onepercentbetter.login.domain.model.LoginResult
 import com.google.common.truth.Truth.assertThat
 
 class LoginViewModelRobot {

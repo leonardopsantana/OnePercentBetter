@@ -3,10 +3,10 @@ package com.onepercentbetter.core.ui.components
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults.buttonColors
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults.buttonColors
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,21 +32,15 @@ fun PrimaryButton(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    backgroundColor: Color = MaterialTheme.colors.primary,
     isEnabled: Boolean = true
 ) {
-    val buttonColors = buttonColors(
-        backgroundColor = backgroundColor,
-    )
-
     Button(
         onClick = onClick,
-        colors = buttonColors,
         shape = ButtonShape,
         modifier = modifier
             .height(dimensionResource(id = R.dimen.button_height))
             .fillMaxWidth(),
-        enabled = isEnabled
+        enabled = isEnabled,
     ) {
         Text(
             text = text.toUpperCase(Locale.current),

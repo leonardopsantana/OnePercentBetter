@@ -1,4 +1,4 @@
-package com.example.onepercentbetter
+package com.onepercentbetter
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

@@ -3,12 +3,12 @@ package com.onepercentbetter.core.ui.components
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults.textButtonColors
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults.textButtonColors
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,12 +33,13 @@ fun SecondaryButton(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    contentColor: Color = MaterialTheme.colors.primary,
+    contentColor: Color = MaterialTheme.colorScheme.primary,
     isEnabled: Boolean = true
 ) {
     val buttonColors = textButtonColors(
         contentColor = contentColor,
     )
+
     TextButton(
         onClick = onClick,
         shape = ButtonShape,

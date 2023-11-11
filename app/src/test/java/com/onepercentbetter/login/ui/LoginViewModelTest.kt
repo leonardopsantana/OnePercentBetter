@@ -1,12 +1,12 @@
-package com.example.onepercentbetter.login.ui
+package com.onepercentbetter.login.ui
 
-import com.example.onepercentbetter.CoroutinesTestRule
-import com.example.onepercentbetter.R
-import com.example.onepercentbetter.core.ui.components.UIText
-import com.example.onepercentbetter.login.domain.model.Credentials
-import com.example.onepercentbetter.login.domain.model.Email
-import com.example.onepercentbetter.login.domain.model.LoginResult
-import com.example.onepercentbetter.login.domain.model.Password
+import com.onepercentbetter.CoroutinesTestRule
+import com.onepercentbetter.R
+import com.onepercentbetter.core.ui.components.UIText
+import com.onepercentbetter.login.domain.model.Credentials
+import com.onepercentbetter.login.domain.model.Email
+import com.onepercentbetter.login.domain.model.LoginResult
+import com.onepercentbetter.login.domain.model.Password
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule

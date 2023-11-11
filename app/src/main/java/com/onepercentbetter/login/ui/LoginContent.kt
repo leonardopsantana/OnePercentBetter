@@ -2,6 +2,7 @@ package com.onepercentbetter.login.ui
 
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -15,13 +16,15 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
@@ -64,7 +67,7 @@ fun LoginContent(
     onSignUpClicked: () -> Unit
 ) {
     Surface(
-        color = MaterialTheme.colors.background
+        color = MaterialTheme.colorScheme.background
     ) {
         Box(
             modifier = Modifier.fillMaxSize()
@@ -133,7 +136,7 @@ private fun LogoInputsColumn(
         if (viewState is LoginViewState.SubmissionError) {
             Text(
                 text = viewState.errorMessage.getString(),
-                color = MaterialTheme.colors.error,
+                color = MaterialTheme.colorScheme.error,
                 modifier = Modifier.padding(top = 12.dp)
             )
         }
@@ -220,7 +223,10 @@ private fun AppLogo(
         painterResource(id = R.drawable.ic_brick),
         contentDescription = stringResource(R.string.app_logo_content_description),
         modifier = modifier
-            .fillMaxWidth(APP_LOGO_WIDTH_PERCENTAGE)
+            .fillMaxWidth(APP_LOGO_WIDTH_PERCENTAGE),
+        colorFilter = ColorFilter.tint(
+            color = if (isSystemInDarkTheme()) Color.White else Color.Black
+        )
     )
 }
 

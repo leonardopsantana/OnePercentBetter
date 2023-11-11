@@ -1,6 +1,5 @@
 package com.onepercentbetter.login.ui
 
-import androidx.compose.ui.focus.FocusState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.onepercentbetter.R

@@ -1,7 +1,7 @@
-package com.example.onepercentbetter.fakes
+package com.onepercentbetter.fakes
 
-import com.example.onepercentbetter.login.domain.model.Token
-import com.example.onepercentbetter.login.domain.repository.TokenRepository
+import com.onepercentbetter.login.domain.model.Token
+import com.onepercentbetter.login.domain.repository.TokenRepository
 import io.mockk.coVerify
 import io.mockk.mockk
 

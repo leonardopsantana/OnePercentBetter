@@ -6,13 +6,13 @@ plugins {
 }
 
 android {
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.onepercentbetter"
         minSdk 21
         minSdkVersion 21
-        targetSdk 32
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -37,43 +37,39 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.0-alpha02"
+        kotlinCompilerExtensionVersion = "1.4.0"
     }
     namespace 'com.onepercentbetter'
 }
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.2'
-    implementation 'com.google.android.material:material:1.6.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.0'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.5.0'
-    implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
+    implementation "androidx.core:core-ktx:$rootProject.ext.versions.ktxCore"
+    implementation "androidx.appcompat:appcompat:$rootProject.ext.versions.appCompat"
+    implementation "com.google.android.material:material:$rootProject.ext.versions.material"
+    implementation "androidx.hilt:hilt-navigation-compose:$rootProject.ext.versions.hiltNavigationCompose"
 
     //Compose
     implementation "androidx.compose.ui:ui:$compose_version"
-    implementation "androidx.compose.material:material:$compose_version"
     implementation "androidx.compose.ui:ui-tooling:$compose_version"
-    implementation "androidx.activity:activity-compose:$activity_compose"
+    implementation "androidx.activity:activity-compose:$rootProject.ext.versions.activityCompose"
+    implementation "androidx.compose.material3:material3:$rootProject.ext.versions.composeMaterial3"
+    implementation "androidx.compose.material3:material3-window-size-class:$rootProject.ext.versions.composeMaterial3"
 
     //Hilt
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     kapt "com.google.dagger:hilt-compiler:$hiltVersion"
 
     //Accompanist
-    implementation "com.google.accompanist:accompanist-insets-ui:$accompanistVersion"
-    implementation "com.google.accompanist:accompanist-systemuicontroller:$accompanistVersion"
+    implementation "com.google.accompanist:accompanist-insets-ui:$rootProject.ext.versions.accompanist"
+    implementation "com.google.accompanist:accompanist-systemuicontroller:$rootProject.ext.versions.accompanist"
 
-    testImplementation 'junit:junit:4.13.2'
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'io.mockk:mockk:1.12.0'
-    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.1'
-    testImplementation "com.google.truth:truth:1.1.4"
-    testImplementation 'app.cash.turbine:turbine:1.0.0'
+    testImplementation "junit:junit:$rootProject.ext.versions.junit"
+    testImplementation "io.mockk:mockk:$rootProject.ext.versions.mockk"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$rootProject.ext.versions.coroutinesTest"
+    testImplementation "com.google.truth:truth:$rootProject.ext.versions.truth"
+    testImplementation "app.cash.turbine:turbine:$rootProject.ext.versions.turbine"
 
 
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation "androidx.test.ext:junit:$rootProject.ext.versions.androidxTestJunit"
 }
