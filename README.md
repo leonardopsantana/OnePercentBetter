@@ -57,7 +57,7 @@ multiple ViewModel dependencies.
     Created some workflows inside .github folder that will trigger in defined steps
     Definition of PR check that must be done in order to get the PR merged
   
-  Danger - automated messages on PRs
+  DANGER - automated messages on PRs
     Created a rule to not allow empty PRs
     Thanks the developer for a new PR and others messages in PRs :)
 
@@ -82,12 +82,10 @@ multiple ViewModel dependencies.
     TURBINE - Testing Flows
     Junit rule - Coroutine main override
     Truth - Assertions semantically good to use
+    Kover - Code coverage reports
 
   DEPENDENCY INJECTION:
-    HILT
-
-  ARCH:
-    Screen > ViewModel(MVI) > UseCase > Repository
+    Dagger/Hilt
 
     
 
