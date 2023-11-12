@@ -1,5 +1,6 @@
 package com.onepercentbetter.tasklist.ui
 
+import com.onepercentbetter.core.ui.components.UIText
 import com.onepercentbetter.tasklist.domain.model.Task
 
 sealed class TaskListViewState {
@@ -10,6 +11,6 @@ sealed class TaskListViewState {
     ) : TaskListViewState()
 
     data class Error(
-        val errorMessage: String
+        val errorMessage: UIText
     ) : TaskListViewState()
 }
