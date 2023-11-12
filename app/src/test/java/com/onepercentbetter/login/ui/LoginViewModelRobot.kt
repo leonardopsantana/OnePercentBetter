@@ -1,10 +1,10 @@
 package com.onepercentbetter.login.ui
 
 import app.cash.turbine.test
+import com.google.common.truth.Truth.assertThat
 import com.onepercentbetter.fakes.FakeCredentialsLoginUseCase
 import com.onepercentbetter.login.domain.model.Credentials
 import com.onepercentbetter.login.domain.model.LoginResult
-import com.google.common.truth.Truth.assertThat
 
 class LoginViewModelRobot {
     private val fakeCredentialsLoginUseCase = FakeCredentialsLoginUseCase()

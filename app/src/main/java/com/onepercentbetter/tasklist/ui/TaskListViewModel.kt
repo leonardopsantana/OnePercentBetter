@@ -17,16 +17,15 @@ import javax.inject.Inject
 @HiltViewModel
 class TaskListViewModel @Inject constructor(
     private val getAllTasksUseCase: ProdGetAllAllTasksUseCase
-): ViewModel() {
+) : ViewModel() {
     private val _viewState: MutableStateFlow<TaskListViewState> = MutableStateFlow(TaskListViewState.Loading)
     val viewState: StateFlow<TaskListViewState> = _viewState
-
 
     init {
         viewModelScope.launch {
             val getTasksResult = getAllTasksUseCase()
 
-            _viewState.value = when(getTasksResult){
+            _viewState.value = when (getTasksResult) {
                 is Result.Error -> {
                     TaskListViewState.Error(
                         errorMessage = UIText.StringText("Something went wrong! ;(")

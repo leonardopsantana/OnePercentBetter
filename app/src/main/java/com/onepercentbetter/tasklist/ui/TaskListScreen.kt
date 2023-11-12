@@ -16,6 +16,4 @@ fun TaskListScreen(
         onDoneClicked = {},
         onAddButtonClicked = {}
     )
-
-
 }

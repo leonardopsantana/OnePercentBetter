@@ -1,5 +1,6 @@
 package com.onepercentbetter.login.domain.usecase
 
+import com.google.common.truth.Truth.assertThat
 import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.fakes.FakeLoginRepository
 import com.onepercentbetter.fakes.FakeTokenRepository
@@ -12,7 +13,6 @@ import com.onepercentbetter.login.domain.model.LoginResult
 import com.onepercentbetter.login.domain.model.Password
 import com.onepercentbetter.login.domain.model.RefreshToken
 import com.onepercentbetter.login.domain.model.Token
-import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test

@@ -7,10 +7,8 @@ import javax.inject.Inject
 
 class ProdGetAllAllTasksUseCase @Inject constructor(
     private val taskListRepository: TaskListRepository
-): GetAllTasksUseCase{
+) : GetAllTasksUseCase {
     override suspend fun invoke(): Result<List<Task>> {
-       return taskListRepository.fetchAllTasks()
+        return taskListRepository.fetchAllTasks()
     }
-
-
 }
