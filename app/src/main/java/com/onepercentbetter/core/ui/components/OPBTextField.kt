@@ -34,7 +34,7 @@ import com.onepercentbetter.core.ui.theme.TextFieldShape
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun OnePercentBetterTextField(
+fun OPBTextField(
     text: String,
     onTextChanged: (String) -> Unit,
     labelText: String,
@@ -89,7 +89,7 @@ fun OnePercentBetterTextField(
 private fun FilledTAOTextFieldPreview() {
     OPBTheme {
         Surface {
-            OnePercentBetterTextField(
+            OPBTextField(
                 text = "OnePercentBetter Text Field",
                 onTextChanged = {},
                 labelText = "Label"
@@ -110,7 +110,7 @@ private fun FilledTAOTextFieldPreview() {
 private fun ErrorTAOTextFieldPreview() {
     OPBTheme {
         Surface {
-            OnePercentBetterTextField(
+            OPBTextField(
                 text = "OnePercentBetter Text Field",
                 onTextChanged = {},
                 labelText = "Label",
@@ -132,7 +132,7 @@ private fun ErrorTAOTextFieldPreview() {
 private fun EmptyTAOTextFieldPreview() {
     OPBTheme {
         Surface {
-            OnePercentBetterTextField(
+            OPBTextField(
                 text = "",
                 onTextChanged = {},
                 labelText = "Label"

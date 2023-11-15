@@ -36,7 +36,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.onepercentbetter.R
-import com.onepercentbetter.core.ui.components.OnePercentBetterTextField
+import com.onepercentbetter.core.ui.components.OPBTextField
 import com.onepercentbetter.core.ui.components.PrimaryButton
 import com.onepercentbetter.core.ui.components.SecondaryButton
 import com.onepercentbetter.core.ui.components.UIText
@@ -183,7 +183,7 @@ private fun PasswordInput(
     onTextChanged: (String) -> Unit,
     enabled: Boolean,
 ) {
-    OnePercentBetterTextField(
+    OPBTextField(
         text = text,
         onTextChanged = onTextChanged,
         labelText = stringResource(R.string.password),
@@ -205,7 +205,7 @@ private fun EmailInput(
     onTextChanged: (String) -> Unit,
     enabled: Boolean,
 ) {
-    OnePercentBetterTextField(
+    OPBTextField(
         text = text,
         onTextChanged = onTextChanged,
         labelText = stringResource(R.string.email),
