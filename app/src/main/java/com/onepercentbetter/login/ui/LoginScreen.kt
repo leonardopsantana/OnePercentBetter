@@ -7,11 +7,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.ramcosta.composedestinations.LoginScreenDestination
-import com.ramcosta.composedestinations.TaskListScreenDestination
+import com.onepercentbetter.destinations.LoginScreenDestination
+import com.onepercentbetter.destinations.TaskListScreenDestination
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 /**

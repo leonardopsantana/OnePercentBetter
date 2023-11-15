@@ -92,6 +92,7 @@ dependencies {
     //Accompanist
     implementation "com.google.accompanist:accompanist-insets-ui:$rootProject.ext.versions.accompanist"
     implementation "com.google.accompanist:accompanist-systemuicontroller:$rootProject.ext.versions.accompanist"
+    implementation "com.google.accompanist:accompanist-navigation-animation:$rootProject.ext.versions.accompanist"
 
     //Compose Destinations
     implementation "io.github.raamcosta.compose-destinations:core:$rootProject.ext.versions.composeDestinations"
