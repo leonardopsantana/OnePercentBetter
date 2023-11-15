@@ -83,10 +83,12 @@ multiple ViewModel dependencies.
     Junit rule - Coroutine main override
     Truth - Assertions semantically good to use
     Kover - Code coverage reports
+    Robot Pattern
 
   DEPENDENCY INJECTION:
     Dagger/Hilt
 
-    
+  NAVIGATION:
+    Compose destinations
 
     

@@ -3,10 +3,7 @@ package com.onepercentbetter.tasklist.ui
 import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat
 import com.onepercentbetter.core.data.Result
-import com.onepercentbetter.fakes.FakeGetAllTasksUseCase
 import com.onepercentbetter.fakes.FakeTaskListRepository
-import com.onepercentbetter.login.ui.LoginViewModelRobot
-import com.onepercentbetter.login.ui.LoginViewState
 import com.onepercentbetter.tasklist.domain.model.Task
 import com.onepercentbetter.tasklist.domain.usecases.ProdGetAllAllTasksUseCase
 
@@ -54,6 +51,4 @@ class TaskListViewModelRobot {
             this.cancel()
         }
     }
-
-
 }

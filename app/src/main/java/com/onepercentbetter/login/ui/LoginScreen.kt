@@ -39,7 +39,7 @@ fun LoginScreen(
         }
     }
 
-    val context  = LocalContext.current
+    val context = LocalContext.current
 
     LoginContent(
         viewState = viewState.value,
@@ -54,5 +54,5 @@ fun LoginScreen(
             ).show()
         },
 
-        )
+    )
 }
