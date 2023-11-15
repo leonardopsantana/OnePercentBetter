@@ -3,6 +3,18 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'dagger.hilt.android.plugin'
     id 'kotlin-kapt'
+    id "com.google.devtools.ksp" version "1.8.0-1.0.9"
+}
+
+kotlin {
+    sourceSets {
+        debug {
+            kotlin.srcDir("build/generated/ksp/debug/kotlin")
+        }
+        release {
+            kotlin.srcDir("build/generated/ksp/release/kotlin")
+        }
+    }
 }
 
 android {
@@ -80,6 +92,11 @@ dependencies {
     //Accompanist
     implementation "com.google.accompanist:accompanist-insets-ui:$rootProject.ext.versions.accompanist"
     implementation "com.google.accompanist:accompanist-systemuicontroller:$rootProject.ext.versions.accompanist"
+
+    //Compose Destinations
+    implementation "io.github.raamcosta.compose-destinations:core:$rootProject.ext.versions.composeDestinations"
+    implementation "androidx.navigation:navigation-compose:$rootProject.ext.versions.composeNavigation"
+    ksp "io.github.raamcosta.compose-destinations:ksp:$rootProject.ext.versions.composeDestinations"
 
     testImplementation "junit:junit:$rootProject.ext.versions.junit"
     testImplementation "io.mockk:mockk:$rootProject.ext.versions.mockk"

@@ -1,6 +1,7 @@
 package com.onepercentbetter
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -11,7 +12,9 @@ import androidx.core.view.WindowCompat
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.onepercentbetter.core.ui.theme.OPBTheme
+import com.onepercentbetter.login.ui.LoginScreen
 import com.onepercentbetter.tasklist.ui.TaskListScreen
+import com.ramcosta.composedestinations.DestinationsNavHost
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,12 +29,12 @@ class MainActivity : ComponentActivity() {
                 ConfigureSystemBars()
 
                 ProvideWindowInsets {
+                    DestinationsNavHost()
 //                    LoginScreen(
 //                        onLoginCompleted = {
 //                            Log.d("MainActivity", "Login has been completed")
 //                        }
 //                    )
-                    TaskListScreen()
                 }
             }
         }
