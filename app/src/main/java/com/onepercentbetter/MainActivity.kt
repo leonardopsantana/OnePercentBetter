@@ -30,11 +30,6 @@ class MainActivity : ComponentActivity() {
 
                 ProvideWindowInsets {
                     DestinationsNavHost()
-//                    LoginScreen(
-//                        onLoginCompleted = {
-//                            Log.d("MainActivity", "Login has been completed")
-//                        }
-//                    )
                 }
             }
         }
