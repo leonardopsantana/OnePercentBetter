@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.core.ui.components.UIText
+import com.onepercentbetter.tasklist.domain.usecases.GetAllTasksUseCase
 import com.onepercentbetter.tasklist.domain.usecases.ProdGetAllAllTasksUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +17,7 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class TaskListViewModel @Inject constructor(
-    private val getAllTasksUseCase: ProdGetAllAllTasksUseCase
+    private val getAllTasksUseCase: GetAllTasksUseCase
 ) : ViewModel() {
     private val _viewState: MutableStateFlow<TaskListViewState> = MutableStateFlow(TaskListViewState.Loading)
     val viewState: StateFlow<TaskListViewState> = _viewState
