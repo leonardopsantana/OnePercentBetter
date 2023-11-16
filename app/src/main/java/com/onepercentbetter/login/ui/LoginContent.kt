@@ -172,7 +172,7 @@ private fun LoginButton(onLoginClicked: () -> Unit, isEnabled: Boolean) {
     PrimaryButton(
         text = stringResource(R.string.log_in),
         onClick = onLoginClicked,
-        isEnabled = isEnabled
+        enabled = isEnabled
     )
 }
 

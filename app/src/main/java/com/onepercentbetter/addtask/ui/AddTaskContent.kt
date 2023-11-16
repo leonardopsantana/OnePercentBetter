@@ -2,11 +2,18 @@ package com.onepercentbetter.addtask.ui
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.style.TextAlign
@@ -20,7 +27,9 @@ import com.onepercentbetter.core.ui.components.OPBTextField
 import com.onepercentbetter.core.ui.components.PrimaryButton
 import com.onepercentbetter.core.ui.components.UIText
 import com.onepercentbetter.core.ui.components.VerticalSpacer
+import com.onepercentbetter.core.ui.components.getString
 import com.onepercentbetter.core.ui.theme.OPBTheme
+import com.onepercentbetter.login.ui.LoginViewState
 import java.time.LocalDate
 
 @Composable
@@ -31,37 +40,79 @@ fun AddTaskContent(
     onSubmitClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    Box(
+        modifier = modifier
+    ) {
+        AddTaskInputsColumn(
+            viewState = viewState,
+            onTaskDescriptionChanged = onTaskDescriptionChanged,
+            onSubmitClicked = onSubmitClicked,
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        if (viewState is AddTaskViewState.Submitting) {
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .wrapContentSize()
+                    .align(Alignment.Center)
+            )
+        }
+    }
+}
+
+@Composable
+private fun AddTaskInputsColumn(
+    viewState: AddTaskViewState,
+    onTaskDescriptionChanged: (String) -> Unit,
+    onSubmitClicked: () -> Unit,
+    modifier: Modifier
+) {
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.form_spacing))
+        verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.form_spacing)),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         TaskDescriptionLabel()
         TaskDescriptionInput(
             text = viewState.taskInput.description,
-            onTextChanged = onTaskDescriptionChanged
+            onTextChanged = onTaskDescriptionChanged,
+            enabled = viewState.inputsEnabled
         )
         TaskDateLabel()
-        TaskDateInput()
+        TaskDateInput(
+            enabled = viewState.inputsEnabled
+        )
+        if (viewState is AddTaskViewState.SubmissionError) {
+            Text(
+                text = viewState.errorMessage.getString(),
+                color = MaterialTheme.colorScheme.error,
+                modifier = Modifier.padding(top = 12.dp)
+            )
+        }
         VerticalSpacer(height = dimensionResource(id = R.dimen.form_spacing))
-        SubmitButton(onSubmitClicked)
+        SubmitButton(
+            onSubmitClicked = onSubmitClicked,
+            enabled = viewState.inputsEnabled
+        )
     }
-
 }
 
 @Composable
-private fun SubmitButton(onSubmitClicked: () -> Unit) {
+private fun SubmitButton(onSubmitClicked: () -> Unit, enabled: Boolean) {
     PrimaryButton(
         text = "Submit",
-        onClick = { onSubmitClicked }
+        onClick = { onSubmitClicked },
+        enabled = enabled
     )
 }
 
 @Composable
-private fun TaskDateInput() {
+private fun TaskDateInput(enabled: Boolean) {
     OPBTextField(
         text = "Today",
         onTextChanged = {},
-        labelText = ""
+        labelText = "",
+        enabled = enabled
     )
 }
 
@@ -77,12 +128,14 @@ private fun TaskDateLabel() {
 @Composable
 private fun TaskDescriptionInput(
     text: String,
-    onTextChanged: (String) -> Unit
+    onTextChanged: (String) -> Unit,
+    enabled: Boolean
 ) {
     OPBTextField(
         text = text,
         onTextChanged = onTextChanged,
-        labelText = ""
+        labelText = "",
+        enabled = enabled
     )
 }
 
@@ -114,10 +167,12 @@ private fun AddTaskContentPreview(
                 viewState = addTaskViewState,
                 onTaskDescriptionChanged = {},
                 onTaskScheduleDateChanged = {},
-                onSubmitClicked = {}
+                onSubmitClicked = {},
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(dimensionResource(id = R.dimen.screen_padding))
             )
         }
-
     }
 }
 

@@ -38,6 +38,7 @@ sealed class AddTaskViewState(
     )
 
     object Completed : AddTaskViewState(
-        taskInput = TaskInput()
+        taskInput = TaskInput(),
+        inputsEnabled = false
     )
 }
