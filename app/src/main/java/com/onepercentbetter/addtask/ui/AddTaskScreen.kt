@@ -30,5 +30,4 @@ fun AddTaskScreen(
                 .statusBarsPadding()
         )
     }
-
 }

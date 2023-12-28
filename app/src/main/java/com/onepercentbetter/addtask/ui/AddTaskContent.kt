@@ -9,9 +9,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Text
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,7 +29,6 @@ import com.onepercentbetter.core.ui.components.UIText
 import com.onepercentbetter.core.ui.components.VerticalSpacer
 import com.onepercentbetter.core.ui.components.getString
 import com.onepercentbetter.core.ui.theme.OPBTheme
-import com.onepercentbetter.login.ui.LoginViewState
 import java.time.LocalDate
 
 @Composable
@@ -199,5 +198,4 @@ class AddTaskViewStateProvider : PreviewParameterProvider<AddTaskViewState> {
                 AddTaskViewState.Completed
             )
         }
-
 }

@@ -2,8 +2,6 @@ package com.onepercentbetter.addtask.ui
 
 import com.onepercentbetter.addtask.domain.model.TaskInput
 import com.onepercentbetter.core.ui.components.UIText
-import com.onepercentbetter.tasklist.domain.model.Task
-import java.time.LocalDate
 
 /**
  * A collection of possible view states for the add task UI.

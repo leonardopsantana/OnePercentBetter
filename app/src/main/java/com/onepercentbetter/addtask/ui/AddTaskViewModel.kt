@@ -14,6 +14,4 @@ class AddTaskViewModel @Inject constructor(
     private val _viewState: MutableStateFlow<AddTaskViewState> =
         MutableStateFlow(AddTaskViewState.Initial)
     val viewState = _viewState.asStateFlow()
-
-
 }
