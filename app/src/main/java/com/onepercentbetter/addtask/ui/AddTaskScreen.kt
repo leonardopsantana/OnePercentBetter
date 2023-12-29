@@ -18,16 +18,14 @@ fun AddTaskScreen(
 ) {
     val viewState = viewModel.viewState.collectAsState()
 
-    Surface {
-        AddTaskContent(
-            viewState = viewState.value,
-            onTaskDescriptionChanged = {},
-            onTaskScheduleDateChanged = {},
-            onSubmitClicked = {},
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(dimensionResource(id = R.dimen.screen_padding))
-                .statusBarsPadding()
-        )
-    }
+    AddTaskContent(
+        viewState = viewState.value,
+        onTaskDescriptionChanged = {},
+        onTaskScheduleDateChanged = {},
+        onSubmitClicked = {},
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(dimensionResource(id = R.dimen.screen_padding))
+            .statusBarsPadding()
+    )
 }

@@ -5,6 +5,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
@@ -29,9 +31,13 @@ class MainActivity : ComponentActivity() {
                 ConfigureSystemBars()
 
                 ProvideWindowInsets {
-                    DestinationsNavHost(
-                        NavGraphs.root,
-                    )
+                    Surface(
+                        color = MaterialTheme.colorScheme.background
+                    ) {
+                        DestinationsNavHost(
+                            NavGraphs.root,
+                        )
+                    }
                 }
             }
         }

@@ -66,27 +66,23 @@ fun LoginContent(
     onLoginClicked: () -> Unit,
     onSignUpClicked: () -> Unit
 ) {
-    Surface(
-        color = MaterialTheme.colorScheme.background
+    Box(
+        modifier = Modifier.fillMaxSize()
     ) {
-        Box(
-            modifier = Modifier.fillMaxSize()
-        ) {
-            LogoInputsColumn(
-                viewState = viewState,
-                onEmailChanged = onEmailChanged,
-                onPasswordChanged = onPasswordChanged,
-                onLoginClicked = onLoginClicked,
-                onSignUpClicked = onSignUpClicked
-            )
+        LogoInputsColumn(
+            viewState = viewState,
+            onEmailChanged = onEmailChanged,
+            onPasswordChanged = onPasswordChanged,
+            onLoginClicked = onLoginClicked,
+            onSignUpClicked = onSignUpClicked
+        )
 
-            if (viewState is LoginViewState.Submitting) {
-                CircularProgressIndicator(
-                    modifier = Modifier
-                        .wrapContentSize()
-                        .align(Alignment.Center)
-                )
-            }
+        if (viewState is LoginViewState.Submitting) {
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .wrapContentSize()
+                    .align(Alignment.Center)
+            )
         }
     }
 }

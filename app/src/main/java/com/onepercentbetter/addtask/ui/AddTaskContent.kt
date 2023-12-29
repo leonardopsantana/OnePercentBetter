@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -161,17 +160,15 @@ private fun AddTaskContentPreview(
     addTaskViewState: AddTaskViewState
 ) {
     OPBTheme {
-        Surface {
-            AddTaskContent(
-                viewState = addTaskViewState,
-                onTaskDescriptionChanged = {},
-                onTaskScheduleDateChanged = {},
-                onSubmitClicked = {},
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(dimensionResource(id = R.dimen.screen_padding))
-            )
-        }
+        AddTaskContent(
+            viewState = addTaskViewState,
+            onTaskDescriptionChanged = {},
+            onTaskScheduleDateChanged = {},
+            onSubmitClicked = {},
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(dimensionResource(id = R.dimen.screen_padding))
+        )
     }
 }
 
