@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.onepercentbetter.R
 import com.onepercentbetter.addtask.domain.model.TaskInput
+import com.onepercentbetter.core.ui.components.OPBDatePicker
 import com.onepercentbetter.core.ui.components.OPBTextField
 import com.onepercentbetter.core.ui.components.PrimaryButton
 import com.onepercentbetter.core.ui.components.UIText
@@ -105,12 +106,11 @@ private fun SubmitButton(onSubmitClicked: () -> Unit, enabled: Boolean) {
 }
 
 @Composable
-private fun TaskDateInput(enabled: Boolean) {
-    OPBTextField(
-        text = "Today",
-        onTextChanged = {},
-        labelText = "",
-        enabled = enabled
+private fun TaskDateInput(
+    enabled: Boolean
+) {
+    OPBDatePicker(
+        modifier = Modifier.fillMaxWidth()
     )
 }
 

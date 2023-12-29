@@ -91,4 +91,7 @@ multiple ViewModel dependencies.
   NAVIGATION:
     Compose destinations
 
+  CALENDAR PICKER:  
+    External library: https://github.com/PranavMaganti/compose-material-dialogs
+
     
