@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import java.time.LocalDate
 import javax.inject.Inject
+
 @HiltViewModel
 class AddTaskViewModel @Inject constructor(
     private val addTaskUseCase: AddTaskUseCase
@@ -15,6 +16,16 @@ class AddTaskViewModel @Inject constructor(
     private val _viewState: MutableStateFlow<AddTaskViewState> =
         MutableStateFlow(AddTaskViewState.Initial)
     val viewState = _viewState.asStateFlow()
+
+    fun onTaskDescriptionChanged(newDescription: String) {
+        val currentInput = _viewState.value.taskInput
+        val newInput = currentInput.copy(
+            description = newDescription
+        )
+        _viewState.value = AddTaskViewState.Active(
+            taskInput = newInput
+        )
+    }
 
     fun onTaskScheduleDateChanged(newDate: LocalDate) {
         val currentInput = _viewState.value.taskInput

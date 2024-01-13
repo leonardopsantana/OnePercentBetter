@@ -37,21 +37,37 @@ import com.onepercentbetter.core.ui.theme.TextFieldShape
 fun OPBTextField(
     text: String,
     onTextChanged: (String) -> Unit,
-    labelText: String,
+    labelText: String?,
     modifier: Modifier = Modifier,
     errorMessage: String? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     enabled: Boolean = true,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-    onFocusChanged: (FocusState) -> Unit = {}
+    onFocusChanged: (FocusState) -> Unit = {},
+    placeholderText: String? = null
 ) {
+
+    val labelComposable: (@Composable () -> Unit)? = labelText?.let {
+        @Composable {
+            Text(
+                text = labelText
+            )
+        }
+    }
+
+    val placeholderComposable: (@Composable () -> Unit)? = placeholderText?.let {
+        @Composable {
+            Text(
+                text = placeholderText
+            )
+        }
+    }
+
     Column {
         OutlinedTextField(
             value = text,
             onValueChange = onTextChanged,
-            label = {
-                Text(text = labelText)
-            },
+            label = labelComposable,
             shape = TextFieldShape,
             modifier = modifier
                 .heightIn(dimensionResource(id = R.dimen.text_field_height))
@@ -61,6 +77,7 @@ fun OPBTextField(
             visualTransformation = visualTransformation,
             enabled = enabled,
             keyboardOptions = keyboardOptions,
+            placeholder = placeholderComposable
         )
 
         if (errorMessage != null) {
