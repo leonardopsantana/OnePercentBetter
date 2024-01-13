@@ -45,6 +45,7 @@ fun AddTaskContent(
         AddTaskInputsColumn(
             viewState = viewState,
             onTaskDescriptionChanged = onTaskDescriptionChanged,
+            onTaskScheduleDateChanged = onTaskScheduleDateChanged,
             onSubmitClicked = onSubmitClicked,
             modifier = Modifier.fillMaxWidth()
         )
@@ -63,6 +64,7 @@ fun AddTaskContent(
 private fun AddTaskInputsColumn(
     viewState: AddTaskViewState,
     onTaskDescriptionChanged: (String) -> Unit,
+    onTaskScheduleDateChanged: (LocalDate) -> Unit,
     onSubmitClicked: () -> Unit,
     modifier: Modifier
 ) {
@@ -79,6 +81,8 @@ private fun AddTaskInputsColumn(
         )
         TaskDateLabel()
         TaskDateInput(
+            value = viewState.taskInput.scheduledDate,
+            onValueChanged = onTaskScheduleDateChanged,
             enabled = viewState.inputsEnabled
         )
         if (viewState is AddTaskViewState.SubmissionError) {
@@ -107,9 +111,13 @@ private fun SubmitButton(onSubmitClicked: () -> Unit, enabled: Boolean) {
 
 @Composable
 private fun TaskDateInput(
+    value: LocalDate,
+    onValueChanged: (LocalDate) -> Unit,
     enabled: Boolean
 ) {
     OPBDatePicker(
+        value = value,
+        onValueChanged = onValueChanged,
         modifier = Modifier.fillMaxWidth()
     )
 }
