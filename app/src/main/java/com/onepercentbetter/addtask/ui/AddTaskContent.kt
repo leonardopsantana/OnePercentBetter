@@ -1,7 +1,6 @@
 package com.onepercentbetter.addtask.ui
 
 import android.content.res.Configuration
-import android.inputmethodservice.Keyboard
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column

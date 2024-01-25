@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -31,8 +30,8 @@ class TaskListViewModel @Inject constructor(
             }.launchIn(viewModelScope)
     }
 
-    private fun getViewStateForTaskListResult(result: Result<List<Task>>): TaskListViewState{
-        return when (result){
+    private fun getViewStateForTaskListResult(result: Result<List<Task>>): TaskListViewState {
+        return when (result) {
             is Result.Success -> {
                 TaskListViewState.Loaded(
                     tasks = result.data

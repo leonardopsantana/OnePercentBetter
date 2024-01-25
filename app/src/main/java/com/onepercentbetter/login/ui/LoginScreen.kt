@@ -3,7 +3,6 @@ package com.onepercentbetter.login.ui
 import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
@@ -28,7 +27,6 @@ fun LoginScreen(
 ) {
     val viewState = viewModel.viewState.collectAsState()
     val coroutineScope = rememberCoroutineScope()
-
 
     DisposableEffect(viewState.value) {
         coroutineScope.launch {
