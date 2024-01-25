@@ -107,7 +107,7 @@ private fun AddTaskInputsColumn(
 private fun SubmitButton(onSubmitClicked: () -> Unit, enabled: Boolean) {
     PrimaryButton(
         text = "Submit",
-        onClick = { onSubmitClicked },
+        onClick = { onSubmitClicked.invoke() },
         enabled = enabled
     )
 }

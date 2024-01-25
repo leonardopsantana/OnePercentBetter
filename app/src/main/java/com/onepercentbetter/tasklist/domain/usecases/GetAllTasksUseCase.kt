@@ -2,10 +2,11 @@ package com.onepercentbetter.tasklist.domain.usecases
 
 import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.tasklist.domain.model.Task
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Fetches all tasks that the user has created.
  */
 interface GetAllTasksUseCase {
-    suspend operator fun invoke(): Result<List<Task>>
+    operator fun invoke(): Flow<Result<List<Task>>>
 }

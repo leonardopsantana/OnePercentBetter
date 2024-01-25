@@ -4,10 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.core.ui.components.UIText
+import com.onepercentbetter.tasklist.domain.model.Task
 import com.onepercentbetter.tasklist.domain.usecases.GetAllTasksUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,26 +19,29 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class TaskListViewModel @Inject constructor(
-    private val getAllTasksUseCase: GetAllTasksUseCase
+    getAllTasksUseCase: GetAllTasksUseCase
 ) : ViewModel() {
     private val _viewState: MutableStateFlow<TaskListViewState> = MutableStateFlow(TaskListViewState.Loading)
     val viewState: StateFlow<TaskListViewState> = _viewState
 
     init {
-        viewModelScope.launch {
-            val getTasksResult = getAllTasksUseCase()
+        getAllTasksUseCase()
+            .onEach { result ->
+                _viewState.value = getViewStateForTaskListResult(result)
+            }.launchIn(viewModelScope)
+    }
 
-            _viewState.value = when (getTasksResult) {
-                is Result.Error -> {
-                    TaskListViewState.Error(
-                        errorMessage = UIText.StringText("Something went wrong! ;(")
-                    )
-                }
-                is Result.Success -> {
-                    TaskListViewState.Loaded(
-                        tasks = getTasksResult.data
-                    )
-                }
+    private fun getViewStateForTaskListResult(result: Result<List<Task>>): TaskListViewState{
+        return when (result){
+            is Result.Success -> {
+                TaskListViewState.Loaded(
+                    tasks = result.data
+                )
+            }
+            is Result.Error -> {
+                TaskListViewState.Error(
+                    errorMessage = UIText.StringText("Something went wrong! ;(")
+                )
             }
         }
     }
