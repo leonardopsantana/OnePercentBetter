@@ -5,6 +5,7 @@ import com.onepercentbetter.tasklist.domain.model.Task
 import com.onepercentbetter.tasklist.domain.usecases.GetAllTasksUseCase
 import io.mockk.coEvery
 import io.mockk.mockk
+import kotlinx.coroutines.flow.flowOf
 
 class FakeGetAllTasksUseCase {
 
@@ -15,6 +16,6 @@ class FakeGetAllTasksUseCase {
     ) {
         coEvery {
             mock.invoke()
-        } returns response
+        } returns flowOf(response)
     }
 }
