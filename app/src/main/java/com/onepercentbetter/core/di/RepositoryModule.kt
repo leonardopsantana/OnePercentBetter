@@ -1,5 +1,6 @@
 package com.onepercentbetter.core.di
 
+import com.onepercentbetter.core.data.local.RoomTaskListRepository
 import com.onepercentbetter.login.domain.repository.DemoLoginRepositoryImpl
 import com.onepercentbetter.login.domain.repository.DemoTokenRepositoryImpl
 import com.onepercentbetter.login.domain.repository.LoginRepository
@@ -33,6 +34,6 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindTaskListRepository(
-        taskListRepository: DemoTaskListRepository
+        taskListRepository: RoomTaskListRepository
     ): TaskListRepository
 }
