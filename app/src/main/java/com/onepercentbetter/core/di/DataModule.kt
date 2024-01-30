@@ -22,9 +22,7 @@ object DataModule {
             applicationContext,
             OPBDatabase::class.java,
             "opb-database.db"
-        )
-            .fallbackToDestructiveMigration()
-            .build()
+        ).build()
     }
 
     @Provides
