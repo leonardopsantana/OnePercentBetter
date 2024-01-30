@@ -94,4 +94,7 @@ multiple ViewModel dependencies.
   CALENDAR PICKER:  
     External library: https://github.com/PranavMaganti/compose-material-dialogs
 
+  PERSISTABLE DATA:
+    Room database
+
     
