@@ -12,6 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.onepercentbetter.R
 import com.onepercentbetter.core.ui.theme.OPBTheme
 import com.onepercentbetter.tasklist.domain.model.Task
+import java.time.LocalDate
 
 @Composable
 fun TaskList(
@@ -47,7 +48,9 @@ fun TaskList(
 private fun TaskListPreview() {
     val tasks = (1..10).map { index ->
         Task(
-            description = "Test task: $index"
+            id = "$index",
+            description = "Test task: $index",
+            scheduledDate = LocalDate.now()
         )
     }
 

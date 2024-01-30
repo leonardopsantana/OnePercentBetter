@@ -5,7 +5,6 @@ import com.onepercentbetter.login.domain.repository.DemoLoginRepositoryImpl
 import com.onepercentbetter.login.domain.repository.DemoTokenRepositoryImpl
 import com.onepercentbetter.login.domain.repository.LoginRepository
 import com.onepercentbetter.login.domain.repository.TokenRepository
-import com.onepercentbetter.tasklist.domain.repository.DemoTaskListRepository
 import com.onepercentbetter.tasklist.domain.repository.TaskListRepository
 import dagger.Binds
 import dagger.Module

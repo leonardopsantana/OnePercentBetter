@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import com.onepercentbetter.R
 import com.onepercentbetter.core.ui.theme.OPBTheme
 import com.onepercentbetter.tasklist.domain.model.Task
+import java.time.LocalDate
 
 @Composable
 fun TaskListContent(
@@ -174,7 +175,9 @@ private fun AddTaskButton(onAddButtonClicked: () -> Unit) {
 private fun TaskListContentPreview() {
     val tasks = (1..10).map { index ->
         Task(
-            description = "Test task: $index"
+            id = "$index",
+            description = "Test task: $index",
+            scheduledDate = LocalDate.now()
         )
     }
 

@@ -7,5 +7,6 @@ import androidx.room.PrimaryKey
 data class PersistableTask(
     @PrimaryKey
     val id: String,
-    val description: String
+    val description: String,
+    val scheduledDate: String
 )

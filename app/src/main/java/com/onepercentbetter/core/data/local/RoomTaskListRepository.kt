@@ -5,7 +5,8 @@ import com.onepercentbetter.tasklist.domain.model.Task
 import com.onepercentbetter.tasklist.domain.repository.TaskListRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import java.util.UUID
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 class RoomTaskListRepository @Inject constructor(
@@ -38,15 +39,21 @@ private fun List<PersistableTask>.toDomainTaskList(): List<Task> {
     return this.map(PersistableTask::toTask)
 }
 
+private const val PERSISTED_DATE_FORMAT = "dd-MM-yyyy"
+private val persistedDateFormatter = DateTimeFormatter.ofPattern(PERSISTED_DATE_FORMAT)
+
 private fun PersistableTask.toTask(): Task {
     return Task(
-        description = this.description
+        id = this.id,
+        description = this.description,
+        scheduledDate = LocalDate.parse(this.scheduledDate, persistedDateFormatter)
     )
 }
 
 private fun Task.toPersistableTask(): PersistableTask {
     return PersistableTask(
-        id = UUID.randomUUID().toString(),
-        description = this.description
+        id = this.id,
+        description = this.description,
+        scheduledDate = persistedDateFormatter.format(this.scheduledDate)
     )
 }
