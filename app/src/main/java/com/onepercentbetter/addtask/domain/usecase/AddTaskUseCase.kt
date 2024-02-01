@@ -1,5 +1,6 @@
 package com.onepercentbetter.addtask.domain.usecase
 
+import com.onepercentbetter.addtask.domain.model.AddTaskResult
 import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.tasklist.domain.model.Task
 
@@ -8,5 +9,5 @@ import com.onepercentbetter.tasklist.domain.model.Task
  */
 interface AddTaskUseCase {
 
-    suspend operator fun invoke(task: Task): Result<Unit>
+    suspend operator fun invoke(task: Task): AddTaskResult
 }

@@ -2,6 +2,7 @@ package com.onepercentbetter.addtask.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.onepercentbetter.addtask.domain.model.AddTaskResult
 import com.onepercentbetter.addtask.domain.usecase.AddTaskUseCase
 import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.core.ui.components.UIText
@@ -52,17 +53,17 @@ class AddTaskViewModel @Inject constructor(
         )
 
         viewModelScope.launch {
-            val result = addTaskUseCase(taskToCreate)
+            val result = addTaskUseCase.invoke(taskToCreate)
 
             _viewState.value = when (result) {
-                is Result.Success -> {
+                is AddTaskResult.Success -> {
                     AddTaskViewState.Completed
                 }
 
-                is Result.Error -> {
+                is AddTaskResult.Failure -> {
                     AddTaskViewState.SubmissionError(
                         taskInput = _viewState.value.taskInput,
-                        errorMessage = UIText.StringText("Unable to add Text")
+                        errorMessage = UIText.StringText("Unable to add task")
                     )
                 }
             }
