@@ -2,9 +2,10 @@ package com.onepercentbetter.addtask.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.onepercentbetter.R
 import com.onepercentbetter.addtask.domain.model.AddTaskResult
+import com.onepercentbetter.addtask.domain.model.TaskInput
 import com.onepercentbetter.addtask.domain.usecase.AddTaskUseCase
-import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.core.ui.components.UIText
 import com.onepercentbetter.tasklist.domain.model.Task
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -60,7 +61,13 @@ class AddTaskViewModel @Inject constructor(
                     AddTaskViewState.Completed
                 }
 
-                is AddTaskResult.Failure -> {
+                is AddTaskResult.Failure.InvalidInput -> {
+                    result.toViewState(
+                        taskInput = _viewState.value.taskInput
+                    )
+                }
+
+                is AddTaskResult.Failure.Unknown -> {
                     AddTaskViewState.SubmissionError(
                         taskInput = _viewState.value.taskInput,
                         errorMessage = UIText.StringText("Unable to add task")
@@ -69,4 +76,20 @@ class AddTaskViewModel @Inject constructor(
             }
         }
     }
+}
+
+private fun AddTaskResult.Failure.InvalidInput.toViewState(
+    taskInput: TaskInput,
+): AddTaskViewState {
+    return AddTaskViewState.Active(
+        taskInput = taskInput,
+        descriptionInputErrorMessage = UIText.ResourceText(R.string.err_empty_task_description)
+            .takeIf {
+                this.emptyDescription
+            },
+        scheduledDateInputErrorMessage = UIText.ResourceText(R.string.err_scheduled_date_in_past)
+            .takeIf {
+                this.scheduledDateInPast
+            }
+    )
 }

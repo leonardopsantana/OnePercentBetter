@@ -7,6 +7,7 @@ import com.onepercentbetter.tasklist.domain.model.Task
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
+import java.time.LocalDate
 
 class TaskListViewModelTest {
 
@@ -18,7 +19,9 @@ class TaskListViewModelTest {
     @Test
     fun successfulLoad() = runTest {
         val task = Task(
-            description = "Test task"
+            id = "TEST ID",
+            description = "Test task",
+            scheduledDate = LocalDate.now()
         )
 
         val tasksResult = Result.Success(
