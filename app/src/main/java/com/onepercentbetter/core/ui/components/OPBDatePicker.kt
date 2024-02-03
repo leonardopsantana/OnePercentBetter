@@ -38,7 +38,6 @@ import java.time.format.DateTimeFormatter
 /**
  * A custom composable that when clicked, launches a date picker.
  */
-@Suppress("LongMethod")
 @Composable
 fun OPBDatePicker(
     value: LocalDate,
@@ -81,21 +80,12 @@ fun OPBDatePicker(
                     dialogState.show()
                 }
         ) {
-            Row(
-                modifier = Modifier.padding(16.dp)
-            ) {
-                Text(
-                    text = value.toUIString(),
-                    color = textColor,
-                    modifier = Modifier.weight(1F)
-                )
-
-                Icon(
-                    Icons.Default.DateRange,
-                    contentDescription = stringResource(R.string.select_date_content_description),
-                    tint = if (hasError) MaterialTheme.colorScheme.error else iconColor
-                )
-            }
+            DateAndIcon(
+                value = value,
+                textColor = textColor,
+                hasError = hasError,
+                iconColor = iconColor
+            )
         }
 
         if (errorMessage != null) {
@@ -109,6 +99,30 @@ fun OPBDatePicker(
                     )
             )
         }
+    }
+}
+
+@Composable
+private fun DateAndIcon(
+    value: LocalDate,
+    textColor: Color,
+    hasError: Boolean,
+    iconColor: Color
+) {
+    Row(
+        modifier = Modifier.padding(16.dp)
+    ) {
+        Text(
+            text = value.toUIString(),
+            color = textColor,
+            modifier = Modifier.weight(1F)
+        )
+
+        Icon(
+            Icons.Default.DateRange,
+            contentDescription = stringResource(R.string.select_date_content_description),
+            tint = if (hasError) MaterialTheme.colorScheme.error else iconColor
+        )
     }
 }
 
