@@ -4,6 +4,7 @@ import android.content.res.Configuration
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -21,8 +22,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.onepercentbetter.R
 import com.onepercentbetter.core.ui.theme.ButtonShape
 import com.onepercentbetter.core.ui.theme.OPBTheme
 import com.vanpra.composematerialdialogs.MaterialDialog
@@ -35,6 +38,7 @@ import java.time.format.DateTimeFormatter
 /**
  * A custom composable that when clicked, launches a date picker.
  */
+@Suppress("LongMethod")
 @Composable
 fun OPBDatePicker(
     value: LocalDate,
@@ -42,7 +46,8 @@ fun OPBDatePicker(
     modifier: Modifier = Modifier,
     borderColor: Color = MaterialTheme.colorScheme.onSurface.copy(ContentAlpha.disabled),
     textColor: Color = MaterialTheme.colorScheme.onBackground,
-    iconColor: Color = MaterialTheme.colorScheme.onSurface.copy(TextFieldDefaults.IconOpacity)
+    iconColor: Color = MaterialTheme.colorScheme.onSurface.copy(TextFieldDefaults.IconOpacity),
+    errorMessage: String? = null
 ) {
     val dialogState = rememberMaterialDialogState()
 
@@ -61,31 +66,47 @@ fun OPBDatePicker(
         )
     }
 
-    Box(
-        modifier = modifier
-            .border(
-                width = 1.dp,
-                color = borderColor,
-                shape = ButtonShape
-            )
-            .clip(ButtonShape)
-            .clickable {
-                dialogState.show()
-            }
-    ) {
-        Row(
-            modifier = Modifier.padding(16.dp)
-        ) {
-            Text(
-                text = value.toUIString(),
-                color = textColor,
-                modifier = Modifier.weight(1F)
-            )
+    val hasError = errorMessage != null
 
-            Icon(
-                Icons.Default.DateRange,
-                contentDescription = "Select date",
-                tint = iconColor
+    Column(modifier) {
+        Box(
+            modifier = Modifier
+                .border(
+                    width = 1.dp,
+                    color = if (hasError) MaterialTheme.colorScheme.onSurface else borderColor,
+                    shape = ButtonShape
+                )
+                .clip(ButtonShape)
+                .clickable {
+                    dialogState.show()
+                }
+        ) {
+            Row(
+                modifier = Modifier.padding(16.dp)
+            ) {
+                Text(
+                    text = value.toUIString(),
+                    color = textColor,
+                    modifier = Modifier.weight(1F)
+                )
+
+                Icon(
+                    Icons.Default.DateRange,
+                    contentDescription = stringResource(R.string.select_date_content_description),
+                    tint = if (hasError) MaterialTheme.colorScheme.error else iconColor
+                )
+            }
+        }
+
+        if (errorMessage != null) {
+            Text(
+                text = errorMessage,
+                color = MaterialTheme.colorScheme.error,
+                modifier = Modifier
+                    .padding(
+                        top = 4.dp,
+                        start = 16.dp
+                    )
             )
         }
     }
@@ -136,6 +157,30 @@ private fun OPBDatePickerPreview() {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
+            )
+        }
+    }
+}
+
+@Preview(
+    name = "Night mode",
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+)
+@Preview(
+    name = "Day mode",
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+)
+@Composable
+private fun OPBDatePickerWithErrorPreview() {
+    OPBTheme {
+        Surface {
+            OPBDatePicker(
+                value = LocalDate.now(),
+                onValueChanged = {},
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                errorMessage = "Scheduled date cannot be in the past."
             )
         }
     }

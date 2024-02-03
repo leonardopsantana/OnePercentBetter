@@ -1,15 +1,15 @@
 package com.onepercentbetter.addtask.ui
 
 import com.onepercentbetter.CoroutinesTestRule
+import com.onepercentbetter.R
 import com.onepercentbetter.addtask.domain.model.AddTaskResult
 import com.onepercentbetter.addtask.domain.model.TaskInput
 import com.onepercentbetter.core.ui.components.UIText
 import com.onepercentbetter.tasklist.domain.model.Task
+import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
 import java.time.LocalDate
-import com.onepercentbetter.R
-import kotlinx.coroutines.test.runTest
 
 class AddTaskViewModelTest {
     private val testRobot = AddTaskViewModelRobot()

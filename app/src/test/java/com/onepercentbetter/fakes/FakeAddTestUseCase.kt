@@ -17,5 +17,4 @@ class FakeAddTestUseCase {
             mock.invoke(any())
         } returns result
     }
-
 }

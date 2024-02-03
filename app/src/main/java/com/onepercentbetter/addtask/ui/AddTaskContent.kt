@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -79,13 +80,19 @@ private fun AddTaskInputsColumn(
         TaskDescriptionInput(
             text = viewState.taskInput.description,
             onTextChanged = onTaskDescriptionChanged,
-            enabled = viewState.inputsEnabled
+            enabled = viewState.inputsEnabled,
+            errorMessage = (viewState as? AddTaskViewState.Active)
+                ?.descriptionInputErrorMessage
+                ?.getString()
         )
         TaskDateLabel()
         TaskDateInput(
             value = viewState.taskInput.scheduledDate,
             onValueChanged = onTaskScheduleDateChanged,
-            enabled = viewState.inputsEnabled
+            enabled = viewState.inputsEnabled,
+            errorMessage = (viewState as? AddTaskViewState.Active)
+                ?.scheduledDateInputErrorMessage
+                ?.getString()
         )
         if (viewState is AddTaskViewState.SubmissionError) {
             Text(
@@ -105,7 +112,7 @@ private fun AddTaskInputsColumn(
 @Composable
 private fun SubmitButton(onSubmitClicked: () -> Unit, enabled: Boolean) {
     PrimaryButton(
-        text = "Submit",
+        text = stringResource(R.string.submit),
         onClick = { onSubmitClicked.invoke() },
         enabled = enabled
     )
@@ -115,12 +122,14 @@ private fun SubmitButton(onSubmitClicked: () -> Unit, enabled: Boolean) {
 private fun TaskDateInput(
     value: LocalDate,
     onValueChanged: (LocalDate) -> Unit,
-    enabled: Boolean
+    enabled: Boolean,
+    errorMessage: String?
 ) {
     OPBDatePicker(
         value = value,
         onValueChanged = onValueChanged,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
+        errorMessage = errorMessage
     )
 }
 
@@ -137,7 +146,8 @@ private fun TaskDateLabel() {
 private fun TaskDescriptionInput(
     text: String,
     onTextChanged: (String) -> Unit,
-    enabled: Boolean
+    enabled: Boolean,
+    errorMessage: String?
 ) {
     OPBTextField(
         text = text,
@@ -147,7 +157,8 @@ private fun TaskDescriptionInput(
         keyboardOptions = KeyboardOptions.Default.copy(
             capitalization = KeyboardCapitalization.Sentences
         ),
-        placeholderText = "Clean my office space"
+        placeholderText = stringResource(R.string.task_input_placeholder),
+        errorMessage = errorMessage
     )
 }
 

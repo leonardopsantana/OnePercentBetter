@@ -17,7 +17,7 @@ class ProdAddTaskUseCaseTest {
     )
 
     @Test
-    fun submitWithEmptyDescription()= runTest {
+    fun submitWithEmptyDescription() = runTest {
         val taskToSubmit = Task(
             id = "Testing",
             description = "",
@@ -35,7 +35,7 @@ class ProdAddTaskUseCaseTest {
     }
 
     @Test
-    fun submitWithEmptyDate()= runTest {
+    fun submitWithEmptyDate() = runTest {
         val taskToSubmit = Task(
             id = "Testing",
             description = "Task test",
@@ -51,5 +51,4 @@ class ProdAddTaskUseCaseTest {
 
         assertThat(actualResult).isEqualTo(expectedResult)
     }
-
 }
