@@ -80,7 +80,7 @@ class TaskListViewModelTest {
                         showLoading = true
                     ),
                     TaskListViewState(
-                        selectedDate =  LocalDate.now().minusDays(1),
+                        selectedDate = LocalDate.now().minusDays(1),
                         tasks = null,
                         showLoading = true
                     ),
@@ -127,7 +127,7 @@ class TaskListViewModelTest {
                         showLoading = true
                     ),
                     TaskListViewState(
-                        selectedDate =  LocalDate.now().plusDays(1),
+                        selectedDate = LocalDate.now().plusDays(1),
                         tasks = null,
                         showLoading = true
                     ),

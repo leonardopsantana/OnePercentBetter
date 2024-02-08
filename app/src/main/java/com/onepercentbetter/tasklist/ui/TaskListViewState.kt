@@ -15,14 +15,17 @@ data class TaskListViewState(
 
     val selectedDateString: UIText
         get() {
-            val isToday = (selectedDate == LocalDate.now())
-            val isTomorrow = (selectedDate == LocalDate.now().plusDays(1))
+            val today = LocalDate.now()
+            val isYesterday = (selectedDate == today.minusDays(1))
+            val isToday = (selectedDate == today)
+            val isTomorrow = (selectedDate == today.plusDays(1))
 
             return when {
+                isYesterday -> UIText.ResourceText(R.string.yesterday)
                 isToday -> UIText.ResourceText(R.string.today)
                 isTomorrow -> UIText.ResourceText(R.string.tomorrow)
                 else -> {
-                    val uiDateFormat = "dd MMMM, yyyy"
+                    val uiDateFormat = "dd MMMM"
 
                     val uiString = DateTimeFormatter.ofPattern(uiDateFormat).format(selectedDate)
 
@@ -30,5 +33,4 @@ data class TaskListViewState(
                 }
             }
         }
-
 }

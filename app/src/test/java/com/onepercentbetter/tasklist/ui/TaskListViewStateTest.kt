@@ -1,14 +1,25 @@
 package com.onepercentbetter.tasklist.ui
 
 import com.google.common.truth.Truth.assertThat
+import com.onepercentbetter.R
 import com.onepercentbetter.core.ui.components.UIText
 import org.junit.Test
 import java.time.LocalDate
-import com.onepercentbetter.R
 import java.time.format.DateTimeFormatter
 
-
 class TaskListViewStateTest {
+
+    @Test
+    fun parseDateStringForYesterday() {
+        val yesterday = LocalDate.now().minusDays(1)
+
+        val viewState = TaskListViewState(
+            selectedDate = yesterday
+        )
+
+        val expectedString = UIText.ResourceText(R.string.yesterday)
+        assertThat(viewState.selectedDateString).isEqualTo(expectedString)
+    }
 
     @Test
     fun parseDateStringForToday() {
@@ -42,7 +53,7 @@ class TaskListViewStateTest {
             selectedDate = twoDaysFromNow
         )
 
-        val expectedDateFormat = "dd MMMM, yyyy"
+        val expectedDateFormat = "dd MMMM"
         val expectedDateString = DateTimeFormatter.ofPattern(expectedDateFormat).format(twoDaysFromNow)
         val expectedString = UIText.StringText(expectedDateString)
 

@@ -14,7 +14,7 @@ class AddTaskContentTest {
     val composeTestRule = createComposeRule()
 
     @Test
-    fun renderInvalidInputMessages(){
+    fun renderInvalidInputMessages() {
         val descriptionError = "Description error"
         val scheduledDateError = "Scheduled date error"
 
@@ -24,7 +24,7 @@ class AddTaskContentTest {
             scheduledDateInputErrorMessage = UIText.StringText(scheduledDateError)
         )
 
-        composeTestRule.setContent { 
+        composeTestRule.setContent {
             AddTaskContent(
                 viewState = viewState,
                 onTaskDescriptionChanged = {},
