@@ -47,6 +47,100 @@ class TaskListViewModelTest {
     }
 
     @Test
+    fun clickPreviousDate() = runTest {
+        val task = Task(
+            id = "TEST ID",
+            description = "Test task",
+            scheduledDate = LocalDate.now()
+        )
+
+        val taskList = listOf(task)
+
+        val tasksResult = Result.Success(
+            taskList
+        )
+
+        testRobot
+            .mockTasksForDateResult(
+                date = LocalDate.now(),
+                result = Result.Success(emptyList())
+            )
+            .mockTasksForDateResult(
+                date = LocalDate.now().minusDays(1),
+                result = tasksResult
+            )
+            .buildViewModel()
+            .expectedViewStates(
+                action = {
+                    clickPreviousDateButton()
+                },
+                viewStates = listOf(
+                    TaskListViewState(
+                        tasks = null,
+                        showLoading = true
+                    ),
+                    TaskListViewState(
+                        selectedDate =  LocalDate.now().minusDays(1),
+                        tasks = null,
+                        showLoading = true
+                    ),
+                    TaskListViewState(
+                        selectedDate = LocalDate.now().minusDays(1),
+                        tasks = taskList,
+                        showLoading = false
+                    )
+                )
+            )
+    }
+
+    @Test
+    fun clickNextDate() = runTest {
+        val task = Task(
+            id = "TEST ID",
+            description = "Test task",
+            scheduledDate = LocalDate.now()
+        )
+
+        val taskList = listOf(task)
+
+        val tasksResult = Result.Success(
+            taskList
+        )
+
+        testRobot
+            .mockTasksForDateResult(
+                date = LocalDate.now(),
+                result = Result.Success(emptyList())
+            )
+            .mockTasksForDateResult(
+                date = LocalDate.now().plusDays(1),
+                result = tasksResult
+            )
+            .buildViewModel()
+            .expectedViewStates(
+                action = {
+                    clickNextDateButton()
+                },
+                viewStates = listOf(
+                    TaskListViewState(
+                        tasks = null,
+                        showLoading = true
+                    ),
+                    TaskListViewState(
+                        selectedDate =  LocalDate.now().plusDays(1),
+                        tasks = null,
+                        showLoading = true
+                    ),
+                    TaskListViewState(
+                        selectedDate = LocalDate.now().plusDays(1),
+                        tasks = taskList,
+                        showLoading = false
+                    )
+                )
+            )
+    }
+
+    @Test
     fun failureLoad() = runTest {
         val tasksResult: Result<List<Task>> = Result.Error(Throwable("Whoops"))
 

@@ -55,4 +55,12 @@ class TaskListViewModelRobot {
             this.cancel()
         }
     }
+
+    fun clickPreviousDateButton() = apply {
+        viewModel.onPreviousDateButtonClicked()
+    }
+
+    fun clickNextDateButton() = apply {
+        viewModel.onNextDateButtonClicked()
+    }
 }

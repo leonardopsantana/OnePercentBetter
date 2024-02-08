@@ -11,7 +11,7 @@ ext {
             // https://github.com/google/accompanist/releases
             accompanist          : "0.28.0",
             // https://developer.android.com/jetpack/androidx/releases/compose-material3
-            composeMaterial3     : "1.1.2",
+            composeMaterial3     : "1.2.0-alpha10",
             // https://github.com/junit-team/junit4/releases
             junit                : "4.13.2",
             // https://github.com/mockk/mockk/releases

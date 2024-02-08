@@ -16,6 +16,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -34,65 +35,53 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.onepercentbetter.R
+import com.onepercentbetter.core.ui.components.getString
 import com.onepercentbetter.core.ui.theme.OPBTheme
 import com.onepercentbetter.tasklist.domain.model.Task
 import java.time.LocalDate
 
+//@OptInExperimentalMaterial3Api
 @Composable
 fun TaskListContent(
     viewState: TaskListViewState,
     onRescheduleClicked: (Task) -> Unit,
     onDoneClicked: (Task) -> Unit,
-    onAddButtonClicked: () -> Unit
-) {
-    Box(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        LoadedTasksContent(
-            viewState.tasks,
-            onAddButtonClicked,
-            onRescheduleClicked,
-            onDoneClicked
-        )
-
-        if (viewState.showLoading) {
-            CircularProgressIndicator(
-                modifier = Modifier
-                    .wrapContentSize()
-                    .align(Alignment.Center)
-            )
-        }
-    }
-}
-
-@Composable
-private fun LoadedTasksContent(
-    tasks: List<Task>?,
     onAddButtonClicked: () -> Unit,
-    onRescheduleClicked: (Task) -> Unit,
-    onDoneClicked: (Task) -> Unit
+    onPreviousDateButtonClicked: () -> Unit,
+    onNextDateButtonClicked: () -> Unit,
 ) {
-    if (tasks == null) {
-        return
-    }
     Scaffold(
         floatingActionButton = {
             AddTaskButton(onAddButtonClicked)
         },
         topBar = {
             TaskListToolbar(
-                onLeftButtonClicked = {},
-                onRightButtonClicked = {},
-                title = ""
+                onLeftButtonClicked = onPreviousDateButtonClicked,
+                onRightButtonClicked = onNextDateButtonClicked,
+                title = viewState.selectedDateString.getString()
             )
         },
     ) { paddingValues ->
-        TaskList(
-            tasks = tasks,
-            onRescheduleClicked = onRescheduleClicked,
-            onDoneClicked = onDoneClicked,
-            modifier = Modifier.padding(paddingValues)
-        )
+        if (viewState.tasks != null) {
+            TaskList(
+                tasks = viewState.tasks,
+                onRescheduleClicked = onRescheduleClicked,
+                onDoneClicked = onDoneClicked,
+                modifier = Modifier.padding(paddingValues)
+            )
+        }
+
+        if (viewState.showLoading) {
+            Box(
+                modifier = Modifier.fillMaxSize()
+            ) {
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .wrapContentSize()
+                        .align(Alignment.Center)
+                )
+            }
+        }
     }
 }
 
@@ -121,7 +110,7 @@ private fun TaskListToolbar(
             )
 
             Text(
-                text = "Today",
+                text = title,
                 modifier = Modifier.weight(1F),
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.headlineMedium,
@@ -192,6 +181,6 @@ private fun TaskListContentPreview() {
     )
 
     OPBTheme {
-        TaskListContent(viewState, {}, {}, {})
+        TaskListContent(viewState, {}, {}, {}, {}, {})
     }
 }

@@ -131,7 +131,6 @@ private fun LocalDate.toUIString(): String {
     return formatter.format(this)
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun md3DatePickerColors(
     headerBackgroundColor: Color = MaterialTheme.colorScheme.primary,
