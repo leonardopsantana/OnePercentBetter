@@ -6,7 +6,7 @@ import com.onepercentbetter.tasklist.domain.repository.TaskListRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class ProdGetAllAllTasksUseCase @Inject constructor(
+class ProdGetAllTasksUseCase @Inject constructor(
     private val taskListRepository: TaskListRepository
 ) : GetAllTasksUseCase {
     override fun invoke(): Flow<Result<List<Task>>> {

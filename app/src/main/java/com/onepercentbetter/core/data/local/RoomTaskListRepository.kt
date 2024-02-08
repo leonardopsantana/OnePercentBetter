@@ -3,6 +3,7 @@ package com.onepercentbetter.core.data.local
 import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.tasklist.domain.model.Task
 import com.onepercentbetter.tasklist.domain.repository.TaskListRepository
+import com.onepercentbetter.tasklist.domain.repository.TaskListResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.time.LocalDate
@@ -15,6 +16,14 @@ class RoomTaskListRepository @Inject constructor(
     override fun fetchAllTasks(): Flow<Result<List<Task>>> {
         return taskDAO
             .fetchAllTasks()
+            .map { taskList ->
+                Result.Success(taskList.toDomainTaskList())
+            }
+    }
+
+    override fun fetchTasksForDate(date: LocalDate): Flow<TaskListResult> {
+        return taskDAO
+            .fetchTasksForDate(date.toPersistableDateString())
             .map { taskList ->
                 Result.Success(taskList.toDomainTaskList())
             }
@@ -42,11 +51,19 @@ private fun List<PersistableTask>.toDomainTaskList(): List<Task> {
 private const val PERSISTED_DATE_FORMAT = "dd-MM-yyyy"
 private val persistedDateFormatter = DateTimeFormatter.ofPattern(PERSISTED_DATE_FORMAT)
 
+private fun LocalDate.toPersistableDateString(): String {
+    return persistedDateFormatter.format(this)
+}
+
+private fun String.parsePersistableDateString(): LocalDate {
+    return LocalDate.parse(this, persistedDateFormatter)
+}
+
 private fun PersistableTask.toTask(): Task {
     return Task(
         id = this.id,
         description = this.description,
-        scheduledDate = LocalDate.parse(this.scheduledDate, persistedDateFormatter)
+        scheduledDate = this.scheduledDate.parsePersistableDateString()
     )
 }
 

@@ -1,16 +1,34 @@
 package com.onepercentbetter.tasklist.ui
 
+import com.onepercentbetter.R
 import com.onepercentbetter.core.ui.components.UIText
 import com.onepercentbetter.tasklist.domain.model.Task
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
-sealed class TaskListViewState {
-    object Loading : TaskListViewState()
+data class TaskListViewState(
+    val showLoading: Boolean = true,
+    val tasks: List<Task>? = null,
+    val errorMessage: UIText? = null,
+    val selectedDate: LocalDate = LocalDate.now()
+) {
 
-    data class Loaded(
-        val tasks: List<Task>
-    ) : TaskListViewState()
+    val selectedDateString: UIText
+        get() {
+            val isToday = (selectedDate == LocalDate.now())
+            val isTomorrow = (selectedDate == LocalDate.now().plusDays(1))
 
-    data class Error(
-        val errorMessage: UIText
-    ) : TaskListViewState()
+            return when {
+                isToday -> UIText.ResourceText(R.string.today)
+                isTomorrow -> UIText.ResourceText(R.string.tomorrow)
+                else -> {
+                    val uiDateFormat = "dd MMMM, yyyy"
+
+                    val uiString = DateTimeFormatter.ofPattern(uiDateFormat).format(selectedDate)
+
+                    UIText.StringText(uiString)
+                }
+            }
+        }
+
 }

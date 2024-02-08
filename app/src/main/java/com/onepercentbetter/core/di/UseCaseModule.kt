@@ -5,7 +5,9 @@ import com.onepercentbetter.addtask.domain.usecase.ProdAddTaskUseCase
 import com.onepercentbetter.login.domain.usecase.CredentialsLoginUseCase
 import com.onepercentbetter.login.domain.usecase.ProdCredentialsLoginUseCase
 import com.onepercentbetter.tasklist.domain.usecases.GetAllTasksUseCase
-import com.onepercentbetter.tasklist.domain.usecases.ProdGetAllAllTasksUseCase
+import com.onepercentbetter.tasklist.domain.usecases.GetTasksForDateUseCase
+import com.onepercentbetter.tasklist.domain.usecases.ProdGetAllTasksForDateUseCase
+import com.onepercentbetter.tasklist.domain.usecases.ProdGetAllTasksUseCase
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -28,11 +30,16 @@ abstract class UseCaseModule {
 
     @Binds
     abstract fun bindsGetAllTasksUseCase(
-        getAllTasksUseCase: ProdGetAllAllTasksUseCase
+        getAllTasksUseCase: ProdGetAllTasksUseCase
     ): GetAllTasksUseCase
 
     @Binds
     abstract fun bindAddTaskUseCase(
         addTaskUseCase: ProdAddTaskUseCase
     ): AddTaskUseCase
+
+    @Binds
+    abstract fun bindGetTasksForDateUseCase(
+        getTasksForDateUseCase: ProdGetAllTasksForDateUseCase
+    ): GetTasksForDateUseCase
 }

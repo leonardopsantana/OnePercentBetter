@@ -29,13 +29,19 @@ class TaskListViewModelTest {
         )
 
         testRobot
-            .mockAllTasksResult(tasksResult)
+            .mockTasksForDateResult(LocalDate.now(), tasksResult)
             .buildViewModel()
             .expectedViewStates(
                 action = {},
-                viewStates = listOf<TaskListViewState>(
-                    TaskListViewState.Loading,
-                    TaskListViewState.Loaded(listOf(task))
+                viewStates = listOf(
+                    TaskListViewState(
+                        tasks = null,
+                        showLoading = true
+                    ),
+                    TaskListViewState(
+                        tasks = listOf(task),
+                        showLoading = false
+                    )
                 )
             )
     }
@@ -45,13 +51,16 @@ class TaskListViewModelTest {
         val tasksResult: Result<List<Task>> = Result.Error(Throwable("Whoops"))
 
         testRobot
-            .mockAllTasksResult(tasksResult)
+            .mockTasksForDateResult(LocalDate.now(), tasksResult)
             .buildViewModel()
             .expectedViewStates(
                 action = {},
                 viewStates = listOf<TaskListViewState>(
-                    TaskListViewState.Loading,
-                    TaskListViewState.Error(
+                    TaskListViewState(
+                        tasks = null,
+                        showLoading = true
+                    ),
+                    TaskListViewState(
                         errorMessage = UIText.StringText("Something went wrong! ;(")
                     )
                 )

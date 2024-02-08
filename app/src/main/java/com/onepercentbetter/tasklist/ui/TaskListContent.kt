@@ -48,48 +48,47 @@ fun TaskListContent(
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
-        when (viewState) {
-            is TaskListViewState.Error -> {
-                // coming soon
-            }
+        LoadedTasksContent(
+            viewState.tasks,
+            onAddButtonClicked,
+            onRescheduleClicked,
+            onDoneClicked
+        )
 
-            is TaskListViewState.Loaded -> {
-                LoadedTasksContent(
-                    viewState,
-                    onAddButtonClicked,
-                    onRescheduleClicked,
-                    onDoneClicked
-                )
-            }
-
-            TaskListViewState.Loading -> {
-                CircularProgressIndicator(
-                    modifier = Modifier
-                        .wrapContentSize()
-                        .align(Alignment.Center)
-                )
-            }
+        if (viewState.showLoading) {
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .wrapContentSize()
+                    .align(Alignment.Center)
+            )
         }
     }
 }
 
 @Composable
 private fun LoadedTasksContent(
-    viewState: TaskListViewState.Loaded,
+    tasks: List<Task>?,
     onAddButtonClicked: () -> Unit,
     onRescheduleClicked: (Task) -> Unit,
     onDoneClicked: (Task) -> Unit
 ) {
+    if (tasks == null) {
+        return
+    }
     Scaffold(
         floatingActionButton = {
             AddTaskButton(onAddButtonClicked)
         },
         topBar = {
-            TaskListToolbar()
+            TaskListToolbar(
+                onLeftButtonClicked = {},
+                onRightButtonClicked = {},
+                title = ""
+            )
         },
     ) { paddingValues ->
         TaskList(
-            tasks = viewState.tasks,
+            tasks = tasks,
             onRescheduleClicked = onRescheduleClicked,
             onDoneClicked = onDoneClicked,
             modifier = Modifier.padding(paddingValues)
@@ -98,7 +97,11 @@ private fun LoadedTasksContent(
 }
 
 @Composable
-private fun TaskListToolbar() {
+private fun TaskListToolbar(
+    onLeftButtonClicked: () -> Unit,
+    onRightButtonClicked: () -> Unit,
+    title: String
+) {
     val toolbarHeight = 84.dp
 
     Surface(
@@ -112,7 +115,7 @@ private fun TaskListToolbar() {
         ) {
             ToolbarIconButton(
                 icon = Icons.Default.KeyboardArrowLeft,
-                onClick = {},
+                onClick = { onLeftButtonClicked.invoke() },
                 contentDescription = "TODO",
                 toolbarHeight = toolbarHeight
             )
@@ -127,7 +130,7 @@ private fun TaskListToolbar() {
 
             ToolbarIconButton(
                 icon = Icons.Default.KeyboardArrowRight,
-                onClick = {},
+                onClick = { onRightButtonClicked.invoke() },
                 contentDescription = "TODO",
                 toolbarHeight = toolbarHeight
             )
@@ -183,7 +186,10 @@ private fun TaskListContentPreview() {
         )
     }
 
-    val viewState = TaskListViewState.Loaded(tasks)
+    val viewState = TaskListViewState(
+        tasks = tasks,
+        showLoading = false
+    )
 
     OPBTheme {
         TaskListContent(viewState, {}, {}, {})

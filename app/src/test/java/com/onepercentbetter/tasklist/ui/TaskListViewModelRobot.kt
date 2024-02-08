@@ -5,7 +5,8 @@ import com.google.common.truth.Truth.assertThat
 import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.fakes.FakeTaskListRepository
 import com.onepercentbetter.tasklist.domain.model.Task
-import com.onepercentbetter.tasklist.domain.usecases.ProdGetAllAllTasksUseCase
+import com.onepercentbetter.tasklist.domain.usecases.ProdGetAllTasksForDateUseCase
+import java.time.LocalDate
 
 class TaskListViewModelRobot {
     private val fakeTaskListRepository = FakeTaskListRepository()
@@ -13,14 +14,17 @@ class TaskListViewModelRobot {
 
     fun buildViewModel() = apply {
         viewModel = TaskListViewModel(
-            getAllTasksUseCase = ProdGetAllAllTasksUseCase(
+            getAllTasksForDateUseCase = ProdGetAllTasksForDateUseCase(
                 taskListRepository = fakeTaskListRepository.mock
             )
         )
     }
 
-    fun mockAllTasksResult(result: Result<List<Task>>) = apply {
-        fakeTaskListRepository.mockFetchAllTasks(result)
+    fun mockTasksForDateResult(
+        date: LocalDate,
+        result: Result<List<Task>>
+    ) = apply {
+        fakeTaskListRepository.mockTasksForDateResult(date, result)
     }
 
     fun assertViewState(
