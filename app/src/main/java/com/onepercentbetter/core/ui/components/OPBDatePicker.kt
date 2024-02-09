@@ -126,7 +126,7 @@ private fun DateAndIcon(
 }
 
 private fun LocalDate.toUIString(): String {
-    val formatter = DateTimeFormatter.ofPattern("dd MMMM, yyyy")
+    val formatter = DateTimeFormatter.ofPattern("MMM dd yyyy")
     return formatter.format(this)
 }
 

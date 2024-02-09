@@ -3,6 +3,7 @@ package com.onepercentbetter.tasklist.ui
 import com.google.common.truth.Truth.assertThat
 import com.onepercentbetter.R
 import com.onepercentbetter.core.ui.components.UIText
+import com.onepercentbetter.core.utils.getStSuffixForDayOfMonth
 import org.junit.Test
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -53,8 +54,10 @@ class TaskListViewStateTest {
             selectedDate = twoDaysFromNow
         )
 
-        val expectedDateFormat = "dd MMMM"
-        val expectedDateString = DateTimeFormatter.ofPattern(expectedDateFormat).format(twoDaysFromNow)
+        val expectedDateFormat = "MMM d"
+        val expectedSuffix = twoDaysFromNow.getStSuffixForDayOfMonth()
+        val parsedDateString = DateTimeFormatter.ofPattern(expectedDateFormat).format(twoDaysFromNow)
+        val expectedDateString = "$parsedDateString$expectedSuffix"
         val expectedString = UIText.StringText(expectedDateString)
 
         assertThat(viewState.selectedDateString).isEqualTo(expectedString)

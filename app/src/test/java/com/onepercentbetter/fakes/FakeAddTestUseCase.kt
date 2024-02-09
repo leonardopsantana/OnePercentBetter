@@ -10,7 +10,6 @@ class FakeAddTestUseCase {
     val mock: AddTaskUseCase = mockk()
 
     fun mockResultForTask(
-        task: Task,
         result: AddTaskResult
     ) {
         coEvery {

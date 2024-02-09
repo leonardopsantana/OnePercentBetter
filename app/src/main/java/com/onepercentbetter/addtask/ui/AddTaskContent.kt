@@ -122,7 +122,6 @@ private fun SubmitButton(onSubmitClicked: () -> Unit, enabled: Boolean) {
 private fun TaskDateInput(
     value: LocalDate,
     onValueChanged: (LocalDate) -> Unit,
-    enabled: Boolean,
     errorMessage: String?
 ) {
     OPBDatePicker(
