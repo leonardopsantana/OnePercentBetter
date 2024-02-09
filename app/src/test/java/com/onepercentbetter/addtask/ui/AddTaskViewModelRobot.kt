@@ -21,7 +21,7 @@ class AddTaskViewModelRobot {
         task: Task,
         result: AddTaskResult
     ) = apply {
-        fakeAddTaskUseCase.mockResultForTask(task, result)
+        fakeAddTaskUseCase.mockResultForTask(result)
     }
 
     fun enterDescription(

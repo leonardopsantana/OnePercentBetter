@@ -89,7 +89,6 @@ private fun AddTaskInputsColumn(
         TaskDateInput(
             value = viewState.taskInput.scheduledDate,
             onValueChanged = onTaskScheduleDateChanged,
-            enabled = viewState.inputsEnabled,
             errorMessage = (viewState as? AddTaskViewState.Active)
                 ?.scheduledDateInputErrorMessage
                 ?.getString()

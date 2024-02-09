@@ -103,7 +103,7 @@ private fun TaskListToolbar(
             ToolbarIconButton(
                 icon = Icons.Default.KeyboardArrowLeft,
                 onClick = { onLeftButtonClicked.invoke() },
-                contentDescription = "TODO",
+                contentDescription = stringResource(R.string.view_previous_day_content_description),
                 toolbarHeight = toolbarHeight
             )
 
@@ -118,7 +118,7 @@ private fun TaskListToolbar(
             ToolbarIconButton(
                 icon = Icons.Default.KeyboardArrowRight,
                 onClick = { onRightButtonClicked.invoke() },
-                contentDescription = "TODO",
+                contentDescription = stringResource(R.string.view_next_day_content_description),
                 toolbarHeight = toolbarHeight
             )
         }

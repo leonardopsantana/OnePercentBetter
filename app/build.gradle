@@ -115,6 +115,7 @@ dependencies {
     testImplementation "app.cash.turbine:turbine:$rootProject.ext.versions.turbine"
 
     androidTestImplementation "androidx.test.ext:junit:$rootProject.ext.versions.androidxTestJunit"
+    androidTestImplementation "com.google.truth:truth:$rootProject.ext.versions.truth"
 
     //UI TEST
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:1.6.0"
