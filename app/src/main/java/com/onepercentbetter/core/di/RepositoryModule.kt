@@ -1,11 +1,11 @@
 package com.onepercentbetter.core.di
 
-import com.onepercentbetter.core.data.local.RoomTaskListRepository
+import com.onepercentbetter.core.data.local.RoomTaskRepository
 import com.onepercentbetter.login.domain.repository.DemoLoginRepositoryImpl
 import com.onepercentbetter.login.domain.repository.DemoTokenRepositoryImpl
 import com.onepercentbetter.login.domain.repository.LoginRepository
 import com.onepercentbetter.login.domain.repository.TokenRepository
-import com.onepercentbetter.tasklist.domain.repository.TaskListRepository
+import com.onepercentbetter.tasklist.domain.repository.TaskRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -33,6 +33,6 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindTaskListRepository(
-        taskListRepository: RoomTaskListRepository
-    ): TaskListRepository
+        taskListRepository: RoomTaskRepository
+    ): TaskRepository
 }

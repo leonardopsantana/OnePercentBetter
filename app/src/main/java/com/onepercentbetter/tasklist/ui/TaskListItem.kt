@@ -101,7 +101,8 @@ private fun TaskListItemPreview() {
     val task = Task(
         id = "test",
         description = "Read 30min",
-        scheduledDate = LocalDate.now()
+        scheduledDate = LocalDate.now(),
+        completed = false
     )
 
     OPBTheme {

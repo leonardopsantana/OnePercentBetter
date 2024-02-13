@@ -15,7 +15,7 @@ class TaskListViewModelRobot {
     fun buildViewModel() = apply {
         viewModel = TaskListViewModel(
             getAllTasksForDateUseCase = ProdGetAllTasksForDateUseCase(
-                taskListRepository = fakeTaskListRepository.mock
+                taskRepository = fakeTaskListRepository.mock
             )
         )
     }

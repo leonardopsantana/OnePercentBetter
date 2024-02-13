@@ -3,12 +3,12 @@ package com.onepercentbetter.addtask.domain.usecase
 import com.onepercentbetter.addtask.domain.model.AddTaskResult
 import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.tasklist.domain.model.Task
-import com.onepercentbetter.tasklist.domain.repository.TaskListRepository
+import com.onepercentbetter.tasklist.domain.repository.TaskRepository
 import java.time.LocalDate
 import javax.inject.Inject
 
 class ProdAddTaskUseCase @Inject constructor(
-    private val taskListRepository: TaskListRepository
+    private val taskRepository: TaskRepository
 ) : AddTaskUseCase {
     override suspend fun invoke(task: Task): AddTaskResult {
         val validationResult = validateInput(task)
@@ -17,7 +17,7 @@ class ProdAddTaskUseCase @Inject constructor(
             return it
         }
 
-        return when (taskListRepository.addTask(task)) {
+        return when (taskRepository.addTask(task)) {
             is Result.Error -> AddTaskResult.Failure.Unknown
             is Result.Success -> AddTaskResult.Success
         }

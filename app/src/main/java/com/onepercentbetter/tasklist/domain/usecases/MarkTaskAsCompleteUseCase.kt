@@ -8,5 +8,5 @@ import com.onepercentbetter.tasklist.domain.model.Task
  */
 interface MarkTaskAsCompleteUseCase {
 
-    suspend operator fun invoke(): Result<List<Task>>
+    suspend operator fun invoke(task: Task): Result<Unit>
 }

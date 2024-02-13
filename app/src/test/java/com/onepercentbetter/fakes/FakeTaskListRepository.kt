@@ -2,14 +2,14 @@ package com.onepercentbetter.fakes
 
 import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.tasklist.domain.model.Task
-import com.onepercentbetter.tasklist.domain.repository.TaskListRepository
+import com.onepercentbetter.tasklist.domain.repository.TaskRepository
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.flow.flowOf
 import java.time.LocalDate
 
 class FakeTaskListRepository {
-    val mock: TaskListRepository = mockk()
+    val mock: TaskRepository = mockk()
 
     fun mockTasksForDateResult(
         date: LocalDate,

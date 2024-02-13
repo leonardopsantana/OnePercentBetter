@@ -13,7 +13,7 @@ class ProdAddTaskUseCaseTest {
     private val fakeTaskListRepository = FakeTaskListRepository()
 
     private val useCase = ProdAddTaskUseCase(
-        taskListRepository = fakeTaskListRepository.mock
+        taskRepository = fakeTaskListRepository.mock
     )
 
     @Test

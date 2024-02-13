@@ -20,7 +20,7 @@ fun TaskListScreen(
         TaskListContent(
             viewState = viewState.value,
             onRescheduleClicked = {},
-            onDoneClicked = {},
+            onDoneClicked = viewModel::onDoneButtonClicked,
             onAddButtonClicked = {
                 navigator.navigate(AddTaskScreenDestination)
             },
