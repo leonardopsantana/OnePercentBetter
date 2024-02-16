@@ -16,7 +16,8 @@ import java.time.LocalDate
 
 @Composable
 fun TaskList(
-    tasks: List<Task>,
+    incompleteTasks: List<Task>,
+    completedTasks: List<Task>,
     onRescheduleClicked: (Task) -> Unit,
     onDoneClicked: (Task) -> Unit,
     modifier: Modifier = Modifier
@@ -26,7 +27,7 @@ fun TaskList(
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.list_padding)),
         modifier = modifier
     ) {
-        items(tasks) { task ->
+        items(incompleteTasks) { task ->
             TaskListItem(
                 task = task,
                 onRescheduleClicked = { onRescheduleClicked(task) },
@@ -56,6 +57,6 @@ private fun TaskListPreview() {
     }
 
     OPBTheme {
-        TaskList(tasks, {}, {})
+        TaskList(tasks, tasks, {}, {})
     }
 }

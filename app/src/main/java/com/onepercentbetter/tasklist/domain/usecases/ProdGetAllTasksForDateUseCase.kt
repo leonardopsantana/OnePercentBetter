@@ -9,7 +9,10 @@ import javax.inject.Inject
 class ProdGetAllTasksForDateUseCase @Inject constructor(
     private val taskRepository: TaskRepository
 ) : GetTasksForDateUseCase {
-    override fun invoke(date: LocalDate): Flow<TaskListResult> {
-        return taskRepository.fetchTasksForDate(date)
+    override fun invoke(
+        date: LocalDate,
+        completed: Boolean
+    ): Flow<TaskListResult> {
+        return taskRepository.fetchTasksForDate(date, completed)
     }
 }

@@ -60,9 +60,10 @@ fun TaskListContent(
             )
         },
     ) { paddingValues ->
-        if (viewState.tasks != null) {
+        if (!viewState.showLoading) {
             TaskList(
-                tasks = viewState.tasks,
+                incompleteTasks = viewState.incompleteTasks.orEmpty(),
+                completedTasks = viewState.completedTasks.orEmpty(),
                 onRescheduleClicked = onRescheduleClicked,
                 onDoneClicked = onDoneClicked,
                 modifier = Modifier.padding(paddingValues)
@@ -175,7 +176,7 @@ private fun TaskListContentPreview() {
     }
 
     val viewState = TaskListViewState(
-        tasks = tasks,
+        incompleteTasks = tasks,
         showLoading = false
     )
 

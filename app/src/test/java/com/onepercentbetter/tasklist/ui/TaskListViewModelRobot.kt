@@ -3,19 +3,23 @@ package com.onepercentbetter.tasklist.ui
 import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat
 import com.onepercentbetter.core.data.Result
-import com.onepercentbetter.fakes.FakeTaskListRepository
+import com.onepercentbetter.fakes.FakeTaskRepository
 import com.onepercentbetter.tasklist.domain.model.Task
 import com.onepercentbetter.tasklist.domain.usecases.ProdGetAllTasksForDateUseCase
+import com.onepercentbetter.tasklist.domain.usecases.ProdMarkTaskAsCompletedUseCase
 import java.time.LocalDate
 
 class TaskListViewModelRobot {
-    private val fakeTaskListRepository = FakeTaskListRepository()
+    private val fakeTaskRepository = FakeTaskRepository()
     private lateinit var viewModel: TaskListViewModel
 
     fun buildViewModel() = apply {
         viewModel = TaskListViewModel(
-            getAllTasksForDateUseCase = ProdGetAllTasksForDateUseCase(
-                taskRepository = fakeTaskListRepository.mock
+            getTasksForDateUseCase = ProdGetAllTasksForDateUseCase(
+                taskRepository = fakeTaskRepository.mock
+            ),
+            markTaskAsCompleteUseCase = ProdMarkTaskAsCompletedUseCase(
+                taskRepository = fakeTaskRepository.mock
             )
         )
     }
@@ -24,12 +28,13 @@ class TaskListViewModelRobot {
         date: LocalDate,
         result: Result<List<Task>>
     ) = apply {
-        fakeTaskListRepository.mockTasksForDateResult(date, result)
+        fakeTaskRepository.mockTasksForDateResult(date, result)
     }
 
     fun assertViewState(
         expectedViewState: TaskListViewState
     ) = apply {
+
         val actualViewState = viewModel.viewState.value
         assertThat(actualViewState).isEqualTo(expectedViewState)
     }

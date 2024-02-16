@@ -4,6 +4,7 @@ import com.onepercentbetter.CoroutinesTestRule
 import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.core.ui.components.UIText
 import com.onepercentbetter.tasklist.domain.model.Task
+import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
@@ -21,7 +22,8 @@ class TaskListViewModelTest {
         val task = Task(
             id = "TEST ID",
             description = "Test task",
-            scheduledDate = LocalDate.now()
+            scheduledDate = LocalDate.now(),
+            completed = false
         )
 
         val tasksResult = Result.Success(
@@ -35,11 +37,18 @@ class TaskListViewModelTest {
                 action = {},
                 viewStates = listOf(
                     TaskListViewState(
-                        tasks = null,
+                        incompleteTasks = null,
+                        completedTasks = null,
                         showLoading = true
                     ),
                     TaskListViewState(
-                        tasks = listOf(task),
+                        incompleteTasks = listOf(task),
+                        completedTasks = null,
+                        showLoading = false
+                    ),
+                    TaskListViewState(
+                        incompleteTasks = listOf(task),
+                        completedTasks = listOf(task),
                         showLoading = false
                     )
                 )
@@ -51,7 +60,8 @@ class TaskListViewModelTest {
         val task = Task(
             id = "TEST ID",
             description = "Test task",
-            scheduledDate = LocalDate.now()
+            scheduledDate = LocalDate.now(),
+            completed = false
         )
 
         val taskList = listOf(task)
@@ -61,10 +71,6 @@ class TaskListViewModelTest {
         )
 
         testRobot
-            .mockTasksForDateResult(
-                date = LocalDate.now(),
-                result = Result.Success(emptyList())
-            )
             .mockTasksForDateResult(
                 date = LocalDate.now().minusDays(1),
                 result = tasksResult
@@ -76,19 +82,28 @@ class TaskListViewModelTest {
                 },
                 viewStates = listOf(
                     TaskListViewState(
-                        tasks = null,
+                        incompleteTasks = null,
+                        completedTasks = null,
                         showLoading = true
                     ),
                     TaskListViewState(
                         selectedDate = LocalDate.now().minusDays(1),
-                        tasks = null,
+                        incompleteTasks = null,
+                        completedTasks = null,
                         showLoading = true
                     ),
                     TaskListViewState(
                         selectedDate = LocalDate.now().minusDays(1),
-                        tasks = taskList,
+                        incompleteTasks = taskList,
+                        completedTasks = null,
                         showLoading = false
-                    )
+                    ),
+                    TaskListViewState(
+                        selectedDate = LocalDate.now().minusDays(1),
+                        incompleteTasks = taskList,
+                        completedTasks = taskList,
+                        showLoading = false
+                    ),
                 )
             )
     }
@@ -98,7 +113,8 @@ class TaskListViewModelTest {
         val task = Task(
             id = "TEST ID",
             description = "Test task",
-            scheduledDate = LocalDate.now()
+            scheduledDate = LocalDate.now(),
+            completed = false
         )
 
         val taskList = listOf(task)
@@ -123,17 +139,26 @@ class TaskListViewModelTest {
                 },
                 viewStates = listOf(
                     TaskListViewState(
-                        tasks = null,
+                        incompleteTasks = null,
+                        completedTasks = null,
                         showLoading = true
                     ),
                     TaskListViewState(
                         selectedDate = LocalDate.now().plusDays(1),
-                        tasks = null,
+                        incompleteTasks = null,
+                        completedTasks = null,
                         showLoading = true
                     ),
                     TaskListViewState(
                         selectedDate = LocalDate.now().plusDays(1),
-                        tasks = taskList,
+                        incompleteTasks = taskList,
+                        completedTasks = null,
+                        showLoading = false
+                    ),
+                    TaskListViewState(
+                        selectedDate = LocalDate.now().plusDays(1),
+                        incompleteTasks = taskList,
+                        completedTasks = taskList,
                         showLoading = false
                     )
                 )
@@ -151,11 +176,15 @@ class TaskListViewModelTest {
                 action = {},
                 viewStates = listOf<TaskListViewState>(
                     TaskListViewState(
-                        tasks = null,
+                        incompleteTasks = null,
+                        completedTasks = null,
                         showLoading = true
                     ),
                     TaskListViewState(
-                        errorMessage = UIText.StringText("Something went wrong! ;(")
+                        incompleteTasks = null,
+                        completedTasks = null,
+                        errorMessage = UIText.StringText("Something went wrong."),
+                        showLoading = false
                     )
                 )
             )
