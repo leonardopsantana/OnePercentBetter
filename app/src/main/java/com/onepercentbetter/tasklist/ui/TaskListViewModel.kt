@@ -54,7 +54,6 @@ class TaskListViewModel @Inject constructor(
 
                 incompleteTaskFlow.combine(completedTaskFlow) { incompleteTaskResult, completedTaskResult ->
                     (incompleteTaskResult to completedTaskResult)
-
                 }
             }
             .onEach { (incompleteTasksListResult, completedTaskListResult) ->
@@ -78,8 +77,8 @@ class TaskListViewModel @Inject constructor(
         completedTaskListResult: Result<List<Task>>
     ): TaskListViewState {
         return when {
-            incompleteTasksListResult is Result.Success
-                    && completedTaskListResult is Result.Success -> {
+            incompleteTasksListResult is Result.Success &&
+                completedTaskListResult is Result.Success -> {
                 _viewState.value.copy(
                     incompleteTasks = incompleteTasksListResult.data,
                     completedTasks = completedTaskListResult.data,
