@@ -7,8 +7,8 @@ import com.onepercentbetter.login.domain.usecase.ProdCredentialsLoginUseCase
 import com.onepercentbetter.tasklist.domain.usecases.GetAllTasksUseCase
 import com.onepercentbetter.tasklist.domain.usecases.GetTasksForDateUseCase
 import com.onepercentbetter.tasklist.domain.usecases.MarkTaskAsCompleteUseCase
-import com.onepercentbetter.tasklist.domain.usecases.ProdGetTasksForDateUseCase
 import com.onepercentbetter.tasklist.domain.usecases.ProdGetAllTasksUseCase
+import com.onepercentbetter.tasklist.domain.usecases.ProdGetTasksForDateUseCase
 import com.onepercentbetter.tasklist.domain.usecases.ProdMarkTaskAsCompletedUseCase
 import dagger.Binds
 import dagger.Module
