@@ -5,10 +5,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.onepercentbetter.R
 import com.onepercentbetter.core.ui.theme.OPBTheme
@@ -29,8 +31,8 @@ fun TaskList(
         modifier = modifier
     ) {
         item {
-            Text(
-                text = "Incomplete Tasks"
+            SectionHeader(
+                stringResource(id = R.string.incomplete_tasks_header)
             )
         }
         items(incompleteTasks) { task ->
@@ -41,8 +43,8 @@ fun TaskList(
             )
         }
         item {
-            Text(
-                text = "Completed Tasks"
+            SectionHeader(
+                stringResource(id = R.string.completed_tasks_header)
             )
         }
         items(completedTasks) { task ->
@@ -57,6 +59,14 @@ fun TaskList(
     }
 }
 
+@Composable
+private fun SectionHeader(text: String) {
+    Text(
+        text = text,
+        style = MaterialTheme.typography.headlineSmall
+    )
+}
+
 @Preview(
     name = "Night mode",
     uiMode = Configuration.UI_MODE_NIGHT_YES,
@@ -65,6 +75,7 @@ fun TaskList(
     name = "Day mode",
     uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
+
 @Composable
 private fun TaskListPreview() {
     val incompleteTasks = (1..5).map { index ->

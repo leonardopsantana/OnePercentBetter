@@ -18,7 +18,6 @@ class AddTaskViewModelRobot {
     }
 
     fun mockResultForTask(
-        task: Task,
         result: AddTaskResult
     ) = apply {
         fakeAddTaskUseCase.mockResultForTask(result)
