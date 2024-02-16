@@ -42,24 +42,13 @@ class TaskListViewModel @Inject constructor(
             .flatMapLatest { selectedDate ->
                 clearTasksAndShowLoading()
 
-                val incompleteTaskFlow = getTasksForDateUseCase.invoke(
-                    date = selectedDate,
-                    completed = false,
+                getTasksForDateUseCase.invoke(
+                    date = selectedDate
                 )
-
-                val completedTaskFlow = getTasksForDateUseCase.invoke(
-                    date = selectedDate,
-                    completed = true,
-                )
-
-                incompleteTaskFlow.combine(completedTaskFlow) { incompleteTaskResult, completedTaskResult ->
-                    (incompleteTaskResult to completedTaskResult)
-                }
             }
-            .onEach { (incompleteTasksListResult, completedTaskListResult) ->
+            .onEach { result ->
                 _viewState.value = getViewStateTaskListResults(
-                    incompleteTasksListResult,
-                    completedTaskListResult
+                    result
                 )
             }
             .launchIn(viewModelScope)
@@ -73,20 +62,22 @@ class TaskListViewModel @Inject constructor(
     }
 
     private fun getViewStateTaskListResults(
-        incompleteTasksListResult: Result<List<Task>>,
-        completedTaskListResult: Result<List<Task>>
+        result: Result<List<Task>>,
     ): TaskListViewState {
-        return when {
-            incompleteTasksListResult is Result.Success &&
-                completedTaskListResult is Result.Success -> {
+        return when (result) {
+            is Result.Success -> {
+                val (complete, incomplete) = result.data.partition { task ->
+                    task.completed
+                }
+
                 _viewState.value.copy(
-                    incompleteTasks = incompleteTasksListResult.data,
-                    completedTasks = completedTaskListResult.data,
+                    incompleteTasks = incomplete,
+                    completedTasks = complete,
                     showLoading = false,
                 )
             }
 
-            else -> {
+            is Result.Error -> {
                 _viewState.value.copy(
                     errorMessage = UIText.StringText("Something went wrong."),
                     showLoading = false,

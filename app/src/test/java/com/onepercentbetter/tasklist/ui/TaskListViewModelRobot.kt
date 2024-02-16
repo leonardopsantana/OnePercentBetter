@@ -5,7 +5,7 @@ import com.google.common.truth.Truth.assertThat
 import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.fakes.FakeTaskRepository
 import com.onepercentbetter.tasklist.domain.model.Task
-import com.onepercentbetter.tasklist.domain.usecases.ProdGetAllTasksForDateUseCase
+import com.onepercentbetter.tasklist.domain.usecases.ProdGetTasksForDateUseCase
 import com.onepercentbetter.tasklist.domain.usecases.ProdMarkTaskAsCompletedUseCase
 import java.time.LocalDate
 
@@ -15,7 +15,7 @@ class TaskListViewModelRobot {
 
     fun buildViewModel() = apply {
         viewModel = TaskListViewModel(
-            getTasksForDateUseCase = ProdGetAllTasksForDateUseCase(
+            getTasksForDateUseCase = ProdGetTasksForDateUseCase(
                 taskRepository = fakeTaskRepository.mock
             ),
             markTaskAsCompleteUseCase = ProdMarkTaskAsCompletedUseCase(

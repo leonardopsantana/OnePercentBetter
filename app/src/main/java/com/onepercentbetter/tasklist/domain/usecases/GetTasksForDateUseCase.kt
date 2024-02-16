@@ -9,7 +9,6 @@ import java.time.LocalDate
  */
 interface GetTasksForDateUseCase {
     operator fun invoke(
-        date: LocalDate,
-        completed: Boolean
+        date: LocalDate
     ): Flow<TaskListResult>
 }
