@@ -4,7 +4,6 @@ import com.onepercentbetter.CoroutinesTestRule
 import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.core.ui.components.UIText
 import com.onepercentbetter.tasklist.domain.model.Task
-import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test

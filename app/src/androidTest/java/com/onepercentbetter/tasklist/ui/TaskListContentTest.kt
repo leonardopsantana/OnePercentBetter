@@ -2,10 +2,10 @@ package com.onepercentbetter.tasklist.ui
 
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import com.onepercentbetter.R
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.performClick
 import com.google.common.truth.Truth.assertThat
+import com.onepercentbetter.R
 import org.junit.Rule
 import org.junit.Test
 
