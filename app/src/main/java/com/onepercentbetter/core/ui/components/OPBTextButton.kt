@@ -18,7 +18,7 @@ fun OPBTextButton(
     text: String,
     onClick: () -> Unit
 ) {
-    TextButton(onClick = { onClick }) {
+    TextButton(onClick = { onClick.invoke() }) {
         Text(
             text = text.toUpperCase(Locale.current),
             style = MaterialTheme.typography.labelSmall
