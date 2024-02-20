@@ -63,7 +63,7 @@ fun TaskListContent(
             )
         },
     ) { paddingValues ->
-        if (!viewState.showTasks) {
+        if (viewState.showTasks) {
             if (viewState.incompleteTasks.isNullOrEmpty() &&
                 viewState.completedTasks.isNullOrEmpty()
             ) {
@@ -181,6 +181,7 @@ private fun AddTaskButton(onAddButtonClicked: () -> Unit) {
     }
 }
 
+@Suppress("MagicNumber")
 class TaskListViewStateProvider : PreviewParameterProvider<TaskListViewState> {
     override val values: Sequence<TaskListViewState>
         get() {
@@ -224,7 +225,6 @@ class TaskListViewStateProvider : PreviewParameterProvider<TaskListViewState> {
             )
 
             return sequenceOf(loadingState, taskListState, emptyState, errorState)
-
         }
 }
 

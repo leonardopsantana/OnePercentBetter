@@ -28,8 +28,9 @@ fun TaskListItem(
     task: Task,
     onRescheduleClicked: () -> Unit,
     onDoneClicked: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
-    Card {
+    Card(modifier = modifier) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()

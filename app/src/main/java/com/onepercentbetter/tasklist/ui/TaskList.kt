@@ -1,6 +1,7 @@
 package com.onepercentbetter.tasklist.ui
 
 import android.content.res.Configuration
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,6 +13,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -22,6 +24,7 @@ import com.onepercentbetter.core.ui.theme.OPBTheme
 import com.onepercentbetter.tasklist.domain.model.Task
 import java.time.LocalDate
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TaskList(
     incompleteTasks: List<Task>,
@@ -49,11 +52,19 @@ fun TaskList(
                 )
             }
         } else {
-            items(incompleteTasks) { task ->
+            items(
+                incompleteTasks,
+                key = {
+                    it.id
+                }
+            ) { task ->
                 TaskListItem(
                     task = task,
                     onRescheduleClicked = { onRescheduleClicked.invoke(task) },
-                    onDoneClicked = { onDoneClicked.invoke(task) }
+                    onDoneClicked = { onDoneClicked.invoke(task) },
+                    modifier = Modifier
+                        .animateItemPlacement()
+                        .testTag("INCOMPLETE_TASK_${task.id}")
                 )
             }
         }
@@ -66,16 +77,28 @@ fun TaskList(
 
         if (completedTasks.isEmpty()) {
             item {
-                EmptySectionCard(text = stringResource(id = R.string.no_complete_tasks_label))
+                EmptySectionCard(
+                    text = stringResource(
+                        id = R.string.no_complete_tasks_label
+                    )
+                )
             }
         } else {
-            items(completedTasks) { task ->
+            items(
+                completedTasks,
+                key = {
+                    it.id
+                }
+            ) { task ->
                 TaskListItem(
                     task = task,
                     onRescheduleClicked = { onRescheduleClicked.invoke(task) },
                     onDoneClicked = {
                         onDoneClicked.invoke(task)
-                    }
+                    },
+                    modifier = Modifier
+                        .animateItemPlacement()
+                        .testTag("COMPLETE_TASK_${task.id}")
                 )
             }
         }
