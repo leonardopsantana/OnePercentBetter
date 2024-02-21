@@ -88,8 +88,8 @@ class TaskListContentTest {
                 onRescheduleClicked = {},
                 onDoneClicked = {},
                 onAddButtonClicked = {},
-                onPreviousDateButtonClicked = {}) {
-
+                onPreviousDateButtonClicked = {}
+            ) {
             }
         }
 
@@ -115,8 +115,8 @@ class TaskListContentTest {
                 onRescheduleClicked = {},
                 onDoneClicked = {},
                 onAddButtonClicked = {},
-                onPreviousDateButtonClicked = {}) {
-
+                onPreviousDateButtonClicked = {}
+            ) {
             }
         }
 
@@ -146,8 +146,8 @@ class TaskListContentTest {
                 onRescheduleClicked = {},
                 onDoneClicked = {},
                 onAddButtonClicked = {},
-                onPreviousDateButtonClicked = {}) {
-
+                onPreviousDateButtonClicked = {}
+            ) {
             }
         }
 
