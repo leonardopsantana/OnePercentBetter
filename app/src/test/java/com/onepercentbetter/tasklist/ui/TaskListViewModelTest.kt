@@ -42,7 +42,7 @@ class TaskListViewModelTest {
                     ),
                     TaskListViewState(
                         incompleteTasks = listOf(task),
-                        completedTasks = null,
+                        completedTasks = emptyList(),
                         showLoading = false
                     ),
                     TaskListViewState(

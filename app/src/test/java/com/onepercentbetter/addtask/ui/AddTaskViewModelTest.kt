@@ -34,7 +34,6 @@ class AddTaskViewModelTest {
         testRobot
             .buildViewModel()
             .mockResultForTask(
-                task = taskToSubmit,
                 result = useCaseResult,
             )
             .expectedViewStates(
@@ -76,7 +75,6 @@ class AddTaskViewModelTest {
         testRobot
             .buildViewModel()
             .mockResultForTask(
-                task = taskToSubmit,
                 result = useCaseResult,
             )
             .expectedViewStates(

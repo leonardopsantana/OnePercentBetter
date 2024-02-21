@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
@@ -38,69 +39,86 @@ fun TaskList(
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.list_padding)),
         modifier = modifier
     ) {
+        incompleteTasks(incompleteTasks, onRescheduleClicked, onDoneClicked)
+        completeTasks(completedTasks, onRescheduleClicked, onDoneClicked)
+    }
+}
 
+@OptIn(ExperimentalFoundationApi::class)
+private fun LazyListScope.completeTasks(
+    completedTasks: List<Task>,
+    onRescheduleClicked: (Task) -> Unit,
+    onDoneClicked: (Task) -> Unit
+) {
+    item {
+        SectionHeader(
+            stringResource(id = R.string.completed_tasks_header)
+        )
+    }
+
+    if (completedTasks.isEmpty()) {
         item {
-            SectionHeader(
-                stringResource(id = R.string.incomplete_tasks_header)
+            EmptySectionCard(
+                text = stringResource(
+                    id = R.string.no_complete_tasks_label
+                )
             )
         }
-
-        if (incompleteTasks.isEmpty()) {
-            item {
-                EmptySectionCard(
-                    stringResource(R.string.no_incomplete_tasks_label)
-                )
+    } else {
+        items(
+            completedTasks,
+            key = {
+                it.id
             }
-        } else {
-            items(
-                incompleteTasks,
-                key = {
-                    it.id
-                }
-            ) { task ->
-                TaskListItem(
-                    task = task,
-                    onRescheduleClicked = { onRescheduleClicked.invoke(task) },
-                    onDoneClicked = { onDoneClicked.invoke(task) },
-                    modifier = Modifier
-                        .animateItemPlacement()
-                        .testTag("INCOMPLETE_TASK_${task.id}")
-                )
-            }
-        }
-
-        item {
-            SectionHeader(
-                stringResource(id = R.string.completed_tasks_header)
+        ) { task ->
+            TaskListItem(
+                task = task,
+                onRescheduleClicked = { onRescheduleClicked.invoke(task) },
+                onDoneClicked = {
+                    onDoneClicked.invoke(task)
+                },
+                modifier = Modifier
+                    .animateItemPlacement()
+                    .testTag("COMPLETE_TASK_${task.id}")
             )
         }
+    }
+}
 
-        if (completedTasks.isEmpty()) {
-            item {
-                EmptySectionCard(
-                    text = stringResource(
-                        id = R.string.no_complete_tasks_label
-                    )
-                )
+
+@OptIn(ExperimentalFoundationApi::class)
+private fun LazyListScope.incompleteTasks(
+    incompleteTasks: List<Task>,
+    onRescheduleClicked: (Task) -> Unit,
+    onDoneClicked: (Task) -> Unit
+) {
+    item {
+        SectionHeader(
+            stringResource(id = R.string.incomplete_tasks_header)
+        )
+    }
+
+    if (incompleteTasks.isEmpty()) {
+        item {
+            EmptySectionCard(
+                stringResource(R.string.no_incomplete_tasks_label)
+            )
+        }
+    } else {
+        items(
+            incompleteTasks,
+            key = {
+                it.id
             }
-        } else {
-            items(
-                completedTasks,
-                key = {
-                    it.id
-                }
-            ) { task ->
-                TaskListItem(
-                    task = task,
-                    onRescheduleClicked = { onRescheduleClicked.invoke(task) },
-                    onDoneClicked = {
-                        onDoneClicked.invoke(task)
-                    },
-                    modifier = Modifier
-                        .animateItemPlacement()
-                        .testTag("COMPLETE_TASK_${task.id}")
-                )
-            }
+        ) { task ->
+            TaskListItem(
+                task = task,
+                onRescheduleClicked = { onRescheduleClicked.invoke(task) },
+                onDoneClicked = { onDoneClicked.invoke(task) },
+                modifier = Modifier
+                    .animateItemPlacement()
+                    .testTag("INCOMPLETE_TASK_${task.id}")
+            )
         }
     }
 }
