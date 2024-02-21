@@ -87,14 +87,14 @@ class TaskListViewModelTest {
                     ),
                     TaskListViewState(
                         selectedDate = LocalDate.now().minusDays(1),
-                        incompleteTasks = null,
-                        completedTasks = null,
+                        incompleteTasks = emptyList(),
+                        completedTasks = emptyList(),
                         showLoading = true
                     ),
                     TaskListViewState(
                         selectedDate = LocalDate.now().minusDays(1),
                         incompleteTasks = taskList,
-                        completedTasks = null,
+                        completedTasks = emptyList(),
                         showLoading = false
                     ),
                     TaskListViewState(
