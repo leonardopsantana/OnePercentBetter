@@ -5,7 +5,7 @@ import com.onepercentbetter.R
 import com.onepercentbetter.addtask.domain.model.AddTaskResult
 import com.onepercentbetter.addtask.domain.model.TaskInput
 import com.onepercentbetter.core.ui.components.UIText
-import com.onepercentbetter.tasklist.domain.model.Task
+import com.onepercentbetter.core_model.Task
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
@@ -19,7 +19,7 @@ class AddTaskViewModelTest {
 
     @Test
     fun submitWithEmptyDescription() = runTest {
-        val taskToSubmit = Task(
+        val taskToSubmit = com.onepercentbetter.core_model.Task(
             id = "Testing",
             description = "X",
             scheduledDate = LocalDate.now(),
@@ -60,7 +60,7 @@ class AddTaskViewModelTest {
 
     @Test
     fun submitWithInvalidDate() = runTest {
-        val taskToSubmit = Task(
+        val taskToSubmit = com.onepercentbetter.core_model.Task(
             id = "Testing",
             description = "Do something",
             scheduledDate = LocalDate.now().minusDays(1),

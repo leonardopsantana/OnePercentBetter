@@ -7,9 +7,9 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Divider
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,103 +22,100 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.onepercentbetter.R
 import com.onepercentbetter.core.ui.theme.OPBTheme
-import com.onepercentbetter.tasklist.domain.model.Task
+import com.onepercentbetter.core_model.Task
 import java.time.LocalDate
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
+@Suppress("LongMethod")
 fun TaskList(
     incompleteTasks: List<Task>,
     completedTasks: List<Task>,
     onRescheduleClicked: (Task) -> Unit,
     onDoneClicked: (Task) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     LazyColumn(
         contentPadding = PaddingValues(dimensionResource(id = R.dimen.list_padding)),
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.list_padding)),
-        modifier = modifier
+        modifier = modifier,
     ) {
-        incompleteTasks(incompleteTasks, onRescheduleClicked, onDoneClicked)
-        completeTasks(completedTasks, onRescheduleClicked, onDoneClicked)
-    }
-}
-
-@OptIn(ExperimentalFoundationApi::class)
-private fun LazyListScope.completeTasks(
-    completedTasks: List<Task>,
-    onRescheduleClicked: (Task) -> Unit,
-    onDoneClicked: (Task) -> Unit
-) {
-    item {
-        SectionHeader(
-            stringResource(id = R.string.completed_tasks_header)
-        )
-    }
-
-    if (completedTasks.isEmpty()) {
-        item {
-            EmptySectionCard(
-                text = stringResource(
-                    id = R.string.no_complete_tasks_label
+        if (incompleteTasks.isEmpty()) {
+            item {
+                EmptySectionCard(
+                    text = stringResource(R.string.no_incomplete_tasks_label),
                 )
-            )
-        }
-    } else {
-        items(
-            completedTasks,
-            key = {
-                it.id
             }
-        ) { task ->
-            TaskListItem(
-                task = task,
-                onRescheduleClicked = { onRescheduleClicked.invoke(task) },
-                onDoneClicked = {
-                    onDoneClicked.invoke(task)
-                },
-                modifier = Modifier
-                    .animateItemPlacement()
-                    .testTag("COMPLETE_TASK_${task.id}")
-            )
-        }
-    }
-}
+        } else {
+            item {
+                Card(
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surface,
+                    ),
+                    elevation = CardDefaults.cardElevation(
+                        defaultElevation = 1.dp,
+                    ),
+                ) {
+                    incompleteTasks.forEachIndexed { index, task ->
+                        TaskListItem(
+                            task = task,
+                            onRescheduleClicked = {
+                                onRescheduleClicked(task)
+                            },
+                            onDoneClicked = {
+                                onDoneClicked(task)
+                            },
+                            modifier = Modifier
+                                .testTag("INCOMPLETE_TASK_${task.id}")
+                                .animateItemPlacement(),
+                        )
 
-
-@OptIn(ExperimentalFoundationApi::class)
-private fun LazyListScope.incompleteTasks(
-    incompleteTasks: List<Task>,
-    onRescheduleClicked: (Task) -> Unit,
-    onDoneClicked: (Task) -> Unit
-) {
-    item {
-        SectionHeader(
-            stringResource(id = R.string.incomplete_tasks_header)
-        )
-    }
-
-    if (incompleteTasks.isEmpty()) {
-        item {
-            EmptySectionCard(
-                stringResource(R.string.no_incomplete_tasks_label)
-            )
-        }
-    } else {
-        items(
-            incompleteTasks,
-            key = {
-                it.id
+                        if (index != incompleteTasks.lastIndex) {
+                            Divider(
+                                color = MaterialTheme.colorScheme.surface,
+                            )
+                        }
+                    }
+                }
             }
-        ) { task ->
-            TaskListItem(
-                task = task,
-                onRescheduleClicked = { onRescheduleClicked.invoke(task) },
-                onDoneClicked = { onDoneClicked.invoke(task) },
-                modifier = Modifier
-                    .animateItemPlacement()
-                    .testTag("INCOMPLETE_TASK_${task.id}")
-            )
+        }
+
+        if (completedTasks.isNotEmpty()) {
+            item {
+                SectionHeader(text = stringResource(R.string.completed_tasks_header))
+            }
+
+            item {
+                Card(
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surface,
+                    ),
+                    elevation = CardDefaults.cardElevation(
+                        defaultElevation = 1.dp,
+                    ),
+                ) {
+                    completedTasks.forEachIndexed { index, task ->
+                        TaskListItem(
+                            task = task,
+                            onRescheduleClicked = {
+                                onRescheduleClicked(task)
+                            },
+                            onDoneClicked = {
+                                onDoneClicked(task)
+                            },
+                            modifier = Modifier
+                                .testTag("COMPLETED_TASK_${task.id}")
+                                .animateItemPlacement(),
+                        )
+
+                        if (index != completedTasks.lastIndex) {
+                            Divider(
+                                color = MaterialTheme.colorScheme.surface,
+                            )
+                        }
+                    }
+                }
+            }
         }
     }
 }

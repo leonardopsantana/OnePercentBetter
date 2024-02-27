@@ -1,4 +1,4 @@
-package com.onepercentbetter.tasklist.domain.model
+package com.onepercentbetter.core_model
 
 import java.time.LocalDate
 

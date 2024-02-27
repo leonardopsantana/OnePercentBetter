@@ -4,7 +4,7 @@ import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat
 import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.fakes.FakeTaskRepository
-import com.onepercentbetter.tasklist.domain.model.Task
+import com.onepercentbetter.core_model.Task
 import com.onepercentbetter.tasklist.domain.usecases.ProdGetTasksForDateUseCase
 import com.onepercentbetter.tasklist.domain.usecases.ProdMarkTaskAsCompletedUseCase
 import java.time.LocalDate
@@ -26,7 +26,7 @@ class TaskListViewModelRobot {
 
     fun mockTasksForDateResult(
         date: LocalDate,
-        result: Result<List<Task>>
+        result: Result<List<com.onepercentbetter.core_model.Task>>
     ) = apply {
         fakeTaskRepository.mockTasksForDateResult(date, result)
     }

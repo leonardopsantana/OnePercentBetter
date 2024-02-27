@@ -39,14 +39,14 @@ import com.onepercentbetter.R
 import com.onepercentbetter.core.ui.components.UIText
 import com.onepercentbetter.core.ui.components.getString
 import com.onepercentbetter.core.ui.theme.OPBTheme
-import com.onepercentbetter.tasklist.domain.model.Task
+import com.onepercentbetter.core_model.Task
 import java.time.LocalDate
 
 @Composable
 fun TaskListContent(
     viewState: TaskListViewState,
-    onRescheduleClicked: (Task) -> Unit,
-    onDoneClicked: (Task) -> Unit,
+    onRescheduleClicked: (com.onepercentbetter.core_model.Task) -> Unit,
+    onDoneClicked: (com.onepercentbetter.core_model.Task) -> Unit,
     onAddButtonClicked: () -> Unit,
     onPreviousDateButtonClicked: () -> Unit,
     onNextDateButtonClicked: () -> Unit,
@@ -186,7 +186,7 @@ class TaskListViewStateProvider : PreviewParameterProvider<TaskListViewState> {
     override val values: Sequence<TaskListViewState>
         get() {
             val incompleteTasks = (1..3).map { index ->
-                Task(
+                com.onepercentbetter.core_model.Task(
                     id = "$index",
                     description = "Test task: $index",
                     scheduledDate = LocalDate.now(),
@@ -195,7 +195,7 @@ class TaskListViewStateProvider : PreviewParameterProvider<TaskListViewState> {
             }
 
             val completedTasks = (1..3).map { index ->
-                Task(
+                com.onepercentbetter.core_model.Task(
                     id = "$index",
                     description = "Test task: $index",
                     scheduledDate = LocalDate.now(),

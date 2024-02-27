@@ -7,7 +7,7 @@ import com.onepercentbetter.addtask.domain.model.AddTaskResult
 import com.onepercentbetter.addtask.domain.model.TaskInput
 import com.onepercentbetter.addtask.domain.usecase.AddTaskUseCase
 import com.onepercentbetter.core.ui.components.UIText
-import com.onepercentbetter.tasklist.domain.model.Task
+import com.onepercentbetter.core_model.Task
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -53,7 +53,7 @@ class AddTaskViewModel @Inject constructor(
     }
 
     fun onSubmitButtonClicked() {
-        val taskToCreate = Task(
+        val taskToCreate = com.onepercentbetter.core_model.Task(
             id = UUID.randomUUID().toString(),
             description = _viewState.value.taskInput.description,
             scheduledDate = _viewState.value.taskInput.scheduledDate,

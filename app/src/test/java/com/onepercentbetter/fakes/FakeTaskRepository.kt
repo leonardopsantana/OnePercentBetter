@@ -1,7 +1,7 @@
 package com.onepercentbetter.fakes
 
 import com.onepercentbetter.core.data.Result
-import com.onepercentbetter.tasklist.domain.model.Task
+import com.onepercentbetter.core_model.Task
 import com.onepercentbetter.tasklist.domain.repository.TaskRepository
 import io.mockk.coEvery
 import io.mockk.mockk
@@ -13,7 +13,7 @@ class FakeTaskRepository {
 
     fun mockTasksForDateResult(
         date: LocalDate,
-        response: Result<List<Task>>
+        response: Result<List<com.onepercentbetter.core_model.Task>>
     ) {
         coEvery {
             mock.fetchTasksForDate(date, any())

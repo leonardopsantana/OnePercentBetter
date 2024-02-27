@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.onepercentbetter.R
 import com.onepercentbetter.core.ui.components.OPBTextButton
 import com.onepercentbetter.core.ui.theme.OPBTheme
-import com.onepercentbetter.tasklist.domain.model.Task
+import com.onepercentbetter.core_model.Task
 import java.time.LocalDate
 
 /**
@@ -99,7 +99,7 @@ private fun TaskText(text: String) {
 )
 @Composable
 private fun TaskListItemPreview() {
-    val task = Task(
+    val task = com.onepercentbetter.core_model.Task(
         id = "test",
         description = "Read 30min",
         scheduledDate = LocalDate.now(),

@@ -3,14 +3,14 @@ package com.onepercentbetter.tasklist.ui
 import com.onepercentbetter.R
 import com.onepercentbetter.core.ui.components.UIText
 import com.onepercentbetter.core.utils.getStSuffixForDayOfMonth
-import com.onepercentbetter.tasklist.domain.model.Task
+import com.onepercentbetter.core_model.Task
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 data class TaskListViewState(
     val showLoading: Boolean = true,
-    val completedTasks: List<Task>? = null,
-    val incompleteTasks: List<Task>? = null,
+    val completedTasks: List<com.onepercentbetter.core_model.Task>? = null,
+    val incompleteTasks: List<com.onepercentbetter.core_model.Task>? = null,
     val errorMessage: UIText? = null,
     val selectedDate: LocalDate = LocalDate.now()
 ) {

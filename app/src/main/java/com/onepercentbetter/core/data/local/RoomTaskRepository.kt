@@ -1,7 +1,7 @@
 package com.onepercentbetter.core.data.local
 
 import com.onepercentbetter.core.data.Result
-import com.onepercentbetter.tasklist.domain.model.Task
+import com.onepercentbetter.core_model.Task
 import com.onepercentbetter.tasklist.domain.repository.TaskListResult
 import com.onepercentbetter.tasklist.domain.repository.TaskRepository
 import kotlinx.coroutines.flow.Flow
@@ -13,7 +13,7 @@ import javax.inject.Inject
 class RoomTaskRepository @Inject constructor(
     private val taskDAO: TaskDAO
 ) : TaskRepository {
-    override fun fetchAllTasks(): Flow<Result<List<Task>>> {
+    override fun fetchAllTasks(): Flow<Result<List<com.onepercentbetter.core_model.Task>>> {
         return taskDAO
             .fetchAllTasks()
             .map { taskList ->
@@ -29,24 +29,24 @@ class RoomTaskRepository @Inject constructor(
             }
     }
 
-    override suspend fun addTask(task: Task): Result<Unit> {
+    override suspend fun addTask(task: com.onepercentbetter.core_model.Task): Result<Unit> {
         taskDAO.insertTask(task.toPersistableTask())
 
         return Result.Success(Unit)
     }
 
-    override suspend fun deleteTask(task: Task): Result<Unit> {
+    override suspend fun deleteTask(task: com.onepercentbetter.core_model.Task): Result<Unit> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun updateTask(task: Task): Result<Unit> {
+    override suspend fun updateTask(task: com.onepercentbetter.core_model.Task): Result<Unit> {
         taskDAO.updateTask(task.toPersistableTask())
 
         return Result.Success(Unit)
     }
 }
 
-private fun List<PersistableTask>.toDomainTaskList(): List<Task> {
+private fun List<PersistableTask>.toDomainTaskList(): List<com.onepercentbetter.core_model.Task> {
     return this.map(PersistableTask::toTask)
 }
 
@@ -61,8 +61,8 @@ private fun String.parsePersistableDateString(): LocalDate {
     return LocalDate.parse(this, persistedDateFormatter)
 }
 
-private fun PersistableTask.toTask(): Task {
-    return Task(
+private fun PersistableTask.toTask(): com.onepercentbetter.core_model.Task {
+    return com.onepercentbetter.core_model.Task(
         id = this.id,
         description = this.description,
         scheduledDate = this.scheduledDate.parsePersistableDateString(),
@@ -70,7 +70,7 @@ private fun PersistableTask.toTask(): Task {
     )
 }
 
-private fun Task.toPersistableTask(): PersistableTask {
+private fun com.onepercentbetter.core_model.Task.toPersistableTask(): PersistableTask {
     return PersistableTask(
         id = this.id,
         description = this.description,

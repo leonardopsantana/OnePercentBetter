@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.core.ui.components.UIText
-import com.onepercentbetter.tasklist.domain.model.Task
+import com.onepercentbetter.core_model.Task
 import com.onepercentbetter.tasklist.domain.usecases.GetTasksForDateUseCase
 import com.onepercentbetter.tasklist.domain.usecases.MarkTaskAsCompleteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -61,7 +61,7 @@ class TaskListViewModel @Inject constructor(
     }
 
     private fun getViewStateTaskListResults(
-        result: Result<List<Task>>,
+        result: Result<List<com.onepercentbetter.core_model.Task>>,
     ): TaskListViewState {
         return when (result) {
             is Result.Success -> {
@@ -97,7 +97,7 @@ class TaskListViewModel @Inject constructor(
         )
     }
 
-    fun onDoneButtonClicked(task: Task) {
+    fun onDoneButtonClicked(task: com.onepercentbetter.core_model.Task) {
         viewModelScope.launch {
             markTaskAsCompleteUseCase.invoke(task)
         }

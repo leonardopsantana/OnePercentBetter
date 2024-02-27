@@ -3,7 +3,7 @@ package com.onepercentbetter.tasklist.ui
 import com.onepercentbetter.CoroutinesTestRule
 import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.core.ui.components.UIText
-import com.onepercentbetter.tasklist.domain.model.Task
+import com.onepercentbetter.core_model.Task
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
@@ -18,7 +18,7 @@ class TaskListViewModelTest {
 
     @Test
     fun successfulLoad() = runTest {
-        val task = Task(
+        val task = com.onepercentbetter.core_model.Task(
             id = "TEST ID",
             description = "Test task",
             scheduledDate = LocalDate.now(),
@@ -56,7 +56,7 @@ class TaskListViewModelTest {
 
     @Test
     fun clickPreviousDate() = runTest {
-        val task = Task(
+        val task = com.onepercentbetter.core_model.Task(
             id = "TEST ID",
             description = "Test task",
             scheduledDate = LocalDate.now(),
@@ -109,7 +109,7 @@ class TaskListViewModelTest {
 
     @Test
     fun clickNextDate() = runTest {
-        val task = Task(
+        val task = com.onepercentbetter.core_model.Task(
             id = "TEST ID",
             description = "Test task",
             scheduledDate = LocalDate.now(),
@@ -166,7 +166,7 @@ class TaskListViewModelTest {
 
     @Test
     fun failureLoad() = runTest {
-        val tasksResult: Result<List<Task>> = Result.Error(Throwable("Whoops"))
+        val tasksResult: Result<List<com.onepercentbetter.core_model.Task>> = Result.Error(Throwable("Whoops"))
 
         testRobot
             .mockTasksForDateResult(LocalDate.now(), tasksResult)

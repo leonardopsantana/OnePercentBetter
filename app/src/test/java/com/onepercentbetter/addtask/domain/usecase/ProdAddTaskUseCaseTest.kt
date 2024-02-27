@@ -3,7 +3,7 @@ package com.onepercentbetter.addtask.domain.usecase
 import com.google.common.truth.Truth.assertThat
 import com.onepercentbetter.addtask.domain.model.AddTaskResult
 import com.onepercentbetter.fakes.FakeTaskRepository
-import com.onepercentbetter.tasklist.domain.model.Task
+import com.onepercentbetter.core_model.Task
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import java.time.LocalDate
@@ -18,7 +18,7 @@ class ProdAddTaskUseCaseTest {
 
     @Test
     fun submitWithEmptyDescription() = runTest {
-        val taskToSubmit = Task(
+        val taskToSubmit = com.onepercentbetter.core_model.Task(
             id = "Testing",
             description = "",
             scheduledDate = LocalDate.now(),
@@ -37,7 +37,7 @@ class ProdAddTaskUseCaseTest {
 
     @Test
     fun submitWithEmptyDate() = runTest {
-        val taskToSubmit = Task(
+        val taskToSubmit = com.onepercentbetter.core_model.Task(
             id = "Testing",
             description = "Task test",
             scheduledDate = LocalDate.now().minusDays(1),

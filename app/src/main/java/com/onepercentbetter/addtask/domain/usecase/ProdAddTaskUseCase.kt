@@ -2,7 +2,7 @@ package com.onepercentbetter.addtask.domain.usecase
 
 import com.onepercentbetter.addtask.domain.model.AddTaskResult
 import com.onepercentbetter.core.data.Result
-import com.onepercentbetter.tasklist.domain.model.Task
+import com.onepercentbetter.core_model.Task
 import com.onepercentbetter.tasklist.domain.repository.TaskRepository
 import java.time.LocalDate
 import javax.inject.Inject
@@ -10,7 +10,7 @@ import javax.inject.Inject
 class ProdAddTaskUseCase @Inject constructor(
     private val taskRepository: TaskRepository
 ) : AddTaskUseCase {
-    override suspend fun invoke(task: Task): AddTaskResult {
+    override suspend fun invoke(task: com.onepercentbetter.core_model.Task): AddTaskResult {
         val validationResult = validateInput(task)
 
         validationResult?.let {
@@ -23,7 +23,7 @@ class ProdAddTaskUseCase @Inject constructor(
         }
     }
 
-    private fun validateInput(task: Task): AddTaskResult.Failure.InvalidInput? {
+    private fun validateInput(task: com.onepercentbetter.core_model.Task): AddTaskResult.Failure.InvalidInput? {
         val emptyDescription = task.description.isEmpty()
         val scheduledDateInPast = task.scheduledDate.isBefore(LocalDate.now())
 

@@ -1,11 +1,11 @@
 package com.onepercentbetter.tasklist.domain.repository
 
 import com.onepercentbetter.core.data.Result
-import com.onepercentbetter.tasklist.domain.model.Task
+import com.onepercentbetter.core_model.Task
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
 
-typealias TaskListResult = Result<List<Task>>
+typealias TaskListResult = Result<List<com.onepercentbetter.core_model.Task>>
 
 /**
  * This is the data contract for any requests to fetch or modify tasks.
@@ -25,15 +25,15 @@ interface TaskRepository {
     /**
      * Add new [task] for the signed in user to complete.
      */
-    suspend fun addTask(task: Task): Result<Unit>
+    suspend fun addTask(task: com.onepercentbetter.core_model.Task): Result<Unit>
 
     /**
      * Delete the supplied [task] from the user's task list.
      */
-    suspend fun deleteTask(task: Task): Result<Unit>
+    suspend fun deleteTask(task: com.onepercentbetter.core_model.Task): Result<Unit>
 
     /**
      * Takes the supplied [task] and updates the backing data set for the task with same id.
      */
-    suspend fun updateTask(task: Task): Result<Unit>
+    suspend fun updateTask(task: com.onepercentbetter.core_model.Task): Result<Unit>
 }

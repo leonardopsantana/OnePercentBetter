@@ -22,8 +22,8 @@ android {
 
     defaultConfig {
         applicationId "com.onepercentbetter"
-        minSdk 21
-        minSdkVersion 21
+        minSdk 24
+        minSdkVersion 24
         targetSdk 34
         versionCode 1
         versionName "1.0"
@@ -73,7 +73,8 @@ android {
 }
 
 dependencies {
-
+    implementation (project(":core-data"))
+    implementation (project(":core-model"))
     implementation "androidx.core:core-ktx:$rootProject.ext.versions.ktxCore"
     implementation "androidx.appcompat:appcompat:$rootProject.ext.versions.appCompat"
     implementation "com.google.android.material:material:$rootProject.ext.versions.material"
