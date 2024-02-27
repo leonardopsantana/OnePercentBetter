@@ -13,7 +13,7 @@ class FakeTaskRepository {
 
     fun mockTasksForDateResult(
         date: LocalDate,
-        response: Result<List<com.onepercentbetter.core_model.Task>>
+        response: Result<List<Task>>
     ) {
         coEvery {
             mock.fetchTasksForDate(date, any())

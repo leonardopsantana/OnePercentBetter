@@ -13,8 +13,6 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.KeyboardArrowLeft
-import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -127,7 +125,7 @@ private fun TaskListToolbar(
                 .height(84.dp)
         ) {
             ToolbarIconButton(
-                icon = Icons.Default.KeyboardArrowLeft,
+                icon = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
                 onClick = { onLeftButtonClicked.invoke() },
                 contentDescription = stringResource(R.string.view_previous_day_content_description),
                 toolbarHeight = toolbarHeight
@@ -142,7 +140,7 @@ private fun TaskListToolbar(
             )
 
             ToolbarIconButton(
-                icon = Icons.Default.KeyboardArrowRight,
+                icon = Icons.AutoMirrored.Filled.KeyboardArrowRight,
                 onClick = { onRightButtonClicked.invoke() },
                 contentDescription = stringResource(R.string.view_next_day_content_description),
                 toolbarHeight = toolbarHeight

@@ -26,7 +26,7 @@ class TaskListViewModelRobot {
 
     fun mockTasksForDateResult(
         date: LocalDate,
-        result: Result<List<com.onepercentbetter.core_model.Task>>
+        result: Result<List<Task>>
     ) = apply {
         fakeTaskRepository.mockTasksForDateResult(date, result)
     }

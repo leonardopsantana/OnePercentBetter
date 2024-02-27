@@ -8,5 +8,5 @@ import com.onepercentbetter.core_model.Task
  */
 interface AddTaskUseCase {
 
-    suspend operator fun invoke(task: com.onepercentbetter.core_model.Task): AddTaskResult
+    suspend operator fun invoke(task: Task): AddTaskResult
 }

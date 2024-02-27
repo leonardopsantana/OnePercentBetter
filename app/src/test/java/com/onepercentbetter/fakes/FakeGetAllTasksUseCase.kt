@@ -12,7 +12,7 @@ class FakeGetAllTasksUseCase {
     val mock: GetAllTasksUseCase = mockk()
 
     fun mockResult(
-        response: Result<List<com.onepercentbetter.core_model.Task>>,
+        response: Result<List<Task>>,
     ) {
         coEvery {
             mock.invoke()

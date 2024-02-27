@@ -9,8 +9,8 @@ import java.time.format.DateTimeFormatter
 
 data class TaskListViewState(
     val showLoading: Boolean = true,
-    val completedTasks: List<com.onepercentbetter.core_model.Task>? = null,
-    val incompleteTasks: List<com.onepercentbetter.core_model.Task>? = null,
+    val completedTasks: List<Task>? = null,
+    val incompleteTasks: List<Task>? = null,
     val errorMessage: UIText? = null,
     val selectedDate: LocalDate = LocalDate.now()
 ) {

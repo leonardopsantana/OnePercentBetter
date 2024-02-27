@@ -25,6 +25,7 @@ import com.onepercentbetter.core.ui.theme.OPBTheme
 import com.onepercentbetter.core_model.Task
 import java.time.LocalDate
 import java.time.ZoneId
+import java.time.ZonedDateTime
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -159,9 +160,7 @@ private fun FullTaskListPreview() {
         Task(
             id = "$index",
             description = "Test task: $index",
-            scheduledDateMillis = LocalDate.now()
-                .atStartOfDay()
-                .atZone(ZoneId.systemDefault())
+            scheduledDateMillis = ZonedDateTime.now()
                 .toInstant()
                 .toEpochMilli(),
             completed = false
@@ -172,9 +171,7 @@ private fun FullTaskListPreview() {
         Task(
             id = "$index",
             description = "Test task: $index",
-            scheduledDateMillis = LocalDate.now()
-                .atStartOfDay()
-                .atZone(ZoneId.systemDefault())
+            scheduledDateMillis = ZonedDateTime.now()
                 .toInstant()
                 .toEpochMilli(),
             completed = true
@@ -201,9 +198,7 @@ private fun NoIncompleteTaskListPreview() {
         Task(
             id = "$index",
             description = "Test task: $index",
-            scheduledDateMillis = LocalDate.now()
-                .atStartOfDay()
-                .atZone(ZoneId.systemDefault())
+            scheduledDateMillis = ZonedDateTime.now()
                 .toInstant()
                 .toEpochMilli(),
             completed = true
@@ -229,9 +224,7 @@ private fun NoCompleteTaskListPreview() {
         Task(
             id = "$index",
             description = "Test task: $index",
-            scheduledDateMillis = LocalDate.now()
-                .atStartOfDay()
-                .atZone(ZoneId.systemDefault())
+            scheduledDateMillis = ZonedDateTime.now()
                 .toInstant()
                 .toEpochMilli(),
             completed = false

@@ -12,6 +12,7 @@ import com.onepercentbetter.R
 import org.junit.Rule
 import org.junit.Test
 import java.time.LocalDate
+import java.time.ZonedDateTime
 
 class TaskListContentTest {
 
@@ -21,7 +22,9 @@ class TaskListContentTest {
     private val testTask = com.onepercentbetter.core_model.Task(
         id = "Test ID",
         description = "Text Task",
-        scheduledDateMillis = LocalDate.now(),
+        scheduledDateMillis = ZonedDateTime.now()
+            .toInstant()
+            .toEpochMilli(),
         completed = false
     )
 

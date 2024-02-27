@@ -11,7 +11,6 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.FragmentActivity
-import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.onepercentbetter.core.ui.theme.OPBTheme
 import com.ramcosta.composedestinations.DestinationsNavHost
@@ -30,7 +29,7 @@ class MainActivity : FragmentActivity() {
             OPBTheme {
                 ConfigureSystemBars()
 
-                ProvideWindowInsets {
+                {
                     Surface(
                         color = MaterialTheme.colorScheme.background
                     ) {

@@ -8,5 +8,5 @@ import com.onepercentbetter.core_model.Task
  */
 interface DeleteTask {
 
-    suspend operator fun invoke(task: com.onepercentbetter.core_model.Task): Result<Unit>
+    suspend operator fun invoke(task: Task): Result<Unit>
 }

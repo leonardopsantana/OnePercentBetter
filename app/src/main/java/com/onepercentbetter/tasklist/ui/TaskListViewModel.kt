@@ -61,7 +61,7 @@ class TaskListViewModel @Inject constructor(
     }
 
     private fun getViewStateTaskListResults(
-        result: Result<List<com.onepercentbetter.core_model.Task>>,
+        result: Result<List<Task>>,
     ): TaskListViewState {
         return when (result) {
             is Result.Success -> {
@@ -97,7 +97,7 @@ class TaskListViewModel @Inject constructor(
         )
     }
 
-    fun onDoneButtonClicked(task: com.onepercentbetter.core_model.Task) {
+    fun onDoneButtonClicked(task: Task) {
         viewModelScope.launch {
             markTaskAsCompleteUseCase.invoke(task)
         }

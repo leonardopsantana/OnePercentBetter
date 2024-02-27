@@ -9,7 +9,7 @@ import javax.inject.Inject
 class ProdGetAllTasksUseCase @Inject constructor(
     private val taskRepository: TaskRepository
 ) : GetAllTasksUseCase {
-    override fun invoke(): Flow<Result<List<com.onepercentbetter.core_model.Task>>> {
+    override fun invoke(): Flow<Result<List<Task>>> {
         return taskRepository.fetchAllTasks()
     }
 }
