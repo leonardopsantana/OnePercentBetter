@@ -10,7 +10,7 @@ import javax.inject.Inject
 class ProdAddTaskUseCase @Inject constructor(
     private val taskRepository: TaskRepository
 ) : AddTaskUseCase {
-    override suspend fun invoke(task: com.onepercentbetter.core_model.Task): AddTaskResult {
+    override suspend fun invoke(task: Task): AddTaskResult {
         val validationResult = validateInput(task)
 
         validationResult?.let {
@@ -23,7 +23,7 @@ class ProdAddTaskUseCase @Inject constructor(
         }
     }
 
-    private fun validateInput(task: com.onepercentbetter.core_model.Task): AddTaskResult.Failure.InvalidInput? {
+    private fun validateInput(task: Task): AddTaskResult.Failure.InvalidInput? {
         val emptyDescription = task.description.isEmpty()
         val scheduledDateInPast = task.scheduledDate.isBefore(LocalDate.now())
 
