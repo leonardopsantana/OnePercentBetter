@@ -5,7 +5,6 @@ import com.onepercentbetter.R
 import com.onepercentbetter.addtask.domain.model.AddTaskResult
 import com.onepercentbetter.addtask.domain.model.TaskInput
 import com.onepercentbetter.core.ui.components.UIText
-import com.onepercentbetter.core_model.Task
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
@@ -22,7 +21,7 @@ class AddTaskViewModelTest {
         val taskToSubmit = com.onepercentbetter.core_model.Task(
             id = "Testing",
             description = "X",
-            scheduledDate = LocalDate.now(),
+            scheduledDateMillis = LocalDate.now(),
             completed = false
         )
 
@@ -39,7 +38,7 @@ class AddTaskViewModelTest {
             .expectedViewStates(
                 action = {
                     enterDescription(taskToSubmit.description)
-                    selectDate(taskToSubmit.scheduledDate)
+                    selectDate(taskToSubmit.scheduledDateMillis)
                     clickSubmit()
                 },
                 viewStates = listOf(
@@ -48,7 +47,7 @@ class AddTaskViewModelTest {
                     AddTaskViewState.Active(
                         taskInput = TaskInput(
                             description = taskToSubmit.description,
-                            scheduledDate = taskToSubmit.scheduledDate
+                            scheduledDate = taskToSubmit.scheduledDateMillis
                         ),
                         descriptionInputErrorMessage = UIText.ResourceText(R.string.err_empty_task_description),
                         scheduledDateInputErrorMessage = null
@@ -63,7 +62,7 @@ class AddTaskViewModelTest {
         val taskToSubmit = com.onepercentbetter.core_model.Task(
             id = "Testing",
             description = "Do something",
-            scheduledDate = LocalDate.now().minusDays(1),
+            scheduledDateMillis = LocalDate.now().minusDays(1),
             completed = false
         )
 
@@ -80,7 +79,7 @@ class AddTaskViewModelTest {
             .expectedViewStates(
                 action = {
                     enterDescription(taskToSubmit.description)
-                    selectDate(taskToSubmit.scheduledDate)
+                    selectDate(taskToSubmit.scheduledDateMillis)
                     clickSubmit()
                 },
                 viewStates = listOf(
@@ -93,7 +92,7 @@ class AddTaskViewModelTest {
                     AddTaskViewState.Active(
                         taskInput = TaskInput(
                             description = taskToSubmit.description,
-                            scheduledDate = taskToSubmit.scheduledDate
+                            scheduledDate = taskToSubmit.scheduledDateMillis
 
                         ),
                         descriptionInputErrorMessage = null,
@@ -102,7 +101,7 @@ class AddTaskViewModelTest {
                     AddTaskViewState.Active(
                         taskInput = TaskInput(
                             description = taskToSubmit.description,
-                            scheduledDate = taskToSubmit.scheduledDate
+                            scheduledDate = taskToSubmit.scheduledDateMillis
                         ),
                         descriptionInputErrorMessage = null,
                         scheduledDateInputErrorMessage = UIText.ResourceText(R.string.err_scheduled_date_in_past)

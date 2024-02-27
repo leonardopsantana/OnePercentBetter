@@ -4,7 +4,9 @@ import com.onepercentbetter.addtask.domain.model.AddTaskResult
 import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.core_model.Task
 import com.onepercentbetter.tasklist.domain.repository.TaskRepository
+import java.time.Instant
 import java.time.LocalDate
+import java.time.ZoneId
 import javax.inject.Inject
 
 class ProdAddTaskUseCase @Inject constructor(
@@ -25,7 +27,11 @@ class ProdAddTaskUseCase @Inject constructor(
 
     private fun validateInput(task: Task): AddTaskResult.Failure.InvalidInput? {
         val emptyDescription = task.description.isEmpty()
-        val scheduledDateInPast = task.scheduledDate.isBefore(LocalDate.now())
+        val scheduledDate = Instant
+            .ofEpochMilli(task.scheduledDateMillis)
+            .atZone(ZoneId.systemDefault())
+            .toLocalDate()
+        val scheduledDateInPast = scheduledDate.isBefore(LocalDate.now())
 
         return if (emptyDescription || scheduledDateInPast) {
             AddTaskResult.Failure.InvalidInput(

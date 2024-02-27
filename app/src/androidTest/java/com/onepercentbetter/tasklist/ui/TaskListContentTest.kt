@@ -9,7 +9,6 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import com.google.common.truth.Truth.assertThat
 import com.onepercentbetter.R
-import com.onepercentbetter.core_model.Task
 import org.junit.Rule
 import org.junit.Test
 import java.time.LocalDate
@@ -22,7 +21,7 @@ class TaskListContentTest {
     private val testTask = com.onepercentbetter.core_model.Task(
         id = "Test ID",
         description = "Text Task",
-        scheduledDate = LocalDate.now(),
+        scheduledDateMillis = LocalDate.now(),
         completed = false
     )
 

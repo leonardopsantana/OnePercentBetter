@@ -3,7 +3,6 @@ package com.onepercentbetter.tasklist.ui
 import com.onepercentbetter.CoroutinesTestRule
 import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.core.ui.components.UIText
-import com.onepercentbetter.core_model.Task
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
@@ -21,7 +20,7 @@ class TaskListViewModelTest {
         val task = com.onepercentbetter.core_model.Task(
             id = "TEST ID",
             description = "Test task",
-            scheduledDate = LocalDate.now(),
+            scheduledDateMillis = LocalDate.now(),
             completed = false
         )
 
@@ -59,7 +58,7 @@ class TaskListViewModelTest {
         val task = com.onepercentbetter.core_model.Task(
             id = "TEST ID",
             description = "Test task",
-            scheduledDate = LocalDate.now(),
+            scheduledDateMillis = LocalDate.now(),
             completed = false
         )
 
@@ -112,7 +111,7 @@ class TaskListViewModelTest {
         val task = com.onepercentbetter.core_model.Task(
             id = "TEST ID",
             description = "Test task",
-            scheduledDate = LocalDate.now(),
+            scheduledDateMillis = LocalDate.now(),
             completed = false
         )
 

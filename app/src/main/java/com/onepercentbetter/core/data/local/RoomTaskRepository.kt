@@ -1,7 +1,6 @@
 package com.onepercentbetter.core.data.local
 
 import com.onepercentbetter.core.data.Result
-import com.onepercentbetter.core_model.Task
 import com.onepercentbetter.tasklist.domain.repository.TaskListResult
 import com.onepercentbetter.tasklist.domain.repository.TaskRepository
 import kotlinx.coroutines.flow.Flow
@@ -57,15 +56,11 @@ private fun LocalDate.toPersistableDateString(): String {
     return persistedDateFormatter.format(this)
 }
 
-private fun String.parsePersistableDateString(): LocalDate {
-    return LocalDate.parse(this, persistedDateFormatter)
-}
-
 private fun PersistableTask.toTask(): com.onepercentbetter.core_model.Task {
     return com.onepercentbetter.core_model.Task(
         id = this.id,
         description = this.description,
-        scheduledDate = this.scheduledDate.parsePersistableDateString(),
+        scheduledDateMillis = this.scheduledDate,
         completed = this.completed
     )
 }
@@ -74,7 +69,7 @@ private fun com.onepercentbetter.core_model.Task.toPersistableTask(): Persistabl
     return PersistableTask(
         id = this.id,
         description = this.description,
-        scheduledDate = persistedDateFormatter.format(this.scheduledDate),
+        scheduledDate = this.scheduledDateMillis,
         completed = this.completed
     )
 }

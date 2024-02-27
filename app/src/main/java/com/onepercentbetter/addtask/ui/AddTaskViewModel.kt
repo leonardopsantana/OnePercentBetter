@@ -7,12 +7,12 @@ import com.onepercentbetter.addtask.domain.model.AddTaskResult
 import com.onepercentbetter.addtask.domain.model.TaskInput
 import com.onepercentbetter.addtask.domain.usecase.AddTaskUseCase
 import com.onepercentbetter.core.ui.components.UIText
-import com.onepercentbetter.core_model.Task
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.time.LocalDate
+import java.time.ZoneId
 import java.util.UUID
 import javax.inject.Inject
 
@@ -56,7 +56,11 @@ class AddTaskViewModel @Inject constructor(
         val taskToCreate = com.onepercentbetter.core_model.Task(
             id = UUID.randomUUID().toString(),
             description = _viewState.value.taskInput.description,
-            scheduledDate = _viewState.value.taskInput.scheduledDate,
+            scheduledDateMillis = _viewState.value.taskInput.scheduledDate
+                .atStartOfDay()
+                .atZone(ZoneId.systemDefault())
+                .toInstant()
+                .toEpochMilli(),
             completed = false
         )
 

@@ -19,6 +19,7 @@ import com.onepercentbetter.core.ui.components.OPBTextButton
 import com.onepercentbetter.core.ui.theme.OPBTheme
 import com.onepercentbetter.core_model.Task
 import java.time.LocalDate
+import java.time.ZoneId
 
 /**
  * This displays a list item for a given [task].
@@ -99,10 +100,14 @@ private fun TaskText(text: String) {
 )
 @Composable
 private fun TaskListItemPreview() {
-    val task = com.onepercentbetter.core_model.Task(
+    val task = Task(
         id = "test",
         description = "Read 30min",
-        scheduledDate = LocalDate.now(),
+        scheduledDateMillis =  LocalDate.now()
+            .atStartOfDay()
+            .atZone(ZoneId.systemDefault())
+            .toInstant()
+            .toEpochMilli(),
         completed = false
     )
 

@@ -39,8 +39,8 @@ import com.onepercentbetter.R
 import com.onepercentbetter.core.ui.components.UIText
 import com.onepercentbetter.core.ui.components.getString
 import com.onepercentbetter.core.ui.theme.OPBTheme
-import com.onepercentbetter.core_model.Task
 import java.time.LocalDate
+import java.time.ZoneId
 
 @Composable
 fun TaskListContent(
@@ -189,7 +189,11 @@ class TaskListViewStateProvider : PreviewParameterProvider<TaskListViewState> {
                 com.onepercentbetter.core_model.Task(
                     id = "$index",
                     description = "Test task: $index",
-                    scheduledDate = LocalDate.now(),
+                    scheduledDateMillis =  LocalDate.now()
+                        .atStartOfDay()
+                        .atZone(ZoneId.systemDefault())
+                        .toInstant()
+                        .toEpochMilli(),
                     completed = false
                 )
             }
@@ -198,7 +202,11 @@ class TaskListViewStateProvider : PreviewParameterProvider<TaskListViewState> {
                 com.onepercentbetter.core_model.Task(
                     id = "$index",
                     description = "Test task: $index",
-                    scheduledDate = LocalDate.now(),
+                    scheduledDateMillis =  LocalDate.now()
+                        .atStartOfDay()
+                        .atZone(ZoneId.systemDefault())
+                        .toInstant()
+                        .toEpochMilli(),
                     completed = true
                 )
             }
