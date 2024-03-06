@@ -1,6 +1,6 @@
 package com.onepercentbetter.fakes
 
-import com.onepercentbetter.core.data.Result
+import com.onepercentbetter.core_data.Result
 import com.onepercentbetter.login.domain.model.Credentials
 import com.onepercentbetter.login.domain.model.LoginResponse
 import com.onepercentbetter.login.domain.repository.LoginRepository

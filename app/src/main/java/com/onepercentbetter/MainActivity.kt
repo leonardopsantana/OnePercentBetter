@@ -28,15 +28,12 @@ class MainActivity : FragmentActivity() {
         setContent {
             OPBTheme {
                 ConfigureSystemBars()
-
-                {
-                    Surface(
-                        color = MaterialTheme.colorScheme.background
-                    ) {
-                        DestinationsNavHost(
-                            NavGraphs.root,
-                        )
-                    }
+                Surface(
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    DestinationsNavHost(
+                        NavGraphs.root,
+                    )
                 }
             }
         }

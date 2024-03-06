@@ -1,7 +1,7 @@
 package com.onepercentbetter.login.domain.usecase
 
 import com.google.common.truth.Truth.assertThat
-import com.onepercentbetter.core.data.Result
+import com.onepercentbetter.core_data.Result
 import com.onepercentbetter.fakes.FakeLoginRepository
 import com.onepercentbetter.fakes.FakeTokenRepository
 import com.onepercentbetter.login.domain.model.AuthToken

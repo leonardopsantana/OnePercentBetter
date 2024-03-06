@@ -1,6 +1,6 @@
 package com.onepercentbetter.tasklist.domain.repository
 
-import com.onepercentbetter.core.data.Result
+import com.onepercentbetter.core_data.Result
 import com.onepercentbetter.core_model.Task
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate

@@ -1,6 +1,7 @@
 package com.onepercentbetter.core.data.local
 
-import com.onepercentbetter.core.data.Result
+import com.onepercentbetter.core_data.Result
+import com.onepercentbetter.core_model.Task
 import com.onepercentbetter.tasklist.domain.repository.TaskListResult
 import com.onepercentbetter.tasklist.domain.repository.TaskRepository
 import kotlinx.coroutines.flow.Flow
@@ -12,7 +13,7 @@ import javax.inject.Inject
 class RoomTaskRepository @Inject constructor(
     private val taskDAO: TaskDAO
 ) : TaskRepository {
-    override fun fetchAllTasks(): Flow<Result<List<com.onepercentbetter.core_model.Task>>> {
+    override fun fetchAllTasks(): Flow<Result<List<Task>>> {
         return taskDAO
             .fetchAllTasks()
             .map { taskList ->

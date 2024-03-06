@@ -1,6 +1,6 @@
 package com.onepercentbetter.tasklist.domain.usecases
 
-import com.onepercentbetter.core.data.Result
+import com.onepercentbetter.core_data.Result
 import com.onepercentbetter.tasklist.domain.repository.TaskListResult
 import com.onepercentbetter.tasklist.domain.repository.TaskRepository
 import kotlinx.coroutines.flow.Flow

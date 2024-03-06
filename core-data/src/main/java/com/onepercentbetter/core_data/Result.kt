@@ -1,4 +1,4 @@
-package com.onepercentbetter.core.data
+package com.onepercentbetter.core_data
 
 /**
  * This is a sealed class that represents two options for a data response, where the response is

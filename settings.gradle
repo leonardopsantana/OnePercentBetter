@@ -21,3 +21,4 @@ rootProject.name = "onePercentBetter"
 include ':app'
 include ':core-data'
 include ':core-model'
+include ':task_api'
