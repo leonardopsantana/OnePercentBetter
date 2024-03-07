@@ -1,9 +1,8 @@
-package com.onepercentbetter.tasklist.domain.repository
+package com.onepercentbetter.task_api
 
-import com.onepercentbetter.core_data.Result
 import com.onepercentbetter.core_model.Task
 import kotlinx.coroutines.flow.Flow
-import java.time.LocalDate
+import com.onepercentbetter.core_data.Result
 
 typealias TaskListResult = Result<List<Task>>
 
@@ -18,9 +17,9 @@ interface TaskRepository {
     fun fetchAllTasks(): Flow<TaskListResult>
 
     /**
-     * Request all of the tasks that have been created for the supplied [date].
+     * Request all of the tasks that have been created for the supplied [dateMillis].
      */
-    fun fetchTasksForDate(date: LocalDate, completed: Boolean): Flow<TaskListResult>
+    fun fetchTasksForDate(dateMillis: Long, completed: Boolean): Flow<TaskListResult>
 
     /**
      * Add new [task] for the signed in user to complete.

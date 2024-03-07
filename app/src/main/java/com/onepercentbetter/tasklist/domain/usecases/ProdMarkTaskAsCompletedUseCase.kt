@@ -1,8 +1,8 @@
 package com.onepercentbetter.tasklist.domain.usecases
 
-import com.onepercentbetter.core_data.Result
 import com.onepercentbetter.core_model.Task
-import com.onepercentbetter.tasklist.domain.repository.TaskRepository
+import com.onepercentbetter.task_api.TaskRepository
+import com.onepercentbetter.core_data.Result
 import javax.inject.Inject
 
 /**

@@ -2,11 +2,13 @@ package com.onepercentbetter.core.data.local
 
 import com.onepercentbetter.core_data.Result
 import com.onepercentbetter.core_model.Task
-import com.onepercentbetter.tasklist.domain.repository.TaskListResult
-import com.onepercentbetter.tasklist.domain.repository.TaskRepository
+import com.onepercentbetter.task_api.TaskListResult
+import com.onepercentbetter.task_api.TaskRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import java.time.Instant
 import java.time.LocalDate
+import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
@@ -21,9 +23,14 @@ class RoomTaskRepository @Inject constructor(
             }
     }
 
-    override fun fetchTasksForDate(date: LocalDate, completed: Boolean): Flow<TaskListResult> {
+    override fun fetchTasksForDate(dateMillis: Long, completed: Boolean): Flow<TaskListResult> {
+        val localDate = Instant
+            .ofEpochMilli(dateMillis)
+            .atZone(ZoneId.systemDefault())
+            .toLocalDate()
+
         return taskDAO
-            .fetchTasksForDate(date.toPersistableDateString(), completed)
+            .fetchTasksForDate(localDate.toPersistableDateString(), completed)
             .map { taskList ->
                 Result.Success(taskList.toDomainTaskList())
             }

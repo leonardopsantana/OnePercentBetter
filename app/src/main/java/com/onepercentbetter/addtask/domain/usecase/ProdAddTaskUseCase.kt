@@ -3,7 +3,7 @@ package com.onepercentbetter.addtask.domain.usecase
 import com.onepercentbetter.addtask.domain.model.AddTaskResult
 import com.onepercentbetter.core_data.Result
 import com.onepercentbetter.core_model.Task
-import com.onepercentbetter.tasklist.domain.repository.TaskRepository
+import com.onepercentbetter.task_api.TaskRepository
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId

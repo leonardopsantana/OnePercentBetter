@@ -2,7 +2,7 @@ package com.onepercentbetter.fakes
 
 import com.onepercentbetter.core_data.Result
 import com.onepercentbetter.core_model.Task
-import com.onepercentbetter.tasklist.domain.repository.TaskRepository
+import com.onepercentbetter.task_api.TaskRepository
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.flow.flowOf
