@@ -8,6 +8,6 @@ data class PersistableTask(
     @PrimaryKey
     val id: String,
     val description: String,
-    val scheduledDate: Long,
+    val scheduledDate: String,
     val completed: Boolean
 )

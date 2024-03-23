@@ -36,48 +36,56 @@ class RoomTaskRepository @Inject constructor(
             }
     }
 
-    override suspend fun addTask(task: com.onepercentbetter.core_model.Task): Result<Unit> {
+    override suspend fun addTask(task: Task): Result<Unit> {
         taskDAO.insertTask(task.toPersistableTask())
 
         return Result.Success(Unit)
     }
 
-    override suspend fun deleteTask(task: com.onepercentbetter.core_model.Task): Result<Unit> {
+    override suspend fun deleteTask(task: Task): Result<Unit> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun updateTask(task: com.onepercentbetter.core_model.Task): Result<Unit> {
+    override suspend fun updateTask(task: Task): Result<Unit> {
         taskDAO.updateTask(task.toPersistableTask())
 
         return Result.Success(Unit)
     }
 }
 
-private fun List<PersistableTask>.toDomainTaskList(): List<com.onepercentbetter.core_model.Task> {
+private fun List<PersistableTask>.toDomainTaskList(): List<Task> {
     return this.map(PersistableTask::toTask)
 }
 
-private const val PERSISTED_DATE_FORMAT = "dd-MM-yyyy"
+private const val PERSISTED_DATE_FORMAT = "yyyy-MM-dd"
 private val persistedDateFormatter = DateTimeFormatter.ofPattern(PERSISTED_DATE_FORMAT)
 
 private fun LocalDate.toPersistableDateString(): String {
     return persistedDateFormatter.format(this)
 }
 
-private fun PersistableTask.toTask(): com.onepercentbetter.core_model.Task {
-    return com.onepercentbetter.core_model.Task(
+private fun PersistableTask.toTask(): Task {
+    return Task(
         id = this.id,
         description = this.description,
-        scheduledDateMillis = this.scheduledDate,
-        completed = this.completed
+        scheduledDateMillis = LocalDate.parse(this.scheduledDate, persistedDateFormatter)
+            .atStartOfDay()
+            .atZone(ZoneId.systemDefault())
+            .toInstant()
+            .toEpochMilli(),
+        completed = this.completed,
     )
 }
 
-private fun com.onepercentbetter.core_model.Task.toPersistableTask(): PersistableTask {
+private fun Task.toPersistableTask(): PersistableTask {
+    val scheduledDate = Instant.ofEpochMilli(this.scheduledDateMillis)
+        .atZone(ZoneId.systemDefault())
+        .toLocalDate()
+
     return PersistableTask(
         id = this.id,
         description = this.description,
-        scheduledDate = this.scheduledDateMillis,
-        completed = this.completed
+        scheduledDate = scheduledDate.toPersistableDateString(),
+        completed = this.completed,
     )
 }
