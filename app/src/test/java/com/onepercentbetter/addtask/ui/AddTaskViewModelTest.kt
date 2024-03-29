@@ -4,12 +4,12 @@ import com.onepercentbetter.CoroutinesTestRule
 import com.onepercentbetter.R
 import com.onepercentbetter.addtask.domain.model.AddTaskResult
 import com.onepercentbetter.addtask.domain.model.TaskInput
+import com.onepercentbetter.core.model.Task
 import com.onepercentbetter.core.ui.components.UIText
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
 import java.time.Instant
-import java.time.LocalDate
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
@@ -21,7 +21,7 @@ class AddTaskViewModelTest {
 
     @Test
     fun submitWithEmptyDescription() = runTest {
-        val taskToSubmit = com.onepercentbetter.core_model.Task(
+        val taskToSubmit = Task(
             id = "Testing",
             description = "X",
             scheduledDateMillis = ZonedDateTime.now()

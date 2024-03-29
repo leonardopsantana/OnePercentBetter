@@ -4,7 +4,7 @@ import com.onepercentbetter.login.domain.repository.DemoLoginRepositoryImpl
 import com.onepercentbetter.login.domain.repository.DemoTokenRepositoryImpl
 import com.onepercentbetter.login.domain.repository.LoginRepository
 import com.onepercentbetter.login.domain.repository.TokenRepository
-import com.onepercentbetter.task_api.TaskRepository
+import com.onepercentbetter.task.api.TaskRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

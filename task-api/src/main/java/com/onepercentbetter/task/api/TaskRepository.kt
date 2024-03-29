@@ -1,7 +1,7 @@
-package com.onepercentbetter.task_api
+package com.onepercentbetter.task.api
 
 import com.onepercentbetter.core.data.Result
-import com.onepercentbetter.core_model.Task
+import com.onepercentbetter.core.model.Task
 import kotlinx.coroutines.flow.Flow
 
 typealias TaskListResult = Result<List<Task>>

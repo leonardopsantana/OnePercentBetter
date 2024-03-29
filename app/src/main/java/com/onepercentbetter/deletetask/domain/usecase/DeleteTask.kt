@@ -1,7 +1,7 @@
 package com.onepercentbetter.deletetask.domain.usecase
 
 import com.onepercentbetter.core.data.Result
-import com.onepercentbetter.core_model.Task
+import com.onepercentbetter.core.model.Task
 
 /**
  * Given a new task, delete any reference of that in the user's task list.

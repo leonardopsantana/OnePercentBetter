@@ -36,6 +36,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.onepercentbetter.R
+import com.onepercentbetter.core.model.Task
 import com.onepercentbetter.core.ui.components.UIText
 import com.onepercentbetter.core.ui.components.getString
 import com.onepercentbetter.core.ui.theme.OPBTheme
@@ -45,8 +46,8 @@ import java.time.ZoneId
 @Composable
 fun TaskListContent(
     viewState: TaskListViewState,
-    onRescheduleClicked: (com.onepercentbetter.core_model.Task) -> Unit,
-    onDoneClicked: (com.onepercentbetter.core_model.Task) -> Unit,
+    onRescheduleClicked: (Task) -> Unit,
+    onDoneClicked: (Task) -> Unit,
     onAddButtonClicked: () -> Unit,
     onPreviousDateButtonClicked: () -> Unit,
     onNextDateButtonClicked: () -> Unit,
@@ -186,10 +187,10 @@ class TaskListViewStateProvider : PreviewParameterProvider<TaskListViewState> {
     override val values: Sequence<TaskListViewState>
         get() {
             val incompleteTasks = (1..3).map { index ->
-                com.onepercentbetter.core_model.Task(
+                Task(
                     id = "$index",
                     description = "Test task: $index",
-                    scheduledDateMillis =  LocalDate.now()
+                    scheduledDateMillis = LocalDate.now()
                         .atStartOfDay()
                         .atZone(ZoneId.systemDefault())
                         .toInstant()
@@ -199,10 +200,10 @@ class TaskListViewStateProvider : PreviewParameterProvider<TaskListViewState> {
             }
 
             val completedTasks = (1..3).map { index ->
-                com.onepercentbetter.core_model.Task(
+                Task(
                     id = "$index",
                     description = "Test task: $index",
-                    scheduledDateMillis =  LocalDate.now()
+                    scheduledDateMillis = LocalDate.now()
                         .atStartOfDay()
                         .atZone(ZoneId.systemDefault())
                         .toInstant()

@@ -1,9 +1,9 @@
 package com.onepercentbetter.core.data.local
 
 import com.onepercentbetter.core.data.Result
-import com.onepercentbetter.core_model.Task
-import com.onepercentbetter.task_api.TaskListResult
-import com.onepercentbetter.task_api.TaskRepository
+import com.onepercentbetter.core.model.Task
+import com.onepercentbetter.task.TaskListResult
+import com.onepercentbetter.task.api.TaskRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.time.Instant

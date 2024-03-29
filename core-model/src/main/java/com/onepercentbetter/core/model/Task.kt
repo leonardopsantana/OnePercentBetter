@@ -1,4 +1,4 @@
-package com.onepercentbetter.core_model
+package com.onepercentbetter.core.model
 
 data class Task(
     val id: String,

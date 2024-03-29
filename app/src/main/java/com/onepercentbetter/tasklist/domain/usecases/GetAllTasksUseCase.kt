@@ -1,7 +1,7 @@
 package com.onepercentbetter.tasklist.domain.usecases
 
 import com.onepercentbetter.core.data.Result
-import com.onepercentbetter.core_model.Task
+import com.onepercentbetter.core.model.Task
 import kotlinx.coroutines.flow.Flow
 
 /**

@@ -18,9 +18,9 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.onepercentbetter.R
+import com.onepercentbetter.core.model.Task
 import com.onepercentbetter.core.ui.components.OPBTextButton
 import com.onepercentbetter.core.ui.theme.OPBTheme
-import com.onepercentbetter.core_model.Task
 
 /**
  * This displays a list item for a given [task].
@@ -113,7 +113,6 @@ private class TaskPreviewParameterProvider : PreviewParameterProvider<Task> {
                 completedTask
             )
         }
-
 }
 
 @Preview(

@@ -1,9 +1,9 @@
 package com.onepercentbetter.tasklist.ui
 
 import com.onepercentbetter.R
+import com.onepercentbetter.core.model.Task
 import com.onepercentbetter.core.ui.components.UIText
 import com.onepercentbetter.core.utils.getStSuffixForDayOfMonth
-import com.onepercentbetter.core_model.Task
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 

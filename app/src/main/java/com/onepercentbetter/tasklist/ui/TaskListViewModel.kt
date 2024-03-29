@@ -3,8 +3,8 @@ package com.onepercentbetter.tasklist.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.onepercentbetter.core.data.Result
+import com.onepercentbetter.core.model.Task
 import com.onepercentbetter.core.ui.components.UIText
-import com.onepercentbetter.core_model.Task
 import com.onepercentbetter.tasklist.domain.usecases.GetTasksForDateUseCase
 import com.onepercentbetter.tasklist.domain.usecases.MarkTaskAsCompleteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

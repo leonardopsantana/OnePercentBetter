@@ -12,6 +12,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import com.google.common.truth.Truth.assertThat
 import com.onepercentbetter.R
+import com.onepercentbetter.core.model.Task
 import org.junit.Rule
 import org.junit.Test
 import java.time.ZonedDateTime
@@ -21,7 +22,7 @@ class TaskListContentTest {
     @get:Rule
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
-    private val testTask = com.onepercentbetter.core_model.Task(
+    private val testTask = Task(
         id = "Test ID",
         description = "Text Task",
         scheduledDateMillis = ZonedDateTime.now()
@@ -125,7 +126,6 @@ class TaskListContentTest {
                 onAddButtonClicked = {},
                 onPreviousDateButtonClicked = {}
             ) {
-
             }
         }
 
@@ -164,7 +164,6 @@ class TaskListContentTest {
                 onAddButtonClicked = {},
                 onPreviousDateButtonClicked = {}
             ) {
-
             }
         }
 

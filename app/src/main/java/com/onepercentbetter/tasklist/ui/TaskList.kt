@@ -21,10 +21,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.onepercentbetter.R
+import com.onepercentbetter.core.model.Task
 import com.onepercentbetter.core.ui.theme.OPBTheme
-import com.onepercentbetter.core_model.Task
-import java.time.LocalDate
-import java.time.ZoneId
 import java.time.ZonedDateTime
 
 @OptIn(ExperimentalFoundationApi::class)
