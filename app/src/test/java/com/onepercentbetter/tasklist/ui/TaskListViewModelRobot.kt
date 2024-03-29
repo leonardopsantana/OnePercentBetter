@@ -4,7 +4,7 @@ import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat
 import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.core.model.Task
-import com.onepercentbetter.task_api_test.FakeTaskRepository
+import com.onepercentbetter.task.api.test.FakeTaskRepository
 import com.onepercentbetter.tasklist.domain.usecases.ProdGetTasksForDateUseCase
 import com.onepercentbetter.tasklist.domain.usecases.ProdMarkTaskAsCompletedUseCase
 import kotlinx.coroutines.flow.flowOf

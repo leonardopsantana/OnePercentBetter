@@ -1,4 +1,4 @@
-package com.onepercentbetter.task_api_test
+package com.onepercentbetter.task
 
 import org.junit.Test
 

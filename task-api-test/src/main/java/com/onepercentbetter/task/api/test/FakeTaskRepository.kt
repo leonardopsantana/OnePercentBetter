@@ -1,13 +1,12 @@
-package com.onepercentbetter.task_api_test
+package com.onepercentbetter.task.api.test
 
 import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.core.model.Task
-import com.onepercentbetter.task.TaskListResult
+import com.onepercentbetter.task.api.TaskListResult
 import com.onepercentbetter.task.api.TaskRepository
 import kotlinx.coroutines.flow.Flow
 
 typealias TasksForDateInput = Pair<Long, Boolean>
-
 /**
  * A concrete implementation of [TaskRepository] that allows the caller to mock and verify
  * calls to this repo.

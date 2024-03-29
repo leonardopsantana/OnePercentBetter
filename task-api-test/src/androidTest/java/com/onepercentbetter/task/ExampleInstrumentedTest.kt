@@ -1,4 +1,4 @@
-package com.onepercentbetter.task_api_test
+package com.onepercentbetter.task
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

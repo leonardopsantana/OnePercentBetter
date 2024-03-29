@@ -4,7 +4,7 @@ import com.google.common.truth.Truth.assertThat
 import com.onepercentbetter.addtask.domain.model.AddTaskResult
 import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.core.model.Task
-import com.onepercentbetter.task_api_test.FakeTaskRepository
+import com.onepercentbetter.task.api.test.FakeTaskRepository
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import java.time.LocalDate
