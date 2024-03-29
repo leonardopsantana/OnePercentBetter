@@ -4,10 +4,12 @@ import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat
 import com.onepercentbetter.core_data.Result
 import com.onepercentbetter.core_model.Task
-import com.onepercentbetter.fakes.FakeTaskRepository
+import com.onepercentbetter.task_api_test.FakeTaskRepository
 import com.onepercentbetter.tasklist.domain.usecases.ProdGetTasksForDateUseCase
 import com.onepercentbetter.tasklist.domain.usecases.ProdMarkTaskAsCompletedUseCase
+import kotlinx.coroutines.flow.flowOf
 import java.time.LocalDate
+import java.time.ZoneId
 
 class TaskListViewModelRobot {
     private val fakeTaskRepository = FakeTaskRepository()
@@ -16,10 +18,10 @@ class TaskListViewModelRobot {
     fun buildViewModel() = apply {
         viewModel = TaskListViewModel(
             getTasksForDateUseCase = ProdGetTasksForDateUseCase(
-                taskRepository = fakeTaskRepository.mock
+                taskRepository = fakeTaskRepository
             ),
             markTaskAsCompleteUseCase = ProdMarkTaskAsCompletedUseCase(
-                taskRepository = fakeTaskRepository.mock
+                taskRepository = fakeTaskRepository
             )
         )
     }
@@ -28,7 +30,16 @@ class TaskListViewModelRobot {
         date: LocalDate,
         result: Result<List<Task>>
     ) = apply {
-        fakeTaskRepository.mockTasksForDateResult(date, result)
+        val dateMillis = date.atStartOfDay()
+            .atZone(ZoneId.systemDefault())
+            .toInstant()
+            .toEpochMilli()
+
+        val completedInput = Pair(dateMillis, true)
+        fakeTaskRepository.tasksForDateResults[completedInput] = flowOf(result)
+
+        val incompleteInput = Pair(dateMillis, false)
+        fakeTaskRepository.tasksForDateResults[incompleteInput] = flowOf(result)
     }
 
     fun assertViewState(

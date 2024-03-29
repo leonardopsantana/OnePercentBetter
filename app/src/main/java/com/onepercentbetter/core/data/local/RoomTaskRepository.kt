@@ -23,7 +23,10 @@ class RoomTaskRepository @Inject constructor(
             }
     }
 
-    override fun fetchTasksForDate(dateMillis: Long, completed: Boolean): Flow<TaskListResult> {
+    override fun fetchTasksForDate(
+        dateMillis: Long,
+        completed: Boolean
+    ): Flow<TaskListResult> {
         val localDate = Instant
             .ofEpochMilli(dateMillis)
             .atZone(ZoneId.systemDefault())

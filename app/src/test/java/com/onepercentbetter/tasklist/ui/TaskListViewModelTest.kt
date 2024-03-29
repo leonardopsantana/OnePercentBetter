@@ -8,6 +8,7 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
 import java.time.LocalDate
+import java.time.ZonedDateTime
 
 class TaskListViewModelTest {
 
@@ -18,10 +19,12 @@ class TaskListViewModelTest {
 
     @Test
     fun successfulLoad() = runTest {
-        val task = com.onepercentbetter.core_model.Task(
+        val task = Task(
             id = "TEST ID",
             description = "Test task",
-            scheduledDateMillis = LocalDate.now(),
+            scheduledDateMillis = ZonedDateTime.now()
+                .toInstant()
+                .toEpochMilli(),
             completed = false
         )
 
@@ -56,10 +59,12 @@ class TaskListViewModelTest {
 
     @Test
     fun clickPreviousDate() = runTest {
-        val task = com.onepercentbetter.core_model.Task(
+        val task = Task(
             id = "TEST ID",
             description = "Test task",
-            scheduledDateMillis = LocalDate.now(),
+            scheduledDateMillis = ZonedDateTime.now()
+                .toInstant()
+                .toEpochMilli(),
             completed = false
         )
 
@@ -86,6 +91,11 @@ class TaskListViewModelTest {
                         showLoading = true
                     ),
                     TaskListViewState(
+                        incompleteTasks = null,
+                        completedTasks = emptyList(),
+                        showLoading = true
+                    ),
+                    TaskListViewState(
                         selectedDate = LocalDate.now().minusDays(1),
                         incompleteTasks = emptyList(),
                         completedTasks = emptyList(),
@@ -109,10 +119,12 @@ class TaskListViewModelTest {
 
     @Test
     fun clickNextDate() = runTest {
-        val task = com.onepercentbetter.core_model.Task(
+        val task = Task(
             id = "TEST ID",
             description = "Test task",
-            scheduledDateMillis = LocalDate.now(),
+            scheduledDateMillis = ZonedDateTime.now()
+                .toInstant()
+                .toEpochMilli(),
             completed = false
         )
 

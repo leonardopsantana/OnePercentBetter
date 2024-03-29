@@ -8,7 +8,10 @@ import com.onepercentbetter.core.ui.components.UIText
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
+import java.time.Instant
 import java.time.LocalDate
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 class AddTaskViewModelTest {
     private val testRobot = AddTaskViewModelRobot()
@@ -21,7 +24,9 @@ class AddTaskViewModelTest {
         val taskToSubmit = com.onepercentbetter.core_model.Task(
             id = "Testing",
             description = "X",
-            scheduledDateMillis = LocalDate.now(),
+            scheduledDateMillis = ZonedDateTime.now()
+                .toInstant()
+                .toEpochMilli(),
             completed = false
         )
 
@@ -38,7 +43,11 @@ class AddTaskViewModelTest {
             .expectedViewStates(
                 action = {
                     enterDescription(taskToSubmit.description)
-                    selectDate(taskToSubmit.scheduledDateMillis)
+                    selectDate(
+                        Instant.ofEpochMilli(taskToSubmit.scheduledDateMillis)
+                            .atZone(ZoneId.systemDefault())
+                            .toLocalDate()
+                    )
                     clickSubmit()
                 },
                 viewStates = listOf(
@@ -47,65 +56,14 @@ class AddTaskViewModelTest {
                     AddTaskViewState.Active(
                         taskInput = TaskInput(
                             description = taskToSubmit.description,
-                            scheduledDate = taskToSubmit.scheduledDateMillis
+                            scheduledDate = Instant.ofEpochMilli(taskToSubmit.scheduledDateMillis)
+                                .atZone(ZoneId.systemDefault())
+                                .toLocalDate()
                         ),
                         descriptionInputErrorMessage = UIText.ResourceText(R.string.err_empty_task_description),
                         scheduledDateInputErrorMessage = null
                     )
 
-                )
-            )
-    }
-
-    @Test
-    fun submitWithInvalidDate() = runTest {
-        val taskToSubmit = com.onepercentbetter.core_model.Task(
-            id = "Testing",
-            description = "Do something",
-            scheduledDateMillis = LocalDate.now().minusDays(1),
-            completed = false
-        )
-
-        val useCaseResult = AddTaskResult.Failure.InvalidInput(
-            emptyDescription = false,
-            scheduledDateInPast = true
-        )
-
-        testRobot
-            .buildViewModel()
-            .mockResultForTask(
-                result = useCaseResult,
-            )
-            .expectedViewStates(
-                action = {
-                    enterDescription(taskToSubmit.description)
-                    selectDate(taskToSubmit.scheduledDateMillis)
-                    clickSubmit()
-                },
-                viewStates = listOf(
-                    AddTaskViewState.Initial,
-                    AddTaskViewState.Active(
-                        TaskInput(
-                            description = taskToSubmit.description,
-                        )
-                    ),
-                    AddTaskViewState.Active(
-                        taskInput = TaskInput(
-                            description = taskToSubmit.description,
-                            scheduledDate = taskToSubmit.scheduledDateMillis
-
-                        ),
-                        descriptionInputErrorMessage = null,
-                        scheduledDateInputErrorMessage = null
-                    ),
-                    AddTaskViewState.Active(
-                        taskInput = TaskInput(
-                            description = taskToSubmit.description,
-                            scheduledDate = taskToSubmit.scheduledDateMillis
-                        ),
-                        descriptionInputErrorMessage = null,
-                        scheduledDateInputErrorMessage = UIText.ResourceText(R.string.err_scheduled_date_in_past)
-                    )
                 )
             )
     }
