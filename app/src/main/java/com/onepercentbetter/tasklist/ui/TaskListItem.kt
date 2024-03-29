@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
+import com.onepercentbetter.ExcludeFromJacocoGeneratedReport
 import com.onepercentbetter.R
 import com.onepercentbetter.core.model.Task
 import com.onepercentbetter.core.ui.components.OPBTextButton
@@ -94,6 +95,7 @@ private fun TaskText(text: String) {
     )
 }
 
+@ExcludeFromJacocoGeneratedReport
 private class TaskPreviewParameterProvider : PreviewParameterProvider<Task> {
     override val values: Sequence<Task>
         get() {
@@ -124,6 +126,7 @@ private class TaskPreviewParameterProvider : PreviewParameterProvider<Task> {
     uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @Composable
+@ExcludeFromJacocoGeneratedReport
 private fun TaskListItemPreview(
     @PreviewParameter(TaskPreviewParameterProvider::class)
     task: Task

@@ -35,7 +35,7 @@ fun OPBTextButton(
     uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @Composable
-private fun TaskListItemPreview() {
+private fun OPBTextButtonPreview() {
     OPBTheme {
         OPBTextButton(
             text = "OPB Text button",
