@@ -23,7 +23,9 @@ class MissingExcludePreviewAnnotationDetector : Detector(), UastScanner {
         return PreviewMethodElementHandler(context)
     }
 
-    private class PreviewMethodElementHandler(private val context: JavaContext) : UElementHandler() {
+    private class PreviewMethodElementHandler(
+        private val context: JavaContext
+    ) : UElementHandler() {
         override fun visitMethod(node: UMethod) {
             val isPreviewMethod = node.hasAnnotation(COMPOSE_PREVIEW_ANNOTATION)
             val isExcluded = node.hasAnnotation(EXCLUDE_FROM_JACOCO_ANNOTATION)
@@ -32,7 +34,8 @@ class MissingExcludePreviewAnnotationDetector : Detector(), UastScanner {
                 context.report(
                     issue = ISSUE_MISSING_EXCLUDE_PREVIEW_ANNOTATION,
                     location = context.getLocation(node),
-                    message = ISSUE_MISSING_EXCLUDE_PREVIEW_ANNOTATION.getExplanation(TextFormat.TEXT)
+                    message =
+                    ISSUE_MISSING_EXCLUDE_PREVIEW_ANNOTATION.getExplanation(TextFormat.TEXT)
                 )
             }
         }
@@ -40,12 +43,14 @@ class MissingExcludePreviewAnnotationDetector : Detector(), UastScanner {
 
     companion object {
         private const val COMPOSE_PREVIEW_ANNOTATION = "androidx.compose.ui.tooling.preview.Preview"
-        private const val EXCLUDE_FROM_JACOCO_ANNOTATION = "com.onepercentbetter.ExcludeFromJacocoGeneratedReport"
+        private const val EXCLUDE_FROM_JACOCO_ANNOTATION =
+            "com.onepercentbetter.ExcludeFromJacocoGeneratedReport"
 
         internal val ISSUE_MISSING_EXCLUDE_PREVIEW_ANNOTATION = Issue.create(
             id = "MissingExcludePreviewAnnotation",
             briefDescription = "Jetpack Compose previews should be excluded from JaCoCo Reports",
-            explanation = "Any methods annotated with @Preview should also have the @ExcludeFromJacocoGeneratedReport annotation",
+            explanation = "Any methods annotated with @Preview should also have the " +
+                    "@ExcludeFromJacocoGeneratedReport annotation",
             category = Category.CUSTOM_LINT_CHECKS,
             severity = Severity.ERROR,
             implementation = Implementation(
