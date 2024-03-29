@@ -8,11 +8,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.tooling.preview.Preview
+import com.onepercentbetter.ExcludeFromJacocoGeneratedReport
 import com.onepercentbetter.core.ui.theme.OPBTheme
 
 /**
  * This is our custom version of a [TextButton] that ensures that supplied [text] is uppercase
  */
+@ExcludeFromJacocoGeneratedReport
 @Composable
 fun OPBTextButton(
     text: String,
@@ -34,6 +36,7 @@ fun OPBTextButton(
     name = "Day mode",
     uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
+@ExcludeFromJacocoGeneratedReport
 @Composable
 private fun OPBTextButtonPreview() {
     OPBTheme {

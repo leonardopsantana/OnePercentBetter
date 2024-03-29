@@ -16,6 +16,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.tooling.preview.Preview
+import com.onepercentbetter.ExcludeFromJacocoGeneratedReport
 import com.onepercentbetter.R
 import com.onepercentbetter.core.ui.theme.ButtonShape
 import com.onepercentbetter.core.ui.theme.OPBTheme
@@ -28,6 +29,7 @@ import com.onepercentbetter.core.ui.theme.OPBTheme
  * @param: [onClick] A callback invoked when the user clicks the button
  * @param: [modifier] An optional [Modifier] to configure this component
  */
+@ExcludeFromJacocoGeneratedReport
 @Composable
 fun SecondaryButton(
     text: String,
@@ -65,6 +67,7 @@ fun SecondaryButton(
     uiMode = Configuration.UI_MODE_NIGHT_NO,
     group = "Enabled"
 )
+@ExcludeFromJacocoGeneratedReport
 @Composable
 private fun SecondaryEnabledButtonPreview() {
     OPBTheme {
@@ -87,6 +90,7 @@ private fun SecondaryEnabledButtonPreview() {
     uiMode = Configuration.UI_MODE_NIGHT_NO,
     group = "Disabled"
 )
+@ExcludeFromJacocoGeneratedReport
 @Composable
 private fun SecondaryDisabledButtonPreview() {
     OPBTheme {

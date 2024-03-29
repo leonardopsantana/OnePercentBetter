@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.onepercentbetter.ExcludeFromJacocoGeneratedReport
 import com.onepercentbetter.R
 import com.onepercentbetter.core.ui.theme.ButtonShape
 import com.onepercentbetter.core.ui.theme.OPBTheme
@@ -37,6 +38,7 @@ import java.time.format.DateTimeFormatter
 /**
  * A custom composable that when clicked, launches a date picker.
  */
+@ExcludeFromJacocoGeneratedReport
 @Composable
 fun OPBDatePicker(
     value: LocalDate,
@@ -159,6 +161,7 @@ private fun md3DatePickerColors(
     name = "Day mode",
     uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
+@ExcludeFromJacocoGeneratedReport
 @Composable
 private fun OPBDatePickerPreview() {
     OPBTheme {
@@ -182,6 +185,7 @@ private fun OPBDatePickerPreview() {
     name = "Day mode",
     uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
+@ExcludeFromJacocoGeneratedReport
 @Composable
 private fun OPBDatePickerWithErrorPreview() {
     OPBTheme {

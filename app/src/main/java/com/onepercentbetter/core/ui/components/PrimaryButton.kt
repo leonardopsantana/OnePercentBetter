@@ -11,6 +11,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.tooling.preview.Preview
+import com.onepercentbetter.ExcludeFromJacocoGeneratedReport
 import com.onepercentbetter.R
 import com.onepercentbetter.core.ui.theme.ButtonShape
 import com.onepercentbetter.core.ui.theme.OPBTheme
@@ -24,6 +25,7 @@ import com.onepercentbetter.core.ui.theme.OPBTheme
  * @param: [modifier] An optional [Modifier] to configure this component
  * @param: [backgroundColor] The color of the button in an enabled state
  */
+@ExcludeFromJacocoGeneratedReport
 @Composable
 fun PrimaryButton(
     text: String,
@@ -53,6 +55,7 @@ fun PrimaryButton(
     name = "Day mode",
     uiMode = Configuration.UI_MODE_NIGHT_NO
 )
+@ExcludeFromJacocoGeneratedReport
 @Composable
 private fun PrimaryEnabledButtonPreview() {
     OPBTheme {
@@ -72,6 +75,7 @@ private fun PrimaryEnabledButtonPreview() {
     name = "Day mode",
     uiMode = Configuration.UI_MODE_NIGHT_NO
 )
+@ExcludeFromJacocoGeneratedReport
 @Composable
 private fun PrimaryDisabledButtonPreview() {
     OPBTheme {

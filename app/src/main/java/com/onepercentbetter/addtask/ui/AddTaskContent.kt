@@ -1,5 +1,6 @@
 package com.onepercentbetter.addtask.ui
 
+import android.annotation.SuppressLint
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -23,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
+import com.onepercentbetter.ExcludeFromJacocoGeneratedReport
 import com.onepercentbetter.R
 import com.onepercentbetter.addtask.domain.model.TaskInput
 import com.onepercentbetter.core.ui.components.OPBDatePicker
@@ -177,6 +179,7 @@ private fun TaskDescriptionLabel() {
     name = "Day mode",
     uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
+@ExcludeFromJacocoGeneratedReport
 @Composable
 private fun AddTaskContentPreview(
     @PreviewParameter(AddTaskViewStateProvider::class)

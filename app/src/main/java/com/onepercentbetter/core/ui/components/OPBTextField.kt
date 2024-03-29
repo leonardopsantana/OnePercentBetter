@@ -19,6 +19,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.onepercentbetter.ExcludeFromJacocoGeneratedReport
 import com.onepercentbetter.R
 import com.onepercentbetter.core.ui.theme.OPBTheme
 import com.onepercentbetter.core.ui.theme.TextFieldShape
@@ -32,7 +33,7 @@ import com.onepercentbetter.core.ui.theme.TextFieldShape
  * @param[labelText] The label that shows above the input when focused
  * @param[modifier] An optional [Modifier] to configure this component
  */
-@OptIn(ExperimentalFoundationApi::class)
+@ExcludeFromJacocoGeneratedReport
 @Composable
 fun OPBTextField(
     text: String,
@@ -102,6 +103,7 @@ fun OPBTextField(
     name = "Day mode - Filled",
     uiMode = Configuration.UI_MODE_NIGHT_NO
 )
+@ExcludeFromJacocoGeneratedReport
 @Composable
 private fun FilledTAOTextFieldPreview() {
     OPBTheme {
@@ -123,6 +125,7 @@ private fun FilledTAOTextFieldPreview() {
     name = "Day mode - Error",
     uiMode = Configuration.UI_MODE_NIGHT_NO
 )
+@ExcludeFromJacocoGeneratedReport
 @Composable
 private fun ErrorTAOTextFieldPreview() {
     OPBTheme {
@@ -145,6 +148,7 @@ private fun ErrorTAOTextFieldPreview() {
     name = "Day mode - Empty",
     uiMode = Configuration.UI_MODE_NIGHT_NO
 )
+@ExcludeFromJacocoGeneratedReport
 @Composable
 private fun EmptyTAOTextFieldPreview() {
     OPBTheme {

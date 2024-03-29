@@ -35,6 +35,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.onepercentbetter.ExcludeFromJacocoGeneratedReport
 import com.onepercentbetter.R
 import com.onepercentbetter.core.model.Task
 import com.onepercentbetter.core.ui.components.UIText
@@ -43,6 +44,7 @@ import com.onepercentbetter.core.ui.theme.OPBTheme
 import java.time.LocalDate
 import java.time.ZoneId
 
+@ExcludeFromJacocoGeneratedReport
 @Composable
 fun TaskListContent(
     viewState: TaskListViewState,
@@ -245,6 +247,7 @@ class TaskListViewStateProvider : PreviewParameterProvider<TaskListViewState> {
     name = "Day mode",
     uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
+@ExcludeFromJacocoGeneratedReport
 @Composable
 private fun TaskListContentPreview(
     @PreviewParameter(TaskListViewStateProvider::class)

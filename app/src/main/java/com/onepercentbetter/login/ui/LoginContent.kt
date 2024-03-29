@@ -34,6 +34,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
+import com.onepercentbetter.ExcludeFromJacocoGeneratedReport
 import com.onepercentbetter.R
 import com.onepercentbetter.core.ui.components.OPBTextField
 import com.onepercentbetter.core.ui.components.PrimaryButton
@@ -57,6 +58,7 @@ private const val APP_LOGO_WIDTH_PERCENTAGE = 0.75F
  * @param:[onLoginClicked] A callback invoked when the user clicks on login.
  * @param:[onSignUpClicked] A callback invoked when the user clicks on signup.
  */
+@ExcludeFromJacocoGeneratedReport
 @Composable
 fun LoginContent(
     viewState: LoginViewState,
@@ -233,6 +235,7 @@ private fun AppLogo(
     name = "Day mode - Empty",
     uiMode = Configuration.UI_MODE_NIGHT_NO
 )
+@ExcludeFromJacocoGeneratedReport
 @Composable
 private fun EmptyLoginContentPreview(
     @PreviewParameter(LoginViewStateProvider::class)

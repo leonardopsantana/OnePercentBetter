@@ -20,6 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.onepercentbetter.ExcludeFromJacocoGeneratedReport
 import com.onepercentbetter.R
 import com.onepercentbetter.core.model.Task
 import com.onepercentbetter.core.ui.theme.OPBTheme
@@ -151,7 +152,7 @@ private fun SectionHeader(text: String) {
     name = "Day mode",
     uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
-
+@ExcludeFromJacocoGeneratedReport
 @Composable
 private fun FullTaskListPreview() {
     val incompleteTasks = (1..5).map { index ->
@@ -189,7 +190,7 @@ private fun FullTaskListPreview() {
     name = "Day mode",
     uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
-
+@ExcludeFromJacocoGeneratedReport
 @Composable
 private fun NoIncompleteTaskListPreview() {
     val completedTasks = (1..5).map { index ->
@@ -216,6 +217,7 @@ private fun NoIncompleteTaskListPreview() {
     name = "Day mode",
     uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
+@ExcludeFromJacocoGeneratedReport
 @Composable
 private fun NoCompleteTaskListPreview() {
     val incompleteTasks = (1..5).map { index ->
@@ -242,6 +244,7 @@ private fun NoCompleteTaskListPreview() {
     name = "Day mode",
     uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
+@ExcludeFromJacocoGeneratedReport
 @Composable
 private fun NoTasksListPreview() {
     OPBTheme {
