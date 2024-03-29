@@ -8,9 +8,6 @@
       <entry key="app">
         <State />
       </entry>
-      <entry key="renderWithNoCompleteTasks()">
-        <State />
-      </entry>
       <entry key="renderWithNoIncompleteTasks()">
         <State />
       </entry>

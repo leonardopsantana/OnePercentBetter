@@ -13,20 +13,25 @@ class ProdAddTaskUseCase @Inject constructor(
     private val taskRepository: TaskRepository
 ) : AddTaskUseCase {
     override suspend fun invoke(task: Task): AddTaskResult {
-        val validationResult = validateInput(task)
+        val sanitizedTask = task.copy(
+            description = task.description.trim()
+        )
 
-        validationResult?.let {
-            return it
+        val validationResult = validateInput(sanitizedTask)
+
+        if (validationResult != null) {
+            return validationResult
         }
 
-        return when (taskRepository.addTask(task)) {
+        return when (taskRepository.addTask(sanitizedTask)) {
             is Result.Error -> AddTaskResult.Failure.Unknown
             is Result.Success -> AddTaskResult.Success
         }
     }
 
     private fun validateInput(task: Task): AddTaskResult.Failure.InvalidInput? {
-        val emptyDescription = task.description.isEmpty()
+        val emptyDescription = task.description.isBlank()
+
         val scheduledDate = Instant
             .ofEpochMilli(task.scheduledDateMillis)
             .atZone(ZoneId.systemDefault())
