@@ -1,7 +1,6 @@
 package com.onepercentbetter.core.ui.components
 
 import android.content.res.Configuration
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
@@ -105,7 +104,7 @@ fun OPBTextField(
 )
 @ExcludeFromJacocoGeneratedReport
 @Composable
-private fun FilledTAOTextFieldPreview() {
+private fun FilledOPBTextFieldPreview() {
     OPBTheme {
         Surface {
             OPBTextField(
@@ -127,7 +126,7 @@ private fun FilledTAOTextFieldPreview() {
 )
 @ExcludeFromJacocoGeneratedReport
 @Composable
-private fun ErrorTAOTextFieldPreview() {
+private fun ErrorOPBTextFieldPreview() {
     OPBTheme {
         Surface {
             OPBTextField(
@@ -150,7 +149,7 @@ private fun ErrorTAOTextFieldPreview() {
 )
 @ExcludeFromJacocoGeneratedReport
 @Composable
-private fun EmptyTAOTextFieldPreview() {
+private fun EmptyOPBTextFieldPreview() {
     OPBTheme {
         Surface {
             OPBTextField(
