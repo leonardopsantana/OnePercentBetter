@@ -1,6 +1,6 @@
 package com.onepercentbetter.deletetask.domain.usecase
 
-import com.onepercentbetter.core_data.Result
+import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.core_model.Task
 
 /**

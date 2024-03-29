@@ -1,10 +1,10 @@
 package com.onepercentbetter.task_api_test
 
+import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.core_model.Task
 import com.onepercentbetter.task_api.TaskListResult
 import com.onepercentbetter.task_api.TaskRepository
 import kotlinx.coroutines.flow.Flow
-import com.onepercentbetter.core_data.Result
 
 typealias TasksForDateInput = Pair<Long, Boolean>
 

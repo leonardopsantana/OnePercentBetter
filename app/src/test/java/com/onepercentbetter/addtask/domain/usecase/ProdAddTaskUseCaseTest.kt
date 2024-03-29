@@ -2,14 +2,14 @@ package com.onepercentbetter.addtask.domain.usecase
 
 import com.google.common.truth.Truth.assertThat
 import com.onepercentbetter.addtask.domain.model.AddTaskResult
+import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.core_model.Task
 import com.onepercentbetter.task_api_test.FakeTaskRepository
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import java.time.LocalDate
-import java.time.ZonedDateTime
-import com.onepercentbetter.core_data.Result
 import java.time.ZoneId
+import java.time.ZonedDateTime
 
 class ProdAddTaskUseCaseTest {
 
@@ -63,45 +63,45 @@ class ProdAddTaskUseCaseTest {
 
     @Test
     fun submitWithScheduledDateInPast() = runTest {
-            val taskToSubmit = Task(
-                id = "Testing",
-                description = "Some description",
-                scheduledDateMillis = LocalDate.now().minusDays(1)
-                    .atStartOfDay()
-                    .atZone(ZoneId.systemDefault())
-                    .toInstant()
-                    .toEpochMilli(),
-                completed = false,
-            )
+        val taskToSubmit = Task(
+            id = "Testing",
+            description = "Some description",
+            scheduledDateMillis = LocalDate.now().minusDays(1)
+                .atStartOfDay()
+                .atZone(ZoneId.systemDefault())
+                .toInstant()
+                .toEpochMilli(),
+            completed = false,
+        )
 
-            val expectedResult = AddTaskResult.Failure.InvalidInput(
-                emptyDescription = false,
-                scheduledDateInPast = true,
-            )
+        val expectedResult = AddTaskResult.Failure.InvalidInput(
+            emptyDescription = false,
+            scheduledDateInPast = true,
+        )
 
-            val actualResult = useCase.invoke(taskToSubmit)
-            assertThat(actualResult).isEqualTo(expectedResult)
-        }
+        val actualResult = useCase.invoke(taskToSubmit)
+        assertThat(actualResult).isEqualTo(expectedResult)
+    }
 
     @Test
     fun submitValidTaskWithExtraWhitespace() = runTest {
-            val inputTask = Task(
-                id = "Some ID",
-                description = "   Testing      ",
-                scheduledDateMillis = ZonedDateTime.now()
-                    .toInstant()
-                    .toEpochMilli(),
-                completed = false,
-            )
+        val inputTask = Task(
+            id = "Some ID",
+            description = "   Testing      ",
+            scheduledDateMillis = ZonedDateTime.now()
+                .toInstant()
+                .toEpochMilli(),
+            completed = false,
+        )
 
-            val expectedSavedTask = inputTask.copy(
-                description = "Testing",
-            )
+        val expectedSavedTask = inputTask.copy(
+            description = "Testing",
+        )
 
-            fakeTaskRepository.addTasksResults[expectedSavedTask] = Result.Success(Unit)
+        fakeTaskRepository.addTasksResults[expectedSavedTask] = Result.Success(Unit)
 
-            val expectedResult = AddTaskResult.Success
-            val actualResult = useCase.invoke(inputTask)
-            assertThat(actualResult).isEqualTo(expectedResult)
-        }
+        val expectedResult = AddTaskResult.Success
+        val actualResult = useCase.invoke(inputTask)
+        assertThat(actualResult).isEqualTo(expectedResult)
+    }
 }

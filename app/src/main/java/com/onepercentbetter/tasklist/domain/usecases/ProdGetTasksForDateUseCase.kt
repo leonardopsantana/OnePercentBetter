@@ -1,8 +1,8 @@
 package com.onepercentbetter.tasklist.domain.usecases
 
+import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.task_api.TaskListResult
 import com.onepercentbetter.task_api.TaskRepository
-import com.onepercentbetter.core_data.Result
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combineTransform
 import java.time.LocalDate

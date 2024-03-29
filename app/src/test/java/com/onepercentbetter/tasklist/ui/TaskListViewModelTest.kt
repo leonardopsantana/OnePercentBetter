@@ -1,7 +1,7 @@
 package com.onepercentbetter.tasklist.ui
 
 import com.onepercentbetter.CoroutinesTestRule
-import com.onepercentbetter.core_data.Result
+import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.core.ui.components.UIText
 import com.onepercentbetter.core_model.Task
 import kotlinx.coroutines.test.runTest

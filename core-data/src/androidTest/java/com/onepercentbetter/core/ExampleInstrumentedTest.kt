@@ -1,4 +1,4 @@
-package com.onepercentbetter.core_data
+package com.onepercentbetter.core
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Test

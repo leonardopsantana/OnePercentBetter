@@ -1,6 +1,6 @@
 package com.onepercentbetter.core.data.local
 
-import com.onepercentbetter.core_data.Result
+import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.core_model.Task
 import com.onepercentbetter.task_api.TaskListResult
 import com.onepercentbetter.task_api.TaskRepository

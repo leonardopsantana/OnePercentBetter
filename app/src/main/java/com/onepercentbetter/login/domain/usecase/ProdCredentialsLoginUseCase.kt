@@ -1,6 +1,6 @@
 package com.onepercentbetter.login.domain.usecase
 
-import com.onepercentbetter.core_data.Result
+import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.login.domain.model.Credentials
 import com.onepercentbetter.login.domain.model.InvalidCredentialsException
 import com.onepercentbetter.login.domain.model.LoginResponse
