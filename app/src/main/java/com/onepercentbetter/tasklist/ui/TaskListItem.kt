@@ -11,15 +11,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.onepercentbetter.R
 import com.onepercentbetter.core.ui.components.OPBTextButton
 import com.onepercentbetter.core.ui.theme.OPBTheme
 import com.onepercentbetter.core_model.Task
-import java.time.LocalDate
-import java.time.ZoneId
 
 /**
  * This displays a list item for a given [task].
@@ -42,21 +43,24 @@ fun TaskListItem(
                 text = task.description
             )
 
-            ButtonActionRow(
-                onRescheduleClicked = onRescheduleClicked,
-                onDoneClicked = onDoneClicked
-            )
+            if (!task.completed) {
+                ButtonRow(
+                    onRescheduleClicked = onRescheduleClicked,
+                    onDoneClicked = onDoneClicked
+                )
+            }
         }
     }
 }
 
 @Composable
-private fun ButtonActionRow(
+private fun ButtonRow(
     onRescheduleClicked: () -> Unit,
     onDoneClicked: () -> Unit
 ) {
     Row(
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = Modifier.testTag("BUTTON_ROW")
     ) {
         Reschedule(onRescheduleClicked)
 
@@ -90,6 +94,28 @@ private fun TaskText(text: String) {
     )
 }
 
+private class TaskPreviewParameterProvider : PreviewParameterProvider<Task> {
+    override val values: Sequence<Task>
+        get() {
+            val incompleteTask = Task(
+                id = "Test",
+                description = "Clean my office space.",
+                scheduledDateMillis = 0L,
+                completed = false
+            )
+
+            val completedTask = incompleteTask.copy(
+                completed = true
+            )
+
+            return sequenceOf(
+                incompleteTask,
+                completedTask
+            )
+        }
+
+}
+
 @Preview(
     name = "Night mode",
     uiMode = Configuration.UI_MODE_NIGHT_YES,
@@ -99,18 +125,10 @@ private fun TaskText(text: String) {
     uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @Composable
-private fun TaskListItemPreview() {
-    val task = Task(
-        id = "test",
-        description = "Read 30min",
-        scheduledDateMillis =  LocalDate.now()
-            .atStartOfDay()
-            .atZone(ZoneId.systemDefault())
-            .toInstant()
-            .toEpochMilli(),
-        completed = false
-    )
-
+private fun TaskListItemPreview(
+    @PreviewParameter(TaskPreviewParameterProvider::class)
+    task: Task
+) {
     OPBTheme {
         TaskListItem(
             task = task,

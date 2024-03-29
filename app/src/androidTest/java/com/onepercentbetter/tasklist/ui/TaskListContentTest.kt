@@ -1,7 +1,10 @@
 package com.onepercentbetter.tasklist.ui
 
 import androidx.activity.ComponentActivity
+import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.hasAnyChild
+import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
@@ -11,7 +14,6 @@ import com.google.common.truth.Truth.assertThat
 import com.onepercentbetter.R
 import org.junit.Rule
 import org.junit.Test
-import java.time.LocalDate
 import java.time.ZonedDateTime
 
 class TaskListContentTest {
@@ -105,10 +107,14 @@ class TaskListContentTest {
 
     @Test
     fun renderWithNoIncompleteTasks() {
+        val completedTask = testTask.copy(
+            completed = true,
+        )
+
         val viewState = TaskListViewState(
             showLoading = false,
             incompleteTasks = emptyList(),
-            completedTasks = listOf(testTask)
+            completedTasks = listOf(completedTask),
         )
 
         composeTestRule.setContent {
@@ -119,27 +125,35 @@ class TaskListContentTest {
                 onAddButtonClicked = {},
                 onPreviousDateButtonClicked = {}
             ) {
+
             }
         }
 
-        val noIncompleteTasksLabel = composeTestRule.activity.getString(R.string.no_incomplete_tasks_label)
+        val noIncompleteTasksLabel =
+            composeTestRule.activity.getString(R.string.no_incomplete_tasks_label)
 
         composeTestRule
             .onNodeWithText(noIncompleteTasksLabel)
             .assertIsDisplayed()
 
-        val expectedTaskTag = "COMPLETE_TASK_${testTask.id}"
+        val expectedTaskTag = "COMPLETED_TASK_${testTask.id}"
+
         composeTestRule
             .onNodeWithTag(expectedTaskTag)
             .assertIsDisplayed()
+            .assert(!hasAnyChild(hasTestTag("BUTTON_ROW")))
     }
 
     @Test
-    fun renderWithNoCompletedTasks() {
+    fun renderWithNoCompleteTasks() {
+        val incompleteTask = testTask.copy(
+            completed = false,
+        )
+
         val viewState = TaskListViewState(
             showLoading = false,
-            incompleteTasks = listOf(testTask),
-            completedTasks = emptyList()
+            incompleteTasks = listOf(incompleteTask),
+            completedTasks = emptyList(),
         )
 
         composeTestRule.setContent {
@@ -150,18 +164,15 @@ class TaskListContentTest {
                 onAddButtonClicked = {},
                 onPreviousDateButtonClicked = {}
             ) {
+
             }
         }
 
-        val noCompleteTasksLabel = composeTestRule.activity.getString(R.string.no_complete_tasks_label)
-
-        composeTestRule
-            .onNodeWithText(noCompleteTasksLabel)
-            .assertIsDisplayed()
-
         val expectedTaskTag = "INCOMPLETE_TASK_${testTask.id}"
+
         composeTestRule
             .onNodeWithTag(expectedTaskTag)
             .assertIsDisplayed()
+            .assert(hasAnyChild(hasTestTag("BUTTON_ROW")))
     }
 }
