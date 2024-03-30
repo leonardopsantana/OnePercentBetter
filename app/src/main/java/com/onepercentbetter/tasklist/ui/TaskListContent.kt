@@ -247,6 +247,18 @@ class TaskListViewStateProvider : PreviewParameterProvider<TaskListViewState> {
     name = "Day mode",
     uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
+@Preview(
+    name = "Compact",
+    widthDp = 600
+)
+@Preview(
+    name = "Medium",
+    widthDp = 840
+)
+@Preview(
+    name = "Expanded",
+    widthDp = 900
+)
 @ExcludeFromJacocoGeneratedReport
 @Composable
 private fun TaskListContentPreview(
