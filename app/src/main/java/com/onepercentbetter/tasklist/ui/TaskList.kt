@@ -41,6 +41,7 @@ fun TaskList(
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.list_padding)),
         modifier = modifier,
     ) {
+
         if (incompleteTasks.isEmpty()) {
             item {
                 EmptySectionCard(
