@@ -54,7 +54,7 @@ class TaskListViewStateTest {
             selectedDate = twoDaysFromNow
         )
 
-        val expectedDateFormat = "MMM d"
+        val expectedDateFormat = "MMM dd"
         val expectedSuffix = twoDaysFromNow.getStSuffixForDayOfMonth()
         val parsedDateString = DateTimeFormatter.ofPattern(expectedDateFormat).format(twoDaysFromNow)
         val expectedDateString = "$parsedDateString$expectedSuffix"
