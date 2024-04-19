@@ -98,5 +98,4 @@ multiple ViewModel dependencies.
 
   PERSISTABLE DATA:
     Room database
-
     
