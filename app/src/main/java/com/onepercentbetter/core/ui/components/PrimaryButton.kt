@@ -31,14 +31,15 @@ fun PrimaryButton(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    enabled: Boolean = true
+    enabled: Boolean = true,
 ) {
     Button(
         onClick = onClick,
         shape = ButtonShape,
-        modifier = modifier
-            .height(dimensionResource(id = R.dimen.button_height))
-            .fillMaxWidth(),
+        modifier =
+            modifier
+                .height(dimensionResource(id = R.dimen.button_height))
+                .fillMaxWidth(),
         enabled = enabled,
     ) {
         Text(
@@ -53,7 +54,7 @@ fun PrimaryButton(
 )
 @Preview(
     name = "Day mode",
-    uiMode = Configuration.UI_MODE_NIGHT_NO
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @ExcludeFromJacocoGeneratedReport
 @Composable
@@ -62,7 +63,7 @@ private fun PrimaryEnabledButtonPreview() {
         PrimaryButton(
             text = "Primary Button",
             onClick = {},
-            enabled = true
+            enabled = true,
         )
     }
 }
@@ -73,7 +74,7 @@ private fun PrimaryEnabledButtonPreview() {
 )
 @Preview(
     name = "Day mode",
-    uiMode = Configuration.UI_MODE_NIGHT_NO
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @ExcludeFromJacocoGeneratedReport
 @Composable
@@ -82,7 +83,7 @@ private fun PrimaryDisabledButtonPreview() {
         PrimaryButton(
             text = "Primary Button",
             onClick = {},
-            enabled = false
+            enabled = false,
         )
     }
 }

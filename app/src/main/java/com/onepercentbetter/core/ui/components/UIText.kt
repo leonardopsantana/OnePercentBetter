@@ -11,7 +11,9 @@ import androidx.compose.ui.platform.LocalContext
 sealed class UIText {
     data class StringText(val value: String) : UIText()
 
-    data class ResourceText(@StringRes val value: Int) : UIText()
+    data class ResourceText(
+        @StringRes val value: Int,
+    ) : UIText()
 }
 
 /**

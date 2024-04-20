@@ -20,51 +20,57 @@ class AddTaskViewModelTest {
     val coroutineTestRule = CoroutinesTestRule()
 
     @Test
-    fun submitWithEmptyDescription() = runTest {
-        val taskToSubmit = Task(
-            id = "Testing",
-            description = "X",
-            scheduledDateMillis = ZonedDateTime.now()
-                .toInstant()
-                .toEpochMilli(),
-            completed = false
-        )
-
-        val useCaseResult = AddTaskResult.Failure.InvalidInput(
-            emptyDescription = true,
-            scheduledDateInPast = false
-        )
-
-        testRobot
-            .buildViewModel()
-            .mockResultForTask(
-                result = useCaseResult,
-            )
-            .expectedViewStates(
-                action = {
-                    enterDescription(taskToSubmit.description)
-                    selectDate(
-                        Instant.ofEpochMilli(taskToSubmit.scheduledDateMillis)
-                            .atZone(ZoneId.systemDefault())
-                            .toLocalDate()
-                    )
-                    clickSubmit()
-                },
-                viewStates = listOf(
-                    AddTaskViewState.Initial,
-                    AddTaskViewState.Active(TaskInput(description = taskToSubmit.description)),
-                    AddTaskViewState.Active(
-                        taskInput = TaskInput(
-                            description = taskToSubmit.description,
-                            scheduledDate = Instant.ofEpochMilli(taskToSubmit.scheduledDateMillis)
-                                .atZone(ZoneId.systemDefault())
-                                .toLocalDate()
-                        ),
-                        descriptionInputErrorMessage = UIText.ResourceText(R.string.err_empty_task_description),
-                        scheduledDateInputErrorMessage = null
-                    )
-
+    fun submitWithEmptyDescription() =
+        runTest {
+            val taskToSubmit =
+                Task(
+                    id = "Testing",
+                    description = "X",
+                    scheduledDateMillis =
+                        ZonedDateTime.now()
+                            .toInstant()
+                            .toEpochMilli(),
+                    completed = false,
                 )
-            )
-    }
+
+            val useCaseResult =
+                AddTaskResult.Failure.InvalidInput(
+                    emptyDescription = true,
+                    scheduledDateInPast = false,
+                )
+
+            testRobot
+                .buildViewModel()
+                .mockResultForTask(
+                    result = useCaseResult,
+                )
+                .expectedViewStates(
+                    action = {
+                        enterDescription(taskToSubmit.description)
+                        selectDate(
+                            Instant.ofEpochMilli(taskToSubmit.scheduledDateMillis)
+                                .atZone(ZoneId.systemDefault())
+                                .toLocalDate(),
+                        )
+                        clickSubmit()
+                    },
+                    viewStates =
+                        listOf(
+                            AddTaskViewState.Initial,
+                            AddTaskViewState.Active(TaskInput(description = taskToSubmit.description)),
+                            AddTaskViewState.Active(
+                                taskInput =
+                                    TaskInput(
+                                        description = taskToSubmit.description,
+                                        scheduledDate =
+                                            Instant.ofEpochMilli(taskToSubmit.scheduledDateMillis)
+                                                .atZone(ZoneId.systemDefault())
+                                                .toLocalDate(),
+                                    ),
+                                descriptionInputErrorMessage = UIText.ResourceText(R.string.err_empty_task_description),
+                                scheduledDateInputErrorMessage = null,
+                            ),
+                        ),
+                )
+        }
 }

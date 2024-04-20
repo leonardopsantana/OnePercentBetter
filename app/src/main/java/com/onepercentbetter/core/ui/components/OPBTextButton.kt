@@ -18,12 +18,12 @@ import com.onepercentbetter.core.ui.theme.OPBTheme
 @Composable
 fun OPBTextButton(
     text: String,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     TextButton(onClick = { onClick.invoke() }) {
         Text(
             text = text.toUpperCase(Locale.current),
-            style = MaterialTheme.typography.labelSmall
+            style = MaterialTheme.typography.labelSmall,
         )
     }
 }
@@ -42,7 +42,7 @@ private fun OPBTextButtonPreview() {
     OPBTheme {
         OPBTextButton(
             text = "OPB Text button",
-            onClick = {}
+            onClick = {},
         )
     }
 }

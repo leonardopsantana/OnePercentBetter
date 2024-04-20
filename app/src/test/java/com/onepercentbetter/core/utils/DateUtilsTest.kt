@@ -6,7 +6,6 @@ import java.time.LocalDate
 import java.time.Month
 
 class DateUtilsTest {
-
     @Test
     fun getStSuffix() {
         listOf(1, 21, 31).convertToSuffixes().forEach { suffix ->
@@ -33,7 +32,7 @@ class DateUtilsTest {
         listOf(
             (4..9),
             (10..20),
-            (24..30)
+            (24..30),
         ).flatten()
             .convertToSuffixes()
             .forEach { suffix ->

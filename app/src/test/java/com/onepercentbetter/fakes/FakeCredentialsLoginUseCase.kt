@@ -7,7 +7,6 @@ import io.mockk.coEvery
 import io.mockk.mockk
 
 class FakeCredentialsLoginUseCase {
-
     val mock: CredentialsLoginUseCase = mockk()
 
     /**
@@ -15,7 +14,7 @@ class FakeCredentialsLoginUseCase {
      */
     fun mockLoginResultForCredentials(
         credentials: Credentials,
-        result: LoginResult
+        result: LoginResult,
     ) {
         coEvery {
             mock(credentials)

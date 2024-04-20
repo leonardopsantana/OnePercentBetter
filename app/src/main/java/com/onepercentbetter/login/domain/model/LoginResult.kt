@@ -30,7 +30,7 @@ sealed class LoginResult {
          */
         data class EmptyCredentials(
             val emptyEmail: Boolean,
-            val emptyPassword: Boolean
+            val emptyPassword: Boolean,
         ) : Failure()
     }
 }

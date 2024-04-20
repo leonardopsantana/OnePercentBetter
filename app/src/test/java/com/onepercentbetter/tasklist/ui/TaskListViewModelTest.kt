@@ -8,10 +8,8 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
 import java.time.LocalDate
-import java.time.ZonedDateTime
 
 class TaskListViewModelTest {
-
     private val testRobot = TaskListViewModelRobot()
 
     @get:Rule
@@ -177,27 +175,29 @@ class TaskListViewModelTest {
 //    }
 
     @Test
-    fun failureLoad() = runTest {
-        val tasksResult: Result<List<Task>> = Result.Error(Throwable("Whoops"))
+    fun failureLoad() =
+        runTest {
+            val tasksResult: Result<List<Task>> = Result.Error(Throwable("Whoops"))
 
-        testRobot
-            .mockTasksForDateResult(LocalDate.now(), tasksResult)
-            .buildViewModel()
-            .expectedViewStates(
-                action = {},
-                viewStates = listOf<TaskListViewState>(
-                    TaskListViewState(
-                        incompleteTasks = null,
-                        completedTasks = null,
-                        showLoading = true
-                    ),
-                    TaskListViewState(
-                        incompleteTasks = null,
-                        completedTasks = null,
-                        errorMessage = UIText.StringText("Something went wrong."),
-                        showLoading = false
-                    )
+            testRobot
+                .mockTasksForDateResult(LocalDate.now(), tasksResult)
+                .buildViewModel()
+                .expectedViewStates(
+                    action = {},
+                    viewStates =
+                        listOf<TaskListViewState>(
+                            TaskListViewState(
+                                incompleteTasks = null,
+                                completedTasks = null,
+                                showLoading = true,
+                            ),
+                            TaskListViewState(
+                                incompleteTasks = null,
+                                completedTasks = null,
+                                errorMessage = UIText.StringText("Something went wrong."),
+                                showLoading = false,
+                            ),
+                        ),
                 )
-            )
-    }
+        }
 }

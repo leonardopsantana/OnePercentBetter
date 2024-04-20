@@ -4,7 +4,6 @@ import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
@@ -63,7 +62,7 @@ fun TaskListContent(
             TaskListToolbar(
                 onLeftButtonClicked = onPreviousDateButtonClicked,
                 onRightButtonClicked = onNextDateButtonClicked,
-                title = viewState.selectedDateString.getString()
+                title = viewState.selectedDateString.getString(),
             )
         },
     ) { paddingValues ->
@@ -78,20 +77,22 @@ fun TaskListContent(
                     completedTasks = viewState.completedTasks.orEmpty(),
                     onRescheduleClicked = onRescheduleClicked,
                     onDoneClicked = onDoneClicked,
-                    modifier = Modifier
-                        .padding(paddingValues)
+                    modifier =
+                        Modifier
+                            .padding(paddingValues),
                 )
             }
         }
 
         if (viewState.showLoading) {
             Box(
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxSize(),
             ) {
                 CircularProgressIndicator(
-                    modifier = Modifier
-                        .wrapContentSize()
-                        .align(Alignment.Center)
+                    modifier =
+                        Modifier
+                            .wrapContentSize()
+                            .align(Alignment.Center),
                 )
             }
         }
@@ -101,15 +102,16 @@ fun TaskListContent(
 @Composable
 private fun TaskListEmptyState() {
     Box(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
         Text(
             text = stringResource(R.string.no_tasks_scheduled_label),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier
-                .padding(32.dp)
-                .align(Alignment.Center)
+            modifier =
+                Modifier
+                    .padding(32.dp)
+                    .align(Alignment.Center),
         )
     }
 }
@@ -118,24 +120,25 @@ private fun TaskListEmptyState() {
 private fun TaskListToolbar(
     onLeftButtonClicked: () -> Unit,
     onRightButtonClicked: () -> Unit,
-    title: String
+    title: String,
 ) {
     val toolbarHeight = 84.dp
 
     Surface(
-        color = MaterialTheme.colorScheme.primary
+        color = MaterialTheme.colorScheme.primary,
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .statusBarsPadding()
-                .height(84.dp)
+            modifier =
+                Modifier
+                    .statusBarsPadding()
+                    .height(84.dp),
         ) {
             ToolbarIconButton(
                 icon = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
                 onClick = { onLeftButtonClicked.invoke() },
                 contentDescription = stringResource(R.string.view_previous_day_content_description),
-                toolbarHeight = toolbarHeight
+                toolbarHeight = toolbarHeight,
             )
 
             Text(
@@ -143,14 +146,14 @@ private fun TaskListToolbar(
                 modifier = Modifier.weight(1F),
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.headlineMedium,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
             )
 
             ToolbarIconButton(
                 icon = Icons.AutoMirrored.Filled.KeyboardArrowRight,
                 onClick = { onRightButtonClicked.invoke() },
                 contentDescription = stringResource(R.string.view_next_day_content_description),
-                toolbarHeight = toolbarHeight
+                toolbarHeight = toolbarHeight,
             )
         }
     }
@@ -161,13 +164,13 @@ private fun ToolbarIconButton(
     icon: ImageVector,
     onClick: () -> Unit,
     contentDescription: String,
-    toolbarHeight: Dp
+    toolbarHeight: Dp,
 ) {
     IconButton(onClick = onClick) {
         Icon(
             icon,
             contentDescription = contentDescription,
-            modifier = Modifier.size(toolbarHeight)
+            modifier = Modifier.size(toolbarHeight),
         )
     }
 }
@@ -177,11 +180,11 @@ private fun AddTaskButton(onAddButtonClicked: () -> Unit) {
     FloatingActionButton(
         onClick = onAddButtonClicked,
         shape = CircleShape,
-        modifier = Modifier.navigationBarsPadding()
+        modifier = Modifier.navigationBarsPadding(),
     ) {
         Icon(
             Icons.Default.Add,
-            contentDescription = stringResource(R.string.add_task)
+            contentDescription = stringResource(R.string.add_task),
         )
     }
 }
@@ -190,52 +193,60 @@ private fun AddTaskButton(onAddButtonClicked: () -> Unit) {
 class TaskListViewStateProvider : PreviewParameterProvider<TaskListViewState> {
     override val values: Sequence<TaskListViewState>
         get() {
-            val incompleteTasks = (1..3).map { index ->
-                Task(
-                    id = "$index",
-                    description = "Test task: $index",
-                    scheduledDateMillis = LocalDate.now()
-                        .atStartOfDay()
-                        .atZone(ZoneId.systemDefault())
-                        .toInstant()
-                        .toEpochMilli(),
-                    completed = false
+            val incompleteTasks =
+                (1..3).map { index ->
+                    Task(
+                        id = "$index",
+                        description = "Test task: $index",
+                        scheduledDateMillis =
+                            LocalDate.now()
+                                .atStartOfDay()
+                                .atZone(ZoneId.systemDefault())
+                                .toInstant()
+                                .toEpochMilli(),
+                        completed = false,
+                    )
+                }
+
+            val completedTasks =
+                (1..3).map { index ->
+                    Task(
+                        id = "$index",
+                        description = "Test task: $index",
+                        scheduledDateMillis =
+                            LocalDate.now()
+                                .atStartOfDay()
+                                .atZone(ZoneId.systemDefault())
+                                .toInstant()
+                                .toEpochMilli(),
+                        completed = true,
+                    )
+                }
+
+            val loadingState =
+                TaskListViewState(
+                    showLoading = true,
                 )
-            }
 
-            val completedTasks = (1..3).map { index ->
-                Task(
-                    id = "$index",
-                    description = "Test task: $index",
-                    scheduledDateMillis = LocalDate.now()
-                        .atStartOfDay()
-                        .atZone(ZoneId.systemDefault())
-                        .toInstant()
-                        .toEpochMilli(),
-                    completed = true
+            val taskListState =
+                TaskListViewState(
+                    showLoading = false,
+                    incompleteTasks = incompleteTasks,
+                    completedTasks = completedTasks,
                 )
-            }
 
-            val loadingState = TaskListViewState(
-                showLoading = true
-            )
+            val emptyState =
+                TaskListViewState(
+                    showLoading = false,
+                    incompleteTasks = emptyList(),
+                    completedTasks = emptyList(),
+                )
 
-            val taskListState = TaskListViewState(
-                showLoading = false,
-                incompleteTasks = incompleteTasks,
-                completedTasks = completedTasks
-            )
-
-            val emptyState = TaskListViewState(
-                showLoading = false,
-                incompleteTasks = emptyList(),
-                completedTasks = emptyList()
-            )
-
-            val errorState = TaskListViewState(
-                showLoading = false,
-                errorMessage = UIText.StringText("Something went wrong")
-            )
+            val errorState =
+                TaskListViewState(
+                    showLoading = false,
+                    errorMessage = UIText.StringText("Something went wrong"),
+                )
 
             return sequenceOf(loadingState, taskListState, emptyState, errorState)
         }
@@ -251,21 +262,21 @@ class TaskListViewStateProvider : PreviewParameterProvider<TaskListViewState> {
 )
 @Preview(
     name = "Compact",
-    widthDp = 600
+    widthDp = 600,
 )
 @Preview(
     name = "Medium",
-    widthDp = 840
+    widthDp = 840,
 )
 @Preview(
     name = "Expanded",
-    widthDp = 900
+    widthDp = 900,
 )
 @ExcludeFromJacocoGeneratedReport
 @Composable
 private fun TaskListContentPreview(
     @PreviewParameter(TaskListViewStateProvider::class)
-    viewState: TaskListViewState
+    viewState: TaskListViewState,
 ) {
     OPBTheme {
         TaskListContent(viewState, {}, {}, {}, {}, {})

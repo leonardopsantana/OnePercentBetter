@@ -26,27 +26,19 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 abstract class UseCaseModule {
     @Binds
-    abstract fun bindsCredentialsLoginUseCase(
-        credentialsLoginUseCase: ProdCredentialsLoginUseCase
-    ): CredentialsLoginUseCase
+    abstract fun bindsCredentialsLoginUseCase(credentialsLoginUseCase: ProdCredentialsLoginUseCase): CredentialsLoginUseCase
 
     @Binds
-    abstract fun bindsGetAllTasksUseCase(
-        getAllTasksUseCase: ProdGetAllTasksUseCase
-    ): GetAllTasksUseCase
+    abstract fun bindsGetAllTasksUseCase(getAllTasksUseCase: ProdGetAllTasksUseCase): GetAllTasksUseCase
 
     @Binds
-    abstract fun bindAddTaskUseCase(
-        addTaskUseCase: ProdAddTaskUseCase
-    ): AddTaskUseCase
+    abstract fun bindAddTaskUseCase(addTaskUseCase: ProdAddTaskUseCase): AddTaskUseCase
 
     @Binds
-    abstract fun bindGetTasksForDateUseCase(
-        getTasksForDateUseCase: ProdGetTasksForDateUseCase
-    ): GetTasksForDateUseCase
+    abstract fun bindGetTasksForDateUseCase(getTasksForDateUseCase: ProdGetTasksForDateUseCase): GetTasksForDateUseCase
 
     @Binds
     abstract fun bindTasksMarkTaskAsCompleteUseCase(
-        prodMarkTaskAsCompletedUseCase: ProdMarkTaskAsCompletedUseCase
+        prodMarkTaskAsCompletedUseCase: ProdMarkTaskAsCompletedUseCase,
     ): MarkTaskAsCompleteUseCase
 }

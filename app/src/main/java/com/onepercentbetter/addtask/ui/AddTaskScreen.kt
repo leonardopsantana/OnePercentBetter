@@ -33,9 +33,10 @@ fun AddTaskScreen(
         onTaskDescriptionChanged = viewModel::onTaskDescriptionChanged,
         onTaskScheduleDateChanged = viewModel::onTaskScheduleDateChanged,
         onSubmitClicked = viewModel::onSubmitButtonClicked,
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(dimensionResource(id = R.dimen.screen_padding))
-            .statusBarsPadding()
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(dimensionResource(id = R.dimen.screen_padding))
+                .statusBarsPadding(),
     )
 }

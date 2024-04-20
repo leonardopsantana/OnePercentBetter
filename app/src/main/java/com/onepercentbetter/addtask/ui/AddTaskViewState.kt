@@ -8,37 +8,36 @@ import com.onepercentbetter.core.ui.components.UIText
  */
 sealed class AddTaskViewState(
     open val taskInput: TaskInput = TaskInput(),
-    val inputsEnabled: Boolean = true
+    val inputsEnabled: Boolean = true,
 ) {
-
     object Initial : AddTaskViewState(
-        taskInput = TaskInput()
+        taskInput = TaskInput(),
     )
 
     data class Active(
         override val taskInput: TaskInput,
         val descriptionInputErrorMessage: UIText? = null,
-        val scheduledDateInputErrorMessage: UIText? = null
+        val scheduledDateInputErrorMessage: UIText? = null,
     ) : AddTaskViewState(
-        taskInput = taskInput,
-    )
+            taskInput = taskInput,
+        )
 
     data class Submitting(
         override val taskInput: TaskInput,
     ) : AddTaskViewState(
-        taskInput = taskInput,
-        inputsEnabled = false
-    )
+            taskInput = taskInput,
+            inputsEnabled = false,
+        )
 
     data class SubmissionError(
         override val taskInput: TaskInput,
-        val errorMessage: UIText
+        val errorMessage: UIText,
     ) : AddTaskViewState(
-        taskInput = taskInput,
-    )
+            taskInput = taskInput,
+        )
 
     object Completed : AddTaskViewState(
         taskInput = TaskInput(),
-        inputsEnabled = false
+        inputsEnabled = false,
     )
 }

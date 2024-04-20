@@ -36,23 +36,25 @@ fun SecondaryButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     contentColor: Color = MaterialTheme.colorScheme.primary,
-    isEnabled: Boolean = true
+    isEnabled: Boolean = true,
 ) {
-    val buttonColors = textButtonColors(
-        contentColor = contentColor,
-    )
+    val buttonColors =
+        textButtonColors(
+            contentColor = contentColor,
+        )
 
     TextButton(
         onClick = onClick,
         shape = ButtonShape,
-        modifier = modifier
-            .height(dimensionResource(id = R.dimen.button_height))
-            .fillMaxWidth(),
+        modifier =
+            modifier
+                .height(dimensionResource(id = R.dimen.button_height))
+                .fillMaxWidth(),
         colors = buttonColors,
-        enabled = isEnabled
+        enabled = isEnabled,
     ) {
         Text(
-            text = text.toUpperCase(Locale.current)
+            text = text.toUpperCase(Locale.current),
         )
     }
 }
@@ -60,12 +62,12 @@ fun SecondaryButton(
 @Preview(
     name = "Night mode",
     uiMode = Configuration.UI_MODE_NIGHT_YES,
-    group = "Enabled"
+    group = "Enabled",
 )
 @Preview(
     name = "Day mode",
     uiMode = Configuration.UI_MODE_NIGHT_NO,
-    group = "Enabled"
+    group = "Enabled",
 )
 @ExcludeFromJacocoGeneratedReport
 @Composable
@@ -83,12 +85,12 @@ private fun SecondaryEnabledButtonPreview() {
 @Preview(
     name = "Night mode",
     uiMode = Configuration.UI_MODE_NIGHT_YES,
-    group = "Disabled"
+    group = "Disabled",
 )
 @Preview(
     name = "Day mode",
     uiMode = Configuration.UI_MODE_NIGHT_NO,
-    group = "Disabled"
+    group = "Disabled",
 )
 @ExcludeFromJacocoGeneratedReport
 @Composable
@@ -98,7 +100,7 @@ private fun SecondaryDisabledButtonPreview() {
             SecondaryButton(
                 text = "Secondary Button",
                 onClick = {},
-                isEnabled = false
+                isEnabled = false,
             )
         }
     }

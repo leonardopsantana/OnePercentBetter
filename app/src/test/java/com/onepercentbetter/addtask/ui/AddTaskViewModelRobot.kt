@@ -10,40 +10,39 @@ class AddTaskViewModelRobot {
     private val fakeAddTaskUseCase = FakeAddTestUseCase()
     private lateinit var viewModel: AddTaskViewModel
 
-    fun buildViewModel() = apply {
-        viewModel = AddTaskViewModel(
-            addTaskUseCase = fakeAddTaskUseCase.mock
-        )
-    }
+    fun buildViewModel() =
+        apply {
+            viewModel =
+                AddTaskViewModel(
+                    addTaskUseCase = fakeAddTaskUseCase.mock,
+                )
+        }
 
-    fun mockResultForTask(
-        result: AddTaskResult
-    ) = apply {
-        fakeAddTaskUseCase.mockResultForTask(result)
-    }
+    fun mockResultForTask(result: AddTaskResult) =
+        apply {
+            fakeAddTaskUseCase.mockResultForTask(result)
+        }
 
-    fun enterDescription(
-        newDescription: String,
-    ) = apply {
-        viewModel.onTaskDescriptionChanged(newDescription)
-    }
+    fun enterDescription(newDescription: String) =
+        apply {
+            viewModel.onTaskDescriptionChanged(newDescription)
+        }
 
-    fun selectDate(
-        newDate: LocalDate
-    ) = apply {
-        viewModel.onTaskScheduleDateChanged(newDate)
-    }
+    fun selectDate(newDate: LocalDate) =
+        apply {
+            viewModel.onTaskScheduleDateChanged(newDate)
+        }
 
-    fun clickSubmit() = apply {
-        viewModel.onSubmitButtonClicked()
-    }
+    fun clickSubmit() =
+        apply {
+            viewModel.onSubmitButtonClicked()
+        }
 
-    fun assertViewState(
-        expectedViewState: AddTaskViewState
-    ) = apply {
-        val actualViewState = viewModel.viewState.value
-        assertThat(actualViewState).isEqualTo(expectedViewState)
-    }
+    fun assertViewState(expectedViewState: AddTaskViewState) =
+        apply {
+            val actualViewState = viewModel.viewState.value
+            assertThat(actualViewState).isEqualTo(expectedViewState)
+        }
 
     suspend fun expectedViewStates(
         action: AddTaskViewModelRobot.() -> Unit,

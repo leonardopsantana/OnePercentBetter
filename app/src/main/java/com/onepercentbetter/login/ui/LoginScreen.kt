@@ -18,12 +18,12 @@ import kotlinx.coroutines.launch
  * proxying that through to the [LoginContent].
  */
 @Destination(
-    start = true
+    start = true,
 )
 @Composable
 fun LoginScreen(
     navigator: DestinationsNavigator,
-    viewModel: LoginViewModel = hiltViewModel()
+    viewModel: LoginViewModel = hiltViewModel(),
 ) {
     val viewState = viewModel.viewState.collectAsState()
     val coroutineScope = rememberCoroutineScope()
@@ -52,9 +52,8 @@ fun LoginScreen(
             Toast.makeText(
                 context,
                 "Not supported",
-                Toast.LENGTH_SHORT
+                Toast.LENGTH_SHORT,
             ).show()
         },
-
     )
 }
