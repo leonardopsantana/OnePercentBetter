@@ -8,13 +8,14 @@ if git.lines_of_code > 500
     warn "PR too big"
 end
 
-# Notify of outdated dependencies
-dependencyUpdatesHeader = "The following dependencies have later milestone versions:"
-dependencyReportsFile = "build/dependencyUpdates/report.txt"
+if git.deletions > git.insertions
+    message  "🎉 Code Cleanup!"
+end
 
-# Due to the formatting of this output file, we first check if there are any dependencies
-# by looking for a `->` arrow, then we check for the relevant headers. We do this to handle a case
-# where there are no app dependencies but there are Gradle dependencies.
+# Notify of outdated dependencies
+dependencyReportsFile = "app/build/dependencyUpdates/report.txt"
+dependencyUpdatesHeader = "The following dependencies have later milestone versions:"
+
 hasDependencyUpdatesHeader = File.readlines(dependencyReportsFile).grep(/#{dependencyUpdatesHeader}/).any?
 
 if hasDependencyUpdatesHeader
