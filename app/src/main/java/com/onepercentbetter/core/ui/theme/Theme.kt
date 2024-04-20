@@ -9,18 +9,21 @@ import androidx.compose.runtime.Composable
 @Composable
 fun OPBTheme(
     isDark: Boolean = isSystemInDarkTheme(),
-    content: @Composable() () -> Unit
+    content:
+        @Composable()
+        () -> Unit,
 ) {
-    val colors = if (isDark) {
-        DarkThemeColors
-    } else {
-        LightThemeColors
-    }
+    val colors =
+        if (isDark) {
+            DarkThemeColors
+        } else {
+            LightThemeColors
+        }
 
     MaterialTheme(
         colorScheme = colors,
         typography = AppTypography,
         shapes = Shapes,
-        content = content
+        content = content,
     )
 }

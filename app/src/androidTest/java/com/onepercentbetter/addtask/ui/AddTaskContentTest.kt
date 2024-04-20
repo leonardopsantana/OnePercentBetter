@@ -9,7 +9,6 @@ import org.junit.Rule
 import org.junit.Test
 
 class AddTaskContentTest {
-
     @get:Rule
     val composeTestRule = createComposeRule()
 
@@ -18,18 +17,19 @@ class AddTaskContentTest {
         val descriptionError = "Description error"
         val scheduledDateError = "Scheduled date error"
 
-        val viewState = AddTaskViewState.Active(
-            taskInput = TaskInput(),
-            descriptionInputErrorMessage = UIText.StringText(descriptionError),
-            scheduledDateInputErrorMessage = UIText.StringText(scheduledDateError)
-        )
+        val viewState =
+            AddTaskViewState.Active(
+                taskInput = TaskInput(),
+                descriptionInputErrorMessage = UIText.StringText(descriptionError),
+                scheduledDateInputErrorMessage = UIText.StringText(scheduledDateError),
+            )
 
         composeTestRule.setContent {
             AddTaskContent(
                 viewState = viewState,
                 onTaskDescriptionChanged = {},
                 onTaskScheduleDateChanged = {},
-                onSubmitClicked = { }
+                onSubmitClicked = { },
             )
         }
 

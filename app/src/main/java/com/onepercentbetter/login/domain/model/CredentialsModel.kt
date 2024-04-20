@@ -8,5 +8,5 @@ value class Password(val value: String)
 
 data class Credentials(
     val email: Email = Email(""),
-    val password: Password = Password("")
+    val password: Password = Password(""),
 )

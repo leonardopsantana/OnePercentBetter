@@ -9,9 +9,10 @@ import io.mockk.mockk
  * A fake implementation of a [TokenRepository] that wraps all of our mock work.
  */
 class FakeTokenRepository {
-    val mock: TokenRepository = mockk(
-        relaxUnitFun = true
-    )
+    val mock: TokenRepository =
+        mockk(
+            relaxUnitFun = true,
+        )
 
     fun verifyTokenStore(token: Token) {
         coVerify {

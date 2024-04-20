@@ -41,7 +41,6 @@ fun TaskList(
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.list_padding)),
         modifier = modifier,
     ) {
-
         if (incompleteTasks.isEmpty()) {
             item {
                 EmptySectionCard(
@@ -51,12 +50,14 @@ fun TaskList(
         } else {
             item {
                 Card(
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.surface,
-                    ),
-                    elevation = CardDefaults.cardElevation(
-                        defaultElevation = 1.dp,
-                    ),
+                    colors =
+                        CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.surface,
+                        ),
+                    elevation =
+                        CardDefaults.cardElevation(
+                            defaultElevation = 1.dp,
+                        ),
                 ) {
                     incompleteTasks.forEachIndexed { index, task ->
                         TaskListItem(
@@ -67,9 +68,10 @@ fun TaskList(
                             onDoneClicked = {
                                 onDoneClicked(task)
                             },
-                            modifier = Modifier
-                                .testTag("INCOMPLETE_TASK_${task.id}")
-                                .animateItemPlacement(),
+                            modifier =
+                                Modifier
+                                    .testTag("INCOMPLETE_TASK_${task.id}")
+                                    .animateItemPlacement(),
                         )
 
                         if (index != incompleteTasks.lastIndex) {
@@ -89,12 +91,14 @@ fun TaskList(
 
             item {
                 Card(
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.surface,
-                    ),
-                    elevation = CardDefaults.cardElevation(
-                        defaultElevation = 1.dp,
-                    ),
+                    colors =
+                        CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.surface,
+                        ),
+                    elevation =
+                        CardDefaults.cardElevation(
+                            defaultElevation = 1.dp,
+                        ),
                 ) {
                     completedTasks.forEachIndexed { index, task ->
                         TaskListItem(
@@ -105,9 +109,10 @@ fun TaskList(
                             onDoneClicked = {
                                 onDoneClicked(task)
                             },
-                            modifier = Modifier
-                                .testTag("COMPLETED_TASK_${task.id}")
-                                .animateItemPlacement(),
+                            modifier =
+                                Modifier
+                                    .testTag("COMPLETED_TASK_${task.id}")
+                                    .animateItemPlacement(),
                         )
 
                         if (index != completedTasks.lastIndex) {
@@ -123,16 +128,15 @@ fun TaskList(
 }
 
 @Composable
-private fun EmptySectionCard(
-    text: String
-) {
+private fun EmptySectionCard(text: String) {
     Card {
         Text(
             text = text,
             textAlign = TextAlign.Center,
-            modifier = Modifier
-                .padding(vertical = 32.dp, horizontal = 24.dp)
-                .fillMaxWidth()
+            modifier =
+                Modifier
+                    .padding(vertical = 32.dp, horizontal = 24.dp)
+                    .fillMaxWidth(),
         )
     }
 }
@@ -141,7 +145,7 @@ private fun EmptySectionCard(
 private fun SectionHeader(text: String) {
     Text(
         text = text,
-        style = MaterialTheme.typography.headlineSmall
+        style = MaterialTheme.typography.headlineSmall,
     )
 }
 
@@ -156,27 +160,31 @@ private fun SectionHeader(text: String) {
 @ExcludeFromJacocoGeneratedReport
 @Composable
 private fun FullTaskListPreview() {
-    val incompleteTasks = (1..5).map { index ->
-        Task(
-            id = "$index",
-            description = "Test task: $index",
-            scheduledDateMillis = ZonedDateTime.now()
-                .toInstant()
-                .toEpochMilli(),
-            completed = false
-        )
-    }
+    val incompleteTasks =
+        (1..5).map { index ->
+            Task(
+                id = "$index",
+                description = "Test task: $index",
+                scheduledDateMillis =
+                    ZonedDateTime.now()
+                        .toInstant()
+                        .toEpochMilli(),
+                completed = false,
+            )
+        }
 
-    val completedTasks = (1..5).map { index ->
-        Task(
-            id = "$index",
-            description = "Test task: $index",
-            scheduledDateMillis = ZonedDateTime.now()
-                .toInstant()
-                .toEpochMilli(),
-            completed = true
-        )
-    }
+    val completedTasks =
+        (1..5).map { index ->
+            Task(
+                id = "$index",
+                description = "Test task: $index",
+                scheduledDateMillis =
+                    ZonedDateTime.now()
+                        .toInstant()
+                        .toEpochMilli(),
+                completed = true,
+            )
+        }
 
     OPBTheme {
         TaskList(incompleteTasks, completedTasks, {}, {})
@@ -194,16 +202,18 @@ private fun FullTaskListPreview() {
 @ExcludeFromJacocoGeneratedReport
 @Composable
 private fun NoIncompleteTaskListPreview() {
-    val completedTasks = (1..5).map { index ->
-        Task(
-            id = "$index",
-            description = "Test task: $index",
-            scheduledDateMillis = ZonedDateTime.now()
-                .toInstant()
-                .toEpochMilli(),
-            completed = true
-        )
-    }
+    val completedTasks =
+        (1..5).map { index ->
+            Task(
+                id = "$index",
+                description = "Test task: $index",
+                scheduledDateMillis =
+                    ZonedDateTime.now()
+                        .toInstant()
+                        .toEpochMilli(),
+                completed = true,
+            )
+        }
 
     OPBTheme {
         TaskList(emptyList(), completedTasks, {}, {})
@@ -221,16 +231,18 @@ private fun NoIncompleteTaskListPreview() {
 @ExcludeFromJacocoGeneratedReport
 @Composable
 private fun NoCompleteTaskListPreview() {
-    val incompleteTasks = (1..5).map { index ->
-        Task(
-            id = "$index",
-            description = "Test task: $index",
-            scheduledDateMillis = ZonedDateTime.now()
-                .toInstant()
-                .toEpochMilli(),
-            completed = false
-        )
-    }
+    val incompleteTasks =
+        (1..5).map { index ->
+            Task(
+                id = "$index",
+                description = "Test task: $index",
+                scheduledDateMillis =
+                    ZonedDateTime.now()
+                        .toInstant()
+                        .toEpochMilli(),
+                completed = false,
+            )
+        }
 
     OPBTheme {
         TaskList(incompleteTasks, emptyList(), {}, {})

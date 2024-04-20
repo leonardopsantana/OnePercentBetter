@@ -10,7 +10,6 @@ typealias TaskListResult = Result<List<Task>>
  * This is the data contract for any requests to fetch or modify tasks.
  */
 interface TaskRepository {
-
     /**
      * Request all of the tasks that have been created for the signed in user.
      */
@@ -19,7 +18,10 @@ interface TaskRepository {
     /**
      * Request all of the tasks that have been created for the supplied [dateMillis].
      */
-    fun fetchTasksForDate(dateMillis: Long, completed: Boolean): Flow<TaskListResult>
+    fun fetchTasksForDate(
+        dateMillis: Long,
+        completed: Boolean,
+    ): Flow<TaskListResult>
 
     /**
      * Add new [task] for the signed in user to complete.

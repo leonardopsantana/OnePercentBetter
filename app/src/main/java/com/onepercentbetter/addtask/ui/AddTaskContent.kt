@@ -1,6 +1,5 @@
 package com.onepercentbetter.addtask.ui
 
-import android.annotation.SuppressLint
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -36,30 +35,32 @@ import com.onepercentbetter.core.ui.components.getString
 import com.onepercentbetter.core.ui.theme.OPBTheme
 import java.time.LocalDate
 
+@Suppress("FunctionNaming")
 @Composable
 fun AddTaskContent(
     viewState: AddTaskViewState,
     onTaskDescriptionChanged: (String) -> Unit,
     onTaskScheduleDateChanged: (LocalDate) -> Unit,
     onSubmitClicked: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Box(
-        modifier = modifier
+        modifier = modifier,
     ) {
         AddTaskInputsColumn(
             viewState = viewState,
             onTaskDescriptionChanged = onTaskDescriptionChanged,
             onTaskScheduleDateChanged = onTaskScheduleDateChanged,
             onSubmitClicked = onSubmitClicked,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
 
         if (viewState is AddTaskViewState.Submitting) {
             CircularProgressIndicator(
-                modifier = Modifier
-                    .wrapContentSize()
-                    .align(Alignment.Center)
+                modifier =
+                    Modifier
+                        .wrapContentSize()
+                        .align(Alignment.Center),
             )
         }
     }
@@ -71,51 +72,56 @@ private fun AddTaskInputsColumn(
     onTaskDescriptionChanged: (String) -> Unit,
     onTaskScheduleDateChanged: (LocalDate) -> Unit,
     onSubmitClicked: () -> Unit,
-    modifier: Modifier
+    modifier: Modifier,
 ) {
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.form_spacing)),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         TaskDescriptionLabel()
         TaskDescriptionInput(
             text = viewState.taskInput.description,
             onTextChanged = onTaskDescriptionChanged,
             enabled = viewState.inputsEnabled,
-            errorMessage = (viewState as? AddTaskViewState.Active)
-                ?.descriptionInputErrorMessage
-                ?.getString()
+            errorMessage =
+                (viewState as? AddTaskViewState.Active)
+                    ?.descriptionInputErrorMessage
+                    ?.getString(),
         )
         TaskDateLabel()
         TaskDateInput(
             value = viewState.taskInput.scheduledDate,
             onValueChanged = onTaskScheduleDateChanged,
-            errorMessage = (viewState as? AddTaskViewState.Active)
-                ?.scheduledDateInputErrorMessage
-                ?.getString()
+            errorMessage =
+                (viewState as? AddTaskViewState.Active)
+                    ?.scheduledDateInputErrorMessage
+                    ?.getString(),
         )
         if (viewState is AddTaskViewState.SubmissionError) {
             Text(
                 text = viewState.errorMessage.getString(),
                 color = MaterialTheme.colorScheme.error,
-                modifier = Modifier.padding(top = 12.dp)
+                modifier = Modifier.padding(top = 12.dp),
             )
         }
         VerticalSpacer(height = dimensionResource(id = R.dimen.form_spacing))
         SubmitButton(
             onSubmitClicked = onSubmitClicked,
-            enabled = viewState.inputsEnabled
+            enabled = viewState.inputsEnabled,
         )
     }
 }
 
 @Composable
-private fun SubmitButton(onSubmitClicked: () -> Unit, enabled: Boolean) {
+private fun SubmitButton(
+    onSubmitClicked: () -> Unit,
+    enabled: Boolean,
+) {
     PrimaryButton(
         text = stringResource(R.string.submit),
         onClick = { onSubmitClicked.invoke() },
-        enabled = enabled
+        enabled = enabled,
     )
 }
 
@@ -123,13 +129,13 @@ private fun SubmitButton(onSubmitClicked: () -> Unit, enabled: Boolean) {
 private fun TaskDateInput(
     value: LocalDate,
     onValueChanged: (LocalDate) -> Unit,
-    errorMessage: String?
+    errorMessage: String?,
 ) {
     OPBDatePicker(
         value = value,
         onValueChanged = onValueChanged,
         modifier = Modifier.fillMaxWidth(),
-        errorMessage = errorMessage
+        errorMessage = errorMessage,
     )
 }
 
@@ -138,7 +144,7 @@ private fun TaskDateLabel() {
     Text(
         text = "When would you like to do it?",
         style = MaterialTheme.typography.headlineLarge,
-        textAlign = TextAlign.Center
+        textAlign = TextAlign.Center,
     )
 }
 
@@ -147,18 +153,19 @@ private fun TaskDescriptionInput(
     text: String,
     onTextChanged: (String) -> Unit,
     enabled: Boolean,
-    errorMessage: String?
+    errorMessage: String?,
 ) {
     OPBTextField(
         text = text,
         onTextChanged = onTextChanged,
         labelText = null,
         enabled = enabled,
-        keyboardOptions = KeyboardOptions.Default.copy(
-            capitalization = KeyboardCapitalization.Sentences
-        ),
+        keyboardOptions =
+            KeyboardOptions.Default.copy(
+                capitalization = KeyboardCapitalization.Sentences,
+            ),
         placeholderText = stringResource(R.string.task_input_placeholder),
-        errorMessage = errorMessage
+        errorMessage = errorMessage,
     )
 }
 
@@ -167,7 +174,7 @@ private fun TaskDescriptionLabel() {
     Text(
         text = "What would you like to accomplish?",
         style = MaterialTheme.typography.headlineLarge,
-        textAlign = TextAlign.Center
+        textAlign = TextAlign.Center,
     )
 }
 
@@ -183,7 +190,7 @@ private fun TaskDescriptionLabel() {
 @Composable
 private fun AddTaskContentPreview(
     @PreviewParameter(AddTaskViewStateProvider::class)
-    addTaskViewState: AddTaskViewState
+    addTaskViewState: AddTaskViewState,
 ) {
     OPBTheme {
         AddTaskContent(
@@ -191,9 +198,10 @@ private fun AddTaskContentPreview(
             onTaskDescriptionChanged = {},
             onTaskScheduleDateChanged = {},
             onSubmitClicked = {},
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(dimensionResource(id = R.dimen.screen_padding))
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(dimensionResource(id = R.dimen.screen_padding)),
         )
     }
 }
@@ -201,24 +209,25 @@ private fun AddTaskContentPreview(
 class AddTaskViewStateProvider : PreviewParameterProvider<AddTaskViewState> {
     override val values: Sequence<AddTaskViewState>
         get() {
-            val activeInput = TaskInput(
-                description = "Clean the office",
-                scheduledDate = LocalDate.now()
-            )
+            val activeInput =
+                TaskInput(
+                    description = "Clean the office",
+                    scheduledDate = LocalDate.now(),
+                )
 
             return sequenceOf(
                 AddTaskViewState.Initial,
                 AddTaskViewState.Active(
-                    taskInput = activeInput
+                    taskInput = activeInput,
                 ),
                 AddTaskViewState.Submitting(
-                    taskInput = activeInput
+                    taskInput = activeInput,
                 ),
                 AddTaskViewState.SubmissionError(
                     taskInput = activeInput,
-                    errorMessage = UIText.StringText("Whoops")
+                    errorMessage = UIText.StringText("Whoops"),
                 ),
-                AddTaskViewState.Completed
+                AddTaskViewState.Completed,
             )
         }
 }

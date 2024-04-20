@@ -24,82 +24,87 @@ import javax.inject.Inject
  */
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
-class TaskListViewModel @Inject constructor(
-    private val getTasksForDateUseCase: GetTasksForDateUseCase,
-    private val markTaskAsCompleteUseCase: MarkTaskAsCompleteUseCase
-) : ViewModel() {
-    private val _viewState: MutableStateFlow<TaskListViewState> =
-        MutableStateFlow(TaskListViewState())
-    val viewState = _viewState.asStateFlow()
+class TaskListViewModel
+    @Inject
+    constructor(
+        private val getTasksForDateUseCase: GetTasksForDateUseCase,
+        private val markTaskAsCompleteUseCase: MarkTaskAsCompleteUseCase,
+    ) : ViewModel() {
+        private val _viewState: MutableStateFlow<TaskListViewState> =
+            MutableStateFlow(TaskListViewState())
+        val viewState = _viewState.asStateFlow()
 
-    init {
-        _viewState
-            .map { viewState ->
-                viewState.selectedDate
-            }
-            .distinctUntilChanged()
-            .flatMapLatest { selectedDate ->
-                clearTasksAndShowLoading()
+        init {
+            _viewState
+                .map { viewState ->
+                    viewState.selectedDate
+                }
+                .distinctUntilChanged()
+                .flatMapLatest { selectedDate ->
+                    clearTasksAndShowLoading()
 
-                getTasksForDateUseCase.invoke(
-                    date = selectedDate
+                    getTasksForDateUseCase.invoke(
+                        date = selectedDate,
+                    )
+                }
+                .onEach { result ->
+                    _viewState.value =
+                        getViewStateTaskListResults(
+                            result,
+                        )
+                }
+                .launchIn(viewModelScope)
+        }
+
+        private fun clearTasksAndShowLoading() {
+            _viewState.value =
+                _viewState.value.copy(
+                    showLoading = true,
+                    incompleteTasks = null,
                 )
-            }
-            .onEach { result ->
-                _viewState.value = getViewStateTaskListResults(
-                    result
-                )
-            }
-            .launchIn(viewModelScope)
-    }
+        }
 
-    private fun clearTasksAndShowLoading() {
-        _viewState.value = _viewState.value.copy(
-            showLoading = true,
-            incompleteTasks = null
-        )
-    }
+        private fun getViewStateTaskListResults(result: Result<List<Task>>): TaskListViewState {
+            return when (result) {
+                is Result.Success -> {
+                    val (complete, incomplete) =
+                        result.data.partition { task ->
+                            task.completed
+                        }
 
-    private fun getViewStateTaskListResults(
-        result: Result<List<Task>>,
-    ): TaskListViewState {
-        return when (result) {
-            is Result.Success -> {
-                val (complete, incomplete) = result.data.partition { task ->
-                    task.completed
+                    _viewState.value.copy(
+                        incompleteTasks = incomplete,
+                        completedTasks = complete,
+                        showLoading = false,
+                    )
                 }
 
-                _viewState.value.copy(
-                    incompleteTasks = incomplete,
-                    completedTasks = complete,
-                    showLoading = false,
-                )
+                is Result.Error -> {
+                    _viewState.value.copy(
+                        errorMessage = UIText.StringText("Something went wrong."),
+                        showLoading = false,
+                    )
+                }
             }
+        }
 
-            is Result.Error -> {
+        fun onPreviousDateButtonClicked() {
+            _viewState.value =
                 _viewState.value.copy(
-                    errorMessage = UIText.StringText("Something went wrong."),
-                    showLoading = false,
+                    selectedDate = _viewState.value.selectedDate.minusDays(1),
                 )
+        }
+
+        fun onNextDateButtonClicked() {
+            _viewState.value =
+                _viewState.value.copy(
+                    selectedDate = _viewState.value.selectedDate.plusDays(1),
+                )
+        }
+
+        fun onDoneButtonClicked(task: Task) {
+            viewModelScope.launch {
+                markTaskAsCompleteUseCase.invoke(task)
             }
         }
     }
-
-    fun onPreviousDateButtonClicked() {
-        _viewState.value = _viewState.value.copy(
-            selectedDate = _viewState.value.selectedDate.minusDays(1)
-        )
-    }
-
-    fun onNextDateButtonClicked() {
-        _viewState.value = _viewState.value.copy(
-            selectedDate = _viewState.value.selectedDate.plusDays(1)
-        )
-    }
-
-    fun onDoneButtonClicked(task: Task) {
-        viewModelScope.launch {
-            markTaskAsCompleteUseCase.invoke(task)
-        }
-    }
-}

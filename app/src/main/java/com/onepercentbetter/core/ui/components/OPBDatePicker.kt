@@ -47,7 +47,7 @@ fun OPBDatePicker(
     borderColor: Color = MaterialTheme.colorScheme.onSurface.copy(ContentAlpha.disabled),
     textColor: Color = MaterialTheme.colorScheme.onBackground,
     iconColor: Color = MaterialTheme.colorScheme.onSurface.copy(TextFieldDefaults.IconOpacity),
-    errorMessage: String? = null
+    errorMessage: String? = null,
 ) {
     val dialogState = rememberMaterialDialogState()
 
@@ -57,12 +57,12 @@ fun OPBDatePicker(
             positiveButton("OK")
             negativeButton("CANCEL")
         },
-        backgroundColor = MaterialTheme.colorScheme.surface
+        backgroundColor = MaterialTheme.colorScheme.surface,
     ) {
         this.datepicker(
             colors = md3DatePickerColors(),
             onDateChange = onValueChanged,
-            initialDate = value
+            initialDate = value,
         )
     }
 
@@ -70,22 +70,23 @@ fun OPBDatePicker(
 
     Column(modifier) {
         Box(
-            modifier = Modifier
-                .border(
-                    width = 1.dp,
-                    color = if (hasError) MaterialTheme.colorScheme.onSurface else borderColor,
-                    shape = ButtonShape
-                )
-                .clip(ButtonShape)
-                .clickable {
-                    dialogState.show()
-                }
+            modifier =
+                Modifier
+                    .border(
+                        width = 1.dp,
+                        color = if (hasError) MaterialTheme.colorScheme.onSurface else borderColor,
+                        shape = ButtonShape,
+                    )
+                    .clip(ButtonShape)
+                    .clickable {
+                        dialogState.show()
+                    },
         ) {
             DateAndIcon(
                 value = value,
                 textColor = textColor,
                 hasError = hasError,
-                iconColor = iconColor
+                iconColor = iconColor,
             )
         }
 
@@ -93,11 +94,12 @@ fun OPBDatePicker(
             Text(
                 text = errorMessage,
                 color = MaterialTheme.colorScheme.error,
-                modifier = Modifier
-                    .padding(
-                        top = 4.dp,
-                        start = 16.dp
-                    )
+                modifier =
+                    Modifier
+                        .padding(
+                            top = 4.dp,
+                            start = 16.dp,
+                        ),
             )
         }
     }
@@ -108,21 +110,21 @@ private fun DateAndIcon(
     value: LocalDate,
     textColor: Color,
     hasError: Boolean,
-    iconColor: Color
+    iconColor: Color,
 ) {
     Row(
-        modifier = Modifier.padding(16.dp)
+        modifier = Modifier.padding(16.dp),
     ) {
         Text(
             text = value.toUIString(),
             color = textColor,
-            modifier = Modifier.weight(1F)
+            modifier = Modifier.weight(1F),
         )
 
         Icon(
             Icons.Default.DateRange,
             contentDescription = stringResource(R.string.select_date_content_description),
-            tint = if (hasError) MaterialTheme.colorScheme.error else iconColor
+            tint = if (hasError) MaterialTheme.colorScheme.error else iconColor,
         )
     }
 }
@@ -149,7 +151,7 @@ private fun md3DatePickerColors(
         activeBackgroundColor,
         inactiveBackgroundColor,
         activeTextColor,
-        inactiveTextColor
+        inactiveTextColor,
     )
 }
 
@@ -169,9 +171,10 @@ private fun OPBDatePickerPreview() {
             OPBDatePicker(
                 value = LocalDate.now(),
                 onValueChanged = {},
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
             )
         }
     }
@@ -193,10 +196,11 @@ private fun OPBDatePickerWithErrorPreview() {
             OPBDatePicker(
                 value = LocalDate.now(),
                 onValueChanged = {},
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                errorMessage = "Scheduled date cannot be in the past."
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                errorMessage = "Scheduled date cannot be in the past.",
             )
         }
     }
