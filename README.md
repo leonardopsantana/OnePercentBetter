@@ -9,6 +9,7 @@ This document is intended to clarify each of types of layers in the above image 
 responsibilities.
 
 ## Repository
+
 A repository is the piece of the layer that is responsible for making data requests. This could be a
 remote server, a local preferences, database, etc. The repository should only request and receive
 data, it should have any side effects such as calling a different repository. The repository should
