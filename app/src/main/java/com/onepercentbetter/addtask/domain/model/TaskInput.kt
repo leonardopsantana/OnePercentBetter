@@ -7,5 +7,5 @@ import java.time.LocalDate
  */
 data class TaskInput(
     val description: String = "",
-    val scheduledDate: LocalDate = LocalDate.now()
+    val scheduledDate: LocalDate = LocalDate.now(),
 )

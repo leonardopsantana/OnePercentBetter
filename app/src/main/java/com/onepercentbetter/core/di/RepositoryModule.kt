@@ -18,20 +18,13 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class RepositoryModule {
+    @Binds
+    abstract fun bindTokenRepository(tokenRepository: DemoTokenRepositoryImpl): TokenRepository
 
     @Binds
-    abstract fun bindTokenRepository(
-        tokenRepository: DemoTokenRepositoryImpl,
-    ): TokenRepository
-
-    @Binds
-    abstract fun bindLoginRepository(
-        loginRepository: DemoLoginRepositoryImpl
-    ): LoginRepository
+    abstract fun bindLoginRepository(loginRepository: DemoLoginRepositoryImpl): LoginRepository
 
     @Binds
     @Singleton
-    abstract fun bindTaskListRepository(
-        taskListRepository: com.onepercentbetter.core.data.local.RoomTaskRepository
-    ): TaskRepository
+    abstract fun bindTaskListRepository(taskListRepository: com.onepercentbetter.core.data.local.RoomTaskRepository): TaskRepository
 }

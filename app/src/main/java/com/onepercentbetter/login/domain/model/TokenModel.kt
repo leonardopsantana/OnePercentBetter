@@ -14,5 +14,5 @@ value class RefreshToken(val value: String)
  */
 data class Token(
     val authToken: AuthToken,
-    val refreshToken: RefreshToken
+    val refreshToken: RefreshToken,
 )

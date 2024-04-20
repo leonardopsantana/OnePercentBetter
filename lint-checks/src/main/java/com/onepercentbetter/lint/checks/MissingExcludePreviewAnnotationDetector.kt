@@ -14,7 +14,6 @@ import org.jetbrains.uast.UElement
 import org.jetbrains.uast.UMethod
 
 class MissingExcludePreviewAnnotationDetector : Detector(), UastScanner {
-
     override fun getApplicableUastTypes(): List<Class<out UElement>> {
         return listOf(UMethod::class.java)
     }
@@ -24,7 +23,7 @@ class MissingExcludePreviewAnnotationDetector : Detector(), UastScanner {
     }
 
     private class PreviewMethodElementHandler(
-        private val context: JavaContext
+        private val context: JavaContext,
     ) : UElementHandler() {
         override fun visitMethod(node: UMethod) {
             val isPreviewMethod = node.hasAnnotation(COMPOSE_PREVIEW_ANNOTATION)
@@ -35,7 +34,7 @@ class MissingExcludePreviewAnnotationDetector : Detector(), UastScanner {
                     issue = ISSUE_MISSING_EXCLUDE_PREVIEW_ANNOTATION,
                     location = context.getLocation(node),
                     message =
-                    ISSUE_MISSING_EXCLUDE_PREVIEW_ANNOTATION.getExplanation(TextFormat.TEXT)
+                        ISSUE_MISSING_EXCLUDE_PREVIEW_ANNOTATION.getExplanation(TextFormat.TEXT),
                 )
             }
         }
@@ -46,18 +45,21 @@ class MissingExcludePreviewAnnotationDetector : Detector(), UastScanner {
         private const val EXCLUDE_FROM_JACOCO_ANNOTATION =
             "com.onepercentbetter.ExcludeFromJacocoGeneratedReport"
 
-        internal val ISSUE_MISSING_EXCLUDE_PREVIEW_ANNOTATION = Issue.create(
-            id = "MissingExcludePreviewAnnotation",
-            briefDescription = "Jetpack Compose previews should be excluded from JaCoCo Reports",
-            explanation = "Any methods annotated with @Preview should also have the " +
-                    "@ExcludeFromJacocoGeneratedReport annotation",
-            category = Category.CUSTOM_LINT_CHECKS,
-            severity = Severity.ERROR,
-            implementation = Implementation(
-                MissingExcludePreviewAnnotationDetector::class.java,
-                Scope.JAVA_FILE_SCOPE
-            ),
-            priority = 10
-        )
+        internal val ISSUE_MISSING_EXCLUDE_PREVIEW_ANNOTATION =
+            Issue.create(
+                id = "MissingExcludePreviewAnnotation",
+                briefDescription = "Jetpack Compose previews should be excluded from JaCoCo Reports",
+                explanation =
+                    "Any methods annotated with @Preview should also have the " +
+                        "@ExcludeFromJacocoGeneratedReport annotation",
+                category = Category.CUSTOM_LINT_CHECKS,
+                severity = Severity.ERROR,
+                implementation =
+                    Implementation(
+                        MissingExcludePreviewAnnotationDetector::class.java,
+                        Scope.JAVA_FILE_SCOPE,
+                    ),
+                priority = 10,
+            )
     }
 }

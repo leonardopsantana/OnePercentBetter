@@ -44,24 +44,25 @@ fun OPBTextField(
     enabled: Boolean = true,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     onFocusChanged: (FocusState) -> Unit = {},
-    placeholderText: String? = null
+    placeholderText: String? = null,
 ) {
-
-    val labelComposable: (@Composable () -> Unit)? = labelText?.let {
-        @Composable {
-            Text(
-                text = labelText
-            )
+    val labelComposable: (@Composable () -> Unit)? =
+        labelText?.let {
+            @Composable {
+                Text(
+                    text = labelText,
+                )
+            }
         }
-    }
 
-    val placeholderComposable: (@Composable () -> Unit)? = placeholderText?.let {
-        @Composable {
-            Text(
-                text = placeholderText
-            )
+    val placeholderComposable: (@Composable () -> Unit)? =
+        placeholderText?.let {
+            @Composable {
+                Text(
+                    text = placeholderText,
+                )
+            }
         }
-    }
 
     Column {
         OutlinedTextField(
@@ -69,26 +70,28 @@ fun OPBTextField(
             onValueChange = onTextChanged,
             label = labelComposable,
             shape = TextFieldShape,
-            modifier = modifier
-                .heightIn(dimensionResource(id = R.dimen.text_field_height))
-                .fillMaxWidth()
-                .onFocusChanged(onFocusChanged),
+            modifier =
+                modifier
+                    .heightIn(dimensionResource(id = R.dimen.text_field_height))
+                    .fillMaxWidth()
+                    .onFocusChanged(onFocusChanged),
             isError = (errorMessage != null),
             visualTransformation = visualTransformation,
             enabled = enabled,
             keyboardOptions = keyboardOptions,
-            placeholder = placeholderComposable
+            placeholder = placeholderComposable,
         )
 
         if (errorMessage != null) {
             Text(
                 text = errorMessage,
                 color = MaterialTheme.colorScheme.error,
-                modifier = Modifier
-                    .padding(
-                        top = 4.dp,
-                        start = 16.dp
-                    )
+                modifier =
+                    Modifier
+                        .padding(
+                            top = 4.dp,
+                            start = 16.dp,
+                        ),
             )
         }
     }
@@ -100,7 +103,7 @@ fun OPBTextField(
 )
 @Preview(
     name = "Day mode - Filled",
-    uiMode = Configuration.UI_MODE_NIGHT_NO
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @ExcludeFromJacocoGeneratedReport
 @Composable
@@ -110,7 +113,7 @@ private fun FilledOPBTextFieldPreview() {
             OPBTextField(
                 text = "OnePercentBetter Text Field",
                 onTextChanged = {},
-                labelText = "Label"
+                labelText = "Label",
             )
         }
     }
@@ -122,7 +125,7 @@ private fun FilledOPBTextFieldPreview() {
 )
 @Preview(
     name = "Day mode - Error",
-    uiMode = Configuration.UI_MODE_NIGHT_NO
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @ExcludeFromJacocoGeneratedReport
 @Composable
@@ -133,7 +136,7 @@ private fun ErrorOPBTextFieldPreview() {
                 text = "OnePercentBetter Text Field",
                 onTextChanged = {},
                 labelText = "Label",
-                errorMessage = "Please, enter this"
+                errorMessage = "Please, enter this",
             )
         }
     }
@@ -145,7 +148,7 @@ private fun ErrorOPBTextFieldPreview() {
 )
 @Preview(
     name = "Day mode - Empty",
-    uiMode = Configuration.UI_MODE_NIGHT_NO
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @ExcludeFromJacocoGeneratedReport
 @Composable
@@ -155,7 +158,7 @@ private fun EmptyOPBTextFieldPreview() {
             OPBTextField(
                 text = "",
                 onTextChanged = {},
-                labelText = "Label"
+                labelText = "Label",
             )
         }
     }

@@ -12,9 +12,8 @@ data class TaskListViewState(
     val completedTasks: List<Task>? = null,
     val incompleteTasks: List<Task>? = null,
     val errorMessage: UIText? = null,
-    val selectedDate: LocalDate = LocalDate.now()
+    val selectedDate: LocalDate = LocalDate.now(),
 ) {
-
     /**
      * As long as we are not in a loading error scenario, we can show the task list (or empty state)
      */

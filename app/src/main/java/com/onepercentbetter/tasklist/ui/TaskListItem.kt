@@ -31,23 +31,24 @@ fun TaskListItem(
     task: Task,
     onRescheduleClicked: () -> Unit,
     onDoneClicked: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Card(modifier = modifier) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
-            horizontalAlignment = Alignment.End
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+            horizontalAlignment = Alignment.End,
         ) {
             TaskText(
-                text = task.description
+                text = task.description,
             )
 
             if (!task.completed) {
                 ButtonRow(
                     onRescheduleClicked = onRescheduleClicked,
-                    onDoneClicked = onDoneClicked
+                    onDoneClicked = onDoneClicked,
                 )
             }
         }
@@ -57,11 +58,11 @@ fun TaskListItem(
 @Composable
 private fun ButtonRow(
     onRescheduleClicked: () -> Unit,
-    onDoneClicked: () -> Unit
+    onDoneClicked: () -> Unit,
 ) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
-        modifier = Modifier.testTag("BUTTON_ROW")
+        modifier = Modifier.testTag("BUTTON_ROW"),
     ) {
         Reschedule(onRescheduleClicked)
 
@@ -73,7 +74,7 @@ private fun ButtonRow(
 private fun Reschedule(onRescheduleClicked: () -> Unit) {
     OPBTextButton(
         text = stringResource(R.string.reschedule),
-        onClick = onRescheduleClicked
+        onClick = onRescheduleClicked,
     )
 }
 
@@ -81,7 +82,7 @@ private fun Reschedule(onRescheduleClicked: () -> Unit) {
 private fun Done(onDoneClicked: () -> Unit) {
     OPBTextButton(
         text = stringResource(R.string.done),
-        onClick = onDoneClicked
+        onClick = onDoneClicked,
     )
 }
 
@@ -89,9 +90,10 @@ private fun Done(onDoneClicked: () -> Unit) {
 private fun TaskText(text: String) {
     Text(
         text = text,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp)
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
     )
 }
 
@@ -99,20 +101,22 @@ private fun TaskText(text: String) {
 private class TaskPreviewParameterProvider : PreviewParameterProvider<Task> {
     override val values: Sequence<Task>
         get() {
-            val incompleteTask = Task(
-                id = "Test",
-                description = "Clean my office space.",
-                scheduledDateMillis = 0L,
-                completed = false
-            )
+            val incompleteTask =
+                Task(
+                    id = "Test",
+                    description = "Clean my office space.",
+                    scheduledDateMillis = 0L,
+                    completed = false,
+                )
 
-            val completedTask = incompleteTask.copy(
-                completed = true
-            )
+            val completedTask =
+                incompleteTask.copy(
+                    completed = true,
+                )
 
             return sequenceOf(
                 incompleteTask,
-                completedTask
+                completedTask,
             )
         }
 }
@@ -129,13 +133,13 @@ private class TaskPreviewParameterProvider : PreviewParameterProvider<Task> {
 @ExcludeFromJacocoGeneratedReport
 private fun TaskListItemPreview(
     @PreviewParameter(TaskPreviewParameterProvider::class)
-    task: Task
+    task: Task,
 ) {
     OPBTheme {
         TaskListItem(
             task = task,
             onRescheduleClicked = {},
-            onDoneClicked = {}
+            onDoneClicked = {},
         )
     }
 }

@@ -9,5 +9,5 @@ data class PersistableTask(
     val id: String,
     val description: String,
     val scheduledDate: String,
-    val completed: Boolean
+    val completed: Boolean,
 )

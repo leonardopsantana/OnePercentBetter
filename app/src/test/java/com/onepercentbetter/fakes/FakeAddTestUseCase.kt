@@ -8,9 +8,7 @@ import io.mockk.mockk
 class FakeAddTestUseCase {
     val mock: AddTaskUseCase = mockk()
 
-    fun mockResultForTask(
-        result: AddTaskResult
-    ) {
+    fun mockResultForTask(result: AddTaskResult) {
         coEvery {
             mock.invoke(any())
         } returns result

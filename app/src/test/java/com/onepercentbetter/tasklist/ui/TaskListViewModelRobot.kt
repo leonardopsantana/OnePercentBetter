@@ -15,25 +15,30 @@ class TaskListViewModelRobot {
     private val fakeTaskRepository = FakeTaskRepository()
     private lateinit var viewModel: TaskListViewModel
 
-    fun buildViewModel() = apply {
-        viewModel = TaskListViewModel(
-            getTasksForDateUseCase = ProdGetTasksForDateUseCase(
-                taskRepository = fakeTaskRepository
-            ),
-            markTaskAsCompleteUseCase = ProdMarkTaskAsCompletedUseCase(
-                taskRepository = fakeTaskRepository
-            )
-        )
-    }
+    fun buildViewModel() =
+        apply {
+            viewModel =
+                TaskListViewModel(
+                    getTasksForDateUseCase =
+                        ProdGetTasksForDateUseCase(
+                            taskRepository = fakeTaskRepository,
+                        ),
+                    markTaskAsCompleteUseCase =
+                        ProdMarkTaskAsCompletedUseCase(
+                            taskRepository = fakeTaskRepository,
+                        ),
+                )
+        }
 
     fun mockTasksForDateResult(
         date: LocalDate,
-        result: Result<List<Task>>
+        result: Result<List<Task>>,
     ) = apply {
-        val dateMillis = date.atStartOfDay()
-            .atZone(ZoneId.systemDefault())
-            .toInstant()
-            .toEpochMilli()
+        val dateMillis =
+            date.atStartOfDay()
+                .atZone(ZoneId.systemDefault())
+                .toInstant()
+                .toEpochMilli()
 
         val completedInput = Pair(dateMillis, true)
         fakeTaskRepository.tasksForDateResults[completedInput] = flowOf(result)
@@ -42,13 +47,11 @@ class TaskListViewModelRobot {
         fakeTaskRepository.tasksForDateResults[incompleteInput] = flowOf(result)
     }
 
-    fun assertViewState(
-        expectedViewState: TaskListViewState
-    ) = apply {
-
-        val actualViewState = viewModel.viewState.value
-        assertThat(actualViewState).isEqualTo(expectedViewState)
-    }
+    fun assertViewState(expectedViewState: TaskListViewState) =
+        apply {
+            val actualViewState = viewModel.viewState.value
+            assertThat(actualViewState).isEqualTo(expectedViewState)
+        }
 
     /**
      * Launch a coroutine that will observe our [viewModel]'s view state and ensure that we consume
@@ -72,11 +75,13 @@ class TaskListViewModelRobot {
         }
     }
 
-    fun clickPreviousDateButton() = apply {
-        viewModel.onPreviousDateButtonClicked()
-    }
+    fun clickPreviousDateButton() =
+        apply {
+            viewModel.onPreviousDateButtonClicked()
+        }
 
-    fun clickNextDateButton() = apply {
-        viewModel.onNextDateButtonClicked()
-    }
+    fun clickNextDateButton() =
+        apply {
+            viewModel.onNextDateButtonClicked()
+        }
 }

@@ -19,7 +19,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @OptIn(ExperimentalAnimationApi::class)
 @AndroidEntryPoint
 class MainActivity : FragmentActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -29,7 +28,7 @@ class MainActivity : FragmentActivity() {
             OPBTheme {
                 ConfigureSystemBars()
                 Surface(
-                    color = MaterialTheme.colorScheme.background
+                    color = MaterialTheme.colorScheme.background,
                 ) {
                     DestinationsNavHost(
                         NavGraphs.root,
@@ -49,7 +48,7 @@ class MainActivity : FragmentActivity() {
             // dark icons if we're in light theme
             systemUiController.setSystemBarsColor(
                 color = Color.Transparent,
-                darkIcons = useDarkIcons
+                darkIcons = useDarkIcons,
             )
         }
     }

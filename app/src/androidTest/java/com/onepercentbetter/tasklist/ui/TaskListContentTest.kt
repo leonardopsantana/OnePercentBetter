@@ -18,18 +18,19 @@ import org.junit.Test
 import java.time.ZonedDateTime
 
 class TaskListContentTest {
-
     @get:Rule
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
-    private val testTask = Task(
-        id = "Test ID",
-        description = "Text Task",
-        scheduledDateMillis = ZonedDateTime.now()
-            .toInstant()
-            .toEpochMilli(),
-        completed = false
-    )
+    private val testTask =
+        Task(
+            id = "Test ID",
+            description = "Text Task",
+            scheduledDateMillis =
+                ZonedDateTime.now()
+                    .toInstant()
+                    .toEpochMilli(),
+            completed = false,
+        )
 
     @Test
     fun clickPreviousDateButton() {
@@ -44,7 +45,7 @@ class TaskListContentTest {
                 onPreviousDateButtonClicked = {
                     hasClickedPreviousDate = true
                 },
-                onNextDateButtonClicked = {}
+                onNextDateButtonClicked = {},
             )
         }
 
@@ -68,7 +69,7 @@ class TaskListContentTest {
                 onPreviousDateButtonClicked = {},
                 onNextDateButtonClicked = {
                     hasClickedNextDate = true
-                }
+                },
             )
         }
 
@@ -81,11 +82,12 @@ class TaskListContentTest {
 
     @Test
     fun renderWithNoTasks() {
-        val viewState = TaskListViewState(
-            showLoading = false,
-            incompleteTasks = emptyList(),
-            completedTasks = emptyList()
-        )
+        val viewState =
+            TaskListViewState(
+                showLoading = false,
+                incompleteTasks = emptyList(),
+                completedTasks = emptyList(),
+            )
 
         composeTestRule.setContent {
             TaskListContent(
@@ -93,7 +95,7 @@ class TaskListContentTest {
                 onRescheduleClicked = {},
                 onDoneClicked = {},
                 onAddButtonClicked = {},
-                onPreviousDateButtonClicked = {}
+                onPreviousDateButtonClicked = {},
             ) {
             }
         }
@@ -108,15 +110,17 @@ class TaskListContentTest {
 
     @Test
     fun renderWithNoIncompleteTasks() {
-        val completedTask = testTask.copy(
-            completed = true,
-        )
+        val completedTask =
+            testTask.copy(
+                completed = true,
+            )
 
-        val viewState = TaskListViewState(
-            showLoading = false,
-            incompleteTasks = emptyList(),
-            completedTasks = listOf(completedTask),
-        )
+        val viewState =
+            TaskListViewState(
+                showLoading = false,
+                incompleteTasks = emptyList(),
+                completedTasks = listOf(completedTask),
+            )
 
         composeTestRule.setContent {
             TaskListContent(
@@ -124,7 +128,7 @@ class TaskListContentTest {
                 onRescheduleClicked = {},
                 onDoneClicked = {},
                 onAddButtonClicked = {},
-                onPreviousDateButtonClicked = {}
+                onPreviousDateButtonClicked = {},
             ) {
             }
         }
@@ -146,15 +150,17 @@ class TaskListContentTest {
 
     @Test
     fun renderWithNoCompleteTasks() {
-        val incompleteTask = testTask.copy(
-            completed = false,
-        )
+        val incompleteTask =
+            testTask.copy(
+                completed = false,
+            )
 
-        val viewState = TaskListViewState(
-            showLoading = false,
-            incompleteTasks = listOf(incompleteTask),
-            completedTasks = emptyList(),
-        )
+        val viewState =
+            TaskListViewState(
+                showLoading = false,
+                incompleteTasks = listOf(incompleteTask),
+                completedTasks = emptyList(),
+            )
 
         composeTestRule.setContent {
             TaskListContent(
@@ -162,7 +168,7 @@ class TaskListContentTest {
                 onRescheduleClicked = {},
                 onDoneClicked = {},
                 onAddButtonClicked = {},
-                onPreviousDateButtonClicked = {}
+                onPreviousDateButtonClicked = {},
             ) {
             }
         }

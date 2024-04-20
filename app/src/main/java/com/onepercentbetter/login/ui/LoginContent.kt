@@ -65,24 +65,25 @@ fun LoginContent(
     onEmailChanged: (String) -> Unit,
     onPasswordChanged: (String) -> Unit,
     onLoginClicked: () -> Unit,
-    onSignUpClicked: () -> Unit
+    onSignUpClicked: () -> Unit,
 ) {
     Box(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
         LogoInputsColumn(
             viewState = viewState,
             onEmailChanged = onEmailChanged,
             onPasswordChanged = onPasswordChanged,
             onLoginClicked = onLoginClicked,
-            onSignUpClicked = onSignUpClicked
+            onSignUpClicked = onSignUpClicked,
         )
 
         if (viewState is LoginViewState.Submitting) {
             CircularProgressIndicator(
-                modifier = Modifier
-                    .wrapContentSize()
-                    .align(Alignment.Center)
+                modifier =
+                    Modifier
+                        .wrapContentSize()
+                        .align(Alignment.Center),
             )
         }
     }
@@ -95,19 +96,19 @@ private fun LogoInputsColumn(
     onPasswordChanged: (String) -> Unit,
     onLoginClicked: () -> Unit,
     onSignUpClicked: () -> Unit,
-    contentPadding: PaddingValues = PaddingValues(dimensionResource(id = R.dimen.screen_padding))
+    contentPadding: PaddingValues = PaddingValues(dimensionResource(id = R.dimen.screen_padding)),
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(
-                start = contentPadding.calculateStartPadding(LocalLayoutDirection.current),
-                end = contentPadding.calculateEndPadding(LocalLayoutDirection.current),
-            )
-            .verticalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(
+                    start = contentPadding.calculateStartPadding(LocalLayoutDirection.current),
+                    end = contentPadding.calculateEndPadding(LocalLayoutDirection.current),
+                )
+                .verticalScroll(rememberScrollState()),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-
         VerticalSpacer(height = contentPadding.calculateTopPadding())
 
         AppLogo(modifier = Modifier.padding(88.dp))
@@ -116,9 +117,8 @@ private fun LogoInputsColumn(
             text = viewState.credentials.email.value,
             onTextChanged = onEmailChanged,
             errorMessage =
-            (viewState as? LoginViewState.Active)?.emailInputErrorMessage?.getString(),
+                (viewState as? LoginViewState.Active)?.emailInputErrorMessage?.getString(),
             enabled = viewState.inputsEnabled,
-
         )
 
         VerticalSpacer(height = 12.dp)
@@ -127,14 +127,14 @@ private fun LogoInputsColumn(
             text = viewState.credentials.password.value,
             onTextChanged = onPasswordChanged,
             errorMessage = (viewState as? LoginViewState.Active)?.passwordInputErrorMessage?.getString(),
-            enabled = viewState.inputsEnabled
+            enabled = viewState.inputsEnabled,
         )
 
         if (viewState is LoginViewState.SubmissionError) {
             Text(
                 text = viewState.errorMessage.getString(),
                 color = MaterialTheme.colorScheme.error,
-                modifier = Modifier.padding(top = 12.dp)
+                modifier = Modifier.padding(top = 12.dp),
             )
         }
 
@@ -147,29 +147,37 @@ private fun LogoInputsColumn(
         SignUpButton(
             onSignUpClicked = onSignUpClicked,
             isEnabled = viewState.inputsEnabled,
-            modifier = Modifier
-                .padding(bottom = contentPadding.calculateBottomPadding())
-                .navigationBarsPadding()
+            modifier =
+                Modifier
+                    .padding(bottom = contentPadding.calculateBottomPadding())
+                    .navigationBarsPadding(),
         )
     }
 }
 
 @Composable
-private fun SignUpButton(onSignUpClicked: () -> Unit, isEnabled: Boolean, modifier: Modifier) {
+private fun SignUpButton(
+    onSignUpClicked: () -> Unit,
+    isEnabled: Boolean,
+    modifier: Modifier,
+) {
     SecondaryButton(
         text = stringResource(R.string.sign_up),
         onClick = onSignUpClicked,
         isEnabled = isEnabled,
-        modifier = modifier
+        modifier = modifier,
     )
 }
 
 @Composable
-private fun LoginButton(onLoginClicked: () -> Unit, isEnabled: Boolean) {
+private fun LoginButton(
+    onLoginClicked: () -> Unit,
+    isEnabled: Boolean,
+) {
     PrimaryButton(
         text = stringResource(R.string.log_in),
         onClick = onLoginClicked,
-        enabled = isEnabled
+        enabled = isEnabled,
     )
 }
 
@@ -185,13 +193,15 @@ private fun PasswordInput(
         onTextChanged = onTextChanged,
         labelText = stringResource(R.string.password),
         errorMessage = errorMessage,
-        visualTransformation = PasswordVisualTransformation(
-            mask = '-'
-        ),
+        visualTransformation =
+            PasswordVisualTransformation(
+                mask = '-',
+            ),
         enabled = enabled,
-        keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Password
-        )
+        keyboardOptions =
+            KeyboardOptions(
+                keyboardType = KeyboardType.Password,
+            ),
     )
 }
 
@@ -212,18 +222,18 @@ private fun EmailInput(
 }
 
 @Composable
-private fun AppLogo(
-    modifier: Modifier
-) {
+private fun AppLogo(modifier: Modifier) {
     Image(
         painter =
-        painterResource(id = R.drawable.ic_brick),
+            painterResource(id = R.drawable.ic_brick),
         contentDescription = stringResource(R.string.app_logo_content_description),
-        modifier = modifier
-            .fillMaxWidth(APP_LOGO_WIDTH_PERCENTAGE),
-        colorFilter = ColorFilter.tint(
-            color = if (isSystemInDarkTheme()) Color.White else Color.Black
-        )
+        modifier =
+            modifier
+                .fillMaxWidth(APP_LOGO_WIDTH_PERCENTAGE),
+        colorFilter =
+            ColorFilter.tint(
+                color = if (isSystemInDarkTheme()) Color.White else Color.Black,
+            ),
     )
 }
 
@@ -233,13 +243,13 @@ private fun AppLogo(
 )
 @Preview(
     name = "Day mode - Empty",
-    uiMode = Configuration.UI_MODE_NIGHT_NO
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @ExcludeFromJacocoGeneratedReport
 @Composable
 private fun EmptyLoginContentPreview(
     @PreviewParameter(LoginViewStateProvider::class)
-    loginViewState: LoginViewState
+    loginViewState: LoginViewState,
 ) {
     OPBTheme {
         LoginContent(
@@ -255,10 +265,11 @@ private fun EmptyLoginContentPreview(
 class LoginViewStateProvider : PreviewParameterProvider<LoginViewState> {
     override val values: Sequence<LoginViewState>
         get() {
-            val activeCredentials = Credentials(
-                Email("leonardopontes.santana@gmail.com"),
-                Password("pass123")
-            )
+            val activeCredentials =
+                Credentials(
+                    Email("leonardopontes.santana@gmail.com"),
+                    Password("pass123"),
+                )
 
             return sequenceOf(
                 LoginViewState.Initial,
@@ -268,12 +279,12 @@ class LoginViewStateProvider : PreviewParameterProvider<LoginViewState> {
                 LoginViewState.Submitting(activeCredentials),
                 LoginViewState.SubmissionError(
                     credentials = activeCredentials,
-                    errorMessage = UIText.StringText("Something went wrong.")
+                    errorMessage = UIText.StringText("Something went wrong."),
                 ),
                 LoginViewState.Active(
                     credentials = activeCredentials,
                     emailInputErrorMessage = UIText.StringText("Please enter an email."),
-                    passwordInputErrorMessage = UIText.StringText("Please enter a password")
+                    passwordInputErrorMessage = UIText.StringText("Please enter a password"),
                 ),
             )
         }

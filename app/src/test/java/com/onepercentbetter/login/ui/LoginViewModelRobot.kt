@@ -10,34 +10,40 @@ class LoginViewModelRobot {
     private val fakeCredentialsLoginUseCase = FakeCredentialsLoginUseCase()
     private lateinit var viewModel: LoginViewModel
 
-    fun buildViewModel() = apply {
-        viewModel = LoginViewModel(
-            credentialsLoginUseCase = fakeCredentialsLoginUseCase.mock,
-        )
-    }
+    fun buildViewModel() =
+        apply {
+            viewModel =
+                LoginViewModel(
+                    credentialsLoginUseCase = fakeCredentialsLoginUseCase.mock,
+                )
+        }
 
     fun mockLoginResultForCredentials(
         credentials: Credentials,
-        result: LoginResult
+        result: LoginResult,
     ) = apply {
         fakeCredentialsLoginUseCase.mockLoginResultForCredentials(credentials, result)
     }
 
-    fun enterEmail(email: String) = apply {
-        viewModel.emailChanged(email)
-    }
+    fun enterEmail(email: String) =
+        apply {
+            viewModel.emailChanged(email)
+        }
 
-    fun enterPassword(password: String) = apply {
-        viewModel.passwordChanged(password)
-    }
+    fun enterPassword(password: String) =
+        apply {
+            viewModel.passwordChanged(password)
+        }
 
-    fun clickLoginButton() = apply {
-        viewModel.loginButtonClicked()
-    }
+    fun clickLoginButton() =
+        apply {
+            viewModel.loginButtonClicked()
+        }
 
-    fun clickSignUpButton() = apply {
-        viewModel.signUpButtonClicked()
-    }
+    fun clickSignUpButton() =
+        apply {
+            viewModel.signUpButtonClicked()
+        }
 
     /**
      * Launch a coroutine that will observe our [viewModel]'s view state and ensure that we consume

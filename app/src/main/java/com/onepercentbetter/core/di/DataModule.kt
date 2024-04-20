@@ -16,19 +16,17 @@ object DataModule {
     @Provides
     fun provideOPBDatabase(
         @ApplicationContext
-        applicationContext: Context
+        applicationContext: Context,
     ): OPBDatabase {
         return Room.databaseBuilder(
             applicationContext,
             OPBDatabase::class.java,
-            "opb-database.db"
+            "opb-database.db",
         ).build()
     }
 
     @Provides
-    fun provideTaskDAO(
-        database: OPBDatabase
-    ): TaskDAO {
+    fun provideTaskDAO(database: OPBDatabase): TaskDAO {
         return database.taskDao()
     }
 }

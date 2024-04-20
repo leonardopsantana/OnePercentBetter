@@ -7,12 +7,12 @@ import com.onepercentbetter.task.api.TaskRepository
 import kotlinx.coroutines.flow.Flow
 
 typealias TasksForDateInput = Pair<Long, Boolean>
+
 /**
  * A concrete implementation of [TaskRepository] that allows the caller to mock and verify
  * calls to this repo.
  */
 class FakeTaskRepository : TaskRepository {
-
     lateinit var allTasksResult: Flow<TaskListResult>
 
     val tasksForDateResults: MutableMap<TasksForDateInput, Flow<TaskListResult>> = mutableMapOf()
@@ -25,7 +25,10 @@ class FakeTaskRepository : TaskRepository {
         return allTasksResult
     }
 
-    override fun fetchTasksForDate(dateMillis: Long, completed: Boolean): Flow<TaskListResult> {
+    override fun fetchTasksForDate(
+        dateMillis: Long,
+        completed: Boolean,
+    ): Flow<TaskListResult> {
         val inputPair = Pair(dateMillis, completed)
 
         return tasksForDateResults[inputPair]!!
