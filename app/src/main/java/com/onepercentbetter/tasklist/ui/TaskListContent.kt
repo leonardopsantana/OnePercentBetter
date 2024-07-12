@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import com.onepercentbetter.ExcludeFromJacocoGeneratedReport
 import com.onepercentbetter.R
 import com.onepercentbetter.core.model.Task
+import com.onepercentbetter.core.ui.adaptiveWidth
 import com.onepercentbetter.core.ui.components.UIText
 import com.onepercentbetter.core.ui.components.getString
 import com.onepercentbetter.core.ui.theme.OPBTheme
@@ -79,7 +80,8 @@ fun TaskListContent(
                     onDoneClicked = onDoneClicked,
                     modifier =
                         Modifier
-                            .padding(paddingValues),
+                            .padding(paddingValues)
+                            .adaptiveWidth(),
                 )
             }
         }
@@ -261,12 +263,8 @@ class TaskListViewStateProvider : PreviewParameterProvider<TaskListViewState> {
     uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @Preview(
-    name = "Compact",
-    widthDp = 600,
-)
-@Preview(
     name = "Medium",
-    widthDp = 840,
+    widthDp = 700,
 )
 @Preview(
     name = "Expanded",

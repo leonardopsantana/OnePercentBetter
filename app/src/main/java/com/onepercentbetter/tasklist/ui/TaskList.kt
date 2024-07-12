@@ -49,6 +49,10 @@ fun TaskList(
             }
         } else {
             item {
+                SectionHeader(text = stringResource(R.string.incomplete_tasks_header))
+            }
+
+            item {
                 Card(
                     colors =
                         CardDefaults.cardColors(
