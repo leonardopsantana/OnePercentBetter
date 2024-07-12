@@ -31,7 +31,6 @@ fun Modifier.adaptiveWidth() = this
         }
 
         val widthToUse = (constraints.maxWidth * widthRatio).toInt()
-
         val newConstraints = constraints.copy(
             maxWidth = widthToUse,
             minWidth = widthToUse
