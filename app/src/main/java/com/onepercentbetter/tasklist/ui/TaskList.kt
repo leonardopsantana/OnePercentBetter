@@ -7,9 +7,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Divider
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.onepercentbetter.ExcludeFromJacocoGeneratedReport
 import com.onepercentbetter.R
 import com.onepercentbetter.core.model.Task
+import com.onepercentbetter.core.ui.components.Material3Card
 import com.onepercentbetter.core.ui.theme.OPBTheme
 import java.time.ZonedDateTime
 
@@ -41,6 +40,10 @@ fun TaskList(
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.list_padding)),
         modifier = modifier,
     ) {
+        item {
+            SectionHeader(text = stringResource(R.string.incomplete_tasks_header))
+        }
+
         if (incompleteTasks.isEmpty()) {
             item {
                 EmptySectionCard(
@@ -48,105 +51,86 @@ fun TaskList(
                 )
             }
         } else {
-            item {
-                SectionHeader(text = stringResource(R.string.incomplete_tasks_header))
-            }
-
-            item {
-                Card(
-                    colors =
-                        CardDefaults.cardColors(
-                            containerColor = MaterialTheme.colorScheme.surface,
-                        ),
-                    elevation =
-                        CardDefaults.cardElevation(
-                            defaultElevation = 1.dp,
-                        ),
-                ) {
-                    incompleteTasks.forEachIndexed { index, task ->
-                        TaskListItem(
-                            task = task,
-                            onRescheduleClicked = {
-                                onRescheduleClicked(task)
-                            },
-                            onDoneClicked = {
-                                onDoneClicked(task)
-                            },
-                            modifier =
-                                Modifier
-                                    .testTag("INCOMPLETE_TASK_${task.id}")
-                                    .animateItemPlacement(),
-                        )
-
-                        if (index != incompleteTasks.lastIndex) {
-                            Divider(
-                                color = MaterialTheme.colorScheme.surface,
-                            )
-                        }
-                    }
-                }
+            items(
+                items = incompleteTasks,
+                key = {
+                    it.id
+                },
+            ) { task ->
+                TaskListItem(
+                    task = task,
+                    onRescheduleClicked = {
+                        onRescheduleClicked(task)
+                    },
+                    onDoneClicked = {
+                        onDoneClicked(task)
+                    },
+                    modifier = Modifier
+                        .testTag("INCOMPLETE_TASK_${task.id}")
+                        .animateItemPlacement(),
+                )
             }
         }
 
-        if (completedTasks.isNotEmpty()) {
+        item {
+            SectionHeader(text = stringResource(R.string.completed_tasks_header))
+        }
+
+        if (completedTasks.isEmpty()) {
             item {
-                SectionHeader(text = stringResource(R.string.completed_tasks_header))
+                EmptySectionCard(
+                    text = stringResource(R.string.no_complete_tasks_label),
+                )
             }
-
-            item {
-                Card(
-                    colors =
-                        CardDefaults.cardColors(
-                            containerColor = MaterialTheme.colorScheme.surface,
-                        ),
-                    elevation =
-                        CardDefaults.cardElevation(
-                            defaultElevation = 1.dp,
-                        ),
-                ) {
-                    completedTasks.forEachIndexed { index, task ->
-                        TaskListItem(
-                            task = task,
-                            onRescheduleClicked = {
-                                onRescheduleClicked(task)
-                            },
-                            onDoneClicked = {
-                                onDoneClicked(task)
-                            },
-                            modifier =
-                                Modifier
-                                    .testTag("COMPLETED_TASK_${task.id}")
-                                    .animateItemPlacement(),
-                        )
-
-                        if (index != completedTasks.lastIndex) {
-                            Divider(
-                                color = MaterialTheme.colorScheme.surface,
-                            )
-                        }
-                    }
-                }
+        } else {
+            items(
+                items = completedTasks,
+                key = {
+                    it.id
+                },
+            ) { task ->
+                TaskListItem(
+                    task = task,
+                    onRescheduleClicked = {
+                        onRescheduleClicked(task)
+                    },
+                    onDoneClicked = {
+                        onDoneClicked(task)
+                    },
+                    modifier = Modifier
+                        .testTag("COMPLETED_TASK_${task.id}")
+                        .animateItemPlacement(),
+                )
             }
         }
     }
 }
 
 @Composable
-private fun EmptySectionCard(text: String) {
-    Card {
+private fun EmptySectionCard(
+    text: String,
+    modifier: Modifier = Modifier,
+) {
+    Material3Card(
+        modifier = modifier
+            .fillMaxWidth(),
+    ) {
         Text(
             text = text,
             textAlign = TextAlign.Center,
-            modifier =
-                Modifier
-                    .padding(vertical = 32.dp, horizontal = 24.dp)
-                    .fillMaxWidth(),
+            modifier = Modifier
+                .padding(
+                    vertical = 32.dp,
+                    horizontal = 24.dp,
+                ),
         )
     }
 }
 
 @Composable
-private fun SectionHeader(text: String) {
+private fun SectionHeader(
+    text: String,
+) {
     Text(
         text = text,
         style = MaterialTheme.typography.headlineSmall,
@@ -154,117 +138,125 @@ private fun SectionHeader(text: String) {
 }
 
 @Preview(
-    name = "Night mode",
+    name = "Night Mode",
     uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Preview(
-    name = "Day mode",
+    name = "Day Mode",
     uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
-@ExcludeFromJacocoGeneratedReport
 @Composable
+@Suppress("UnusedPrivateMember")
+@ExcludeFromJacocoGeneratedReport
 private fun FullTaskListPreview() {
-    val incompleteTasks =
-        (1..5).map { index ->
-            Task(
-                id = "$index",
-                description = "Test task: $index",
-                scheduledDateMillis =
-                    ZonedDateTime.now()
-                        .toInstant()
-                        .toEpochMilli(),
-                completed = false,
-            )
-        }
+    val incompleteTasks = (1..3).map { index ->
+        Task(
+            id = "$index",
+            description = "Test task: $index",
+            scheduledDateMillis = 0L,
+            completed = false,
+        )
+    }
 
-    val completedTasks =
-        (1..5).map { index ->
-            Task(
-                id = "$index",
-                description = "Test task: $index",
-                scheduledDateMillis =
-                    ZonedDateTime.now()
-                        .toInstant()
-                        .toEpochMilli(),
-                completed = true,
-            )
-        }
+    val completedTasks = (1..3).map { index ->
+        Task(
+            id = "$index",
+            description = "Test task: $index",
+            scheduledDateMillis = 0L,
+            completed = true,
+        )
+    }
 
     OPBTheme {
-        TaskList(incompleteTasks, completedTasks, {}, {})
+        TaskList(
+            incompleteTasks = incompleteTasks,
+            completedTasks = completedTasks,
+            onRescheduleClicked = {},
+            onDoneClicked = {},
+        )
     }
 }
 
 @Preview(
-    name = "Night mode",
+    name = "Night Mode",
     uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Preview(
-    name = "Day mode",
+    name = "Day Mode",
     uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
-@ExcludeFromJacocoGeneratedReport
 @Composable
-private fun NoIncompleteTaskListPreview() {
-    val completedTasks =
-        (1..5).map { index ->
-            Task(
-                id = "$index",
-                description = "Test task: $index",
-                scheduledDateMillis =
-                    ZonedDateTime.now()
-                        .toInstant()
-                        .toEpochMilli(),
-                completed = true,
-            )
-        }
+@Suppress("UnusedPrivateMember")
+@ExcludeFromJacocoGeneratedReport
+private fun NoIncompleteTasksListPreview() {
+    val completedTasks = (1..3).map { index ->
+        Task(
+            id = "$index",
+            description = "Test task: $index",
+            scheduledDateMillis = 0L,
+            completed = true,
+        )
+    }
 
     OPBTheme {
-        TaskList(emptyList(), completedTasks, {}, {})
+        TaskList(
+            incompleteTasks = emptyList(),
+            completedTasks = completedTasks,
+            onRescheduleClicked = {},
+            onDoneClicked = {},
+        )
     }
 }
 
 @Preview(
-    name = "Night mode",
+    name = "Night Mode",
     uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Preview(
-    name = "Day mode",
+    name = "Day Mode",
     uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
-@ExcludeFromJacocoGeneratedReport
 @Composable
-private fun NoCompleteTaskListPreview() {
-    val incompleteTasks =
-        (1..5).map { index ->
-            Task(
-                id = "$index",
-                description = "Test task: $index",
-                scheduledDateMillis =
-                    ZonedDateTime.now()
-                        .toInstant()
-                        .toEpochMilli(),
-                completed = false,
-            )
-        }
+@Suppress("UnusedPrivateMember")
+@ExcludeFromJacocoGeneratedReport
+private fun NoCompletedTasksListPreview() {
+    val incompleteTasks = (1..3).map { index ->
+        Task(
+            id = "$index",
+            description = "Test task: $index",
+            scheduledDateMillis = 0L,
+            completed = false,
+        )
+    }
 
     OPBTheme {
-        TaskList(incompleteTasks, emptyList(), {}, {})
+        TaskList(
+            incompleteTasks = incompleteTasks,
+            completedTasks = emptyList(),
+            onRescheduleClicked = {},
+            onDoneClicked = {},
+        )
     }
 }
 
 @Preview(
-    name = "Night mode",
+    name = "Night Mode",
     uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Preview(
-    name = "Day mode",
+    name = "Day Mode",
     uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
-@ExcludeFromJacocoGeneratedReport
 @Composable
+@Suppress("UnusedPrivateMember")
+@ExcludeFromJacocoGeneratedReport
 private fun NoTasksListPreview() {
     OPBTheme {
-        TaskList(emptyList(), emptyList(), {}, {})
+        TaskList(
+            incompleteTasks = emptyList(),
+            completedTasks = emptyList(),
+            onRescheduleClicked = {},
+            onDoneClicked = {},
+        )
     }
 }

@@ -23,7 +23,7 @@ fun OPBTheme(
     MaterialTheme(
         colorScheme = colors,
         typography = AppTypography,
-        shapes = Shapes,
+//        shapes = Shapes,
         content = content,
     )
 }

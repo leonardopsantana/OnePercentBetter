@@ -4,11 +4,14 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.onepercentbetter.destinations.AddTaskDialogDestination
 import com.onepercentbetter.destinations.AddTaskScreenDestination
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
-@Destination
+@Destination(
+    start = true
+)
 @Composable
 fun TaskListScreen(
     navigator: DestinationsNavigator,
@@ -22,7 +25,12 @@ fun TaskListScreen(
             onRescheduleClicked = {},
             onDoneClicked = viewModel::onDoneButtonClicked,
             onAddButtonClicked = {
-                navigator.navigate(AddTaskScreenDestination)
+                val destination = if (true) {
+                    AddTaskScreenDestination
+                } else {
+                    AddTaskDialogDestination
+                }
+                navigator.navigate(destination)
             },
             onPreviousDateButtonClicked = viewModel::onPreviousDateButtonClicked,
             onNextDateButtonClicked = viewModel::onNextDateButtonClicked,

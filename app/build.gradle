@@ -77,57 +77,46 @@ android {
 }
 
 dependencies {
+
     lintChecks(project(":lint-checks"))
-    implementation (project(":core-data"))
-    implementation (project(":core-model"))
-    implementation implementation(project(':task-api',))
+    implementation(project(":core-model"))
+    implementation(project(":core-data"))
+    implementation(project(":task-api"))
     implementation "androidx.core:core-ktx:$rootProject.ext.versions.ktxCore"
     implementation "androidx.appcompat:appcompat:$rootProject.ext.versions.appCompat"
     implementation "com.google.android.material:material:$rootProject.ext.versions.material"
-    implementation "androidx.hilt:hilt-navigation-compose:$rootProject.ext.versions.hiltNavigationCompose"
-
-    //Compose
     implementation "androidx.compose.ui:ui:$compose_version"
-    implementation "androidx.compose.ui:ui-tooling:$compose_version"
+    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$rootProject.ext.versions.lifecycle"
     implementation "androidx.activity:activity-compose:$rootProject.ext.versions.activityCompose"
-    implementation "androidx.compose.material3:material3:$rootProject.ext.versions.composeMaterial3"
-    implementation "androidx.compose.material3:material3-window-size-class:$rootProject.ext.versions.composeMaterial3"
-
-    //Hilt
     implementation "com.google.dagger:hilt-android:$hiltVersion"
-    kapt "com.google.dagger:hilt-compiler:$hiltVersion"
-
-    //Accompanist
+    implementation "androidx.hilt:hilt-navigation-compose:$rootProject.ext.versions.hiltNavigationCompose"
     implementation "com.google.accompanist:accompanist-insets-ui:$rootProject.ext.versions.accompanist"
     implementation "com.google.accompanist:accompanist-systemuicontroller:$rootProject.ext.versions.accompanist"
-    implementation "com.google.accompanist:accompanist-navigation-animation:$rootProject.ext.versions.accompanist"
-
-    //Compose Destinations
-    implementation "io.github.raamcosta.compose-destinations:core:$rootProject.ext.versions.composeDestinations"
+    implementation "androidx.compose.material3:material3:$rootProject.ext.versions.composeMaterial3"
+    implementation "io.github.raamcosta.compose-destinations:animations-core:$rootProject.ext.versions.composeDestinations"
     implementation "androidx.navigation:navigation-compose:$rootProject.ext.versions.composeNavigation"
-    ksp "io.github.raamcosta.compose-destinations:ksp:$rootProject.ext.versions.composeDestinations"
-
-    //Date Picker
-    implementation "io.github.vanpra.compose-material-dialogs:datetime:0.9.0"
-
-    //Room
+    implementation "com.google.accompanist:accompanist-navigation-animation:$rootProject.ext.versions.accompanist"
+    implementation "io.github.vanpra.compose-material-dialogs:datetime:0.6.2"
     implementation "androidx.room:room-runtime:$rootProject.ext.versions.room"
     implementation "androidx.room:room-ktx:$rootProject.ext.versions.room"
-    kapt "androidx.room:room-compiler:$rootProject.ext.versions.room"
-
+    implementation "androidx.window:window:$rootProject.ext.versions.windowManager"
+    ksp "androidx.room:room-compiler:$rootProject.ext.versions.room"
+    ksp "io.github.raamcosta.compose-destinations:ksp:$rootProject.ext.versions.composeDestinations"
+    kapt "com.google.dagger:hilt-compiler:$hiltVersion"
     testImplementation "junit:junit:$rootProject.ext.versions.junit"
     testImplementation "io.mockk:mockk:$rootProject.ext.versions.mockk"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$rootProject.ext.versions.coroutinesTest"
     testImplementation "com.google.truth:truth:$rootProject.ext.versions.truth"
     testImplementation "app.cash.turbine:turbine:$rootProject.ext.versions.turbine"
     testImplementation(project(":task-api-test"))
-
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     androidTestImplementation "androidx.test.ext:junit:$rootProject.ext.versions.androidxTestJunit"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.ext.versions.espresso"
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     androidTestImplementation "com.google.truth:truth:$rootProject.ext.versions.truth"
-
-    //UI TEST
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:1.6.0"
-    debugImplementation "androidx.compose.ui:ui-test-manifest:1.6.0"
+    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
+    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
 
     coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:1.1.5"
 }

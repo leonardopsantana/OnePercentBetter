@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
  * proxying that through to the [LoginContent].
  */
 @Destination(
-    start = true,
+//    start = true,
 )
 @Composable
 fun LoginScreen(

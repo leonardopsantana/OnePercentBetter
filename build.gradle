@@ -2,10 +2,7 @@
 buildscript {
     ext {
         // https://developer.android.com/jetpack/androidx/releases/compose
-        compose_version = "1.5.4"
-
-        // https://developer.android.com/jetpack/androidx/releases/activity
-        activity_compose = "1.6.1"
+        compose_version = "1.1.0"
 
         // https://github.com/JLLeitschuh/ktlint-gradle/releases
         ktlintPluginVersion = "12.1.0"
@@ -52,7 +49,6 @@ buildscript {
         classpath "org.jetbrains.kotlinx:kover:$koverVersion"
         classpath "com.hiya:jacoco-android:$jacocoAndroidVersion"
         classpath "gradle.plugin.org.kt3k.gradle.plugin:coveralls-gradle-plugin:$coverallsVersion"
-        classpath "com.google.dagger:hilt-android-gradle-plugin:$hiltVersion"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }

@@ -5,17 +5,15 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material.icons.filled.KeyboardArrowLeft
+import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -39,12 +37,16 @@ import com.onepercentbetter.ExcludeFromJacocoGeneratedReport
 import com.onepercentbetter.R
 import com.onepercentbetter.core.model.Task
 import com.onepercentbetter.core.ui.adaptiveWidth
+import com.onepercentbetter.core.ui.components.Material3CircularProgressIndicator
 import com.onepercentbetter.core.ui.components.UIText
 import com.onepercentbetter.core.ui.components.getString
 import com.onepercentbetter.core.ui.theme.OPBTheme
 import java.time.LocalDate
 import java.time.ZoneId
+import com.google.accompanist.insets.navigationBarsPadding
+import com.google.accompanist.insets.statusBarsPadding
 
+@OptIn(ExperimentalMaterial3Api::class)
 @ExcludeFromJacocoGeneratedReport
 @Composable
 fun TaskListContent(
@@ -79,9 +81,9 @@ fun TaskListContent(
                     onRescheduleClicked = onRescheduleClicked,
                     onDoneClicked = onDoneClicked,
                     modifier =
-                        Modifier
-                            .padding(paddingValues)
-                            .adaptiveWidth(),
+                    Modifier
+                        .padding(paddingValues)
+                        .adaptiveWidth(),
                 )
             }
         }
@@ -90,11 +92,11 @@ fun TaskListContent(
             Box(
                 modifier = Modifier.fillMaxSize(),
             ) {
-                CircularProgressIndicator(
+                Material3CircularProgressIndicator(
                     modifier =
-                        Modifier
-                            .wrapContentSize()
-                            .align(Alignment.Center),
+                    Modifier
+                        .wrapContentSize()
+                        .align(Alignment.Center),
                 )
             }
         }
@@ -111,9 +113,10 @@ private fun TaskListEmptyState() {
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.headlineMedium,
             modifier =
-                Modifier
-                    .padding(32.dp)
-                    .align(Alignment.Center),
+            Modifier
+                .padding(32.dp)
+                .align(Alignment.Center)
+                .adaptiveWidth()
         )
     }
 }
@@ -132,12 +135,12 @@ private fun TaskListToolbar(
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier =
-                Modifier
-                    .statusBarsPadding()
-                    .height(84.dp),
+            Modifier
+                .statusBarsPadding()
+                .height(84.dp),
         ) {
             ToolbarIconButton(
-                icon = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
+                icon = Icons.Default.KeyboardArrowLeft,
                 onClick = { onLeftButtonClicked.invoke() },
                 contentDescription = stringResource(R.string.view_previous_day_content_description),
                 toolbarHeight = toolbarHeight,
@@ -152,7 +155,7 @@ private fun TaskListToolbar(
             )
 
             ToolbarIconButton(
-                icon = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                icon = Icons.Default.KeyboardArrowRight,
                 onClick = { onRightButtonClicked.invoke() },
                 contentDescription = stringResource(R.string.view_next_day_content_description),
                 toolbarHeight = toolbarHeight,
@@ -201,11 +204,11 @@ class TaskListViewStateProvider : PreviewParameterProvider<TaskListViewState> {
                         id = "$index",
                         description = "Test task: $index",
                         scheduledDateMillis =
-                            LocalDate.now()
-                                .atStartOfDay()
-                                .atZone(ZoneId.systemDefault())
-                                .toInstant()
-                                .toEpochMilli(),
+                        LocalDate.now()
+                            .atStartOfDay()
+                            .atZone(ZoneId.systemDefault())
+                            .toInstant()
+                            .toEpochMilli(),
                         completed = false,
                     )
                 }
@@ -216,11 +219,11 @@ class TaskListViewStateProvider : PreviewParameterProvider<TaskListViewState> {
                         id = "$index",
                         description = "Test task: $index",
                         scheduledDateMillis =
-                            LocalDate.now()
-                                .atStartOfDay()
-                                .atZone(ZoneId.systemDefault())
-                                .toInstant()
-                                .toEpochMilli(),
+                        LocalDate.now()
+                            .atStartOfDay()
+                            .atZone(ZoneId.systemDefault())
+                            .toInstant()
+                            .toEpochMilli(),
                         completed = true,
                     )
                 }

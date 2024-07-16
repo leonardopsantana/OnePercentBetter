@@ -1,6 +1,7 @@
 package com.onepercentbetter.addtask.ui
 
 import android.content.res.Configuration
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -8,8 +9,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -75,7 +78,7 @@ private fun AddTaskInputsColumn(
     modifier: Modifier,
 ) {
     Column(
-        modifier = modifier,
+        modifier = modifier.verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.form_spacing)),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -185,6 +188,14 @@ private fun TaskDescriptionLabel() {
 @Preview(
     name = "Day mode",
     uiMode = Configuration.UI_MODE_NIGHT_NO,
+)
+@Preview(
+    name = "Medium",
+    widthDp = 700,
+)
+@Preview(
+    name = "Expanded",
+    widthDp = 840,
 )
 @ExcludeFromJacocoGeneratedReport
 @Composable
