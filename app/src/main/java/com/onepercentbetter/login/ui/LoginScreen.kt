@@ -31,7 +31,7 @@ fun LoginScreen(
     DisposableEffect(viewState.value) {
         coroutineScope.launch {
             viewModel.loginCompletedChannel.receive()
-            navigator.navigate(TaskListScreenDestination) {
+            navigator.navigate(TaskListScreenDestination()) {
                 this.popUpTo(LoginScreenDestination.route) {
                     this.inclusive = true
                 }

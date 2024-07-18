@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentActivity
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.onepercentbetter.core.ui.components.rememberWindowSizeClass
 import com.onepercentbetter.core.ui.theme.OPBTheme
 import com.onepercentbetter.destinations.TaskListScreenDestination
 import com.onepercentbetter.tasklist.ui.TaskListScreen
@@ -36,6 +37,8 @@ class MainActivity : FragmentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         setContent {
+            val windowSize = rememberWindowSizeClass()
+
             OPBTheme {
                 ConfigureSystemBars()
 
@@ -57,7 +60,10 @@ class MainActivity : FragmentActivity() {
                             ),
                             manualComposableCallsBuilder = {
                                 composable(TaskListScreenDestination) {
-                                    TaskListScreen(navigator = destinationsNavigator)
+                                    TaskListScreen(
+                                        navigator = destinationsNavigator,
+                                        windowSize = windowSize
+                                    )
                                 }
                             }
                         )

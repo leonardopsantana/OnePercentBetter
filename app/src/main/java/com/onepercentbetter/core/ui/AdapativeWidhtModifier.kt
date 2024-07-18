@@ -30,10 +30,11 @@ fun Modifier.adaptiveWidth() = this
             else -> EXPANDED_WIDTH_RATIO
         }
 
-        val widthToUse = (constraints.maxWidth * widthRatio).toInt()
+        val widthToUse = constraints.maxWidth * widthRatio
+
         val newConstraints = constraints.copy(
-            maxWidth = widthToUse,
-            minWidth = widthToUse
+            minWidth = widthToUse.toInt(),
+            maxWidth = widthToUse.toInt(),
         )
 
         val placeable = measurable.measure(newConstraints)
@@ -41,13 +42,10 @@ fun Modifier.adaptiveWidth() = this
         val x = Alignment.CenterHorizontally.align(
             size = placeable.width,
             space = constraints.maxWidth,
-            layoutDirection = layoutDirection
+            layoutDirection = layoutDirection,
         )
 
-        layout(width = placeable.width, height = placeable.height) {
-            placeable.place(
-                x = x,
-                y = 0
-            )
+        layout(constraints.maxWidth, placeable.height) {
+            placeable.place(x = x, y = 0)
         }
     }
