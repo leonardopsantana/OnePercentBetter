@@ -32,7 +32,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.onepercentbetter.HiltTestRunner"
     }
 
     buildTypes {
@@ -118,6 +118,7 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.ext.versions.espresso"
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     androidTestImplementation "com.google.truth:truth:$rootProject.ext.versions.truth"
+    androidTestImplementation 'com.google.dagger:hilt-android-testing:2.44'
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
 
