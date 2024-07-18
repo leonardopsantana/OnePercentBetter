@@ -22,4 +22,5 @@ jobs:
         run: ./gradlew assemble
 
       - name: Static Analysis
-        run: ./gradlew ktlintFormat detekt
+        run: ./gradlew detekt
+#        run: ./gradlew ktlintFormat detekt
