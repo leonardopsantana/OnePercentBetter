@@ -4,6 +4,7 @@ plugins {
     id 'dagger.hilt.android.plugin'
     id 'kotlin-kapt'
     id "com.google.devtools.ksp" version "1.8.0-1.0.9"
+    id "com.mxalbert.gradle.jacoco-android" version "0.2.1" apply false
 }
 
 kotlin {
@@ -17,7 +18,7 @@ kotlin {
     }
 }
 
-//apply from: "../buildscripts/jacoco.gradle"
+apply from: "../buildscripts/jacoco.gradle"
 apply from: "../buildscripts/coveralls.gradle"
 
 android {
@@ -37,7 +38,10 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+        }
+        debug {
+            testCoverageEnabled true
         }
     }
     compileOptions {

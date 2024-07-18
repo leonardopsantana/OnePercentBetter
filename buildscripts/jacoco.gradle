@@ -1,14 +1,14 @@
-apply plugin: "com.hiya.jacoco-android"
+apply plugin: "com.mxalbert.gradle.jacoco-android"
 
 jacoco {
-    toolVersion = "0.8.7"
+    toolVersion = "0.8.12"
 }
 
 configurations.all {
     resolutionStrategy {
         eachDependency { details ->
             if ('org.jacoco' == details.requested.group) {
-                details.useVersion "0.8.7"
+                details.useVersion "0.8.9"
             }
         }
     }
@@ -35,12 +35,10 @@ task combinedJacocoTestReport(
     ]
 
     // Specify the type of jacoco reports that should be created.
-    jacocoTestReport {
-        reports {
-            xml.required.set(false)
-            csv.required.set(false)
-            html.required.set(true)
-        }
+    reports {
+        csv.required = false
+        xml.required = true
+        html.required = true
     }
 
     // generated classes
