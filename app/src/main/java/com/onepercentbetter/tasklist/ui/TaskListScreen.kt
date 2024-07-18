@@ -11,7 +11,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Destination(
-    start = true
+    start = true,
 )
 @Composable
 fun TaskListScreen(
@@ -27,11 +27,12 @@ fun TaskListScreen(
             onRescheduleClicked = {},
             onDoneClicked = viewModel::onDoneButtonClicked,
             onAddButtonClicked = {
-                val destination = if (windowSize != WindowSize.Compact) {
-                    AddTaskDialogDestination
-                } else {
-                    AddTaskScreenDestination
-                }
+                val destination =
+                    if (windowSize != WindowSize.Compact) {
+                        AddTaskDialogDestination
+                    } else {
+                        AddTaskScreenDestination
+                    }
                 navigator.navigate(destination)
             },
             onPreviousDateButtonClicked = viewModel::onPreviousDateButtonClicked,

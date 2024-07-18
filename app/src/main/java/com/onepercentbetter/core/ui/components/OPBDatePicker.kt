@@ -12,7 +12,6 @@ import androidx.compose.material.ContentAlpha
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
-//import androidx.compose.material3.DatePickerColors
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -142,7 +141,7 @@ private fun md3DatePickerColors(
     activeBackgroundColor: Color = MaterialTheme.colorScheme.primary,
     inactiveBackgroundColor: Color = Color.Transparent,
     activeTextColor: Color = MaterialTheme.colorScheme.onPrimary,
-    inactiveTextColor: Color = MaterialTheme.colorScheme.onBackground,
+//    inactiveTextColor: Color = MaterialTheme.colorScheme.onBackground,
 ): com.vanpra.composematerialdialogs.datetime.date.DatePickerColors {
     return DatePickerDefaults.colors(
         headerBackgroundColor,

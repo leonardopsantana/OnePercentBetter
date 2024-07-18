@@ -1,6 +1,5 @@
 package com.onepercentbetter
 
-
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -48,24 +47,26 @@ class MainActivity : FragmentActivity() {
                     ) {
                         DestinationsNavHost(
                             navGraph = NavGraphs.root,
-                            engine = rememberAnimatedNavHostEngine(
-                                rootDefaultAnimations = RootNavGraphDefaultAnimations(
-                                    enterTransition = {
-                                        slideInHorizontally()
-                                    },
-                                    exitTransition = {
-                                        fadeOut()
-                                    },
+                            engine =
+                                rememberAnimatedNavHostEngine(
+                                    rootDefaultAnimations =
+                                        RootNavGraphDefaultAnimations(
+                                            enterTransition = {
+                                                slideInHorizontally()
+                                            },
+                                            exitTransition = {
+                                                fadeOut()
+                                            },
+                                        ),
                                 ),
-                            ),
                             manualComposableCallsBuilder = {
                                 composable(TaskListScreenDestination) {
                                     TaskListScreen(
                                         navigator = destinationsNavigator,
-                                        windowSize = windowSize
+                                        windowSize = windowSize,
                                     )
                                 }
-                            }
+                            },
                         )
                     }
                 }

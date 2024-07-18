@@ -20,7 +20,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 fun AddTaskContainer(
     viewModel: AddTaskViewModel,
     navigator: DestinationsNavigator,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val viewState = viewModel.viewState.collectAsState()
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -39,6 +39,6 @@ fun AddTaskContainer(
         onTaskDescriptionChanged = viewModel::onTaskDescriptionChanged,
         onTaskScheduleDateChanged = viewModel::onTaskScheduleDateChanged,
         onSubmitClicked = viewModel::onSubmitButtonClicked,
-        modifier = modifier
+        modifier = modifier,
     )
 }

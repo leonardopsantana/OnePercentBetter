@@ -31,9 +31,10 @@ fun Activity.rememberWindowSizeClass(): WindowSize {
     val windowSize = rememberWindowSize()
 
     // Convert the window size to [Dp]
-    val windowDpSize = with(LocalDensity.current) {
-        windowSize.toDpSize()
-    }
+    val windowDpSize =
+        with(LocalDensity.current) {
+            windowSize.toDpSize()
+        }
 
     // Calculate the window size class
     return getWindowSizeClass(windowDpSize)
@@ -47,21 +48,23 @@ private fun Activity.rememberWindowSize(): Size {
     val configuration = LocalConfiguration.current
     // WindowMetricsCalculator implicitly depends on the configuration through the activity,
     // so re-calculate it upon changes.
-    val windowMetrics = remember(configuration) {
-        WindowMetricsCalculator.getOrCreate().computeCurrentWindowMetrics(this)
-    }
+    val windowMetrics =
+        remember(configuration) {
+            WindowMetricsCalculator.getOrCreate().computeCurrentWindowMetrics(this)
+        }
     return windowMetrics.bounds.toComposeRect().size
 }
 
 /**
  * Partitions a [DpSize] into a enumerated [WindowSize] class.
  */
-fun getWindowSizeClass(windowDpSize: DpSize): WindowSize = when {
-    windowDpSize.width < 0.dp -> throw IllegalArgumentException("Dp value cannot be negative")
-    windowDpSize.width < 600.dp -> WindowSize.Compact
-    windowDpSize.width < 840.dp -> WindowSize.Medium
-    else -> WindowSize.Expanded
-}
+fun getWindowSizeClass(windowDpSize: DpSize): WindowSize =
+    when {
+        windowDpSize.width < 0.dp -> throw IllegalArgumentException("Dp value cannot be negative")
+        windowDpSize.width < 600.dp -> WindowSize.Compact
+        windowDpSize.width < 840.dp -> WindowSize.Medium
+        else -> WindowSize.Expanded
+    }
 
 /**
  * A composition local for keeping track of the current window size of an Activity.

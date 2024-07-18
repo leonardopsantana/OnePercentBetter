@@ -36,6 +36,8 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.insets.navigationBarsPadding
+import com.google.accompanist.insets.statusBarsPadding
 import com.onepercentbetter.ExcludeFromJacocoGeneratedReport
 import com.onepercentbetter.R
 import com.onepercentbetter.core.model.Task
@@ -46,8 +48,6 @@ import com.onepercentbetter.core.ui.components.getString
 import com.onepercentbetter.core.ui.theme.OPBTheme
 import java.time.LocalDate
 import java.time.ZoneId
-import com.google.accompanist.insets.navigationBarsPadding
-import com.google.accompanist.insets.statusBarsPadding
 
 @OptIn(ExperimentalMaterial3Api::class)
 @ExcludeFromJacocoGeneratedReport
@@ -84,9 +84,9 @@ fun TaskListContent(
                     onRescheduleClicked = onRescheduleClicked,
                     onDoneClicked = onDoneClicked,
                     modifier =
-                    Modifier
-                        .padding(paddingValues)
-                        .adaptiveWidth(),
+                        Modifier
+                            .padding(paddingValues)
+                            .adaptiveWidth(),
                 )
             }
         }
@@ -97,9 +97,9 @@ fun TaskListContent(
             ) {
                 Material3CircularProgressIndicator(
                     modifier =
-                    Modifier
-                        .wrapContentSize()
-                        .align(Alignment.Center),
+                        Modifier
+                            .wrapContentSize()
+                            .align(Alignment.Center),
                 )
             }
         }
@@ -109,21 +109,24 @@ fun TaskListContent(
 @Composable
 private fun TaskListEmptyState() {
     Box(
-        modifier = Modifier
-            .fillMaxSize(),
+        modifier =
+            Modifier
+                .fillMaxSize(),
     ) {
         Text(
             text = stringResource(R.string.no_tasks_scheduled_label),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier
-                .padding(32.dp)
-                .align(Alignment.Center)
-                .adaptiveWidth(),
+            modifier =
+                Modifier
+                    .padding(32.dp)
+                    .align(Alignment.Center)
+                    .adaptiveWidth(),
         )
     }
 }
 
+@Suppress("MagicNumber")
 @Composable
 private fun TaskListToolbar(
     onLeftButtonClicked: () -> Unit,
@@ -138,10 +141,10 @@ private fun TaskListToolbar(
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier =
-            Modifier
-                .statusBarsPadding()
-                .height(toolbarHeight)
-                .adaptiveWidth(),
+                Modifier
+                    .statusBarsPadding()
+                    .height(toolbarHeight)
+                    .adaptiveWidth(),
         ) {
             ToolbarIconButton(
                 icon = Icons.Default.KeyboardArrowLeft,
@@ -150,20 +153,21 @@ private fun TaskListToolbar(
                 toolbarHeight = toolbarHeight,
             )
 
+            val durationMillisForCrossFadeTitle = 500
+
             Crossfade(
                 targetState = title,
                 modifier = Modifier.weight(1f),
-                animationSpec = tween(500)
+                animationSpec = tween(durationMillisForCrossFadeTitle),
             ) { title ->
                 Text(
                     text = title,
                     textAlign = TextAlign.Center,
                     style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
                 )
             }
-
 
             ToolbarIconButton(
                 icon = Icons.Default.KeyboardArrowRight,
@@ -215,11 +219,11 @@ class TaskListViewStateProvider : PreviewParameterProvider<TaskListViewState> {
                         id = "$index",
                         description = "Test task: $index",
                         scheduledDateMillis =
-                        LocalDate.now()
-                            .atStartOfDay()
-                            .atZone(ZoneId.systemDefault())
-                            .toInstant()
-                            .toEpochMilli(),
+                            LocalDate.now()
+                                .atStartOfDay()
+                                .atZone(ZoneId.systemDefault())
+                                .toInstant()
+                                .toEpochMilli(),
                         completed = false,
                     )
                 }
@@ -230,11 +234,11 @@ class TaskListViewStateProvider : PreviewParameterProvider<TaskListViewState> {
                         id = "$index",
                         description = "Test task: $index",
                         scheduledDateMillis =
-                        LocalDate.now()
-                            .atStartOfDay()
-                            .atZone(ZoneId.systemDefault())
-                            .toInstant()
-                            .toEpochMilli(),
+                            LocalDate.now()
+                                .atStartOfDay()
+                                .atZone(ZoneId.systemDefault())
+                                .toInstant()
+                                .toEpochMilli(),
                         completed = true,
                     )
                 }
