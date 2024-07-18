@@ -23,7 +23,6 @@ import com.onepercentbetter.R
 import com.onepercentbetter.core.model.Task
 import com.onepercentbetter.core.ui.components.Material3Card
 import com.onepercentbetter.core.ui.theme.OPBTheme
-import java.time.ZonedDateTime
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -65,9 +64,10 @@ fun TaskList(
                     onDoneClicked = {
                         onDoneClicked(task)
                     },
-                    modifier = Modifier
-                        .testTag("INCOMPLETE_TASK_${task.id}")
-                        .animateItemPlacement(),
+                    modifier =
+                        Modifier
+                            .testTag("INCOMPLETE_TASK_${task.id}")
+                            .animateItemPlacement(),
                 )
             }
         }
@@ -97,9 +97,10 @@ fun TaskList(
                     onDoneClicked = {
                         onDoneClicked(task)
                     },
-                    modifier = Modifier
-                        .testTag("COMPLETED_TASK_${task.id}")
-                        .animateItemPlacement(),
+                    modifier =
+                        Modifier
+                            .testTag("COMPLETED_TASK_${task.id}")
+                            .animateItemPlacement(),
                 )
             }
         }
@@ -112,25 +113,25 @@ private fun EmptySectionCard(
     modifier: Modifier = Modifier,
 ) {
     Material3Card(
-        modifier = modifier
-            .fillMaxWidth(),
+        modifier =
+            modifier
+                .fillMaxWidth(),
     ) {
         Text(
             text = text,
             textAlign = TextAlign.Center,
-            modifier = Modifier
-                .padding(
-                    vertical = 32.dp,
-                    horizontal = 24.dp,
-                ),
+            modifier =
+                Modifier
+                    .padding(
+                        vertical = 32.dp,
+                        horizontal = 24.dp,
+                    ),
         )
     }
 }
 
 @Composable
-private fun SectionHeader(
-    text: String,
-) {
+private fun SectionHeader(text: String) {
     Text(
         text = text,
         style = MaterialTheme.typography.headlineSmall,
@@ -149,23 +150,25 @@ private fun SectionHeader(
 @Suppress("UnusedPrivateMember")
 @ExcludeFromJacocoGeneratedReport
 private fun FullTaskListPreview() {
-    val incompleteTasks = (1..3).map { index ->
-        Task(
-            id = "$index",
-            description = "Test task: $index",
-            scheduledDateMillis = 0L,
-            completed = false,
-        )
-    }
+    val incompleteTasks =
+        (1..3).map { index ->
+            Task(
+                id = "$index",
+                description = "Test task: $index",
+                scheduledDateMillis = 0L,
+                completed = false,
+            )
+        }
 
-    val completedTasks = (1..3).map { index ->
-        Task(
-            id = "$index",
-            description = "Test task: $index",
-            scheduledDateMillis = 0L,
-            completed = true,
-        )
-    }
+    val completedTasks =
+        (1..3).map { index ->
+            Task(
+                id = "$index",
+                description = "Test task: $index",
+                scheduledDateMillis = 0L,
+                completed = true,
+            )
+        }
 
     OPBTheme {
         TaskList(
@@ -189,14 +192,15 @@ private fun FullTaskListPreview() {
 @Suppress("UnusedPrivateMember")
 @ExcludeFromJacocoGeneratedReport
 private fun NoIncompleteTasksListPreview() {
-    val completedTasks = (1..3).map { index ->
-        Task(
-            id = "$index",
-            description = "Test task: $index",
-            scheduledDateMillis = 0L,
-            completed = true,
-        )
-    }
+    val completedTasks =
+        (1..3).map { index ->
+            Task(
+                id = "$index",
+                description = "Test task: $index",
+                scheduledDateMillis = 0L,
+                completed = true,
+            )
+        }
 
     OPBTheme {
         TaskList(
@@ -220,14 +224,15 @@ private fun NoIncompleteTasksListPreview() {
 @Suppress("UnusedPrivateMember")
 @ExcludeFromJacocoGeneratedReport
 private fun NoCompletedTasksListPreview() {
-    val incompleteTasks = (1..3).map { index ->
-        Task(
-            id = "$index",
-            description = "Test task: $index",
-            scheduledDateMillis = 0L,
-            completed = false,
-        )
-    }
+    val incompleteTasks =
+        (1..3).map { index ->
+            Task(
+                id = "$index",
+                description = "Test task: $index",
+                scheduledDateMillis = 0L,
+                completed = false,
+            )
+        }
 
     OPBTheme {
         TaskList(

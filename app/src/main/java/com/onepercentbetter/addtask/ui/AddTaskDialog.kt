@@ -26,8 +26,9 @@ fun AddTaskDialog(
     AddTaskContainer(
         viewModel = viewModel,
         navigator = navigator,
-        modifier = Modifier
-            .background(color = MaterialTheme.colorScheme.background)
-            .padding(dimensionResource(id = R.dimen.screen_padding))
+        modifier =
+            Modifier
+                .background(color = MaterialTheme.colorScheme.background)
+                .padding(dimensionResource(id = R.dimen.screen_padding)),
     )
 }
