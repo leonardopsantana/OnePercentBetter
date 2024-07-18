@@ -3,11 +3,13 @@ package com.onepercentbetter.addtask.ui
 import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat
 import com.onepercentbetter.addtask.domain.model.AddTaskResult
-import com.onepercentbetter.fakes.FakeAddTestUseCase
+import com.onepercentbetter.fakes.FakeAddTaskUseCase
+import java.time.Instant
 import java.time.LocalDate
+import java.time.ZoneId
 
 class AddTaskViewModelRobot {
-    private val fakeAddTaskUseCase = FakeAddTestUseCase()
+    private val fakeAddTaskUseCase = FakeAddTaskUseCase()
     private lateinit var viewModel: AddTaskViewModel
 
     fun buildViewModel() =
@@ -28,10 +30,15 @@ class AddTaskViewModelRobot {
             viewModel.onTaskDescriptionChanged(newDescription)
         }
 
-    fun selectDate(newDate: LocalDate) =
-        apply {
-            viewModel.onTaskScheduleDateChanged(newDate)
-        }
+    fun selectDate(
+        newScheduledDate: Long,
+    ) = apply {
+        val scheduledDate = Instant.ofEpochMilli(newScheduledDate)
+            .atZone(ZoneId.systemDefault())
+            .toLocalDate()
+
+        viewModel.onTaskScheduleDateChanged(scheduledDate)
+    }
 
     fun clickSubmit() =
         apply {
@@ -43,19 +50,4 @@ class AddTaskViewModelRobot {
             val actualViewState = viewModel.viewState.value
             assertThat(actualViewState).isEqualTo(expectedViewState)
         }
-
-    suspend fun expectedViewStates(
-        action: AddTaskViewModelRobot.() -> Unit,
-        viewStates: List<AddTaskViewState>,
-    ) = apply {
-        viewModel.viewState.test {
-            action()
-
-            for (state in viewStates) {
-                assertThat(awaitItem()).isEqualTo(state)
-            }
-
-            this.cancel()
-        }
-    }
 }
