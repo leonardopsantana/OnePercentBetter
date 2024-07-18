@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/github/leonardopsantana/OnePercentBetter/badge.svg?branch=main)](https://coveralls.io/github/leonardopsantana/OnePercentBetter?branch=main)
+
 # App Architecture
 
 This app follows a MVVM architecture pattern throughout the project. Below is the architecture
@@ -96,5 +98,4 @@ multiple ViewModel dependencies.
 
   PERSISTABLE DATA:
     Room database
-
     
