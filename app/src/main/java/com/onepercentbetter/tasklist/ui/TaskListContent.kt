@@ -1,6 +1,8 @@
 package com.onepercentbetter.tasklist.ui
 
 import android.content.res.Configuration
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -138,7 +140,8 @@ private fun TaskListToolbar(
             modifier =
             Modifier
                 .statusBarsPadding()
-                .height(84.dp),
+                .height(toolbarHeight)
+                .adaptiveWidth(),
         ) {
             ToolbarIconButton(
                 icon = Icons.Default.KeyboardArrowLeft,
@@ -147,13 +150,20 @@ private fun TaskListToolbar(
                 toolbarHeight = toolbarHeight,
             )
 
-            Text(
-                text = title,
-                modifier = Modifier.weight(1F),
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.headlineMedium,
-                fontWeight = FontWeight.Bold,
-            )
+            Crossfade(
+                targetState = title,
+                modifier = Modifier.weight(1f),
+                animationSpec = tween(500)
+            ) { title ->
+                Text(
+                    text = title,
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.headlineMedium,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+
 
             ToolbarIconButton(
                 icon = Icons.Default.KeyboardArrowRight,
