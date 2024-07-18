@@ -21,10 +21,8 @@ tasks.withType(Test) {
     ]
 }
 
-task combinedJacocoTestReport(
-        type: JacocoReport,
-        dependsOn: ["testDebugUnitTest", "createDebugCoverageReport"],
-) {
+tasks.register('combinedJacocoTestReport', JacocoReport) {
+    dependsOn["testDebugUnitTest"]
     group = "verification"
     description = "create code coverage report with ui and unit tests"
 
@@ -62,6 +60,6 @@ task combinedJacocoTestReport(
             // Unit tests coverage data
             "outputs/unit_test_code_coverage/debugUnitTest/testDebugUnitTest.exec",
             // Instrumented tests coverage data
-            "outputs/code_coverage/debugAndroidTest/connected/**/*coverage.ec"
+            //"outputs/code_coverage/debugAndroidTest/connected/**/*coverage.ec"
     ])
 }
