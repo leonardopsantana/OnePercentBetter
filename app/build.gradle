@@ -32,7 +32,8 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner = "com.onepercentbetter.HiltTestRunner"
+//        testInstrumentationRunner = "com.onepercentbetter.HiltTestRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
