@@ -17,7 +17,7 @@ import java.time.ZonedDateTime
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class AddTaskViewModelTest {
-    private val testRobot = AddTaskViewModelRobot()
+//    private val testRobot = AddTaskViewModelRobot()
 
 
     @get:Rule
