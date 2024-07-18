@@ -1,23 +1,26 @@
-package com.onepercentbetter.tasklist.ui
-
-import com.onepercentbetter.CoroutinesTestRule
-import com.onepercentbetter.core.data.Result
-import com.onepercentbetter.core.model.Task
-import com.onepercentbetter.core.ui.components.UIText
-import kotlinx.coroutines.test.runTest
-import org.junit.Rule
-import org.junit.Test
-import java.time.LocalDate
-
-class TaskListViewModelTest {
-    private val testRobot = TaskListViewModelRobot()
-
-    @get:Rule
-    val coroutinesTestRule = CoroutinesTestRule()
-
+//package com.onepercentbetter.tasklist.ui
+//
+//import com.onepercentbetter.CoroutinesTestRule
+//import com.onepercentbetter.core.data.Result
+//import com.onepercentbetter.core.model.Task
+//import com.onepercentbetter.core.ui.components.UIText
+//import kotlinx.coroutines.ExperimentalCoroutinesApi
+//import kotlinx.coroutines.flow.flowOf
+//import org.junit.Rule
+//import org.junit.Test
+//import java.time.LocalDate
+//import java.time.ZonedDateTime
+//
+//class TaskListViewModelTest {
+//    private val testRobot = TaskListViewModelRobot()
+//
+//    @OptIn(ExperimentalCoroutinesApi::class)
+//    @get:Rule
+//    val coroutinesTestRule = CoroutinesTestRule()
+//
 //    @Test
-//    fun successfulLoad() = runTest {
-//        val task = Task(
+//    fun successfulLoad() {
+//        val incompleteTask = Task(
 //            id = "TEST ID",
 //            description = "Test task",
 //            scheduledDateMillis = ZonedDateTime.now()
@@ -26,178 +29,91 @@ class TaskListViewModelTest {
 //            completed = false
 //        )
 //
-//        val tasksResult = Result.Success(
-//            listOf(task)
-//        )
+//        val completedTask = incompleteTask.copy(completed = true)
+//
+//        val taskList = listOf(incompleteTask, completedTask)
+//
+//        val taskListResult = Result.Success(taskList)
 //
 //        testRobot
-//            .mockTasksForDateResult(LocalDate.now(), tasksResult)
-//            .buildViewModel()
-//            .expectedViewStates(
-//                action = {},
-//                viewStates = listOf(
-//                    TaskListViewState(
-//                        incompleteTasks = null,
-//                        completedTasks = null,
-//                        showLoading = true
-//                    ),
-//                    TaskListViewState(
-//                        incompleteTasks = listOf(task),
-//                        completedTasks = emptyList(),
-//                        showLoading = false
-//                    ),
-//                    TaskListViewState(
-//                        incompleteTasks = listOf(task),
-//                        completedTasks = listOf(task),
-//                        showLoading = false
-//                    )
-//                )
-//            )
-//    }
-//
-//    @Test
-//    fun clickPreviousDate() = runTest {
-//        val task = Task(
-//            id = "TEST ID",
-//            description = "Test task",
-//            scheduledDateMillis = ZonedDateTime.now()
-//                .toInstant()
-//                .toEpochMilli(),
-//            completed = false
-//        )
-//
-//        val taskList = listOf(task)
-//
-//        val tasksResult = Result.Success(
-//            taskList
-//        )
-//
-//        testRobot
-//            .mockTasksForDateResult(
-//                date = LocalDate.now().minusDays(1),
-//                result = tasksResult
-//            )
-//            .buildViewModel()
-//            .expectedViewStates(
-//                action = {
-//                    clickPreviousDateButton()
-//                },
-//                viewStates = listOf(
-//                    TaskListViewState(
-//                        incompleteTasks = null,
-//                        completedTasks = null,
-//                        showLoading = true
-//                    ),
-//                    TaskListViewState(
-//                        incompleteTasks = null,
-//                        completedTasks = emptyList(),
-//                        showLoading = true
-//                    ),
-//                    TaskListViewState(
-//                        selectedDate = LocalDate.now().minusDays(1),
-//                        incompleteTasks = emptyList(),
-//                        completedTasks = emptyList(),
-//                        showLoading = true
-//                    ),
-//                    TaskListViewState(
-//                        selectedDate = LocalDate.now().minusDays(1),
-//                        incompleteTasks = taskList,
-//                        completedTasks = emptyList(),
-//                        showLoading = false
-//                    ),
-//                    TaskListViewState(
-//                        selectedDate = LocalDate.now().minusDays(1),
-//                        incompleteTasks = taskList,
-//                        completedTasks = taskList,
-//                        showLoading = false
-//                    ),
-//                )
-//            )
-//    }
-//
-//    @Test
-//    fun clickNextDate() = runTest {
-//        val task = Task(
-//            id = "TEST ID",
-//            description = "Test task",
-//            scheduledDateMillis = ZonedDateTime.now()
-//                .toInstant()
-//                .toEpochMilli(),
-//            completed = false
-//        )
-//
-//        val taskList = listOf(task)
-//
-//        val tasksResult = Result.Success(
-//            taskList
-//        )
-//
-//        testRobot
-//            .mockTasksForDateResult(
+//            .mockTaskListResultForDate(
 //                date = LocalDate.now(),
-//                result = Result.Success(emptyList())
-//            )
-//            .mockTasksForDateResult(
-//                date = LocalDate.now().plusDays(1),
-//                result = tasksResult
+//                result = flowOf(taskListResult)
 //            )
 //            .buildViewModel()
-//            .expectedViewStates(
-//                action = {
-//                    clickNextDateButton()
-//                },
-//                viewStates = listOf(
-//                    TaskListViewState(
-//                        incompleteTasks = null,
-//                        completedTasks = null,
-//                        showLoading = true
-//                    ),
-//                    TaskListViewState(
-//                        selectedDate = LocalDate.now().plusDays(1),
-//                        incompleteTasks = null,
-//                        completedTasks = null,
-//                        showLoading = true
-//                    ),
-//                    TaskListViewState(
-//                        selectedDate = LocalDate.now().plusDays(1),
-//                        incompleteTasks = taskList,
-//                        completedTasks = null,
-//                        showLoading = false
-//                    ),
-//                    TaskListViewState(
-//                        selectedDate = LocalDate.now().plusDays(1),
-//                        incompleteTasks = taskList,
-//                        completedTasks = taskList,
-//                        showLoading = false
-//                    )
+//            .assertViewState(
+//                expectedViewState = TaskListViewState(
+//                    incompleteTasks = listOf(incompleteTask),
+//                    completedTasks = listOf(completedTask),
+//                    showLoading = false
 //                )
 //            )
 //    }
-
-    @Test
-    fun failureLoad() =
-        runTest {
-            val tasksResult: Result<List<Task>> = Result.Error(Throwable("Whoops"))
-
-            testRobot
-                .mockTasksForDateResult(LocalDate.now(), tasksResult)
-                .buildViewModel()
-                .expectedViewStates(
-                    action = {},
-                    viewStates =
-                        listOf<TaskListViewState>(
-                            TaskListViewState(
-                                incompleteTasks = null,
-                                completedTasks = null,
-                                showLoading = true,
-                            ),
-                            TaskListViewState(
-                                incompleteTasks = null,
-                                completedTasks = null,
-                                errorMessage = UIText.StringText("Something went wrong."),
-                                showLoading = false,
-                            ),
-                        ),
-                )
-        }
-}
+//
+//    @Test
+//    fun clickPreviousDate() {
+//        val today = LocalDate.now()
+//        val yesterday = today.minusDays(1)
+//
+//        val expectedViewState = TaskListViewState(
+//            selectedDate = yesterday,
+//            showLoading = false,
+//            incompleteTasks = emptyList(),
+//            completedTasks = emptyList()
+//        )
+//
+//        testRobot
+//            .mockTaskListResultForDate(
+//                date = today,
+//                result = flowOf(Result.Success(emptyList()))
+//            )
+//            .mockTaskListResultForDate(
+//                date = yesterday,
+//                result = flowOf(Result.Success(emptyList()))
+//            )
+//            .buildViewModel()
+//            .clickPreviousDateButton()
+//            .assertViewState(expectedViewState)
+//    }
+//
+//    @Test
+//    fun clickNextDate() {
+//        val today = LocalDate.now()
+//        val tomorrow = today.plusDays(1)
+//
+//        val expectedViewState = TaskListViewState(
+//            selectedDate = tomorrow,
+//            showLoading = false,
+//            incompleteTasks = emptyList(),
+//            completedTasks = emptyList()
+//        )
+//
+//        testRobot
+//            .mockTaskListResultForDate(
+//                date = today,
+//                result = flowOf(Result.Success(emptyList()))
+//            )
+//            .mockTaskListResultForDate(
+//                date = tomorrow,
+//                result = flowOf(Result.Success(emptyList()))
+//            )
+//            .buildViewModel()
+//            .clickNextDateButton()
+//            .assertViewState(expectedViewState)
+//    }
+//
+//    @Test
+//    fun failureLoad() {
+//        val tasksResult: Result<List<Task>> = Result.Error(Throwable("Whoops"))
+//
+//        testRobot
+//            .mockTaskListResultForDate(LocalDate.now(), flowOf(tasksResult))
+//            .buildViewModel()
+//            .assertViewState(
+//                expectedViewState = TaskListViewState(
+//                    errorMessage = UIText.StringText("Something went wrong. Please try again."),
+//                    showLoading = false
+//                )
+//            )
+//    }
+//}

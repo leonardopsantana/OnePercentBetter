@@ -4,14 +4,16 @@ import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat
 import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.core.model.Task
+import com.onepercentbetter.fakes.FakeGetTasksForDateUseCase
+import com.onepercentbetter.task.api.TaskListResult
 import com.onepercentbetter.task.api.test.FakeTaskRepository
-import com.onepercentbetter.tasklist.domain.usecases.ProdGetTasksForDateUseCase
 import com.onepercentbetter.tasklist.domain.usecases.ProdMarkTaskAsCompletedUseCase
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import java.time.LocalDate
-import java.time.ZoneId
 
 class TaskListViewModelRobot {
+    private val fakeGetTasksForDateUseCase = FakeGetTasksForDateUseCase()
     private val fakeTaskRepository = FakeTaskRepository()
     private lateinit var viewModel: TaskListViewModel
 
@@ -19,10 +21,7 @@ class TaskListViewModelRobot {
         apply {
             viewModel =
                 TaskListViewModel(
-                    getTasksForDateUseCase =
-                        ProdGetTasksForDateUseCase(
-                            taskRepository = fakeTaskRepository,
-                        ),
+                    getTasksForDateUseCase = fakeGetTasksForDateUseCase,
                     markTaskAsCompleteUseCase =
                         ProdMarkTaskAsCompletedUseCase(
                             taskRepository = fakeTaskRepository,
@@ -30,21 +29,11 @@ class TaskListViewModelRobot {
                 )
         }
 
-    fun mockTasksForDateResult(
+    fun mockTaskListResultForDate(
         date: LocalDate,
-        result: Result<List<Task>>,
+        result: Flow<TaskListResult>,
     ) = apply {
-        val dateMillis =
-            date.atStartOfDay()
-                .atZone(ZoneId.systemDefault())
-                .toInstant()
-                .toEpochMilli()
-
-        val completedInput = Pair(dateMillis, true)
-        fakeTaskRepository.tasksForDateResults[completedInput] = flowOf(result)
-
-        val incompleteInput = Pair(dateMillis, false)
-        fakeTaskRepository.tasksForDateResults[incompleteInput] = flowOf(result)
+        fakeGetTasksForDateUseCase.mockResultForDate(date, result)
     }
 
     fun assertViewState(expectedViewState: TaskListViewState) =
