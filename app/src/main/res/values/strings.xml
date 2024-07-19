@@ -24,7 +24,7 @@
 
     <string name="err_empty_task_description">Please enter a description.</string>
     <string name="err_scheduled_date_in_past">Please select a date today or in the future.</string>
-    <string name="task_input_placeholder">Clean my office space...</string>
+    <string name="task_input_placeholder">Clean my office space…</string>
     <string name="select_date_content_description">Select date</string>
     <string name="submit">Submit</string>
 
@@ -34,9 +34,8 @@
 
     <string name="view_previous_day_content_description">View Previous Day</string>
     <string name="view_next_day_content_description">View Next Day</string>
-    <string name="incomplete_tasks_header">Incomplete Tasks</string>
-    <string name="completed_tasks_header">Completed Tasks</string>
+    <string name="completed_tasks_header">Accomplishments</string>
     <string name="no_complete_tasks_label">Tasks you\'ve completed will show up here!</string>
-    <string name="no_incomplete_tasks_label">You\'ve completed everything you need to today!</string>
-    <string name="no_tasks_scheduled_label">You have no tasks scheduled for today. Click the button on the bottom right to add one!</string>
+    <string name="no_incomplete_tasks_label">You\'ve accomplished everything for today!</string>
+    <string name="no_tasks_scheduled_label">You have nothing scheduled for today. Make time for yourself.</string>
 </resources>

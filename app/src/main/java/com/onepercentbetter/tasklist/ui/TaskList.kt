@@ -39,10 +39,6 @@ fun TaskList(
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.list_padding)),
         modifier = modifier,
     ) {
-        item {
-            SectionHeader(text = stringResource(R.string.incomplete_tasks_header))
-        }
-
         if (incompleteTasks.isEmpty()) {
             item {
                 EmptySectionCard(
@@ -65,24 +61,20 @@ fun TaskList(
                         onDoneClicked(task)
                     },
                     modifier =
-                        Modifier
-                            .testTag("INCOMPLETE_TASK_${task.id}")
-                            .animateItemPlacement(),
+                    Modifier
+                        .testTag("INCOMPLETE_TASK_${task.id}")
+                        .animateItemPlacement(),
                 )
             }
         }
 
-        item {
-            SectionHeader(text = stringResource(R.string.completed_tasks_header))
-        }
 
-        if (completedTasks.isEmpty()) {
+        if (completedTasks.isNotEmpty()) {
+
             item {
-                EmptySectionCard(
-                    text = stringResource(R.string.no_complete_tasks_label),
-                )
+                SectionHeader(text = stringResource(R.string.completed_tasks_header))
             }
-        } else {
+
             items(
                 items = completedTasks,
                 key = {
@@ -98,9 +90,9 @@ fun TaskList(
                         onDoneClicked(task)
                     },
                     modifier =
-                        Modifier
-                            .testTag("COMPLETED_TASK_${task.id}")
-                            .animateItemPlacement(),
+                    Modifier
+                        .testTag("COMPLETED_TASK_${task.id}")
+                        .animateItemPlacement(),
                 )
             }
         }
@@ -114,18 +106,18 @@ private fun EmptySectionCard(
 ) {
     Material3Card(
         modifier =
-            modifier
-                .fillMaxWidth(),
+        modifier
+            .fillMaxWidth(),
     ) {
         Text(
             text = text,
             textAlign = TextAlign.Center,
             modifier =
-                Modifier
-                    .padding(
-                        vertical = 32.dp,
-                        horizontal = 24.dp,
-                    ),
+            Modifier
+                .padding(
+                    vertical = 32.dp,
+                    horizontal = 24.dp,
+                ),
         )
     }
 }
