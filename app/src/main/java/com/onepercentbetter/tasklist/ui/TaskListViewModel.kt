@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 import javax.inject.Inject
 
 /**
@@ -106,5 +107,12 @@ class TaskListViewModel
             viewModelScope.launch {
                 markTaskAsCompleteUseCase.invoke(task)
             }
+        }
+
+        fun onDateSelected(date: LocalDate) {
+            _viewState.value =
+                _viewState.value.copy(
+                    selectedDate = date,
+                )
         }
     }

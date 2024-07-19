@@ -3,6 +3,7 @@ package com.onepercentbetter.tasklist.ui
 import android.content.res.Configuration
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -45,7 +46,11 @@ import com.onepercentbetter.core.ui.adaptiveWidth
 import com.onepercentbetter.core.ui.components.Material3CircularProgressIndicator
 import com.onepercentbetter.core.ui.components.UIText
 import com.onepercentbetter.core.ui.components.getString
+import com.onepercentbetter.core.ui.components.md3DatePickerColors
 import com.onepercentbetter.core.ui.theme.OPBTheme
+import com.vanpra.composematerialdialogs.MaterialDialog
+import com.vanpra.composematerialdialogs.datetime.date.datepicker
+import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import java.time.LocalDate
 import java.time.ZoneId
 
@@ -59,16 +64,18 @@ fun TaskListContent(
     onAddButtonClicked: () -> Unit,
     onPreviousDateButtonClicked: () -> Unit,
     onNextDateButtonClicked: () -> Unit,
+    onDateSelected: (LocalDate) -> Unit,
 ) {
     Scaffold(
         floatingActionButton = {
             AddTaskButton(onAddButtonClicked)
         },
         topBar = {
-            TaskListToolbar(
-                onLeftButtonClicked = onPreviousDateButtonClicked,
-                onRightButtonClicked = onNextDateButtonClicked,
-                title = viewState.selectedDateString.getString(),
+            ToolBarWithDialog(
+                onDateSelected,
+                viewState,
+                onPreviousDateButtonClicked,
+                onNextDateButtonClicked
             )
         },
     ) { paddingValues ->
@@ -84,9 +91,9 @@ fun TaskListContent(
                     onRescheduleClicked = onRescheduleClicked,
                     onDoneClicked = onDoneClicked,
                     modifier =
-                        Modifier
-                            .padding(paddingValues)
-                            .adaptiveWidth(),
+                    Modifier
+                        .padding(paddingValues)
+                        .adaptiveWidth(),
                 )
             }
         }
@@ -97,9 +104,9 @@ fun TaskListContent(
             ) {
                 Material3CircularProgressIndicator(
                     modifier =
-                        Modifier
-                            .wrapContentSize()
-                            .align(Alignment.Center),
+                    Modifier
+                        .wrapContentSize()
+                        .align(Alignment.Center),
                 )
             }
         }
@@ -107,21 +114,55 @@ fun TaskListContent(
 }
 
 @Composable
+private fun ToolBarWithDialog(
+    onDateSelected: (LocalDate) -> Unit,
+    viewState: TaskListViewState,
+    onPreviousDateButtonClicked: () -> Unit,
+    onNextDateButtonClicked: () -> Unit
+) {
+    val dialogState = rememberMaterialDialogState()
+
+    MaterialDialog(
+        dialogState = dialogState,
+        buttons = {
+            positiveButton("OK")
+            negativeButton("CANCEL")
+        },
+        backgroundColor = MaterialTheme.colorScheme.surface,
+    ) {
+        this.datepicker(
+            colors = md3DatePickerColors(),
+            onDateChange = onDateSelected,
+            initialDate = viewState.selectedDate,
+        )
+    }
+
+    TaskListToolbar(
+        onLeftButtonClicked = onPreviousDateButtonClicked,
+        onRightButtonClicked = onNextDateButtonClicked,
+        title = viewState.selectedDateString.getString(),
+        onTitleClicked = {
+            dialogState.show()
+        }
+    )
+}
+
+@Composable
 private fun TaskListEmptyState() {
     Box(
         modifier =
-            Modifier
-                .fillMaxSize(),
+        Modifier
+            .fillMaxSize(),
     ) {
         Text(
             text = stringResource(R.string.no_tasks_scheduled_label),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.headlineMedium,
             modifier =
-                Modifier
-                    .padding(32.dp)
-                    .align(Alignment.Center)
-                    .adaptiveWidth(),
+            Modifier
+                .padding(32.dp)
+                .align(Alignment.Center)
+                .adaptiveWidth(),
         )
     }
 }
@@ -132,6 +173,7 @@ private fun TaskListToolbar(
     onLeftButtonClicked: () -> Unit,
     onRightButtonClicked: () -> Unit,
     title: String,
+    onTitleClicked: () -> Unit = {},
 ) {
     val toolbarHeight = 84.dp
 
@@ -141,10 +183,10 @@ private fun TaskListToolbar(
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier =
-                Modifier
-                    .statusBarsPadding()
-                    .height(toolbarHeight)
-                    .adaptiveWidth(),
+            Modifier
+                .statusBarsPadding()
+                .height(toolbarHeight)
+                .adaptiveWidth(),
         ) {
             ToolbarIconButton(
                 icon = Icons.Default.KeyboardArrowLeft,
@@ -157,16 +199,24 @@ private fun TaskListToolbar(
 
             Crossfade(
                 targetState = title,
-                modifier = Modifier.weight(1f),
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(vertical = 16.dp)
+                    .clickable {
+                        onTitleClicked.invoke()
+                    }
+                    .height(toolbarHeight),
                 animationSpec = tween(durationMillisForCrossFadeTitle),
             ) { title ->
-                Text(
-                    text = title,
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.headlineMedium,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.fillMaxWidth(),
-                )
+                Box(modifier = Modifier.fillMaxSize()) {
+                    Text(
+                        text = title,
+                        textAlign = TextAlign.Center,
+                        style = MaterialTheme.typography.headlineMedium,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.align(Alignment.Center)
+                    )
+                }
             }
 
             ToolbarIconButton(
@@ -219,11 +269,11 @@ class TaskListViewStateProvider : PreviewParameterProvider<TaskListViewState> {
                         id = "$index",
                         description = "Test task: $index",
                         scheduledDateMillis =
-                            LocalDate.now()
-                                .atStartOfDay()
-                                .atZone(ZoneId.systemDefault())
-                                .toInstant()
-                                .toEpochMilli(),
+                        LocalDate.now()
+                            .atStartOfDay()
+                            .atZone(ZoneId.systemDefault())
+                            .toInstant()
+                            .toEpochMilli(),
                         completed = false,
                     )
                 }
@@ -234,11 +284,11 @@ class TaskListViewStateProvider : PreviewParameterProvider<TaskListViewState> {
                         id = "$index",
                         description = "Test task: $index",
                         scheduledDateMillis =
-                            LocalDate.now()
-                                .atStartOfDay()
-                                .atZone(ZoneId.systemDefault())
-                                .toInstant()
-                                .toEpochMilli(),
+                        LocalDate.now()
+                            .atStartOfDay()
+                            .atZone(ZoneId.systemDefault())
+                            .toInstant()
+                            .toEpochMilli(),
                         completed = true,
                     )
                 }
@@ -295,6 +345,6 @@ private fun TaskListContentPreview(
     viewState: TaskListViewState,
 ) {
     OPBTheme {
-        TaskListContent(viewState, {}, {}, {}, {}, {})
+        TaskListContent(viewState, {}, {}, {}, {}, {}, {})
     }
 }

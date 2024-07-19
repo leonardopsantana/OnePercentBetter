@@ -134,7 +134,7 @@ private fun LocalDate.toUIString(): String {
 }
 
 @Composable
-private fun md3DatePickerColors(
+fun md3DatePickerColors(
     headerBackgroundColor: Color = MaterialTheme.colorScheme.primary,
     headerTextColor: Color = MaterialTheme.colorScheme.onPrimary,
     calendarHeaderTextColor: Color = MaterialTheme.colorScheme.onBackground,

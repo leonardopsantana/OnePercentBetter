@@ -25,7 +25,9 @@ fun TaskListScreen(
         TaskListContent(
             viewState = viewState.value,
             onRescheduleClicked = {},
-            onDoneClicked = viewModel::onDoneButtonClicked,
+            onDoneClicked = {
+                viewModel.onDoneButtonClicked(it)
+            },
             onAddButtonClicked = {
                 val destination =
                     if (windowSize != WindowSize.Compact) {
@@ -37,6 +39,7 @@ fun TaskListScreen(
             },
             onPreviousDateButtonClicked = viewModel::onPreviousDateButtonClicked,
             onNextDateButtonClicked = viewModel::onNextDateButtonClicked,
+            onDateSelected = viewModel::onDateSelected
         )
     }
 }
