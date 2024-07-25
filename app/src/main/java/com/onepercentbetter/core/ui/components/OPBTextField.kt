@@ -12,7 +12,9 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.FocusState
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.input.VisualTransformation
@@ -24,13 +26,14 @@ import com.onepercentbetter.core.ui.theme.OPBTheme
 import com.onepercentbetter.core.ui.theme.TextFieldShape
 
 /**
- * This is a custom implementation of an [OutlineTextField] to ensure that is has the OnePercentBetter branding and
+ * This is a custom implementation of an [OutlinedTextField] to ensure that is has the OnePercentBetter branding and
  * styling as expected.
  *
  * @param[text] The current text inside the input.
  * @param[onTextChanged] A callback invoked whenever the user modifies the text inside this input.
  * @param[labelText] The label that shows above the input when focused
  * @param[modifier] An optional [Modifier] to configure this component
+ * @param[focusRequester] An optional [FocusRequester] to request focus on this input
  */
 @ExcludeFromJacocoGeneratedReport
 @Composable
@@ -45,6 +48,7 @@ fun OPBTextField(
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     onFocusChanged: (FocusState) -> Unit = {},
     placeholderText: String? = null,
+    focusRequester: FocusRequester = FocusRequester()
 ) {
     val labelComposable: (@Composable () -> Unit)? =
         labelText?.let {
@@ -74,7 +78,8 @@ fun OPBTextField(
                 modifier
                     .heightIn(dimensionResource(id = R.dimen.text_field_height))
                     .fillMaxWidth()
-                    .onFocusChanged(onFocusChanged),
+                    .onFocusChanged(onFocusChanged)
+                    .focusRequester(focusRequester),
             isError = (errorMessage != null),
             visualTransformation = visualTransformation,
             enabled = enabled,

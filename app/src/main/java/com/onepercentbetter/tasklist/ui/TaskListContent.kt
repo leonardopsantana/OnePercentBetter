@@ -29,6 +29,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -53,6 +54,8 @@ import com.vanpra.composematerialdialogs.datetime.date.datepicker
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import java.time.LocalDate
 import java.time.ZoneId
+
+const val ADD_TASK_BUTTON_TAG = "ADD_TASK_BUTTON"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @ExcludeFromJacocoGeneratedReport
@@ -250,7 +253,9 @@ private fun AddTaskButton(onAddButtonClicked: () -> Unit) {
     FloatingActionButton(
         onClick = onAddButtonClicked,
         shape = CircleShape,
-        modifier = Modifier.navigationBarsPadding(),
+        modifier = Modifier
+            .navigationBarsPadding()
+            .testTag(ADD_TASK_BUTTON_TAG)
     ) {
         Icon(
             Icons.Default.Add,

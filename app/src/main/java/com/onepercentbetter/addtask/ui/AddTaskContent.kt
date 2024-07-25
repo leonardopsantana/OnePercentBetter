@@ -15,8 +15,12 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -37,6 +41,8 @@ import com.onepercentbetter.core.ui.components.getString
 import com.onepercentbetter.core.ui.theme.OPBTheme
 import java.time.LocalDate
 
+const val ADD_TASK_DESCRIPTION_INPUT_TAG = "ADD_TASK_DESCRIPTION_INPUT_TAG"
+
 @Suppress("FunctionNaming")
 @Composable
 fun AddTaskContent(
@@ -46,6 +52,12 @@ fun AddTaskContent(
     onSubmitClicked: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val descriptionFocusRequester = remember { FocusRequester() }
+
+    LaunchedEffect(true) {// calls only one time
+        descriptionFocusRequester.requestFocus()
+    }
+
     Box(
         modifier = modifier,
     ) {
@@ -55,14 +67,15 @@ fun AddTaskContent(
             onTaskScheduleDateChanged = onTaskScheduleDateChanged,
             onSubmitClicked = onSubmitClicked,
             modifier = Modifier.fillMaxWidth(),
+            descriptionFocusRequester = descriptionFocusRequester,
         )
 
         if (viewState is AddTaskViewState.Submitting) {
             CircularProgressIndicator(
                 modifier =
-                    Modifier
-                        .wrapContentSize()
-                        .align(Alignment.Center),
+                Modifier
+                    .wrapContentSize()
+                    .align(Alignment.Center),
             )
         }
     }
@@ -75,6 +88,7 @@ private fun AddTaskInputsColumn(
     onTaskScheduleDateChanged: (LocalDate) -> Unit,
     onSubmitClicked: () -> Unit,
     modifier: Modifier,
+    descriptionFocusRequester: FocusRequester,
 ) {
     Column(
         modifier = modifier.verticalScroll(rememberScrollState()),
@@ -90,6 +104,7 @@ private fun AddTaskInputsColumn(
                 (viewState as? AddTaskViewState.Active)
                     ?.descriptionInputErrorMessage
                     ?.getString(),
+            descriptionFocusRequester = descriptionFocusRequester
         )
         TaskDateLabel()
         TaskDateInput(
@@ -156,6 +171,7 @@ private fun TaskDescriptionInput(
     onTextChanged: (String) -> Unit,
     enabled: Boolean,
     errorMessage: String?,
+    descriptionFocusRequester: FocusRequester,
 ) {
     OPBTextField(
         text = text,
@@ -168,6 +184,8 @@ private fun TaskDescriptionInput(
             ),
         placeholderText = stringResource(R.string.task_input_placeholder),
         errorMessage = errorMessage,
+        focusRequester = descriptionFocusRequester,
+        modifier = Modifier.testTag(ADD_TASK_DESCRIPTION_INPUT_TAG)
     )
 }
 
@@ -209,9 +227,9 @@ private fun AddTaskContentPreview(
             onTaskScheduleDateChanged = {},
             onSubmitClicked = {},
             modifier =
-                Modifier
-                    .fillMaxSize()
-                    .padding(dimensionResource(id = R.dimen.screen_padding)),
+            Modifier
+                .fillMaxSize()
+                .padding(dimensionResource(id = R.dimen.screen_padding)),
         )
     }
 }
