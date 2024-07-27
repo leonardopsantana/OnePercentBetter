@@ -56,6 +56,7 @@ import java.time.LocalDate
 import java.time.ZoneId
 
 const val ADD_TASK_BUTTON_TAG = "ADD_TASK_BUTTON"
+const val NEXT_DAY_BUTTON_TAG = "NEXT_DAY_BUTTON"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @ExcludeFromJacocoGeneratedReport
@@ -239,11 +240,15 @@ private fun ToolbarIconButton(
     contentDescription: String,
     toolbarHeight: Dp,
 ) {
-    IconButton(onClick = onClick) {
+    IconButton(
+        onClick = onClick,
+        modifier = Modifier.testTag(NEXT_DAY_BUTTON_TAG)
+    ) {
         Icon(
             icon,
             contentDescription = contentDescription,
-            modifier = Modifier.size(toolbarHeight),
+            modifier = Modifier
+                .size(toolbarHeight)
         )
     }
 }

@@ -8,13 +8,17 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.statusBarsPadding
 import com.onepercentbetter.R
+import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import java.time.LocalDate
 
 /**
  * This is used when, when we want to shown an individual screen that allows
  * the user to create a new task.
  */
-@com.ramcosta.composedestinations.annotation.Destination
+@Destination(
+    navArgsDelegate = AddTaskNavArguments::class
+)
 @Composable
 fun AddTaskScreen(
     navigator: DestinationsNavigator,

@@ -41,7 +41,7 @@ import com.onepercentbetter.core.ui.components.getString
 import com.onepercentbetter.core.ui.theme.OPBTheme
 import java.time.LocalDate
 
-const val ADD_TASK_DESCRIPTION_INPUT_TAG = "ADD_TASK_DESCRIPTION_INPUT_TAG"
+const val ADD_TASK_DESCRIPTION_INPUT_TAG = "ADD_TASK_DESCRIPTION_INPUT"
 
 @Suppress("FunctionNaming")
 @Composable
@@ -244,7 +244,7 @@ class AddTaskViewStateProvider : PreviewParameterProvider<AddTaskViewState> {
                 )
 
             return sequenceOf(
-                AddTaskViewState.Initial,
+                AddTaskViewState.Initial(),
                 AddTaskViewState.Active(
                     taskInput = activeInput,
                 ),
