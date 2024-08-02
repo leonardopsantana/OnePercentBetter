@@ -25,11 +25,17 @@ class AddTaskViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val localDate: LocalDate? = savedStateHandle["initDate"]
+    /**
+     * Even though this screen can be navigated to using either AddTaskDialogDestination, or
+     * AddTaskScreenDestination, because they both have same typesafe nav arguments delegate of
+     * [AddTaskNavArguments], it does not matter what we use here to call 'argsFrom(savedStateHandle)'
+     * because both will have the same functionality.
+     */
+    private val args = AddTaskScreenDestination.argsFrom(savedStateHandle)
 
     private val _viewState: MutableStateFlow<AddTaskViewState> = MutableStateFlow(
         AddTaskViewState.Initial(
-            initDate = localDate ?: LocalDate.now()
+            initDate = args.initDate
         )
     )
     val viewState = _viewState.asStateFlow()

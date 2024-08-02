@@ -17,11 +17,24 @@ import java.time.ZonedDateTime
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class AddTaskViewModelTest {
-//    private val testRobot = AddTaskViewModelRobot()
+    private val testRobot = AddTaskViewModelRobot()
 
 
     @get:Rule
     val coroutineTestRule = CoroutinesTestRule()
+
+    @Test
+    fun createWithInitialDateFromSaveStateHandle() {
+        val initialDate = LocalDate.now().plusDays(1)
+
+        val expectedViewState = AddTaskViewState.Initial(initialDate)
+
+        testRobot
+            .mockInitialDate(initialDate)
+            .buildViewModel()
+            .assertViewState(expectedViewState)
+    }
+
 
 //    @Test
 //    fun submitWithEmptyDescription() {
