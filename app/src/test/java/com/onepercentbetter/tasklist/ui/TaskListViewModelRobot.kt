@@ -15,6 +15,7 @@ import java.time.LocalDate
 class TaskListViewModelRobot {
     private val fakeGetTasksForDateUseCase = FakeGetTasksForDateUseCase()
     private val fakeTaskRepository = FakeTaskRepository()
+    private val fakeRescheduleTaskUseCase = FakeRescheduleTaskUseCase()
     private lateinit var viewModel: TaskListViewModel
 
     fun buildViewModel() =
@@ -26,7 +27,7 @@ class TaskListViewModelRobot {
                     ProdMarkTaskAsCompletedUseCase(
                         taskRepository = fakeTaskRepository,
                     ),
-                    rescheduleTaskUseCase = FakeRescheduleTaskUseCase()
+                    rescheduleTaskUseCase = fakeRescheduleTaskUseCase
                 )
         }
 
@@ -62,5 +63,18 @@ class TaskListViewModelRobot {
         date: LocalDate
     ) = apply {
         viewModel.onTaskRescheduled(task, date)
+    }
+
+    fun assertTaskRescheduleForDate(
+        task: Task,
+        date: LocalDate
+    ) = apply {
+        fakeRescheduleTaskUseCase.assertInvocation(
+            task to date
+        )
+    }
+
+    fun showAlertMessage() = apply {
+        viewModel.onAlertMessageShown()
     }
 }

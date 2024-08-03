@@ -2,6 +2,7 @@ package com.onepercentbetter.tasklist.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.onepercentbetter.R
 import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.core.model.Task
 import com.onepercentbetter.core.ui.components.UIText
@@ -131,10 +132,40 @@ constructor(
         task: Task,
         newDate: LocalDate
     ) {
+        if (newDate < LocalDate.now()){
+            _viewState.update {
+                it.copy(
+                    taskToReschedule = null,
+                    alertMessage = UIText.ResourceText(
+                        R.string.err_scheduled_date_in_past
+                    )
+                )
+            }
+
+            return
+        }
         viewModelScope.launch {
             rescheduleTaskUseCase.invoke(task, newDate)
         }
 
+        _viewState.update {
+            it.copy(
+                taskToReschedule = null
+            )
+        }
+
+        onReschedulingCompleted()
+    }
+
+    fun onAlertMessageShown(){
+        _viewState.update {
+            it.copy(
+                alertMessage = null
+            )
+        }
+    }
+
+    fun onReschedulingCompleted(){
         _viewState.update {
             it.copy(
                 taskToReschedule = null

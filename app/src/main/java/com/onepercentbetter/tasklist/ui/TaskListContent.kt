@@ -70,7 +70,8 @@ fun TaskListContent(
     onPreviousDateButtonClicked: () -> Unit,
     onNextDateButtonClicked: () -> Unit,
     onDateSelected: (LocalDate) -> Unit,
-    onTaskRescheduled: (Task, LocalDate) -> Unit
+    onTaskRescheduled: (Task, LocalDate) -> Unit,
+    onReschedulingCompleted: () -> Unit
 ) {
     Scaffold(
         floatingActionButton = {
@@ -93,7 +94,8 @@ fun TaskListContent(
             } else {
                 RescheduleTaskDialog(
                     viewState = viewState,
-                    onTaskRescheduled = onTaskRescheduled
+                    onTaskRescheduled = onTaskRescheduled,
+                    onDismissed = onReschedulingCompleted
                 )
 
                 TaskList(
@@ -127,7 +129,8 @@ fun TaskListContent(
 @Composable
 private fun RescheduleTaskDialog(
     viewState: TaskListViewState,
-    onTaskRescheduled: (Task, LocalDate) -> Unit
+    onTaskRescheduled: (Task, LocalDate) -> Unit,
+    onDismissed: () -> Unit
 ) {
     val rescheduleTaskDatePickerDialogState = rememberMaterialDialogState()
 
@@ -141,7 +144,16 @@ private fun RescheduleTaskDialog(
         dialogState = rescheduleTaskDatePickerDialogState,
         buttons = {
             positiveButton(stringResource(R.string.ok))
-            negativeButton(stringResource(R.string.cancel))
+            negativeButton(
+                text = stringResource(R.string.cancel),
+                onClick = {
+                    onDismissed.invoke()
+                }
+            )
+        },
+        onCloseRequest = {
+            onDismissed.invoke()
+            it.hide()
         },
         backgroundColor = MaterialTheme.colorScheme.surface,
     ) {
@@ -399,7 +411,9 @@ private fun TaskListContentPreview(
             onNextDateButtonClicked = {},
             onDateSelected = {},
             onTaskRescheduled = { _, _ ->
-            }
+            },
+            onReschedulingCompleted = {}
+
         )
     }
 }

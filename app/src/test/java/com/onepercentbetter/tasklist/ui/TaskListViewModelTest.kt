@@ -2,6 +2,7 @@ package com.onepercentbetter.tasklist.ui
 
 import com.onepercentbetter.CoroutinesTestRule
 import com.onepercentbetter.core.data.Result
+import com.onepercentbetter.R
 import com.onepercentbetter.core.model.Task
 import com.onepercentbetter.core.ui.components.UIText
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -9,7 +10,6 @@ import kotlinx.coroutines.flow.flowOf
 import org.junit.Rule
 import org.junit.Test
 import java.time.LocalDate
-import java.time.ZonedDateTime
 
 class TaskListViewModelTest {
     private val testRobot = TaskListViewModelRobot()
@@ -63,6 +63,8 @@ class TaskListViewModelTest {
 
         val taskListResult = Result.Success(taskList)
 
+        val tomorrow = LocalDate.now().plusDays(1)
+
         testRobot
             .mockTaskListResultForDate(
                 date = LocalDate.now(),
@@ -80,7 +82,68 @@ class TaskListViewModelTest {
             )
             .rescheduleTaskForDate(
                 task = incompleteTask,
-                date = LocalDate.now().plusDays(1)
+                date = tomorrow
+            )
+            .assertTaskRescheduleForDate(
+                task = incompleteTask,
+                date = tomorrow
+            )
+    }
+
+    @Test
+    fun preventRescheduleTaskForPasteDate() {
+        val incompleteTask = Task(
+            id = "TEST ID",
+            description = "Test task",
+            scheduledDateMillis = 0L,
+            completed = false
+        )
+
+        val taskList = listOf(incompleteTask)
+
+        val taskListResult = Result.Success(taskList)
+
+        val yesterday = LocalDate.now().minusDays(1)
+
+        testRobot
+            .mockTaskListResultForDate(
+                date = LocalDate.now(),
+                result = flowOf(taskListResult)
+            )
+            .buildViewModel()
+            .clickRescheduleButton(incompleteTask)
+            .assertViewState(
+                expectedViewState = TaskListViewState(
+                    showLoading = false,
+                    incompleteTasks = listOf(incompleteTask),
+                    completedTasks = emptyList(),
+                    taskToReschedule = incompleteTask
+                )
+            )
+            .rescheduleTaskForDate(
+                task = incompleteTask,
+                date = yesterday
+            )
+            .assertViewState(
+                expectedViewState = TaskListViewState(
+                    showLoading = false,
+                    incompleteTasks = listOf(incompleteTask),
+                    completedTasks = emptyList(),
+                    taskToReschedule = incompleteTask,
+                    alertMessage = UIText.ResourceText(
+                        R.string.err_scheduled_date_in_past
+                    )
+                )
+            )
+            .showAlertMessage()
+            .assertViewState(
+                expectedViewState = TaskListViewState(
+                    showLoading = false,
+                    incompleteTasks = listOf(incompleteTask),
+                    completedTasks = emptyList(),
+                    taskToReschedule = incompleteTask,
+                    alertMessage = null
+                )
             )
     }
 
