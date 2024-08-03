@@ -49,6 +49,7 @@ import com.onepercentbetter.core.ui.components.UIText
 import com.onepercentbetter.core.ui.components.getString
 import com.onepercentbetter.core.ui.components.md3DatePickerColors
 import com.onepercentbetter.core.ui.theme.OPBTheme
+import com.onepercentbetter.toEpochMillis
 import com.vanpra.composematerialdialogs.MaterialDialog
 import com.vanpra.composematerialdialogs.datetime.date.datepicker
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState
@@ -279,11 +280,7 @@ class TaskListViewStateProvider : PreviewParameterProvider<TaskListViewState> {
                         id = "$index",
                         description = "Test task: $index",
                         scheduledDateMillis =
-                        LocalDate.now()
-                            .atStartOfDay()
-                            .atZone(ZoneId.systemDefault())
-                            .toInstant()
-                            .toEpochMilli(),
+                        LocalDate.now().toEpochMillis(),
                         completed = false,
                     )
                 }
@@ -294,11 +291,7 @@ class TaskListViewStateProvider : PreviewParameterProvider<TaskListViewState> {
                         id = "$index",
                         description = "Test task: $index",
                         scheduledDateMillis =
-                        LocalDate.now()
-                            .atStartOfDay()
-                            .atZone(ZoneId.systemDefault())
-                            .toInstant()
-                            .toEpochMilli(),
+                        LocalDate.now().toEpochMillis(),
                         completed = true,
                     )
                 }

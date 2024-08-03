@@ -10,6 +10,7 @@ import com.onepercentbetter.addtask.domain.usecase.AddTaskUseCase
 import com.onepercentbetter.core.model.Task
 import com.onepercentbetter.core.ui.components.UIText
 import com.onepercentbetter.destinations.AddTaskScreenDestination
+import com.onepercentbetter.toEpochMillis
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -80,11 +81,8 @@ class AddTaskViewModel @Inject constructor(
                 description = _viewState.value.taskInput.description,
                 scheduledDateMillis =
                 _viewState.value.taskInput.scheduledDate
-                    .atStartOfDay()
-                    .atZone(ZoneId.systemDefault())
-                    .toInstant()
-                    .toEpochMilli(),
-                completed = false,
+                    .toEpochMillis(),
+                    completed = false,
             )
 
         viewModelScope.launch {

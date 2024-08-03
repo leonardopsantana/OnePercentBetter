@@ -62,6 +62,7 @@ class AddTaskViewModelTest {
 //        )
 //
 //        testRobot
+ //   .mockInitialDate(initialDate)
 //            .buildViewModel()
 //            .mockResultForTask(
 //                result = useCaseResult,
@@ -105,6 +106,7 @@ class AddTaskViewModelTest {
 //            .mockResultForTask(
 //                result = useCaseResult,
 //            )
+   // .mockInitialDate(initialDate)
 //            .buildViewModel()
 //            .enterDescription(taskToSubmit.description)
 //            .selectDate(taskToSubmit.scheduledDateMillis)
