@@ -7,12 +7,20 @@ import com.onepercentbetter.core.utils.getStSuffixForDayOfMonth
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
+
+/**
+ * All of the necessary configuration for the task list screen UI.
+ *
+ * @property[taskToReschedule] If this is not null, this is  the [Task] entity
+ * that the user is currently rescheduling.
+ */
 data class TaskListViewState(
     val showLoading: Boolean = true,
     val completedTasks: List<Task>? = null,
     val incompleteTasks: List<Task>? = null,
     val errorMessage: UIText? = null,
     val selectedDate: LocalDate = LocalDate.now(),
+    val taskToReschedule: Task? = null
 ) {
     /**
      * As long as we are not in a loading error scenario, we can show the task list (or empty state)

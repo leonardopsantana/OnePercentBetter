@@ -25,7 +25,7 @@ fun TaskListScreen(
     Surface {
         TaskListContent(
             viewState = viewState.value,
-            onRescheduleClicked = {},
+            onRescheduleClicked = viewModel::onRescheduleButtonClicked,
             onDoneClicked = {
                 viewModel.onDoneButtonClicked(it)
             },
@@ -47,7 +47,8 @@ fun TaskListScreen(
             },
             onPreviousDateButtonClicked = viewModel::onPreviousDateButtonClicked,
             onNextDateButtonClicked = viewModel::onNextDateButtonClicked,
-            onDateSelected = viewModel::onDateSelected
+            onDateSelected = viewModel::onDateSelected,
+            onTaskRescheduled = viewModel::onTaskRescheduled
         )
     }
 }

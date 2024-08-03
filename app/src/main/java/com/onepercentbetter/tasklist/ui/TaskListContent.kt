@@ -5,9 +5,9 @@ import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -26,6 +26,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -54,7 +55,6 @@ import com.vanpra.composematerialdialogs.MaterialDialog
 import com.vanpra.composematerialdialogs.datetime.date.datepicker
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import java.time.LocalDate
-import java.time.ZoneId
 
 const val ADD_TASK_BUTTON_TAG = "ADD_TASK_BUTTON"
 const val NEXT_DAY_BUTTON_TAG = "NEXT_DAY_BUTTON"
@@ -70,6 +70,7 @@ fun TaskListContent(
     onPreviousDateButtonClicked: () -> Unit,
     onNextDateButtonClicked: () -> Unit,
     onDateSelected: (LocalDate) -> Unit,
+    onTaskRescheduled: (Task, LocalDate) -> Unit
 ) {
     Scaffold(
         floatingActionButton = {
@@ -90,6 +91,11 @@ fun TaskListContent(
             ) {
                 TaskListEmptyState()
             } else {
+                RescheduleTaskDialog(
+                    viewState = viewState,
+                    onTaskRescheduled = onTaskRescheduled
+                )
+
                 TaskList(
                     incompleteTasks = viewState.incompleteTasks.orEmpty(),
                     completedTasks = viewState.completedTasks.orEmpty(),
@@ -119,6 +125,42 @@ fun TaskListContent(
 }
 
 @Composable
+private fun RescheduleTaskDialog(
+    viewState: TaskListViewState,
+    onTaskRescheduled: (Task, LocalDate) -> Unit
+) {
+    val rescheduleTaskDatePickerDialogState = rememberMaterialDialogState()
+
+    LaunchedEffect(viewState) {
+        if (viewState.taskToReschedule != null) {
+            rescheduleTaskDatePickerDialogState.show()
+        }
+    }
+
+    MaterialDialog(
+        dialogState = rescheduleTaskDatePickerDialogState,
+        buttons = {
+            positiveButton(stringResource(R.string.ok))
+            negativeButton(stringResource(R.string.cancel))
+        },
+        backgroundColor = MaterialTheme.colorScheme.surface,
+    ) {
+        this.datepicker(
+            colors = md3DatePickerColors(),
+            onDateChange = { newDate ->
+                viewState.taskToReschedule?.let {
+                    onTaskRescheduled.invoke(
+                        viewState.taskToReschedule,
+                        newDate
+                    )
+                }
+            },
+            initialDate = viewState.selectedDate,
+        )
+    }
+}
+
+@Composable
 private fun ToolBarWithDialog(
     onDateSelected: (LocalDate) -> Unit,
     viewState: TaskListViewState,
@@ -130,8 +172,8 @@ private fun ToolBarWithDialog(
     MaterialDialog(
         dialogState = dialogState,
         buttons = {
-            positiveButton("OK")
-            negativeButton("CANCEL")
+            positiveButton(stringResource(R.string.ok))
+            negativeButton(stringResource(R.string.cancel))
         },
         backgroundColor = MaterialTheme.colorScheme.surface,
     ) {
@@ -348,6 +390,16 @@ private fun TaskListContentPreview(
     viewState: TaskListViewState,
 ) {
     OPBTheme {
-        TaskListContent(viewState, {}, {}, {}, {}, {}, {})
+        TaskListContent(
+            viewState = viewState,
+            onRescheduleClicked = {},
+            onDoneClicked = {},
+            onAddButtonClicked = {},
+            onPreviousDateButtonClicked = {},
+            onNextDateButtonClicked = {},
+            onDateSelected = {},
+            onTaskRescheduled = { _, _ ->
+            }
+        )
     }
 }

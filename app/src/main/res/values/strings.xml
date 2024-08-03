@@ -38,4 +38,6 @@
     <string name="no_complete_tasks_label">Tasks you\'ve completed will show up here!</string>
     <string name="no_incomplete_tasks_label">You\'ve accomplished everything for today!</string>
     <string name="no_tasks_scheduled_label">You have nothing scheduled for today. Make time for yourself.</string>
+    <string name="ok">OK</string>
+    <string name="cancel">CANCEL</string>
 </resources>

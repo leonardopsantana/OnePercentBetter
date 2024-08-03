@@ -10,6 +10,8 @@ import com.onepercentbetter.tasklist.domain.usecases.MarkTaskAsCompleteUseCase
 import com.onepercentbetter.tasklist.domain.usecases.ProdGetAllTasksUseCase
 import com.onepercentbetter.tasklist.domain.usecases.ProdGetTasksForDateUseCase
 import com.onepercentbetter.tasklist.domain.usecases.ProdMarkTaskAsCompletedUseCase
+import com.onepercentbetter.tasklist.domain.usecases.ProdRescheduleTaskForDateUseCase
+import com.onepercentbetter.tasklist.domain.usecases.RescheduleTaskUseCase
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -49,4 +51,9 @@ abstract class UseCaseModule {
     abstract fun bindTasksMarkTaskAsCompleteUseCase(
         prodMarkTaskAsCompletedUseCase: ProdMarkTaskAsCompletedUseCase,
     ): MarkTaskAsCompleteUseCase
+
+    @Binds
+    abstract fun bindRescheduleTaskUseCase(
+        rescheduleTaskUseCase: ProdRescheduleTaskForDateUseCase
+    ) : RescheduleTaskUseCase
 }
