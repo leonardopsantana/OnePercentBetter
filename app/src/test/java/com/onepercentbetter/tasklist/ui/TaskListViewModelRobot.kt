@@ -2,14 +2,14 @@ package com.onepercentbetter.tasklist.ui
 
 import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat
-import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.core.model.Task
 import com.onepercentbetter.fakes.FakeGetTasksForDateUseCase
+import com.onepercentbetter.fakes.FakeRescheduleTaskUseCase
 import com.onepercentbetter.task.api.TaskListResult
 import com.onepercentbetter.task.api.test.FakeTaskRepository
 import com.onepercentbetter.tasklist.domain.usecases.ProdMarkTaskAsCompletedUseCase
+import com.onepercentbetter.tasklist.domain.usecases.ProdRescheduleTaskForDateUseCase
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
 import java.time.LocalDate
 
 class TaskListViewModelRobot {
@@ -23,18 +23,12 @@ class TaskListViewModelRobot {
                 TaskListViewModel(
                     getTasksForDateUseCase = fakeGetTasksForDateUseCase,
                     markTaskAsCompleteUseCase =
-                        ProdMarkTaskAsCompletedUseCase(
-                            taskRepository = fakeTaskRepository,
-                        ),
+                    ProdMarkTaskAsCompletedUseCase(
+                        taskRepository = fakeTaskRepository,
+                    ),
+                    rescheduleTaskUseCase = FakeRescheduleTaskUseCase()
                 )
         }
-
-    fun mockTaskListResultForDate(
-        date: LocalDate,
-        result: Flow<TaskListResult>,
-    ) = apply {
-        fakeGetTasksForDateUseCase.mockResultForDate(date, result)
-    }
 
     fun assertViewState(expectedViewState: TaskListViewState) =
         apply {
@@ -42,26 +36,11 @@ class TaskListViewModelRobot {
             assertThat(actualViewState).isEqualTo(expectedViewState)
         }
 
-    /**
-     * Launch a coroutine that will observe our [viewModel]'s view state and ensure that we consume
-     * all of the supplied [viewStates] in the same order that they are supplied.
-     *
-     * We should call this near the front of the test, to ensure that every view state we emit
-     * can be collected by this.
-     */
-    suspend fun expectedViewStates(
-        action: TaskListViewModelRobot.() -> Unit,
-        viewStates: List<TaskListViewState>,
+    fun mockTaskListResultForDate(
+        date: LocalDate,
+        result: Flow<TaskListResult>,
     ) = apply {
-        viewModel.viewState.test {
-            action()
-
-            for (state in viewStates) {
-                assertThat(awaitItem()).isEqualTo(state)
-            }
-
-            this.cancel()
-        }
+        fakeGetTasksForDateUseCase.mockResultForDate(date, result)
     }
 
     fun clickPreviousDateButton() =
@@ -73,4 +52,15 @@ class TaskListViewModelRobot {
         apply {
             viewModel.onNextDateButtonClicked()
         }
+
+    fun clickRescheduleButton(task: Task) = apply {
+        viewModel.onRescheduleButtonClicked(task)
+    }
+
+    fun rescheduleTaskForDate(
+        task: Task,
+        date: LocalDate
+    ) = apply {
+        viewModel.onTaskRescheduled(task, date)
+    }
 }

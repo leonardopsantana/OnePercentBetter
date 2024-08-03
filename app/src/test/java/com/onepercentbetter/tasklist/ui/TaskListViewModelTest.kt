@@ -1,22 +1,22 @@
-//package com.onepercentbetter.tasklist.ui
-//
-//import com.onepercentbetter.CoroutinesTestRule
-//import com.onepercentbetter.core.data.Result
-//import com.onepercentbetter.core.model.Task
-//import com.onepercentbetter.core.ui.components.UIText
-//import kotlinx.coroutines.ExperimentalCoroutinesApi
-//import kotlinx.coroutines.flow.flowOf
-//import org.junit.Rule
-//import org.junit.Test
-//import java.time.LocalDate
-//import java.time.ZonedDateTime
-//
-//class TaskListViewModelTest {
-//    private val testRobot = TaskListViewModelRobot()
-//
-//    @OptIn(ExperimentalCoroutinesApi::class)
-//    @get:Rule
-//    val coroutinesTestRule = CoroutinesTestRule()
+package com.onepercentbetter.tasklist.ui
+
+import com.onepercentbetter.CoroutinesTestRule
+import com.onepercentbetter.core.data.Result
+import com.onepercentbetter.core.model.Task
+import com.onepercentbetter.core.ui.components.UIText
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flowOf
+import org.junit.Rule
+import org.junit.Test
+import java.time.LocalDate
+import java.time.ZonedDateTime
+
+class TaskListViewModelTest {
+    private val testRobot = TaskListViewModelRobot()
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @get:Rule
+    val coroutinesTestRule = CoroutinesTestRule()
 //
 //    @Test
 //    fun successfulLoad() {
@@ -49,6 +49,42 @@
 //                )
 //            )
 //    }
+
+    @Test
+    fun rescheduleTask() {
+        val incompleteTask = Task(
+            id = "TEST ID",
+            description = "Test task",
+            scheduledDateMillis = 0L,
+            completed = false
+        )
+
+        val taskList = listOf(incompleteTask)
+
+        val taskListResult = Result.Success(taskList)
+
+        testRobot
+            .mockTaskListResultForDate(
+                date = LocalDate.now(),
+                result = flowOf(taskListResult)
+            )
+            .buildViewModel()
+            .clickRescheduleButton(incompleteTask)
+            .assertViewState(
+                expectedViewState = TaskListViewState(
+                    showLoading = false,
+                    incompleteTasks = listOf(incompleteTask),
+                    completedTasks = emptyList(),
+                    taskToReschedule = incompleteTask
+                )
+            )
+            .rescheduleTaskForDate(
+                task = incompleteTask,
+                date = LocalDate.now().plusDays(1)
+            )
+    }
+
+
 //
 //    @Test
 //    fun clickPreviousDate() {
@@ -116,4 +152,6 @@
 //                )
 //            )
 //    }
-//}
+}
+
+

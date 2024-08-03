@@ -11,7 +11,7 @@ import javax.inject.Inject
  * inside of the given repository.
  */
 class ProdRescheduleTaskForDateUseCase @Inject constructor(
-    private val repository: TaskRepository
+    private val taskRepository: TaskRepository
 ) : RescheduleTaskUseCase {
 
     override suspend fun invoke(task: Task, newDate: LocalDate) {
@@ -19,6 +19,6 @@ class ProdRescheduleTaskForDateUseCase @Inject constructor(
             scheduledDateMillis = newDate.toEpochMillis()
         )
 
-        repository.updateTask(updatedTask)
+        taskRepository.updateTask(updatedTask)
     }
 }
