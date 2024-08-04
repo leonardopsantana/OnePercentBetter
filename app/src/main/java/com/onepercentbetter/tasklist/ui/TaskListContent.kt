@@ -5,7 +5,6 @@ import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -20,7 +19,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.KeyboardArrowRight
-import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -81,29 +79,15 @@ fun TaskListContent(
     onReschedulingCompleted: () -> Unit,
     onAlertMessageShown: () -> Unit
 ) {
-    val coroutineScope = rememberCoroutineScope()
-
     val snackbarHostState = remember {
         SnackbarHostState()
     }
 
-    if (viewState.alertMessage != null) {
-        val message = viewState.alertMessage.getString()
-
-        LaunchedEffect(snackbarHostState) {
-            coroutineScope.launch {
-                val snackbarResult = snackbarHostState.showSnackbar(message = message)
-
-                when (snackbarResult) {
-                    SnackbarResult.Dismissed -> {
-                        onAlertMessageShown.invoke()
-                    }
-
-                    SnackbarResult.ActionPerformed -> {}
-                }
-            }
-        }
-    }
+    TaskListSnackbar(
+        alertMessage = viewState.alertMessage,
+        snackbarHostState = snackbarHostState,
+        onAlertMessageShown = onAlertMessageShown
+    )
 
     Scaffold(
         floatingActionButton = {
@@ -156,6 +140,33 @@ fun TaskListContent(
                         .wrapContentSize()
                         .align(Alignment.Center),
                 )
+            }
+        }
+    }
+}
+
+@Composable
+private fun TaskListSnackbar(
+    alertMessage: UIText?,
+    snackbarHostState: SnackbarHostState,
+    onAlertMessageShown: () -> Unit
+) {
+    val coroutineScope = rememberCoroutineScope()
+
+    if (alertMessage != null) {
+        val message = alertMessage.getString()
+
+        LaunchedEffect(snackbarHostState) {
+            coroutineScope.launch {
+                val snackbarResult = snackbarHostState.showSnackbar(message = message)
+
+                when (snackbarResult) {
+                    SnackbarResult.Dismissed -> {
+                        onAlertMessageShown.invoke()
+                    }
+
+                    SnackbarResult.ActionPerformed -> {}
+                }
             }
         }
     }
