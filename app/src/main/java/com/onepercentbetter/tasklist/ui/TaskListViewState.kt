@@ -2,6 +2,7 @@ package com.onepercentbetter.tasklist.ui
 
 import com.onepercentbetter.R
 import com.onepercentbetter.core.model.Task
+import com.onepercentbetter.core.ui.AlertMessage
 import com.onepercentbetter.core.ui.components.UIText
 import com.onepercentbetter.core.utils.getStSuffixForDayOfMonth
 import java.time.LocalDate
@@ -26,7 +27,7 @@ data class TaskListViewState(
     val errorMessage: UIText? = null,
     val selectedDate: LocalDate = LocalDate.now(),
     val taskToReschedule: Task? = null,
-    val alertMessage: UIText? = null
+    val alertMessage: AlertMessage? = null
 ) {
     /**
      * As long as we are not in a loading error scenario, we can show the task list (or empty state)

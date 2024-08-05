@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.SnackbarDuration
 import androidx.compose.material.SnackbarHost
 import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.SnackbarResult
@@ -48,6 +49,7 @@ import com.google.accompanist.insets.statusBarsPadding
 import com.onepercentbetter.ExcludeFromJacocoGeneratedReport
 import com.onepercentbetter.R
 import com.onepercentbetter.core.model.Task
+import com.onepercentbetter.core.ui.AlertMessage
 import com.onepercentbetter.core.ui.adaptiveWidth
 import com.onepercentbetter.core.ui.components.Material3CircularProgressIndicator
 import com.onepercentbetter.core.ui.components.UIText
@@ -131,41 +133,59 @@ fun TaskListContent(
         }
 
         if (viewState.showLoading) {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-            ) {
-                Material3CircularProgressIndicator(
-                    modifier =
-                    Modifier
-                        .wrapContentSize()
-                        .align(Alignment.Center),
-                )
-            }
+            TaskListLoadingContent()
         }
     }
 }
 
 @Composable
+private fun TaskListLoadingContent() {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+    ) {
+        Material3CircularProgressIndicator(
+            modifier =
+            Modifier
+                .wrapContentSize()
+                .align(Alignment.Center),
+        )
+    }
+}
+
+@Composable
 private fun TaskListSnackbar(
-    alertMessage: UIText?,
+    alertMessage: AlertMessage?,
     snackbarHostState: SnackbarHostState,
     onAlertMessageShown: () -> Unit
 ) {
     val coroutineScope = rememberCoroutineScope()
 
     if (alertMessage != null) {
-        val message = alertMessage.getString()
+        val message = alertMessage.message.getString()
+        val actionLabel = alertMessage.actionText?.getString()
+        val duration = when (alertMessage.duration) {
+            AlertMessage.Duration.SHORT -> SnackbarDuration.Short
+            AlertMessage.Duration.LONG -> SnackbarDuration.Long
+            AlertMessage.Duration.INDEFINITE -> SnackbarDuration.Indefinite
+        }
 
         LaunchedEffect(snackbarHostState) {
             coroutineScope.launch {
-                val snackbarResult = snackbarHostState.showSnackbar(message = message)
+                val snackbarResult = snackbarHostState.showSnackbar(
+                    message = message,
+                    actionLabel = actionLabel,
+                    duration = duration
+                )
 
                 when (snackbarResult) {
                     SnackbarResult.Dismissed -> {
                         onAlertMessageShown.invoke()
+                        alertMessage.onDismissed.invoke()
                     }
 
-                    SnackbarResult.ActionPerformed -> {}
+                    SnackbarResult.ActionPerformed -> {
+                        alertMessage.onActionClicked.invoke()
+                    }
                 }
             }
         }

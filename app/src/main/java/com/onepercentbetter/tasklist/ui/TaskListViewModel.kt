@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.onepercentbetter.R
 import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.core.model.Task
+import com.onepercentbetter.core.ui.AlertMessage
 import com.onepercentbetter.core.ui.components.UIText
 import com.onepercentbetter.tasklist.domain.usecases.GetTasksForDateUseCase
 import com.onepercentbetter.tasklist.domain.usecases.MarkTaskAsCompleteUseCase
@@ -46,27 +47,24 @@ constructor(
             }
             .distinctUntilChanged()
             .flatMapLatest { selectedDate ->
-                clearTasksAndShowLoading()
+                _viewState.update {
+                    it.copy(
+                        showLoading = true,
+                        incompleteTasks = null,
+                        completedTasks = null
+                    )
+                }
 
                 getTasksForDateUseCase.invoke(
                     date = selectedDate,
                 )
             }
             .onEach { result ->
-                _viewState.value =
-                    getViewStateTaskListResults(
-                        result,
-                    )
+                _viewState.update {
+                    getViewStateTaskListResults(result)
+                }
             }
             .launchIn(viewModelScope)
-    }
-
-    private fun clearTasksAndShowLoading() {
-        _viewState.value =
-            _viewState.value.copy(
-                showLoading = true,
-                incompleteTasks = null,
-            )
     }
 
     private fun getViewStateTaskListResults(result: Result<List<Task>>): TaskListViewState {
@@ -94,17 +92,19 @@ constructor(
     }
 
     fun onPreviousDateButtonClicked() {
-        _viewState.value =
-            _viewState.value.copy(
+        _viewState.update {
+            it.copy(
                 selectedDate = _viewState.value.selectedDate.minusDays(1),
             )
+        }
     }
 
     fun onNextDateButtonClicked() {
-        _viewState.value =
-            _viewState.value.copy(
+        _viewState.update {
+            it.copy(
                 selectedDate = _viewState.value.selectedDate.plusDays(1),
             )
+        }
     }
 
     fun onDoneButtonClicked(task: Task) {
@@ -114,10 +114,11 @@ constructor(
     }
 
     fun onDateSelected(date: LocalDate) {
-        _viewState.value =
-            _viewState.value.copy(
+        _viewState.update {
+            it.copy(
                 selectedDate = date,
             )
+        }
     }
 
     fun onRescheduleButtonClicked(task: Task) {
@@ -132,32 +133,59 @@ constructor(
         task: Task,
         newDate: LocalDate
     ) {
-        if (newDate < LocalDate.now()){
+        if (newDate < LocalDate.now()) {
             _viewState.update {
                 it.copy(
                     taskToReschedule = null,
-                    alertMessage = UIText.ResourceText(
-                        R.string.err_scheduled_date_in_past
+                    alertMessage = AlertMessage(
+                        message = UIText.ResourceText(R.string.err_scheduled_date_in_past)
                     )
                 )
             }
 
             return
         }
-        viewModelScope.launch {
-            rescheduleTaskUseCase.invoke(task, newDate)
-        }
+
+        val taskRescheduleAlertMessage = AlertMessage(
+            message = UIText.StringText("Task Rescheduled for: $newDate"),
+            actionText = UIText.StringText("UNDO"),
+            onActionClicked = {
+                _viewState.update {
+                    val updateTasks = it.incompleteTasks?.plus(task)
+
+                    it.copy(
+                        alertMessage = null,
+                        incompleteTasks = updateTasks
+                    )
+                }
+            },
+            onDismissed = {
+                viewModelScope.launch {
+                    rescheduleTaskUseCase.invoke(task, newDate)
+
+                    _viewState.update {
+                        it.copy(
+                            taskToReschedule = null,
+                            alertMessage = null
+                        )
+                    }
+                }
+            },
+            duration = AlertMessage.Duration.LONG
+        )
 
         _viewState.update {
+            val tempTasks = it.incompleteTasks?.minus(task)
+
             it.copy(
-                taskToReschedule = null
+                taskToReschedule = null,
+                incompleteTasks = tempTasks,
+                alertMessage = taskRescheduleAlertMessage
             )
         }
-
-        onReschedulingCompleted()
     }
 
-    fun onAlertMessageShown(){
+    fun onAlertMessageShown() {
         _viewState.update {
             it.copy(
                 alertMessage = null
@@ -165,7 +193,7 @@ constructor(
         }
     }
 
-    fun onReschedulingCompleted(){
+    fun onReschedulingCompleted() {
         _viewState.update {
             it.copy(
                 taskToReschedule = null
