@@ -12,7 +12,7 @@ data class AlertMessage(
     val message: UIText,
     val actionText: UIText? = null,
     val onActionClicked: () -> Unit = {},
-    val onDismissed: () ->  Unit = {},
+    val onDismissed: () -> Unit = {},
     val id: Long = UUID.randomUUID().mostSignificantBits,
     val duration: Duration = Duration.SHORT
 ) {
@@ -25,6 +25,23 @@ data class AlertMessage(
         LONG,
         INDEFINITE
     }
+
+    override fun equals(other: Any?): Boolean {
+        return other is AlertMessage
+            && other.message == this.message
+            && other.actionText == this.actionText
+            && other.duration == this.duration
+    }
+
+    override fun hashCode(): Int {
+        var result = message.hashCode()
+        result = 31 * result + (actionText?.hashCode() ?: 0)
+        result = 31 * result + id.hashCode()
+        result = 31 * result + duration.hashCode()
+        return result
+    }
+
+
 }
 
 

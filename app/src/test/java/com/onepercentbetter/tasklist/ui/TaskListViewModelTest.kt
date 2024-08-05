@@ -4,6 +4,7 @@ import com.onepercentbetter.CoroutinesTestRule
 import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.R
 import com.onepercentbetter.core.model.Task
+import com.onepercentbetter.core.ui.AlertMessage
 import com.onepercentbetter.core.ui.components.UIText
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
@@ -51,7 +52,7 @@ class TaskListViewModelTest {
 //    }
 
     @Test
-    fun rescheduleTask() {
+    fun rescheduleTaskTriggersAlertMessage() {
         val incompleteTask = Task(
             id = "TEST ID",
             description = "Test task",
@@ -84,6 +85,20 @@ class TaskListViewModelTest {
                 task = incompleteTask,
                 date = tomorrow
             )
+            .assertViewState(
+                expectedViewState = TaskListViewState(
+                    showLoading = false,
+                    incompleteTasks = emptyList(),
+                    completedTasks = emptyList(),
+                    taskToReschedule = null,
+                    alertMessage = AlertMessage(
+                        message = UIText.ResourceText(R.string.task_rescheduled),
+                        actionText = UIText.ResourceText(R.string.undo),
+                        duration = AlertMessage.Duration.LONG
+                    )
+                )
+            )
+            .dismissAlertMessage()
             .assertTaskRescheduleForDate(
                 task = incompleteTask,
                 date = tomorrow
@@ -130,8 +145,10 @@ class TaskListViewModelTest {
                     incompleteTasks = listOf(incompleteTask),
                     completedTasks = emptyList(),
                     taskToReschedule = incompleteTask,
-                    alertMessage = UIText.ResourceText(
-                        R.string.err_scheduled_date_in_past
+                    alertMessage = AlertMessage(
+                        message = UIText.ResourceText(
+                            R.string.err_scheduled_date_in_past
+                        )
                     )
                 )
             )

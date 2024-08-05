@@ -1,5 +1,6 @@
 package com.onepercentbetter.tasklist.ui
 
+import androidx.lifecycle.viewModelScope
 import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat
 import com.onepercentbetter.core.model.Task
@@ -76,5 +77,9 @@ class TaskListViewModelRobot {
 
     fun showAlertMessage() = apply {
         viewModel.onAlertMessageShown()
+    }
+
+    fun dismissAlertMessage() = apply {
+        viewModel.viewState.value.alertMessage?.onDismissed?.invoke()
     }
 }

@@ -107,9 +107,59 @@ constructor(
         }
     }
 
+    /**
+     * When the done button is clicked, we will render an alert message that states a task has
+     * been accomplished, but if provides an undo button to revert this action. We show a temporary
+     * state, that indicates the task is done, but we don´t actually commit anything to the
+     * [markTaskAsCompleteUseCase] until the message is dismissed.
+     */
     fun onDoneButtonClicked(task: Task) {
-        viewModelScope.launch {
-            markTaskAsCompleteUseCase.invoke(task)
+        val taskAccomplishedAlertMessage = AlertMessage(
+            message = UIText.ResourceText(R.string.task_accomplished),
+            actionText = UIText.ResourceText(R.string.undo),
+            onActionClicked = {
+                _viewState.update {
+                    val taskAsComplete = task.copy(
+                        completed = true
+                    )
+                    val incompleteTasksToUse = it.incompleteTasks?.plus(task)
+                    val completedTasksToUse = it.completedTasks?.minus(taskAsComplete)
+
+                    it.copy(
+                        alertMessage = null,
+                        incompleteTasks = incompleteTasksToUse,
+                        completedTasks = completedTasksToUse
+                    )
+                }
+            },
+            onDismissed = {
+                viewModelScope.launch {
+                    markTaskAsCompleteUseCase.invoke(task)
+
+                    _viewState.update {
+                        it.copy(
+                            alertMessage = null
+                        )
+                    }
+                }
+            },
+            duration = AlertMessage.Duration.LONG
+        )
+
+        _viewState.update {
+            val taskAsComplete = task.copy(
+                completed = true
+            )
+
+            val incompleteTasksToUse = it.incompleteTasks?.minus(task)
+            val completedTasksToUse = it.completedTasks?.plus(taskAsComplete)
+
+            it.copy(
+                taskToReschedule = null,
+                incompleteTasks = incompleteTasksToUse,
+                completedTasks = completedTasksToUse,
+                alertMessage = taskAccomplishedAlertMessage
+            )
         }
     }
 
@@ -129,6 +179,12 @@ constructor(
         }
     }
 
+    /**
+     * When a task is reschedule, we will render an alert message that states a task has
+     * been rescheduled, but if provides an undo button to revert this action. We show a temporary
+     * state, that indicates the task is rescheduled, but we don´t actually commit anything to the
+     * [rescheduleTaskUseCase] until the message is dismissed.
+     */
     fun onTaskRescheduled(
         task: Task,
         newDate: LocalDate
@@ -147,8 +203,8 @@ constructor(
         }
 
         val taskRescheduleAlertMessage = AlertMessage(
-            message = UIText.StringText("Task Rescheduled for: $newDate"),
-            actionText = UIText.StringText("UNDO"),
+            message = UIText.ResourceText(R.string.task_rescheduled),
+            actionText = UIText.ResourceText(R.string.undo),
             onActionClicked = {
                 _viewState.update {
                     val updateTasks = it.incompleteTasks?.plus(task)
