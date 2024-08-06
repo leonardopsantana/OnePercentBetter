@@ -37,6 +37,27 @@ for taking the results of an action, and mapping into a ViewState. The Use Case 
 whatever happens in between - consuming from data requests, and mapping that into a relevant result
 for ViewModel to handle.
 
+### When to use Use Cases
+
+In general, adding a use case adds an extra layer of complexity to screen that may not always be
+warranted. I prefer to have a ViewModel directly on the Repository, If a piece of logic does more
+than just invoke from our data source (such as data manipulation or input validation), or needs
+to combine data from multiple data sources, moving this logic into a use case can help with
+organization and testing.
+
+### Use Case Interfaces
+
+In some implementations, we often see use cases backed by an interface, like so:
+
+`interface MarkTaskAsComplete {}
+class MarkTaskAsCompleteUseCaseImpl : MarkTaskAsComplete {}`
+
+While this approach can be beneficial for testing, in general just adds even more complexity.
+Use cases should be as their own individual class so that in our tests we can test the full
+integration
+between view models and their use cases. Interfaces only should be added for truly complex use cases
+that we may have difficulty writing full integrations tests for.
+
 ## ViewModel
 
 This layer is responsible for connecting the view with any relevant use cases. The ViewModel
@@ -55,47 +76,50 @@ If a screen has multiple complex views or multiple responsibilities, it's possib
 multiple ViewModel dependencies.
 
 # Tech stack:
-  GITHUB actions - CI build
-    Created some workflows inside .github folder that will trigger in defined steps
-    Definition of PR check that must be done in order to get the PR merged
-  
-  DANGER - automated messages on PRs
-    Created a rule to not allow empty PRs
-    Thanks the developer for a new PR and others messages in PRs :)
 
-  KTLint - lint for kotlin classes
-    Helps write better code with formatting and a set of default rules (https://github.com/pinterest/ktlint)   
+GITHUB actions - CI build
+Created some workflows inside .github folder that will trigger in defined steps
+Definition of PR check that must be done in order to get the PR merged
 
-  DETEKT - alerts for code smells, bad implementations...
-    Helps write better code by checking the code increasing the quality (https://github.com/detekt/detekt)
-  
-  GITHOOKS - setup phases for pre-commit and pre-push so we can format and detekt code
-    Gradle step do installGitHooks on every clean
-  
-  THEME USING COMPOSE LIBRARY:  
-    Colors - app palette 
-    Typographic - urbanist by google fonts
-    Buttons - primary and secondary
-    Inputs - textfield outline
-    Logo - add drawable resource
-    LoginUI - first screen with compose
+DANGER - automated messages on PRs
+Created a rule to not allow empty PRs
+Thanks the developer for a new PR and others messages in PRs :)
 
-  TESTS:
-    TURBINE - Testing Flows
-    Junit rule - Coroutine main override
-    Truth - Assertions semantically good to use
-    Kover - Code coverage reports
-    Robot Pattern
+KTLint - lint for kotlin classes
+Helps write better code with formatting and a set of default
+rules (https://github.com/pinterest/ktlint)
 
-  DEPENDENCY INJECTION:
-    Dagger/Hilt
+DETEKT - alerts for code smells, bad implementations...
+Helps write better code by checking the code increasing the
+quality (https://github.com/detekt/detekt)
 
-  NAVIGATION:
-    Compose destinations
+GITHOOKS - setup phases for pre-commit and pre-push so we can format and detekt code
+Gradle step do installGitHooks on every clean
 
-  CALENDAR PICKER:  
-    External library: https://github.com/PranavMaganti/compose-material-dialogs
+THEME USING COMPOSE LIBRARY:
+Colors - app palette
+Typographic - urbanist by google fonts
+Buttons - primary and secondary
+Inputs - textfield outline
+Logo - add drawable resource
+LoginUI - first screen with compose
 
-  PERSISTABLE DATA:
-    Room database
-    
+TESTS:
+TURBINE - Testing Flows
+Junit rule - Coroutine main override
+Truth - Assertions semantically good to use
+Kover - Code coverage reports
+Robot Pattern
+
+DEPENDENCY INJECTION:
+Dagger/Hilt
+
+NAVIGATION:
+Compose destinations
+
+CALENDAR PICKER:
+External library: https://github.com/PranavMaganti/compose-material-dialogs
+
+PERSISTABLE DATA:
+Room database
+
