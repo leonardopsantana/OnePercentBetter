@@ -90,7 +90,8 @@
 //                .buildViewModel()
 //                .mockLoginResultForCredentials(
 //                    credentials = completedCredentials,
-//                    result = LoginResult.Failure.InvalidCredentials,
+//                    result = Result.Error(InvalidCredentialsException()),,
+//                ),
 //                )
 //                .expectedViewStates(
 //                    action = {
@@ -140,7 +141,9 @@
 //                .buildViewModel()
 //                .mockLoginResultForCredentials(
 //                    credentials = completedCredentials,
-//                    result = LoginResult.Failure.Unknown,
+//                     result = Result.Error(
+//                    Throwable("Failed."),
+//                ),
 //                )
 //                .expectedViewStates(
 //                    action = {
@@ -175,14 +178,6 @@
 //
 //            testRobot
 //                .buildViewModel()
-//                .mockLoginResultForCredentials(
-//                    credentials = credentials,
-//                    result =
-//                        LoginResult.Failure.EmptyCredentials(
-//                            emptyEmail = true,
-//                            emptyPassword = true,
-//                        ),
-//                )
 //                .expectedViewStates(
 //                    action = {
 //                        clickLoginButton()
@@ -219,13 +214,6 @@
 ////
 ////        testRobot
 ////            .buildViewModel()
-////            .mockLoginResultForCredentials(
-////                credentials = credentials,
-////                result = LoginResult.Failure.EmptyCredentials(
-////                    emptyEmail = true,
-////                    emptyPassword = true,
-////                )
-////            )
 ////            .expectedViewStates(
 ////                action = {
 ////                    clickLoginButton()

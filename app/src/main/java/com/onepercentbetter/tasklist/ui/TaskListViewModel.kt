@@ -183,15 +183,9 @@ constructor(
         }
     }
 
-    /**
-     * When a task is reschedule, we will render an alert message that states a task has
-     * been rescheduled, but if provides an undo button to revert this action. We show a temporary
-     * state, that indicates the task is rescheduled, but we don´t actually commit anything to the
-     * [rescheduleTaskUseCase] until the message is dismissed.
-     */
     fun onTaskRescheduled(
         task: Task,
-        newDate: LocalDate
+        newDate: LocalDate,
     ) {
         if (newDate < LocalDate.now()) {
             _viewState.update {
@@ -206,16 +200,15 @@ constructor(
             return
         }
 
-        val taskRescheduleAlertMessage = AlertMessage(
+        val taskRescheduledAlertMessage = AlertMessage(
             message = UIText.ResourceText(R.string.task_rescheduled),
             actionText = UIText.ResourceText(R.string.undo),
             onActionClicked = {
                 _viewState.update {
-                    val updateTasks = it.incompleteTasks?.plus(task)
+                    val updatedTasks = it.incompleteTasks?.plus(task)
 
                     it.copy(
-                        alertMessage = null,
-                        incompleteTasks = updateTasks
+                        incompleteTasks = updatedTasks,
                     )
                 }
             },
@@ -226,12 +219,11 @@ constructor(
                     _viewState.update {
                         it.copy(
                             taskToReschedule = null,
-                            alertMessage = null
                         )
                     }
                 }
             },
-            duration = AlertMessage.Duration.LONG
+            duration = AlertMessage.Duration.LONG,
         )
 
         _viewState.update {
@@ -240,7 +232,7 @@ constructor(
             it.copy(
                 taskToReschedule = null,
                 incompleteTasks = tempTasks,
-                alertMessage = taskRescheduleAlertMessage
+                alertMessage = taskRescheduledAlertMessage
             )
         }
     }

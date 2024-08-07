@@ -2,27 +2,40 @@ package com.onepercentbetter.login.ui
 
 import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat
-import com.onepercentbetter.fakes.FakeCredentialsLoginUseCase
+import com.onepercentbetter.core.data.Result
+import com.onepercentbetter.fakes.FakeLoginRepository
+import com.onepercentbetter.fakes.FakeTokenRepository
 import com.onepercentbetter.login.domain.model.Credentials
-import com.onepercentbetter.login.domain.model.LoginResult
+import com.onepercentbetter.login.domain.model.LoginResponse
+import com.onepercentbetter.login.domain.usecase.ProdCredentialsLoginUseCase
 
 class LoginViewModelRobot {
-    private val fakeCredentialsLoginUseCase = FakeCredentialsLoginUseCase()
+    private val fakeLoginRepository = FakeLoginRepository()
+    private val fakeTokenRepository = FakeTokenRepository()
+
+    private val credentialsLoginUseCase = ProdCredentialsLoginUseCase(
+        loginRepository = fakeLoginRepository.mock,
+        tokenRepository = fakeTokenRepository.mock
+    )
+
     private lateinit var viewModel: LoginViewModel
 
     fun buildViewModel() =
         apply {
             viewModel =
                 LoginViewModel(
-                    credentialsLoginUseCase = fakeCredentialsLoginUseCase.mock,
+                    credentialsLoginUseCase = credentialsLoginUseCase,
                 )
         }
 
     fun mockLoginResultForCredentials(
         credentials: Credentials,
-        result: LoginResult,
+        result: Result<LoginResponse>,
     ) = apply {
-        fakeCredentialsLoginUseCase.mockLoginResultForCredentials(credentials, result)
+        fakeLoginRepository.mockLoginWithCredentials(
+            credentials,
+            result
+        )
     }
 
     fun enterEmail(email: String) =

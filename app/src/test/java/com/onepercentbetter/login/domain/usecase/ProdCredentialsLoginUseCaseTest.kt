@@ -61,7 +61,7 @@
 ////                    loginRepository = loginRepository.mock,
 ////                    tokenRepository = tokenRepository.mock,
 ////                )
-////            val useCaseResult = useCase(defaultCredentials)
+////            val useCaseResult = useCase.login(defaultCredentials)
 ////
 ////            assertThat(useCaseResult).isEqualTo(LoginResult.Success)
 ////            tokenRepository.verifyTokenStore(defaultToken)
@@ -88,7 +88,7 @@
 ////                    tokenRepository = tokenRepository.mock,
 ////                )
 ////
-////            val useCaseResult = useCase(defaultCredentials)
+////            val useCaseResult = useCase.login(defaultCredentials)
 ////
 ////            assertThat(useCaseResult).isEqualTo(LoginResult.Failure.Unknown)
 ////            tokenRepository.verifyNoTokenStore()
@@ -115,7 +115,7 @@
 ////                    tokenRepository = tokenRepository.mock,
 ////                )
 ////
-////            val useCaseResult = useCase(defaultCredentials)
+////            val useCaseResult = useCase.login(defaultCredentials)
 ////
 ////            assertThat(useCaseResult).isEqualTo(LoginResult.Failure.InvalidCredentials)
 ////            tokenRepository.verifyNoTokenStore()
@@ -132,7 +132,7 @@
 ////                    tokenRepository = tokenRepository.mock,
 ////                )
 ////
-////            val result = useCase(emptyCredentials)
+////            val result = useCase.login(emptyCredentials)
 ////            assertThat(result).isEqualTo(
 ////                LoginResult.Failure.EmptyCredentials(
 ////                    emptyEmail = true,
