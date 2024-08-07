@@ -4,7 +4,7 @@ import com.google.common.truth.Truth.assertThat
 import com.onepercentbetter.addtask.domain.model.AddTaskResult
 import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.core.model.Task
-import com.onepercentbetter.task.api.test.FakeTaskRepository
+import com.onepercentbetter.fakes.FakeTaskRepository
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import java.time.LocalDate
@@ -12,7 +12,7 @@ import java.time.ZoneId
 import java.time.ZonedDateTime
 
 class ProdAddTaskUseCaseTest {
-    private val fakeTaskRepository = FakeTaskRepository()
+    private val fakeTaskRepository = com.onepercentbetter.fakes.FakeTaskRepository()
 
     private val useCase =
         ProdAddTaskUseCase(

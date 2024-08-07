@@ -14,7 +14,6 @@
             <option value="$PROJECT_DIR$/core-model" />
             <option value="$PROJECT_DIR$/lint-checks" />
             <option value="$PROJECT_DIR$/task-api" />
-            <option value="$PROJECT_DIR$/task-api-test" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

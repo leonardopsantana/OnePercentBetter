@@ -1,21 +1,17 @@
 package com.onepercentbetter.tasklist.ui
 
-import androidx.lifecycle.viewModelScope
-import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat
 import com.onepercentbetter.core.model.Task
 import com.onepercentbetter.fakes.FakeGetTasksForDateUseCase
 import com.onepercentbetter.fakes.FakeRescheduleTaskUseCase
 import com.onepercentbetter.task.api.TaskListResult
-import com.onepercentbetter.task.api.test.FakeTaskRepository
-import com.onepercentbetter.tasklist.domain.usecases.ProdMarkTaskAsCompletedUseCase
-import com.onepercentbetter.tasklist.domain.usecases.ProdRescheduleTaskForDateUseCase
+import com.onepercentbetter.fakes.FakeTaskRepository
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
 
 class TaskListViewModelRobot {
     private val fakeGetTasksForDateUseCase = FakeGetTasksForDateUseCase()
-    private val fakeTaskRepository = FakeTaskRepository()
+    private val fakeTaskRepository = com.onepercentbetter.fakes.FakeTaskRepository()
     private val fakeRescheduleTaskUseCase = FakeRescheduleTaskUseCase()
     private lateinit var viewModel: TaskListViewModel
 
@@ -24,7 +20,7 @@ class TaskListViewModelRobot {
             viewModel =
                 TaskListViewModel(
                     getTasksForDateUseCase = fakeGetTasksForDateUseCase,
-                    markTaskAsCompleteUseCase =
+                    taskRepository =
                     ProdMarkTaskAsCompletedUseCase(
                         taskRepository = fakeTaskRepository,
                     ),

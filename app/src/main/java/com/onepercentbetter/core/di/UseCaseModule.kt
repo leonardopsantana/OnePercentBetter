@@ -2,14 +2,11 @@ package com.onepercentbetter.core.di
 
 import com.onepercentbetter.addtask.domain.usecase.AddTaskUseCase
 import com.onepercentbetter.addtask.domain.usecase.ProdAddTaskUseCase
-import com.onepercentbetter.login.domain.usecase.CredentialsLoginUseCase
 import com.onepercentbetter.login.domain.usecase.ProdCredentialsLoginUseCase
 import com.onepercentbetter.tasklist.domain.usecases.GetAllTasksUseCase
 import com.onepercentbetter.tasklist.domain.usecases.GetTasksForDateUseCase
-import com.onepercentbetter.tasklist.domain.usecases.MarkTaskAsCompleteUseCase
 import com.onepercentbetter.tasklist.domain.usecases.ProdGetAllTasksUseCase
 import com.onepercentbetter.tasklist.domain.usecases.ProdGetTasksForDateUseCase
-import com.onepercentbetter.tasklist.domain.usecases.ProdMarkTaskAsCompletedUseCase
 import com.onepercentbetter.tasklist.domain.usecases.ProdRescheduleTaskForDateUseCase
 import com.onepercentbetter.tasklist.domain.usecases.RescheduleTaskUseCase
 import dagger.Binds
@@ -27,10 +24,6 @@ import dagger.hilt.components.SingletonComponent
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class UseCaseModule {
-    @Binds
-    abstract fun bindsCredentialsLoginUseCase(
-        credentialsLoginUseCase: ProdCredentialsLoginUseCase
-    ): CredentialsLoginUseCase
 
     @Binds
     abstract fun bindsGetAllTasksUseCase(
@@ -46,11 +39,6 @@ abstract class UseCaseModule {
     abstract fun bindGetTasksForDateUseCase(
         getTasksForDateUseCase: ProdGetTasksForDateUseCase
     ): GetTasksForDateUseCase
-
-    @Binds
-    abstract fun bindTasksMarkTaskAsCompleteUseCase(
-        prodMarkTaskAsCompletedUseCase: ProdMarkTaskAsCompletedUseCase,
-    ): MarkTaskAsCompleteUseCase
 
     @Binds
     abstract fun bindRescheduleTaskUseCase(

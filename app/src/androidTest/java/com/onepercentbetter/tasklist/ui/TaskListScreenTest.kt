@@ -8,7 +8,8 @@ import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.core.ui.components.WindowSize
 import com.onepercentbetter.destinations.AddTaskDialogDestination
 import com.onepercentbetter.destinations.AddTaskScreenDestination
-import com.ramcosta.composedestinations.navigation.EmptyDestinationsNavigator
+import com.onepercentbetter.fakes.FakeRescheduleTaskUseCase
+import com.onepercentbetter.fakes.FakeTaskRepository
 import kotlinx.coroutines.flow.flowOf
 import org.junit.Rule
 import org.junit.Test
@@ -23,7 +24,8 @@ class TaskListScreenTest {
     @Test
     fun navigateToAddTaskScreenForCompactWindowSize() {
         val getTasksForDateUseCase = FakeGetTasksForDateUseCase()
-        val markTaskAsCompleteUseCase = FakeMarkTaskAsCompleteUseCase()
+        val fakeTaskRepository = FakeTaskRepository()
+        val rescheduleTaskUseCase = FakeRescheduleTaskUseCase()
 
         getTasksForDateUseCase.mockResultForDate(
             date = LocalDate.now(),
@@ -37,7 +39,8 @@ class TaskListScreenTest {
 
         val viewModel = TaskListViewModel(
             getTasksForDateUseCase = getTasksForDateUseCase,
-            markTaskAsCompleteUseCase = markTaskAsCompleteUseCase
+            rescheduleTaskUseCase = rescheduleTaskUseCase,
+            taskRepository = fakeTaskRepository
         )
 
         val destinationsNavigator = FakeDestinationsNavigator()
@@ -68,7 +71,8 @@ class TaskListScreenTest {
     @Test
     fun navigateToAddTaskScreenForExpandedWindowSize() {
         val getTasksForDateUseCase = FakeGetTasksForDateUseCase()
-        val markTaskAsCompleteUseCase = FakeMarkTaskAsCompleteUseCase()
+        val fakeTaskRepository = FakeTaskRepository()
+        val rescheduleTaskUseCase = FakeRescheduleTaskUseCase()
 
         getTasksForDateUseCase.mockResultForDate(
             date = LocalDate.now(),
@@ -77,7 +81,8 @@ class TaskListScreenTest {
 
         val viewModel = TaskListViewModel(
             getTasksForDateUseCase = getTasksForDateUseCase,
-            markTaskAsCompleteUseCase = markTaskAsCompleteUseCase
+            rescheduleTaskUseCase = rescheduleTaskUseCase,
+            taskRepository = fakeTaskRepository
         )
 
         val destinationsNavigator = FakeDestinationsNavigator()

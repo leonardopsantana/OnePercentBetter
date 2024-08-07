@@ -8,7 +8,7 @@ import com.onepercentbetter.login.domain.model.Credentials
 import com.onepercentbetter.login.domain.model.Email
 import com.onepercentbetter.login.domain.model.LoginResult
 import com.onepercentbetter.login.domain.model.Password
-import com.onepercentbetter.login.domain.usecase.CredentialsLoginUseCase
+import com.onepercentbetter.login.domain.usecase.ProdCredentialsLoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,7 +20,7 @@ import javax.inject.Inject
 class LoginViewModel
     @Inject
     constructor(
-        private val credentialsLoginUseCase: CredentialsLoginUseCase,
+        private val credentialsLoginUseCase: ProdCredentialsLoginUseCase,
     ) : ViewModel() {
         private val _viewState: MutableStateFlow<LoginViewState> =
             MutableStateFlow(LoginViewState.Initial)
@@ -63,7 +63,7 @@ class LoginViewModel
                 )
 
             viewModelScope.launch {
-                val loginResult = credentialsLoginUseCase(currentCredentials)
+                val loginResult = credentialsLoginUseCase.login(currentCredentials)
 
                 handleLoginResult(currentCredentials, loginResult)
             }

@@ -2,7 +2,7 @@ package com.onepercentbetter.addtask.domain.usecase
 
 import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.core.model.Task
-import com.onepercentbetter.task.api.test.FakeTaskRepository
+import com.onepercentbetter.fakes.FakeTaskRepository
 import com.onepercentbetter.tasklist.domain.usecases.ProdRescheduleTaskForDateUseCase
 import com.onepercentbetter.toEpochMillis
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -12,7 +12,7 @@ import java.time.LocalDate
 
 class ProdRescheduleTaskUseCaseTest {
 
-    private val fakeRepository = FakeTaskRepository()
+    private val fakeRepository = com.onepercentbetter.fakes.FakeTaskRepository()
     private val useCase = ProdRescheduleTaskForDateUseCase(
         taskRepository = fakeRepository
     )
