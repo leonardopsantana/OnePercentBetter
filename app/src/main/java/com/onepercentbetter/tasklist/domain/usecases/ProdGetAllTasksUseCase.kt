@@ -6,7 +6,8 @@ import com.onepercentbetter.task.api.TaskRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class ProdGetAllTasksUseCase
+class
+ProdGetAllTasksUseCase
     @Inject
     constructor(
         private val taskRepository: TaskRepository,

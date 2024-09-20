@@ -1,8 +1,8 @@
 package com.onepercentbetter.core.di
 
 import com.onepercentbetter.core.data.local.RoomTaskRepository
+import com.onepercentbetter.login.domain.repository.DataStoreTokenRepository
 import com.onepercentbetter.login.domain.repository.DemoLoginRepositoryImpl
-import com.onepercentbetter.login.domain.repository.DemoTokenRepositoryImpl
 import com.onepercentbetter.login.domain.repository.LoginRepository
 import com.onepercentbetter.login.domain.repository.TokenRepository
 import com.onepercentbetter.task.api.TaskRepository
@@ -20,7 +20,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 abstract class RepositoryModule {
     @Binds
-    abstract fun bindTokenRepository(tokenRepository: DemoTokenRepositoryImpl): TokenRepository
+    abstract fun bindTokenRepository(tokenRepository: DataStoreTokenRepository): TokenRepository
 
     @Binds
     abstract fun bindLoginRepository(loginRepository: DemoLoginRepositoryImpl): LoginRepository

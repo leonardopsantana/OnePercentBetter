@@ -1,6 +1,7 @@
 package com.onepercentbetter.login.domain.repository
 
 import com.onepercentbetter.login.domain.model.Token
+import kotlinx.coroutines.flow.Flow
 
 /**
  * This repository is responsible for fetching and storing a user's authentication token.
@@ -13,9 +14,14 @@ interface TokenRepository {
     suspend fun storeToken(token: Token)
 
     /**
+     * Clear any cached authentication token.
+     */
+    suspend fun clearToken()
+
+    /**
      * Fetches the auth token of the signed user, if we have one saved
      *
      * @return: The auth token or null if not found.
      */
-    suspend fun fetchToken(): Token?
+    fun observeToken(): Flow<Token?>?
 }

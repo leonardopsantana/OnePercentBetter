@@ -16,7 +16,7 @@ class AddTaskContentTest {
 
     @Test
     fun renderInitialViewState() {
-        val viewState = AddTaskViewState.Initial
+        val viewState = AddTaskViewState.Initial()
 
         composeTestRule.setContent {
             AddTaskContent(
