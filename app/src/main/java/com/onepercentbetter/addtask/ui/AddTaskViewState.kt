@@ -21,8 +21,7 @@ sealed class AddTaskViewState(
 
     data class Active(
         override val taskInput: TaskInput,
-        val descriptionInputErrorMessage: UIText? = null,
-        val scheduledDateInputErrorMessage: UIText? = null,
+        val descriptionInputErrorMessage: UIText? = null
     ) : AddTaskViewState(
         taskInput = taskInput,
     )

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,7 +22,6 @@ import androidx.compose.ui.unit.dp
 import com.onepercentbetter.ExcludeFromJacocoGeneratedReport
 import com.onepercentbetter.R
 import com.onepercentbetter.core.model.Task
-import com.onepercentbetter.core.ui.components.Material3Card
 import com.onepercentbetter.core.ui.theme.OPBTheme
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -104,7 +104,7 @@ private fun EmptySectionCard(
     text: String,
     modifier: Modifier = Modifier,
 ) {
-    Material3Card(
+    Card(
         modifier =
         modifier
             .fillMaxWidth(),

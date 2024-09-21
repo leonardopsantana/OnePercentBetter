@@ -164,59 +164,6 @@ class TaskListViewModelTest {
             )
     }
 
-
-//
-//    @Test
-//    fun clickPreviousDate() {
-//        val today = LocalDate.now()
-//        val yesterday = today.minusDays(1)
-//
-//        val expectedViewState = TaskListViewState(
-//            selectedDate = yesterday,
-//            showLoading = false,
-//            incompleteTasks = emptyList(),
-//            completedTasks = emptyList()
-//        )
-//
-//        testRobot
-//            .mockTaskListResultForDate(
-//                date = today,
-//                result = flowOf(Result.Success(emptyList()))
-//            )
-//            .mockTaskListResultForDate(
-//                date = yesterday,
-//                result = flowOf(Result.Success(emptyList()))
-//            )
-//            .buildViewModel()
-//            .clickPreviousDateButton()
-//            .assertViewState(expectedViewState)
-//    }
-//
-//    @Test
-//    fun clickNextDate() {
-//        val today = LocalDate.now()
-//        val tomorrow = today.plusDays(1)
-//
-//        val expectedViewState = TaskListViewState(
-//            selectedDate = tomorrow,
-//            showLoading = false,
-//            incompleteTasks = emptyList(),
-//            completedTasks = emptyList()
-//        )
-//
-//        testRobot
-//            .mockTaskListResultForDate(
-//                date = today,
-//                result = flowOf(Result.Success(emptyList()))
-//            )
-//            .mockTaskListResultForDate(
-//                date = tomorrow,
-//                result = flowOf(Result.Success(emptyList()))
-//            )
-//            .buildViewModel()
-//            .clickNextDateButton()
-//            .assertViewState(expectedViewState)
-//    }
 //
 //    @Test
 //    fun failureLoad() {

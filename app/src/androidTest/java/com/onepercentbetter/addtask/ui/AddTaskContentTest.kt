@@ -33,13 +33,11 @@ class AddTaskContentTest {
     @Test
     fun renderInvalidInputMessages() {
         val descriptionError = "Description error"
-        val scheduledDateError = "Scheduled date error"
 
         val viewState =
             AddTaskViewState.Active(
                 taskInput = TaskInput(),
-                descriptionInputErrorMessage = UIText.StringText(descriptionError),
-                scheduledDateInputErrorMessage = UIText.StringText(scheduledDateError),
+                descriptionInputErrorMessage = UIText.StringText(descriptionError)
             )
 
         composeTestRule.setContent {
@@ -52,6 +50,5 @@ class AddTaskContentTest {
         }
 
         composeTestRule.onNodeWithText(descriptionError).assertIsDisplayed()
-        composeTestRule.onNodeWithText(scheduledDateError).assertIsDisplayed()
     }
 }

@@ -91,22 +91,6 @@ constructor(
         }
     }
 
-    fun onPreviousDateButtonClicked() {
-        _viewState.update {
-            it.copy(
-                selectedDate = _viewState.value.selectedDate.minusDays(1),
-            )
-        }
-    }
-
-    fun onNextDateButtonClicked() {
-        _viewState.update {
-            it.copy(
-                selectedDate = _viewState.value.selectedDate.plusDays(1),
-            )
-        }
-    }
-
     /**
      * When the done button is clicked, we will render an alert message that states a task has
      * been accomplished, but if provides an undo button to revert this action. We show a temporary

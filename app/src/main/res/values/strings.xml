@@ -4,8 +4,6 @@
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
@@ -32,8 +30,6 @@
     <string name="today">Today</string>
     <string name="tomorrow">Tomorrow</string>
 
-    <string name="view_previous_day_content_description">View Previous Day</string>
-    <string name="view_next_day_content_description">View Next Day</string>
     <string name="completed_tasks_header">Accomplishments</string>
     <string name="no_complete_tasks_label">Tasks you\'ve completed will show up here!</string>
     <string name="no_incomplete_tasks_label">You\'ve accomplished everything for today!</string>
@@ -43,5 +39,6 @@
     <string name="task_rescheduled">Task Rescheduled</string>
     <string name="task_accomplished">Task Accomplished</string>
     <string name="undo">UNDO</string>
+    <string name="change_date">Change the date</string>
 
 </resources>

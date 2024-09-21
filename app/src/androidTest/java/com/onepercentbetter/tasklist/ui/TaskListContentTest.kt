@@ -32,65 +32,6 @@ class TaskListContentTest {
             completed = false,
         )
 
-    @Test
-    fun clickPreviousDateButton() {
-        var hasClickedPreviousDate = false
-
-        composeTestRule.setContent {
-            TaskListContent(
-                viewState = TaskListViewState(),
-                onRescheduleClicked = {},
-                onDoneClicked = {},
-                onAddButtonClicked = { },
-                onPreviousDateButtonClicked = {
-                    hasClickedPreviousDate = true
-                },
-                onNextDateButtonClicked = {},
-                onDateSelected = {},
-                onTaskRescheduled = { _, _ ->
-
-                },
-                onReschedulingCompleted = {},
-                onAlertMessageShown = {}
-            )
-        }
-
-        composeTestRule
-            .onNodeWithContentDescription(composeTestRule.activity.getString(R.string.view_previous_day_content_description))
-            .performClick()
-
-        assertThat(hasClickedPreviousDate).isTrue()
-    }
-
-    @Test
-    fun clickNextDateButton() {
-        var hasClickedNextDate = false
-
-        composeTestRule.setContent {
-            TaskListContent(
-                viewState = TaskListViewState(),
-                onRescheduleClicked = {},
-                onDoneClicked = {},
-                onAddButtonClicked = { },
-                onPreviousDateButtonClicked = {},
-                onNextDateButtonClicked = {
-                    hasClickedNextDate = true
-                },
-                onDateSelected = {},
-                onTaskRescheduled = { _, _ ->
-
-                },
-                onReschedulingCompleted = {},
-                onAlertMessageShown = {}
-            )
-        }
-
-        composeTestRule
-            .onNodeWithContentDescription(composeTestRule.activity.getString(R.string.view_next_day_content_description))
-            .performClick()
-
-        assertThat(hasClickedNextDate).isTrue()
-    }
 
     @Test
     fun renderWithNoTasks() {
@@ -107,8 +48,6 @@ class TaskListContentTest {
                 onRescheduleClicked = {},
                 onDoneClicked = {},
                 onAddButtonClicked = {},
-                onPreviousDateButtonClicked = {},
-                onNextDateButtonClicked = {},
                 onDateSelected = {},
                 onTaskRescheduled = { _, _ ->
 
@@ -146,8 +85,6 @@ class TaskListContentTest {
                 onRescheduleClicked = {},
                 onDoneClicked = {},
                 onAddButtonClicked = {},
-                onPreviousDateButtonClicked = {},
-                onNextDateButtonClicked = {},
                 onDateSelected = {},
                 onTaskRescheduled = { _, _ ->
 
@@ -185,8 +122,6 @@ class TaskListContentTest {
                 onRescheduleClicked = {},
                 onDoneClicked = {},
                 onAddButtonClicked = {},
-                onPreviousDateButtonClicked = {},
-                onNextDateButtonClicked = {},
                 onDateSelected = {},
                 onTaskRescheduled = { _, _ ->
 

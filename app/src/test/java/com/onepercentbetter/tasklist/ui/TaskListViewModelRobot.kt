@@ -38,16 +38,6 @@ class TaskListViewModelRobot {
         fakeGetTasksForDateUseCase.mockResultForDate(date, result)
     }
 
-    fun clickPreviousDateButton() =
-        apply {
-            viewModel.onPreviousDateButtonClicked()
-        }
-
-    fun clickNextDateButton() =
-        apply {
-            viewModel.onNextDateButtonClicked()
-        }
-
     fun clickRescheduleButton(task: Task) = apply {
         viewModel.onRescheduleButtonClicked(task)
     }

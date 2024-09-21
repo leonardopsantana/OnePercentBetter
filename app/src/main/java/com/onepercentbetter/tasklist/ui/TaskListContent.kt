@@ -1,13 +1,8 @@
 package com.onepercentbetter.tasklist.ui
 
 import android.content.res.Configuration
-import androidx.compose.animation.Crossfade
-import androidx.compose.animation.core.tween
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
@@ -18,18 +13,17 @@ import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.SnackbarResult
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.KeyboardArrowLeft
-import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -37,7 +31,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -45,21 +38,19 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.navigationBarsPadding
-import com.google.accompanist.insets.statusBarsPadding
 import com.onepercentbetter.ExcludeFromJacocoGeneratedReport
 import com.onepercentbetter.R
 import com.onepercentbetter.core.model.Task
 import com.onepercentbetter.core.ui.AlertMessage
 import com.onepercentbetter.core.ui.adaptiveWidth
 import com.onepercentbetter.core.ui.components.Material3CircularProgressIndicator
+import com.onepercentbetter.core.ui.components.OPBDatePickerDialog
 import com.onepercentbetter.core.ui.components.UIText
 import com.onepercentbetter.core.ui.components.getString
-import com.onepercentbetter.core.ui.components.md3DatePickerColors
 import com.onepercentbetter.core.ui.theme.OPBTheme
 import com.onepercentbetter.toEpochMillis
-import com.vanpra.composematerialdialogs.MaterialDialog
-import com.vanpra.composematerialdialogs.datetime.date.datepicker
-import com.vanpra.composematerialdialogs.rememberMaterialDialogState
+import com.onepercentbetter.toEpochMillisUTC
+import com.onepercentbetter.toLocalDateUTC
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 
@@ -74,8 +65,6 @@ fun TaskListContent(
     onRescheduleClicked: (Task) -> Unit,
     onDoneClicked: (Task) -> Unit,
     onAddButtonClicked: () -> Unit,
-    onPreviousDateButtonClicked: () -> Unit,
-    onNextDateButtonClicked: () -> Unit,
     onDateSelected: (LocalDate) -> Unit,
     onTaskRescheduled: (Task, LocalDate) -> Unit,
     onReschedulingCompleted: () -> Unit,
@@ -97,10 +86,8 @@ fun TaskListContent(
         },
         topBar = {
             ToolBarWithDialog(
-                onDateSelected,
                 viewState,
-                onPreviousDateButtonClicked,
-                onNextDateButtonClicked
+                onDateSelected
             )
         },
         snackbarHost = {
@@ -192,83 +179,65 @@ private fun TaskListSnackbar(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun RescheduleTaskDialog(
     viewState: TaskListViewState,
     onTaskRescheduled: (Task, LocalDate) -> Unit,
     onDismissed: () -> Unit
 ) {
-    val rescheduleTaskDatePickerDialogState = rememberMaterialDialogState()
+    val taskToReschedule = viewState.taskToReschedule
 
-    LaunchedEffect(viewState) {
-        if (viewState.taskToReschedule != null) {
-            rescheduleTaskDatePickerDialogState.show()
-        }
-    }
-
-    MaterialDialog(
-        dialogState = rescheduleTaskDatePickerDialogState,
-        buttons = {
-            positiveButton(stringResource(R.string.ok))
-            negativeButton(
-                text = stringResource(R.string.cancel),
-                onClick = {
-                    onDismissed.invoke()
-                }
-            )
-        },
-        onCloseRequest = {
-            onDismissed.invoke()
-            it.hide()
-        },
-        backgroundColor = MaterialTheme.colorScheme.surface,
-    ) {
-        this.datepicker(
-            colors = md3DatePickerColors(),
-            onDateChange = { newDate ->
-                viewState.taskToReschedule?.let {
-                    onTaskRescheduled.invoke(
-                        viewState.taskToReschedule,
-                        newDate
-                    )
+    if (taskToReschedule != null) {
+        OPBDatePickerDialog(
+            datePickerState = rememberDatePickerState(
+                initialSelectedDateMillis =
+                taskToReschedule.scheduledDateMillis
+                    .toLocalDateUTC()
+                    .toEpochMillisUTC(),
+            ),
+            onDismiss = onDismissed,
+            onComplete = { selectedDateMillis ->
+                if (selectedDateMillis != null) {
+                    val newDate = selectedDateMillis.toLocalDateUTC()
+                    onTaskRescheduled.invoke(taskToReschedule, newDate)
                 }
             },
-            initialDate = viewState.selectedDate,
         )
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ToolBarWithDialog(
-    onDateSelected: (LocalDate) -> Unit,
     viewState: TaskListViewState,
-    onPreviousDateButtonClicked: () -> Unit,
-    onNextDateButtonClicked: () -> Unit
+    onDateSelected: (LocalDate) -> Unit
 ) {
-    val dialogState = rememberMaterialDialogState()
+    val showDatePickerDialog = remember { mutableStateOf(false) }
 
-    MaterialDialog(
-        dialogState = dialogState,
-        buttons = {
-            positiveButton(stringResource(R.string.ok))
-            negativeButton(stringResource(R.string.cancel))
-        },
-        backgroundColor = MaterialTheme.colorScheme.surface,
-    ) {
-        this.datepicker(
-            colors = md3DatePickerColors(),
-            onDateChange = onDateSelected,
-            initialDate = viewState.selectedDate,
+    if (showDatePickerDialog.value) {
+        OPBDatePickerDialog(
+            datePickerState = rememberDatePickerState(
+                initialSelectedDateMillis = viewState.selectedDate.toEpochMillisUTC(),
+            ),
+            onDismiss = {
+                showDatePickerDialog.value = false
+            },
+            onComplete = { selectedDateMillis ->
+                showDatePickerDialog.value = false
+
+                if (selectedDateMillis != null) {
+                    onDateSelected.invoke(selectedDateMillis.toLocalDateUTC())
+                }
+            }
         )
     }
 
     TaskListToolbar(
-        onLeftButtonClicked = onPreviousDateButtonClicked,
-        onRightButtonClicked = onNextDateButtonClicked,
         title = viewState.selectedDateString.getString(),
-        onTitleClicked = {
-            dialogState.show()
-        }
+        onCalendarIconClicked = {
+            showDatePickerDialog.value = true
+        },
     )
 }
 
@@ -292,70 +261,8 @@ private fun TaskListEmptyState() {
     }
 }
 
-@Suppress("MagicNumber")
 @Composable
-private fun TaskListToolbar(
-    onLeftButtonClicked: () -> Unit,
-    onRightButtonClicked: () -> Unit,
-    title: String,
-    onTitleClicked: () -> Unit = {},
-) {
-    val toolbarHeight = 84.dp
-
-    Surface(
-        color = MaterialTheme.colorScheme.primary,
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier =
-            Modifier
-                .statusBarsPadding()
-                .height(toolbarHeight)
-                .adaptiveWidth(),
-        ) {
-            ToolbarIconButton(
-                icon = Icons.Default.KeyboardArrowLeft,
-                onClick = { onLeftButtonClicked.invoke() },
-                contentDescription = stringResource(R.string.view_previous_day_content_description),
-                toolbarHeight = toolbarHeight,
-            )
-
-            val durationMillisForCrossFadeTitle = 500
-
-            Crossfade(
-                targetState = title,
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(vertical = 16.dp)
-                    .clickable {
-                        onTitleClicked.invoke()
-                    }
-                    .height(toolbarHeight),
-                animationSpec = tween(durationMillisForCrossFadeTitle),
-            ) { title ->
-                Box(modifier = Modifier.fillMaxSize()) {
-                    Text(
-                        text = title,
-                        textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.headlineMedium,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier.align(Alignment.Center)
-                    )
-                }
-            }
-
-            ToolbarIconButton(
-                icon = Icons.Default.KeyboardArrowRight,
-                onClick = { onRightButtonClicked.invoke() },
-                contentDescription = stringResource(R.string.view_next_day_content_description),
-                toolbarHeight = toolbarHeight,
-            )
-        }
-    }
-}
-
-@Composable
-private fun ToolbarIconButton(
+internal fun ToolbarIconButton(
     icon: ImageVector,
     onClick: () -> Unit,
     contentDescription: String,
@@ -473,8 +380,6 @@ private fun TaskListContentPreview(
             onRescheduleClicked = {},
             onDoneClicked = {},
             onAddButtonClicked = {},
-            onPreviousDateButtonClicked = {},
-            onNextDateButtonClicked = {},
             onDateSelected = {},
             onTaskRescheduled = { _, _ ->
             },

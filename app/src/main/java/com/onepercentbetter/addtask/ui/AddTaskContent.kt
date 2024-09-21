@@ -32,7 +32,8 @@ import androidx.compose.ui.unit.dp
 import com.onepercentbetter.ExcludeFromJacocoGeneratedReport
 import com.onepercentbetter.R
 import com.onepercentbetter.addtask.domain.model.TaskInput
-import com.onepercentbetter.core.ui.components.OPBDatePicker
+import com.onepercentbetter.core.ui.components.OPBDatePickerDialog
+import com.onepercentbetter.core.ui.components.OPBDatePickerInput
 import com.onepercentbetter.core.ui.components.OPBTextField
 import com.onepercentbetter.core.ui.components.PrimaryButton
 import com.onepercentbetter.core.ui.components.UIText
@@ -110,10 +111,6 @@ private fun AddTaskInputsColumn(
         TaskDateInput(
             value = viewState.taskInput.scheduledDate,
             onValueChanged = onTaskScheduleDateChanged,
-            errorMessage =
-                (viewState as? AddTaskViewState.Active)
-                    ?.scheduledDateInputErrorMessage
-                    ?.getString(),
         )
         if (viewState is AddTaskViewState.SubmissionError) {
             Text(
@@ -145,14 +142,12 @@ private fun SubmitButton(
 @Composable
 private fun TaskDateInput(
     value: LocalDate,
-    onValueChanged: (LocalDate) -> Unit,
-    errorMessage: String?,
+    onValueChanged: (LocalDate) -> Unit
 ) {
-    OPBDatePicker(
+    OPBDatePickerInput(
         value = value,
         onValueChanged = onValueChanged,
-        modifier = Modifier.fillMaxWidth(),
-        errorMessage = errorMessage,
+        modifier = Modifier.fillMaxWidth()
     )
 }
 
