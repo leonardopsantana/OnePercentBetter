@@ -13,6 +13,7 @@ sealed class UIText {
 
     data class ResourceText(
         @StringRes val value: Int,
+        val args: List<Any> = emptyList()
     ) : UIText()
 }
 
@@ -21,11 +22,11 @@ sealed class UIText {
  *
  * @param[context] If necessary, use this to evaluate a string resource.
  */
-
+@Suppress("SpreadOperator")
 fun UIText.getString(context: Context): String {
     return when (this) {
         is UIText.StringText -> this.value
-        is UIText.ResourceText -> context.getString(this.value)
+        is UIText.ResourceText -> context.getString(this.value, *this.args.toTypedArray())
     }
 }
 

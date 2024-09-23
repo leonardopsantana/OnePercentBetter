@@ -37,7 +37,7 @@
     <string name="ok">OK</string>
     <string name="cancel">CANCEL</string>
     <string name="task_rescheduled">Task Rescheduled</string>
-    <string name="task_accomplished">Task Accomplished</string>
+    <string name="task_accomplished">Task \"%s\" Accomplished</string>
     <string name="undo">UNDO</string>
     <string name="change_date">Change the date</string>
 

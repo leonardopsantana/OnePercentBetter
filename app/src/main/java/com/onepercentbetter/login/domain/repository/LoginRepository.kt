@@ -1,6 +1,5 @@
 package com.onepercentbetter.login.domain.repository
 
-import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.login.domain.model.Credentials
 import com.onepercentbetter.login.domain.model.LoginResponse
 

@@ -24,9 +24,7 @@ fun TaskListScreen(
         TaskListContent(
             viewState = viewState.value,
             onRescheduleClicked = viewModel::onRescheduleButtonClicked,
-            onDoneClicked = {
-                viewModel.onDoneButtonClicked(it)
-            },
+            onDoneClicked = viewModel::onDoneButtonClicked,
             onAddButtonClicked = {
                 val navArgs = AddTaskNavArguments(
                     initDate = viewState.value.selectedDate
@@ -46,7 +44,7 @@ fun TaskListScreen(
             onDateSelected = viewModel::onDateSelected,
             onTaskRescheduled = viewModel::onTaskRescheduled,
             onReschedulingCompleted = viewModel::onReschedulingCompleted,
-            onAlertMessageShown = viewModel::onAlertMessageShown
+            onAlertMessageShown = viewModel::onAlertMessageShown,
         )
     }
 }

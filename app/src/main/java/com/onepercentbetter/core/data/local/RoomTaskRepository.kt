@@ -1,6 +1,5 @@
 package com.onepercentbetter.core.data.local
 
-import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.core.model.Task
 import com.onepercentbetter.task.api.TaskListResult
 import com.onepercentbetter.task.api.TaskRepository
@@ -22,7 +21,7 @@ constructor(
         return taskDAO
             .fetchAllTasks()
             .map { taskList ->
-                Result.Success(taskList.toDomainTaskList())
+                Result.success(taskList.toDomainTaskList())
             }
     }
 
@@ -39,14 +38,14 @@ constructor(
         return taskDAO
             .fetchTasksForDate(localDate.toPersistableDateString(), completed)
             .map { taskList ->
-                Result.Success(taskList.toDomainTaskList())
+                Result.success(taskList.toDomainTaskList())
             }
     }
 
     override suspend fun addTask(task: Task): Result<Unit> {
         taskDAO.insertTask(task.toPersistableTask())
 
-        return Result.Success(Unit)
+        return Result.success(Unit)
     }
 
     override suspend fun deleteTask(task: Task): Result<Unit> {
@@ -56,7 +55,7 @@ constructor(
     override suspend fun updateTask(task: Task): Result<Unit> {
         taskDAO.updateTask(task.toPersistableTask())
 
-        return Result.Success(Unit)
+        return Result.success(Unit)
     }
 }
 

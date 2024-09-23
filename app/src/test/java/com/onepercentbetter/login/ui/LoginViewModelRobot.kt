@@ -2,7 +2,6 @@ package com.onepercentbetter.login.ui
 
 import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat
-import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.fakes.FakeLoginRepository
 import com.onepercentbetter.fakes.FakeTokenRepository
 import com.onepercentbetter.login.domain.model.Credentials

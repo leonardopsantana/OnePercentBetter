@@ -2,9 +2,7 @@ package com.onepercentbetter.addtask.domain.usecase
 
 import com.google.common.truth.Truth.assertThat
 import com.onepercentbetter.addtask.domain.model.AddTaskResult
-import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.core.model.Task
-import com.onepercentbetter.fakes.FakeTaskRepository
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import java.time.LocalDate
@@ -114,7 +112,7 @@ class ProdAddTaskUseCaseTest {
                     description = "Testing",
                 )
 
-            fakeTaskRepository.addTasksResults[expectedSavedTask] = Result.Success(Unit)
+            fakeTaskRepository.addTasksResults[expectedSavedTask] = Result.success(Unit)
 
             val expectedResult = AddTaskResult.Success
             val actualResult = useCase.invoke(inputTask)

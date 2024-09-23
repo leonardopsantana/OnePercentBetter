@@ -4,7 +4,6 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import com.onepercentbetter.FakeDestinationsNavigator
-import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.core.ui.components.WindowSize
 import com.onepercentbetter.destinations.AddTaskDialogDestination
 import com.onepercentbetter.destinations.AddTaskScreenDestination

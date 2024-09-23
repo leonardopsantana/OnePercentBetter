@@ -68,16 +68,16 @@ fun TaskListContent(
     onDateSelected: (LocalDate) -> Unit,
     onTaskRescheduled: (Task, LocalDate) -> Unit,
     onReschedulingCompleted: () -> Unit,
-    onAlertMessageShown: () -> Unit
+    onAlertMessageShown: (Long) -> Unit,
 ) {
     val snackbarHostState = remember {
         SnackbarHostState()
     }
 
     TaskListSnackbar(
-        alertMessage = viewState.alertMessage,
+        alertMessage = viewState.alertMessages.firstOrNull(),
         snackbarHostState = snackbarHostState,
-        onAlertMessageShown = onAlertMessageShown
+        onAlertMessageShown = onAlertMessageShown,
     )
 
     Scaffold(
@@ -143,10 +143,8 @@ private fun TaskListLoadingContent() {
 private fun TaskListSnackbar(
     alertMessage: AlertMessage?,
     snackbarHostState: SnackbarHostState,
-    onAlertMessageShown: () -> Unit
+    onAlertMessageShown: (Long) -> Unit,
 ) {
-    val coroutineScope = rememberCoroutineScope()
-
     if (alertMessage != null) {
         val message = alertMessage.message.getString()
         val actionLabel = alertMessage.actionText?.getString()
@@ -156,23 +154,22 @@ private fun TaskListSnackbar(
             AlertMessage.Duration.INDEFINITE -> SnackbarDuration.Indefinite
         }
 
-        LaunchedEffect(snackbarHostState) {
-            coroutineScope.launch {
-                val snackbarResult = snackbarHostState.showSnackbar(
-                    message = message,
-                    actionLabel = actionLabel,
-                    duration = duration
-                )
+        LaunchedEffect(alertMessage.id) {
+            val snackbarResult = snackbarHostState.showSnackbar(
+                message = message,
+                actionLabel = actionLabel,
+                duration = duration,
+            )
 
-                when (snackbarResult) {
-                    SnackbarResult.Dismissed -> {
-                        onAlertMessageShown.invoke()
-                        alertMessage.onDismissed.invoke()
-                    }
+            onAlertMessageShown.invoke(alertMessage.id)
 
-                    SnackbarResult.ActionPerformed -> {
-                        alertMessage.onActionClicked.invoke()
-                    }
+            when (snackbarResult) {
+                SnackbarResult.Dismissed -> {
+                    alertMessage.onDismissed.invoke()
+                }
+
+                SnackbarResult.ActionPerformed -> {
+                    alertMessage.onActionClicked.invoke()
                 }
             }
         }

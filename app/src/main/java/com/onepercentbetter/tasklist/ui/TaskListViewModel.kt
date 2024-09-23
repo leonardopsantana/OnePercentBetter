@@ -3,7 +3,6 @@ package com.onepercentbetter.tasklist.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.onepercentbetter.R
-import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.core.model.Task
 import com.onepercentbetter.core.ui.AlertMessage
 import com.onepercentbetter.core.ui.components.UIText
@@ -68,10 +67,10 @@ constructor(
     }
 
     private fun getViewStateTaskListResults(result: Result<List<Task>>): TaskListViewState {
-        return when (result) {
-            is Result.Success -> {
+        return result.fold(
+            onSuccess = { tasks ->
                 val (complete, incomplete) =
-                    result.data.partition { task ->
+                    tasks.partition { task ->
                         task.completed
                     }
 
@@ -80,76 +79,58 @@ constructor(
                     completedTasks = complete,
                     showLoading = false,
                 )
-            }
-
-            is Result.Error -> {
+            },
+            onFailure = {
                 _viewState.value.copy(
                     errorMessage = UIText.StringText("Something went wrong."),
                     showLoading = false,
                 )
             }
-        }
-    }
-
-    /**
-     * When the done button is clicked, we will render an alert message that states a task has
-     * been accomplished, but if provides an undo button to revert this action. We show a temporary
-     * state, that indicates the task is done, but we don´t actually commit anything to the
-     * [taskRepository] until the message is dismissed.
-     */
-    fun onDoneButtonClicked(task: Task) {
-        val taskAccomplishedAlertMessage = AlertMessage(
-            message = UIText.ResourceText(R.string.task_accomplished),
-            actionText = UIText.ResourceText(R.string.undo),
-            onActionClicked = {
-                _viewState.update {
-                    val taskAsComplete = task.copy(
-                        completed = true
-                    )
-                    val incompleteTasksToUse = it.incompleteTasks?.plus(task)
-                    val completedTasksToUse = it.completedTasks?.minus(taskAsComplete)
-
-                    it.copy(
-                        alertMessage = null,
-                        incompleteTasks = incompleteTasksToUse,
-                        completedTasks = completedTasksToUse
-                    )
-                }
-            },
-            onDismissed = {
-                viewModelScope.launch {
-                    val updatedTask = task.copy(
-                        completed = true,
-                    )
-
-                    taskRepository.updateTask(updatedTask)
-
-                    _viewState.update {
-                        it.copy(
-                            alertMessage = null
-                        )
-                    }
-                }
-            },
-            duration = AlertMessage.Duration.LONG
         )
+    }
 
-        _viewState.update {
-            val taskAsComplete = task.copy(
-                completed = true
-            )
+    fun onDoneButtonClicked(task: Task) {
+        markTaskAsComplete(task)
+        val taskAccomplishedAlertMessage = getUndoAlertMessageForTask(task)
+        addAlertMessageToState(taskAccomplishedAlertMessage)
+    }
 
-            val incompleteTasksToUse = it.incompleteTasks?.minus(task)
-            val completedTasksToUse = it.completedTasks?.plus(taskAsComplete)
-
-            it.copy(
-                taskToReschedule = null,
-                incompleteTasks = incompleteTasksToUse,
-                completedTasks = completedTasksToUse,
-                alertMessage = taskAccomplishedAlertMessage
+    private fun addAlertMessageToState(taskAccomplishedAlertMessage: AlertMessage) {
+        _viewState.update { currentState ->
+            currentState.copy(
+                alertMessages = currentState.alertMessages + taskAccomplishedAlertMessage,
             )
         }
     }
+
+    private fun markTaskAsComplete(task: Task) {
+        viewModelScope.launch {
+            val taskAsComplete = task.copy(
+                completed = true,
+            )
+
+            taskRepository.updateTask(taskAsComplete)
+        }
+    }
+
+    private fun getUndoAlertMessageForTask(task: Task) = AlertMessage(
+        message = UIText.ResourceText(R.string.task_accomplished, listOf(task.description)),
+        actionText = UIText.ResourceText(R.string.undo),
+        onActionClicked = {
+            val taskAsIncomplete = task.copy(
+                completed = false,
+            )
+
+            viewModelScope.launch {
+                taskRepository.updateTask(taskAsIncomplete)
+            }
+        },
+        onDismissed = {
+            // Do nothing, we're assuming data source was already updated
+            // as if the task was complete.
+        },
+        duration = AlertMessage.Duration.LONG,
+    )
 
     fun onDateSelected(date: LocalDate) {
         _viewState.update {
@@ -175,7 +156,7 @@ constructor(
             _viewState.update {
                 it.copy(
                     taskToReschedule = null,
-                    alertMessage = AlertMessage(
+                    alertMessages = it.alertMessages + AlertMessage(
                         message = UIText.ResourceText(R.string.err_scheduled_date_in_past)
                     )
                 )
@@ -207,7 +188,7 @@ constructor(
                     }
                 }
             },
-            duration = AlertMessage.Duration.LONG,
+            duration = AlertMessage.Duration.SHORT,
         )
 
         _viewState.update {
@@ -216,15 +197,21 @@ constructor(
             it.copy(
                 taskToReschedule = null,
                 incompleteTasks = tempTasks,
-                alertMessage = taskRescheduledAlertMessage
+                alertMessages = it.alertMessages + taskRescheduledAlertMessage
             )
         }
     }
 
-    fun onAlertMessageShown() {
+    fun onAlertMessageShown(
+        shownId: Long,
+    ) {
         _viewState.update {
+            val newAlertMessages = it.alertMessages.filter { alertMessage ->
+                alertMessage.id != shownId
+            }
+
             it.copy(
-                alertMessage = null
+                alertMessages = newAlertMessages,
             )
         }
     }

@@ -1,6 +1,5 @@
 package com.onepercentbetter.login.domain.repository
 
-import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.login.domain.model.AuthToken
 import com.onepercentbetter.login.domain.model.Credentials
 import com.onepercentbetter.login.domain.model.LoginResponse
@@ -24,6 +23,6 @@ class DemoLoginRepositoryImpl
 
             val defaultResponse = LoginResponse(defaultToken)
 
-            return Result.Success(defaultResponse)
+            return Result.success(defaultResponse)
         }
     }

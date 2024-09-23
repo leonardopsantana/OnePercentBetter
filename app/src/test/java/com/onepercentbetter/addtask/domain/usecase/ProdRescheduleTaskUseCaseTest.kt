@@ -1,8 +1,6 @@
 package com.onepercentbetter.addtask.domain.usecase
 
-import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.core.model.Task
-import com.onepercentbetter.fakes.FakeTaskRepository
 import com.onepercentbetter.tasklist.domain.usecases.ProdRescheduleTaskForDateUseCase
 import com.onepercentbetter.toEpochMillis
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -33,7 +31,7 @@ class ProdRescheduleTaskUseCaseTest {
             scheduledDateMillis = newDate.toEpochMillis(),
         )
 
-        fakeRepository.updateTaskResults[expectedNewTask] = Result.Success(Unit)
+        fakeRepository.updateTaskResults[expectedNewTask] = Result.success(Unit)
 
         useCase.invoke(initialTask, newDate)
     }

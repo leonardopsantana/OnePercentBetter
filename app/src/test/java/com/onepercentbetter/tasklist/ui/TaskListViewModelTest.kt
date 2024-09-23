@@ -1,7 +1,6 @@
 package com.onepercentbetter.tasklist.ui
 
 import com.onepercentbetter.CoroutinesTestRule
-import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.R
 import com.onepercentbetter.core.model.Task
 import com.onepercentbetter.core.ui.AlertMessage
@@ -62,7 +61,7 @@ class TaskListViewModelTest {
 
         val taskList = listOf(incompleteTask)
 
-        val taskListResult = Result.Success(taskList)
+        val taskListResult = Result.success(taskList)
 
         val tomorrow = LocalDate.now().plusDays(1)
 
@@ -91,10 +90,12 @@ class TaskListViewModelTest {
                     incompleteTasks = emptyList(),
                     completedTasks = emptyList(),
                     taskToReschedule = null,
-                    alertMessage = AlertMessage(
-                        message = UIText.ResourceText(R.string.task_rescheduled),
-                        actionText = UIText.ResourceText(R.string.undo),
-                        duration = AlertMessage.Duration.LONG
+                    alertMessages = listOf(
+                        AlertMessage(
+                            message = UIText.ResourceText(R.string.task_rescheduled),
+                            actionText = UIText.ResourceText(R.string.undo),
+                            duration = AlertMessage.Duration.LONG
+                        )
                     )
                 )
             )
@@ -106,7 +107,7 @@ class TaskListViewModelTest {
     }
 
     @Test
-    fun preventRescheduleTaskForPasteDate() {
+    fun preventReschedulingTaskToPastDate() {
         val incompleteTask = Task(
             id = "TEST ID",
             description = "Test task",
@@ -116,9 +117,15 @@ class TaskListViewModelTest {
 
         val taskList = listOf(incompleteTask)
 
-        val taskListResult = Result.Success(taskList)
+        val taskListResult = Result.success(taskList)
 
         val yesterday = LocalDate.now().minusDays(1)
+
+        val alertMessage = AlertMessage(
+            message = UIText.ResourceText(
+                R.string.err_scheduled_date_in_past,
+            ),
+        )
 
         testRobot
             .mockTaskListResultForDate(
@@ -145,11 +152,9 @@ class TaskListViewModelTest {
                     incompleteTasks = listOf(incompleteTask),
                     completedTasks = emptyList(),
                     taskToReschedule = incompleteTask,
-                    alertMessage = AlertMessage(
-                        message = UIText.ResourceText(
-                            R.string.err_scheduled_date_in_past
-                        )
-                    )
+                    alertMessages = listOf(
+                        alertMessage,
+                    ),
                 )
             )
             .showAlertMessage()
@@ -159,7 +164,7 @@ class TaskListViewModelTest {
                     incompleteTasks = listOf(incompleteTask),
                     completedTasks = emptyList(),
                     taskToReschedule = incompleteTask,
-                    alertMessage = null
+                    alertMessages = emptyList(),
                 )
             )
     }

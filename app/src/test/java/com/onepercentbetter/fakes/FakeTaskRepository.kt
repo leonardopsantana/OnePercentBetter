@@ -1,6 +1,5 @@
 package com.onepercentbetter.fakes
 
-import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.core.model.Task
 import com.onepercentbetter.task.api.TaskListResult
 import com.onepercentbetter.task.api.TaskRepository

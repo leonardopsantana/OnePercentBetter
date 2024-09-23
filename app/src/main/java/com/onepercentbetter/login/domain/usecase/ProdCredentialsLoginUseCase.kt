@@ -1,6 +1,5 @@
 package com.onepercentbetter.login.domain.usecase
 
-import com.onepercentbetter.core.data.Result
 import com.onepercentbetter.login.domain.model.Credentials
 import com.onepercentbetter.login.domain.model.InvalidCredentialsException
 import com.onepercentbetter.login.domain.model.LoginResponse
@@ -27,18 +26,19 @@ class ProdCredentialsLoginUseCase
                 return validationResult
             }
 
-            return when (val repoResult = loginRepository.login(credentials)) {
-                is Result.Success -> {
+            val result = loginRepository.login(credentials)
+
+            return result.fold(
+                onSuccess = { loginResponse ->
                     tokenRepository.storeToken(
-                        repoResult.data.token,
+                        loginResponse.token,
                     )
                     LoginResult.Success
+                },
+                onFailure = {
+                    loginResultForError(it)
                 }
-
-                is Result.Error -> {
-                    loginResultForError(repoResult)
-                }
-            }
+            )
         }
 
         /**
@@ -61,11 +61,11 @@ class ProdCredentialsLoginUseCase
         }
 
         /**
-         * Checks the possible error scenarios for the [repoResult] and maps to an appropriate
+         * Checks the possible error scenarios for the [error] and maps to an appropriate
          * [LoginResult.Failure].
          */
-        private fun loginResultForError(repoResult: Result.Error<LoginResponse>) =
-            when (repoResult.error) {
+        private fun loginResultForError(error: Throwable) =
+            when (error) {
                 is InvalidCredentialsException -> {
                     LoginResult.Failure.InvalidCredentials
                 }
