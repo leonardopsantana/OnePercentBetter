@@ -3,7 +3,7 @@ package com.onepercentbetter.tasklist.ui
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
-import com.onepercentbetter.FakeDestinationsNavigator
+import com.onepercentbetter.fakes.FakeDestinationsNavigator
 import com.onepercentbetter.core.ui.components.WindowSize
 import com.onepercentbetter.destinations.AddTaskDialogDestination
 import com.onepercentbetter.destinations.AddTaskScreenDestination
@@ -28,12 +28,12 @@ class TaskListScreenTest {
 
         getTasksForDateUseCase.mockResultForDate(
             date = LocalDate.now(),
-            result = flowOf(Result.Success(emptyList()))
+            result = flowOf(Result.success(emptyList()))
         )
 
         getTasksForDateUseCase.mockResultForDate(
             date = LocalDate.now().plusDays(1),
-            result = flowOf(Result.Success(emptyList()))
+            result = flowOf(Result.success(emptyList()))
         )
 
         val viewModel = TaskListViewModel(
@@ -75,7 +75,7 @@ class TaskListScreenTest {
 
         getTasksForDateUseCase.mockResultForDate(
             date = LocalDate.now(),
-            result = flowOf(Result.Success(emptyList()))
+            result = flowOf(Result.success(emptyList()))
         )
 
         val viewModel = TaskListViewModel(

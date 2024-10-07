@@ -69,6 +69,7 @@ fun TaskListContent(
     onTaskRescheduled: (Task, LocalDate) -> Unit,
     onReschedulingCompleted: () -> Unit,
     onAlertMessageShown: (Long) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     val snackbarHostState = remember {
         SnackbarHostState()
@@ -92,7 +93,8 @@ fun TaskListContent(
         },
         snackbarHost = {
             SnackbarHost(hostState = snackbarHostState)
-        }
+        },
+        modifier = modifier,
     ) { paddingValues ->
         if (viewState.showTasks) {
             if (viewState.incompleteTasks.isNullOrEmpty() &&

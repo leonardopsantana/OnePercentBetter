@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -66,9 +67,10 @@ fun LoginContent(
     onPasswordChanged: (String) -> Unit,
     onLoginClicked: () -> Unit,
     onSignUpClicked: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
     ) {
         LogoInputsColumn(
             viewState = viewState,
@@ -258,6 +260,8 @@ private fun EmptyLoginContentPreview(
             onPasswordChanged = {},
             onLoginClicked = {},
             onSignUpClicked = {},
+            modifier = Modifier.Companion
+                .testTag(LoginScreen.TEST_TAG),
         )
     }
 }

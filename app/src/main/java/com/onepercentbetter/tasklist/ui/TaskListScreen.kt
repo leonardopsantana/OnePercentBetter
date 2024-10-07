@@ -3,6 +3,8 @@ package com.onepercentbetter.tasklist.ui
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.onepercentbetter.addtask.ui.AddTaskNavArguments
 import com.onepercentbetter.core.ui.components.WindowSize
@@ -45,6 +47,12 @@ fun TaskListScreen(
             onTaskRescheduled = viewModel::onTaskRescheduled,
             onReschedulingCompleted = viewModel::onReschedulingCompleted,
             onAlertMessageShown = viewModel::onAlertMessageShown,
+            modifier = Modifier
+                .testTag(TaskListScreen.TEST_TAG),
         )
     }
+}
+
+object TaskListScreen {
+    const val TEST_TAG = "TASK_LIST_SCREEN"
 }

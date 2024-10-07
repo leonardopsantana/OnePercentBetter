@@ -23,5 +23,5 @@ interface TokenRepository {
      *
      * @return: The auth token or null if not found.
      */
-    fun observeToken(): Flow<Token?>?
+    fun observeToken(): Flow<Token?>
 }

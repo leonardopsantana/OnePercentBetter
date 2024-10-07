@@ -13,13 +13,13 @@ import kotlinx.coroutines.flow.Flow
 typealias TasksForDateInput = Pair<Long, Boolean>
 
 class FakeTaskRepository : TaskRepository {
-    lateinit var allTasksResult: Flow<TaskListResult>
+    private lateinit var allTasksResult: Flow<TaskListResult>
 
-    val tasksForDateResults: MutableMap<TasksForDateInput, Flow<TaskListResult>> = mutableMapOf()
+    private val tasksForDateResults: MutableMap<TasksForDateInput, Flow<TaskListResult>> = mutableMapOf()
 
-    val addTasksResults: MutableMap<Task, Result<Unit>> = mutableMapOf()
+    private val addTasksResults: MutableMap<Task, Result<Unit>> = mutableMapOf()
 
-    val updateTaskResults: MutableMap<Task, Result<Unit>> = mutableMapOf()
+    private val updateTaskResults: MutableMap<Task, Result<Unit>> = mutableMapOf()
 
     override fun fetchAllTasks(): Flow<TaskListResult> {
         return allTasksResult

@@ -1,4 +1,4 @@
-package com.onepercentbetter
+package com.onepercentbetter.fakes
 
 import androidx.navigation.NavOptionsBuilder
 import com.google.common.truth.Truth.assertThat

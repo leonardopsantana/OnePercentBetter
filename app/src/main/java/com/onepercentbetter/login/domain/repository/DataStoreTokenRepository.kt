@@ -33,7 +33,7 @@ class DataStoreTokenRepository @Inject constructor(
         }
     }
 
-    override fun observeToken(): Flow<Token?>? {
+    override fun observeToken(): Flow<Token?> {
         return tokenDataStore.data
             .map { dataStoreToken ->
                 Log.d("TokenRepository", "Mapped token: ${dataStoreToken.toToken()}")
