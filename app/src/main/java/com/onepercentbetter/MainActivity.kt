@@ -12,23 +12,23 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.FragmentActivity
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.onepercentbetter.core.ui.components.NavigationTab
-import com.onepercentbetter.core.ui.components.OPBBottomNavigation
-import com.onepercentbetter.core.ui.components.WindowSize
-import com.onepercentbetter.core.ui.components.rememberWindowSizeClass
+import com.onepercentbetter.core.ui.components.navigation.NavigationTab
+import com.onepercentbetter.core.ui.components.navigation.NavigationType
+import com.onepercentbetter.core.ui.components.navigation.OPBNavigationContainer
 import com.onepercentbetter.core.ui.theme.OPBTheme
 import com.onepercentbetter.destinations.LoginScreenDestination
 import com.onepercentbetter.destinations.TaskListScreenDestination
@@ -48,6 +48,7 @@ class MainActivity : FragmentActivity() {
 
     private val sessionViewModel: SessionViewModel by viewModels()
 
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -56,7 +57,7 @@ class MainActivity : FragmentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         setContent {
-            val windowSize = rememberWindowSizeClass()
+            val windowWidthSizeClass = calculateWindowSizeClass(activity = this).widthSizeClass
 
             OPBTheme {
                 ConfigureSystemBars()
@@ -74,7 +75,7 @@ class MainActivity : FragmentActivity() {
                         }
 
                         if (startRoute != null) {
-                            OPBNavHost(startRoute, windowSize)
+                            OPBNavHost(startRoute, windowWidthSizeClass)
                         }
                     }
                 }
@@ -82,10 +83,11 @@ class MainActivity : FragmentActivity() {
         }
     }
 
+    @OptIn(ExperimentalMaterialNavigationApi::class, ExperimentalMaterial3WindowSizeClassApi::class)
     @Composable
     private fun OPBNavHost(
         startRoute: Route,
-        windowSize: WindowSize,
+        windowWidthSizeClass: WindowWidthSizeClass,
     ) {
         val navigationEngine = rememberAnimatedNavHostEngine(
             rootDefaultAnimations = RootNavGraphDefaultAnimations(
@@ -100,31 +102,50 @@ class MainActivity : FragmentActivity() {
 
         val navController = navigationEngine.rememberNavController()
 
-        Column {
-            DestinationsNavHost(
-                startRoute = startRoute,
-                navGraph = NavGraphs.root,
-                engine = navigationEngine,
-                navController = navController,
-                manualComposableCallsBuilder = {
-                    composable(TaskListScreenDestination) {
-                        TaskListScreen(
-                            navigator = destinationsNavigator,
-                            windowSize = windowSize,
-                        )
-                    }
-                },
-                modifier = Modifier
-                    .weight(1F),
-            )
+        val windowSizeClass = calculateWindowSizeClass(activity = this)
 
-            OPBBottomNavigation(
-                navHostController = navController,
-                tabs = listOf(
-                    NavigationTab.Home,
-                    NavigationTab.Settings,
-                ),
-            )
+        val navigationType = getNavigationType(windowSizeClass.widthSizeClass)
+
+        val navigationTabs = listOf(
+            NavigationTab.Home,
+            NavigationTab.Settings,
+        )
+
+        OPBAppScaffold(
+            navigationType = navigationType,
+            navigationContent = {
+                OPBNavigationContainer(
+                    navHostController = navController,
+                    tabs = navigationTabs,
+                    navigationType = navigationType,
+                )
+            },
+            appContent = {
+                DestinationsNavHost(
+                    startRoute = startRoute,
+                    navGraph = NavGraphs.root,
+                    engine = navigationEngine,
+                    navController = navController,
+                    manualComposableCallsBuilder = {
+                        composable(TaskListScreenDestination) {
+                            TaskListScreen(
+                                navigator = destinationsNavigator,
+                                windowWidthSizeClass = windowWidthSizeClass,
+                            )
+                        }
+                    },
+                )
+            }
+        )
+    }
+
+    private fun getNavigationType(
+        widthSizeClass: WindowWidthSizeClass,
+    ): NavigationType {
+        return when (widthSizeClass) {
+            WindowWidthSizeClass.Expanded -> NavigationType.PERMANENT_NAVIGATION_DRAWER
+            WindowWidthSizeClass.Medium -> NavigationType.NAVIGATION_RAIL
+            else -> NavigationType.BOTTOM_NAVIGATION
         }
     }
 

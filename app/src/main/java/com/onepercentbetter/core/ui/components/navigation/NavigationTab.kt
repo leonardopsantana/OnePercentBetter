@@ -1,4 +1,4 @@
-package com.onepercentbetter.core.ui.components
+package com.onepercentbetter.core.ui.components.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home

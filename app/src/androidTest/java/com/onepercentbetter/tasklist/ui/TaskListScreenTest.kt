@@ -1,10 +1,10 @@
 package com.onepercentbetter.tasklist.ui
 
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import com.onepercentbetter.fakes.FakeDestinationsNavigator
-import com.onepercentbetter.core.ui.components.WindowSize
 import com.onepercentbetter.destinations.AddTaskDialogDestination
 import com.onepercentbetter.destinations.AddTaskScreenDestination
 import com.onepercentbetter.fakes.FakeRescheduleTaskUseCase
@@ -48,7 +48,7 @@ class TaskListScreenTest {
             TaskListScreen(
                 navigator = destinationsNavigator,
                 viewModel = viewModel,
-                windowSize = WindowSize.Compact
+                windowWidthSizeClass = WindowWidthSizeClass.Compact
             )
         }
 
@@ -90,7 +90,7 @@ class TaskListScreenTest {
             TaskListScreen(
                 navigator = destinationsNavigator,
                 viewModel = viewModel,
-                windowSize = WindowSize.Expanded
+                windowWidthSizeClass = WindowWidthSizeClass.Expanded
             )
         }
 

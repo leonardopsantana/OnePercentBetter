@@ -1,13 +1,13 @@
 package com.onepercentbetter.tasklist.ui
 
 import androidx.compose.material3.Surface
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.onepercentbetter.addtask.ui.AddTaskNavArguments
-import com.onepercentbetter.core.ui.components.WindowSize
 import com.onepercentbetter.destinations.AddTaskDialogDestination
 import com.onepercentbetter.destinations.AddTaskScreenDestination
 import com.ramcosta.composedestinations.annotation.Destination
@@ -17,7 +17,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 @Composable
 fun TaskListScreen(
     navigator: DestinationsNavigator,
-    windowSize: WindowSize = WindowSize.Compact,
+    windowWidthSizeClass: WindowWidthSizeClass = WindowWidthSizeClass.Compact,
     viewModel: TaskListViewModel = hiltViewModel(),
 ) {
     val viewState = viewModel.viewState.collectAsState()
@@ -32,7 +32,7 @@ fun TaskListScreen(
                     initDate = viewState.value.selectedDate
                 )
                 val destination =
-                    if (windowSize != WindowSize.Compact) {
+                    if (windowWidthSizeClass != WindowWidthSizeClass.Compact) {
                         AddTaskDialogDestination(
                             navArgs.initDate
                         )

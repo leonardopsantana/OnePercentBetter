@@ -2,9 +2,6 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="MainActivityTest">
-        <State />
-      </entry>
       <entry key="app">
         <State>
           <targetSelectedWithDropDown>
@@ -50,11 +47,8 @@
               </deviceKey>
             </Target>
           </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-09-21T11:52:20.308262433Z" />
+          <timeTargetWasSelectedWithDropDown value="2024-10-07T18:10:50.227063506Z" />
         </State>
-      </entry>
-      <entry key="showTaskListWhenSignedIn()">
-        <State />
       </entry>
     </value>
   </component>

@@ -99,6 +99,7 @@ private fun DatePickerButtonRow(
     name = "Day Mode",
     uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
+@ExcludeFromJacocoGeneratedReport
 @Composable
 private fun TOADatePickerDialogPreview() {
     OPBTheme {

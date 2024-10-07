@@ -13,47 +13,35 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
+import com.onepercentbetter.core.ui.components.navigation.NavigationTab
+import com.onepercentbetter.core.ui.components.navigation.OPBNavigationConfig
 import com.ramcosta.composedestinations.utils.currentDestinationAsState
 @Composable
 fun OPBBottomNavigation(
-    navHostController: NavHostController,
-    tabs: List<NavigationTab>,
+    navigationConfig: OPBNavigationConfig,
     modifier: Modifier = Modifier,
 ) {
-    val currentRoute = navHostController.currentDestinationAsState().value?.route
-
-    val shouldShowBottomBar = tabs.any { tab ->
-        tab.screenRoute == currentRoute
-    }
-
-    AnimatedVisibility(
-        visible = shouldShowBottomBar,
+    NavigationBar(
         modifier = modifier,
-        enter = fadeIn() + expandVertically(),
-        exit = fadeOut() + shrinkVertically(),
     ) {
-        NavigationBar {
-            tabs.forEach { tab ->
-                NavigationBarItem(
-                    selected = tab.screenRoute == currentRoute,
-                    onClick = {
-                        if (tab.screenRoute != currentRoute) {
-                            navHostController.navigate(tab.screenRoute)
-                        }
-                    },
-                    icon = {
-                        Icon(
-                            imageVector = tab.icon,
-                            contentDescription = stringResource(id = tab.labelTextRes),
-                        )
-                    },
-                    label = {
-                        Text(
-                            text = stringResource(id = tab.labelTextRes),
-                        )
-                    },
-                )
-            }
+        navigationConfig.tabs.forEach { tab ->
+            NavigationBarItem(
+                selected = tab == navigationConfig.selectedTab,
+                onClick = {
+                    navigationConfig.onTabClicked.invoke(tab)
+                },
+                icon = {
+                    Icon(
+                        imageVector = tab.icon,
+                        contentDescription = stringResource(id = tab.labelTextRes),
+                    )
+                },
+                label = {
+                    Text(
+                        text = stringResource(id = tab.labelTextRes),
+                    )
+                },
+            )
         }
     }
 }
