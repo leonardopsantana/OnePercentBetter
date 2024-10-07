@@ -9,9 +9,9 @@ typealias TasksForDateInput = Pair<Long, Boolean>
 class FakeTaskRepository : TaskRepository {
     lateinit var allTasksResult: Flow<TaskListResult>
 
-    val tasksForDateResults: MutableMap<com.onepercentbetter.fakes.TasksForDateInput, Flow<TaskListResult>> = mutableMapOf()
+    val tasksForDateResults: MutableMap<TasksForDateInput, Flow<TaskListResult>> = mutableMapOf()
 
-    val addTasksResults: MutableMap<Task, Result<Unit>> = mutableMapOf()
+    val addTaskResults: MutableMap<Task, Result<Unit>> = mutableMapOf()
 
     val updateTaskResults: MutableMap<Task, Result<Unit>> = mutableMapOf()
 
@@ -28,15 +28,21 @@ class FakeTaskRepository : TaskRepository {
         return tasksForDateResults[inputPair]!!
     }
 
-    override suspend fun addTask(task: Task): Result<Unit> {
-        return addTasksResults[task]!!
+    override suspend fun addTask(
+        task: Task,
+    ): Result<Unit> {
+        return addTaskResults[task]!!
     }
 
-    override suspend fun deleteTask(task: Task): Result<Unit> {
+    override suspend fun deleteTask(
+        task: Task,
+    ): Result<Unit> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun updateTask(task: Task): Result<Unit> {
+    override suspend fun updateTask(
+        task: Task,
+    ): Result<Unit> {
         return updateTaskResults[task]!!
     }
 }

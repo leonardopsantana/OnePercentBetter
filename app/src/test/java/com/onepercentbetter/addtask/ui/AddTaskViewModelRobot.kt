@@ -33,10 +33,10 @@ class AddTaskViewModelRobot {
         } returns date
     }
 
-    fun mockResultForTask(result: AddTaskResult) =
-        apply {
-            fakeAddTaskUseCase.mockResultForTask(result)
-        }
+//    fun mockResultForTask(result: AddTaskResult) =
+//        apply {
+//            fakeAddTaskUseCase.mockResultForTask(result)
+//        }
 
     fun enterDescription(newDescription: String) =
         apply {

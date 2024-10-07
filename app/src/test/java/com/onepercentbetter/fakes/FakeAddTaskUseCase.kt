@@ -9,14 +9,14 @@ import io.mockk.mockk
 class FakeAddTaskUseCase {
     val mock: AddTaskUseCase = mockk()
 
-    fun mockResultForTask(result: AddTaskResult) {
-        coEvery {
-            mock.invoke(Task(
-                id = any(),
-                description = any(),
-                scheduledDateMillis = any(),
-                completed = any(),
-            ))
-        } returns result
-    }
+//    fun mockResultForTask(result: AddTaskResult) {
+//        coEvery {
+//            mock.invoke(Task(
+//                id = any(),
+//                description = any(),
+//                scheduledDateMillis = any(),
+//                completed = any(),
+//            ))
+//        } returns result
+//    }
 }

@@ -14,5 +14,6 @@ sealed class AddTaskResult {
         ) : Failure()
 
         object Unknown : Failure()
+        object MaxTasksPerDayExceeded : Failure()
     }
 }

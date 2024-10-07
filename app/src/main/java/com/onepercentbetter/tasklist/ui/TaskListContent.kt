@@ -284,9 +284,7 @@ internal fun ToolbarIconButton(
 private fun AddTaskButton(onAddButtonClicked: () -> Unit) {
     FloatingActionButton(
         onClick = onAddButtonClicked,
-        shape = CircleShape,
         modifier = Modifier
-            .navigationBarsPadding()
             .testTag(ADD_TASK_BUTTON_TAG)
     ) {
         Icon(

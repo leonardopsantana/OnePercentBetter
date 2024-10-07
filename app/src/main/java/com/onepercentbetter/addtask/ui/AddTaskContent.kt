@@ -32,7 +32,6 @@ import androidx.compose.ui.unit.dp
 import com.onepercentbetter.ExcludeFromJacocoGeneratedReport
 import com.onepercentbetter.R
 import com.onepercentbetter.addtask.domain.model.TaskInput
-import com.onepercentbetter.core.ui.components.OPBDatePickerDialog
 import com.onepercentbetter.core.ui.components.OPBDatePickerInput
 import com.onepercentbetter.core.ui.components.OPBTextField
 import com.onepercentbetter.core.ui.components.PrimaryButton
@@ -249,6 +248,8 @@ class AddTaskViewStateProvider : PreviewParameterProvider<AddTaskViewState> {
                 AddTaskViewState.SubmissionError(
                     taskInput = activeInput,
                     errorMessage = UIText.StringText("Whoops"),
+                    overrideButtonText = UIText.ResourceText(R.string.that_is_okay),
+                    allowRetry = true,
                 ),
                 AddTaskViewState.Completed,
             )

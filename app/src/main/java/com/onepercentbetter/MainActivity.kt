@@ -12,17 +12,21 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.FragmentActivity
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.onepercentbetter.core.ui.components.NavigationTab
+import com.onepercentbetter.core.ui.components.OPBBottomNavigation
 import com.onepercentbetter.core.ui.components.WindowSize
 import com.onepercentbetter.core.ui.components.rememberWindowSizeClass
 import com.onepercentbetter.core.ui.theme.OPBTheme
@@ -83,28 +87,45 @@ class MainActivity : FragmentActivity() {
         startRoute: Route,
         windowSize: WindowSize,
     ) {
-        DestinationsNavHost(
-            startRoute = startRoute,
-            navGraph = NavGraphs.root,
-            engine = rememberAnimatedNavHostEngine(
-                rootDefaultAnimations = RootNavGraphDefaultAnimations(
-                    enterTransition = {
-                        slideInHorizontally()
-                    },
-                    exitTransition = {
-                        fadeOut()
-                    },
-                ),
-            ),
-            manualComposableCallsBuilder = {
-                composable(TaskListScreenDestination) {
-                    TaskListScreen(
-                        navigator = destinationsNavigator,
-                        windowSize = windowSize,
-                    )
-                }
-            }
+        val navigationEngine = rememberAnimatedNavHostEngine(
+            rootDefaultAnimations = RootNavGraphDefaultAnimations(
+                enterTransition = {
+                    slideInHorizontally()
+                },
+                exitTransition = {
+                    fadeOut()
+                },
+            )
         )
+
+        val navController = navigationEngine.rememberNavController()
+
+        Column {
+            DestinationsNavHost(
+                startRoute = startRoute,
+                navGraph = NavGraphs.root,
+                engine = navigationEngine,
+                navController = navController,
+                manualComposableCallsBuilder = {
+                    composable(TaskListScreenDestination) {
+                        TaskListScreen(
+                            navigator = destinationsNavigator,
+                            windowSize = windowSize,
+                        )
+                    }
+                },
+                modifier = Modifier
+                    .weight(1F),
+            )
+
+            OPBBottomNavigation(
+                navHostController = navController,
+                tabs = listOf(
+                    NavigationTab.Home,
+                    NavigationTab.Settings,
+                ),
+            )
+        }
     }
 
     private fun keepSplashScreenVisibleWhileInitializing() {

@@ -16,7 +16,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.time.LocalDate
-import java.time.ZoneId
 import java.util.UUID
 import javax.inject.Inject
 
@@ -82,7 +81,12 @@ class AddTaskViewModel @Inject constructor(
             )
 
         viewModelScope.launch {
-            val result = addTaskUseCase.invoke(taskToCreate)
+            val canRetry = (_viewState.value as? AddTaskViewState.SubmissionError)?.allowRetry
+
+            val result = addTaskUseCase.invoke(
+                task = taskToCreate,
+                ignoreTaskLimits = canRetry == true,
+            )
 
             _viewState.value =
                 when (result) {
@@ -99,7 +103,16 @@ class AddTaskViewModel @Inject constructor(
                     is AddTaskResult.Failure.Unknown -> {
                         AddTaskViewState.SubmissionError(
                             taskInput = _viewState.value.taskInput,
-                            errorMessage = UIText.StringText("Unable to add task"),
+                            errorMessage = UIText.StringText("Unable to add task")
+                        )
+                    }
+
+                    AddTaskResult.Failure.MaxTasksPerDayExceeded -> {
+                        AddTaskViewState.SubmissionError(
+                            taskInput = _viewState.value.taskInput,
+                            errorMessage = UIText.ResourceText(R.string.err_add_task_limit_reached),
+                            overrideButtonText = UIText.ResourceText(R.string.that_is_okay),
+                            allowRetry = true,
                         )
                     }
                 }

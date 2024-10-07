@@ -1,6 +1,7 @@
 package com.onepercentbetter.core.di
 
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.room.Room
 import com.onepercentbetter.core.data.local.OPBDatabase
 import com.onepercentbetter.core.data.local.TaskDAO
@@ -28,5 +29,16 @@ object DataModule {
     @Provides
     fun provideTaskDAO(database: OPBDatabase): TaskDAO {
         return database.taskDao()
+    }
+
+    @Provides
+    fun provideSharedPreferences(
+        @ApplicationContext
+        applicationContext: Context,
+    ): SharedPreferences {
+        return applicationContext.getSharedPreferences(
+            "toa_preferences",
+            Context.MODE_PRIVATE,
+        )
     }
 }

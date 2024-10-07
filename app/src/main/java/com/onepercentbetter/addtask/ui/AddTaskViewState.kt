@@ -36,6 +36,8 @@ sealed class AddTaskViewState(
     data class SubmissionError(
         override val taskInput: TaskInput,
         val errorMessage: UIText,
+        val overrideButtonText: UIText? = null,
+        val allowRetry: Boolean = false,
     ) : AddTaskViewState(
         taskInput = taskInput,
     )

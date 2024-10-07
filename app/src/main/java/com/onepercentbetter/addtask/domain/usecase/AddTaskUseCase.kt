@@ -7,5 +7,8 @@ import com.onepercentbetter.core.model.Task
  * Given a new task, store that in the user's task list.
  */
 interface AddTaskUseCase {
-    suspend operator fun invoke(task: Task): AddTaskResult
+    suspend operator fun invoke(
+        task: Task,
+        ignoreTaskLimits: Boolean,
+    ): AddTaskResult
 }
