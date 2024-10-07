@@ -1,23 +1,4 @@
-import org.gradle.api.initialization.resolve.RepositoriesMode
-
-pluginManagement {
-    repositories {
-        gradlePluginPortal()
-        google()
-        mavenCentral()
-    }
-}
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
-    repositories {
-        google()
-        mavenCentral()
-        maven {
-            url("https://packages.jetbrains.team/maven/p/ij/intellij-dependencies")
-        }
-    }
-}
-rootProject.name = "onePercentBetter"
+rootProject.name = "One Percenter Better"
 include ':app'
 include ':core-data'
 include ':core-model'

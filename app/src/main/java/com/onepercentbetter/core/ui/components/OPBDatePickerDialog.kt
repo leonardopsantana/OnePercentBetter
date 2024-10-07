@@ -8,12 +8,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.TextButton
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -44,11 +44,11 @@ fun OPBDatePickerDialog(
             Column {
                 DatePicker(
                     datePickerState,
-                    dateValidator = { dateMillis ->
-                        val todayStartMillis = LocalDate.now().toEpochMillisUTC()
-
-                        dateMillis >= todayStartMillis
-                    },
+//                    dateValidator = { dateMillis ->
+//                        val todayStartMillis = LocalDate.now().toEpochMillisUTC()
+//
+//                        dateMillis >= todayStartMillis
+//                    },
                 )
 
                 DatePickerButtonRow(

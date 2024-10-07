@@ -23,7 +23,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.Color
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.FragmentActivity
-import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.onepercentbetter.core.ui.components.navigation.NavigationTab
@@ -62,21 +61,19 @@ class MainActivity : FragmentActivity() {
             OPBTheme {
                 ConfigureSystemBars()
 
-                ProvideWindowInsets {
-                    Surface(
-                        color = MaterialTheme.colorScheme.background,
-                    ) {
-                        val sessionState = sessionViewModel.sessionState.collectAsState()
+                Surface(
+                    color = MaterialTheme.colorScheme.background,
+                ) {
+                    val sessionState = sessionViewModel.sessionState.collectAsState()
 
-                        val startRoute: Route? = when (sessionState.value) {
-                            SessionState.UNINITIALIZED -> null
-                            SessionState.LOGGED_IN -> TaskListScreenDestination
-                            SessionState.LOGGED_OUT -> LoginScreenDestination
-                        }
+                    val startRoute: Route? = when (sessionState.value) {
+                        SessionState.UNINITIALIZED -> null
+                        SessionState.LOGGED_IN -> TaskListScreenDestination
+                        SessionState.LOGGED_OUT -> LoginScreenDestination
+                    }
 
-                        if (startRoute != null) {
-                            OPBNavHost(startRoute, windowWidthSizeClass)
-                        }
+                    if (startRoute != null) {
+                        OPBNavHost(startRoute, windowWidthSizeClass)
                     }
                 }
             }

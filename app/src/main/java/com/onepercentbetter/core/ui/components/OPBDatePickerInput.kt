@@ -6,14 +6,13 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -46,6 +45,8 @@ fun OPBDatePickerInput(
 ) {
     val showDatePicker = remember { mutableStateOf(false) }
 
+//    val contentColor = MaterialTheme.colorScheme.onSurface.enabled(enabled)
+
     val datePickerState = rememberDatePickerState(
         initialSelectedDateMillis = value.toEpochMillisUTC(),
     )
@@ -71,21 +72,21 @@ fun OPBDatePickerInput(
     ) {
         Box(
             modifier = Modifier
-                .border(
-                    width = 1.dp,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.disabled),
-                    shape = ButtonShape,
-                )
+//                .border(
+//                    width = 1.dp,
+////                    color = contentColor,
+//                    shape = ButtonShape,
+//                )
                 .clip(ButtonShape)
                 .clickable {
                     showDatePicker.value = true
                 },
         ) {
-            DateAndIcon(
-                value = value,
-                textColor = MaterialTheme.colorScheme.onBackground,
-                iconColorToUse = MaterialTheme.colorScheme.onSurface.copy(alpha = TextFieldDefaults.IconOpacity),
-            )
+//            DateAndIcon(
+//                value = value,
+//                textColor = MaterialTheme.colorScheme.onBackground,
+//                iconColorToUse = MaterialTheme.colorScheme.onSurface.copy(alpha = TextFieldDefaults.IconOpacity),
+//            )
         }
     }
 }
