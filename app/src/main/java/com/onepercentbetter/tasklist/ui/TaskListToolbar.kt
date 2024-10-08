@@ -59,7 +59,7 @@ fun TaskListToolbar(
 )
 @SuppressLint("MissingExcludePreviewAnnotation")
 @Composable
-private fun TaskListToolbarPreview()  {
+private fun TaskListToolbarPreview() {
     OPBTheme {
         TaskListToolbar(title = "Today", onCalendarIconClicked = { })
     }
