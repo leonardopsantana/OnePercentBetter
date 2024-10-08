@@ -34,15 +34,21 @@ class FakeTaskRepository : TaskRepository {
         return tasksForDateResults[inputPair]!!
     }
 
-    override suspend fun addTask(task: Task): Result<Unit> {
+    override suspend fun addTask(
+        task: Task,
+    ): Result<Unit> {
         return addTasksResults[task]!!
     }
 
-    override suspend fun deleteTask(task: Task): Result<Unit> {
+    override suspend fun deleteTask(
+        task: Task,
+    ): Result<Unit> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun updateTask(task: Task): Result<Unit> {
+    override suspend fun updateTask(
+        task: Task,
+    ): Result<Unit> {
         return updateTaskResults[task]!!
     }
 }

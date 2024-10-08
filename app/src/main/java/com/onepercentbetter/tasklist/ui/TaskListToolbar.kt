@@ -10,7 +10,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -25,7 +24,7 @@ import com.onepercentbetter.core.ui.theme.OPBTheme
 fun TaskListToolbar(
     title: String,
     onCalendarIconClicked: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     CenterAlignedTopAppBar(
         title = {
@@ -35,20 +34,20 @@ fun TaskListToolbar(
             IconButton(
                 onClick = {
                     onCalendarIconClicked.invoke()
-                }) {
+                },
+            ) {
                 Icon(
                     imageVector = Icons.Default.DateRange,
-                    contentDescription = stringResource(id = R.string.change_date)
+                    contentDescription = stringResource(id = R.string.change_date),
                 )
             }
         },
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor = MaterialTheme.colorScheme.secondaryContainer
+            containerColor = MaterialTheme.colorScheme.secondaryContainer,
         ),
-        modifier = modifier
+        modifier = modifier,
     )
 }
-
 
 @Preview(
     name = "Night mode",
@@ -60,8 +59,8 @@ fun TaskListToolbar(
 )
 @SuppressLint("MissingExcludePreviewAnnotation")
 @Composable
-private fun TaskListToolbarPreview(){
+private fun TaskListToolbarPreview()  {
     OPBTheme {
-        TaskListToolbar(title = "Today", onCalendarIconClicked = {  })
+        TaskListToolbar(title = "Today", onCalendarIconClicked = { })
     }
 }

@@ -61,16 +61,14 @@ fun TaskList(
                         onDoneClicked(task)
                     },
                     modifier =
-                    Modifier
-                        .testTag("INCOMPLETE_TASK_${task.id}")
-                        .animateItemPlacement(),
+                        Modifier
+                            .testTag("INCOMPLETE_TASK_${task.id}")
+                            .animateItemPlacement(),
                 )
             }
         }
 
-
         if (completedTasks.isNotEmpty()) {
-
             item {
                 SectionHeader(text = stringResource(R.string.completed_tasks_header))
             }
@@ -90,9 +88,9 @@ fun TaskList(
                         onDoneClicked(task)
                     },
                     modifier =
-                    Modifier
-                        .testTag("COMPLETED_TASK_${task.id}")
-                        .animateItemPlacement(),
+                        Modifier
+                            .testTag("COMPLETED_TASK_${task.id}")
+                            .animateItemPlacement(),
                 )
             }
         }
@@ -106,24 +104,26 @@ private fun EmptySectionCard(
 ) {
     Card(
         modifier =
-        modifier
-            .fillMaxWidth(),
+            modifier
+                .fillMaxWidth(),
     ) {
         Text(
             text = text,
             textAlign = TextAlign.Center,
             modifier =
-            Modifier
-                .padding(
-                    vertical = 32.dp,
-                    horizontal = 24.dp,
-                ),
+                Modifier
+                    .padding(
+                        vertical = 32.dp,
+                        horizontal = 24.dp,
+                    ),
         )
     }
 }
 
 @Composable
-private fun SectionHeader(text: String) {
+private fun SectionHeader(
+    text: String,
+) {
     Text(
         text = text,
         style = MaterialTheme.typography.headlineSmall,

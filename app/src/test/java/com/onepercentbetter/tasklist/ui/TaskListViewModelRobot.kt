@@ -21,15 +21,16 @@ class TaskListViewModelRobot {
                 TaskListViewModel(
                     getTasksForDateUseCase = fakeGetTasksForDateUseCase,
                     taskRepository = fakeTaskRepository,
-                    rescheduleTaskUseCase = fakeRescheduleTaskUseCase
+                    rescheduleTaskUseCase = fakeRescheduleTaskUseCase,
                 )
         }
 
-    fun assertViewState(expectedViewState: TaskListViewState) =
-        apply {
-            val actualViewState = viewModel.viewState.value
-            assertThat(actualViewState).isEqualTo(expectedViewState)
-        }
+    fun assertViewState(
+        expectedViewState: TaskListViewState,
+    ) = apply {
+        val actualViewState = viewModel.viewState.value
+        assertThat(actualViewState).isEqualTo(expectedViewState)
+    }
 
     fun mockTaskListResultForDate(
         date: LocalDate,
@@ -38,36 +39,40 @@ class TaskListViewModelRobot {
         fakeGetTasksForDateUseCase.mockResultForDate(date, result)
     }
 
-    fun clickRescheduleButton(task: Task) = apply {
+    fun clickRescheduleButton(
+        task: Task,
+    ) = apply {
         viewModel.onRescheduleButtonClicked(task)
     }
 
     fun rescheduleTaskForDate(
         task: Task,
-        date: LocalDate
+        date: LocalDate,
     ) = apply {
         viewModel.onTaskRescheduled(task, date)
     }
 
     fun assertTaskRescheduleForDate(
         task: Task,
-        date: LocalDate
+        date: LocalDate,
     ) = apply {
         fakeRescheduleTaskUseCase.assertInvocation(
-            task to date
+            task to date,
         )
     }
 
     /**
      * Look up and dismiss first alert message ID
      */
-    fun showAlertMessage() = apply {
-        viewModel.viewState.value.alertMessages.firstOrNull()?.id?.let { id ->
-            viewModel.onAlertMessageShown(id)
+    fun showAlertMessage() =
+        apply {
+            viewModel.viewState.value.alertMessages.firstOrNull()?.id?.let { id ->
+                viewModel.onAlertMessageShown(id)
+            }
         }
-    }
 
-    fun dismissAlertMessage() = apply {
-        viewModel.viewState.value.alertMessages?.firstOrNull()?.onDismissed?.invoke()
-    }
+    fun dismissAlertMessage() =
+        apply {
+            viewModel.viewState.value.alertMessages?.firstOrNull()?.onDismissed?.invoke()
+        }
 }

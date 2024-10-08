@@ -6,11 +6,8 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasAnyChild
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.performClick
-import com.google.common.truth.Truth.assertThat
 import com.onepercentbetter.R
 import com.onepercentbetter.core.model.Task
 import org.junit.Rule
@@ -26,12 +23,11 @@ class TaskListContentTest {
             id = "Test ID",
             description = "Text Task",
             scheduledDateMillis =
-            ZonedDateTime.now()
-                .toInstant()
-                .toEpochMilli(),
+                ZonedDateTime.now()
+                    .toInstant()
+                    .toEpochMilli(),
             completed = false,
         )
-
 
     @Test
     fun renderWithNoTasks() {
@@ -50,10 +46,9 @@ class TaskListContentTest {
                 onAddButtonClicked = {},
                 onDateSelected = {},
                 onTaskRescheduled = { _, _ ->
-
                 },
                 onReschedulingCompleted = {},
-                onAlertMessageShown = {}
+                onAlertMessageShown = {},
             )
         }
 
@@ -87,10 +82,9 @@ class TaskListContentTest {
                 onAddButtonClicked = {},
                 onDateSelected = {},
                 onTaskRescheduled = { _, _ ->
-
                 },
                 onReschedulingCompleted = {},
-                onAlertMessageShown = {}
+                onAlertMessageShown = {},
             )
         }
 
@@ -124,10 +118,9 @@ class TaskListContentTest {
                 onAddButtonClicked = {},
                 onDateSelected = {},
                 onTaskRescheduled = { _, _ ->
-
                 },
                 onReschedulingCompleted = {},
-                onAlertMessageShown = {}
+                onAlertMessageShown = {},
             )
         }
 

@@ -29,16 +29,16 @@ fun TaskListScreen(
             onDoneClicked = viewModel::onDoneButtonClicked,
             onAddButtonClicked = {
                 val navArgs = AddTaskNavArguments(
-                    initDate = viewState.value.selectedDate
+                    initDate = viewState.value.selectedDate,
                 )
                 val destination =
                     if (windowWidthSizeClass != WindowWidthSizeClass.Compact) {
                         AddTaskDialogDestination(
-                            navArgs.initDate
+                            navArgs.initDate,
                         )
                     } else {
                         AddTaskScreenDestination(
-                            navArgs.initDate
+                            navArgs.initDate,
                         )
                     }
                 navigator.navigate(destination)

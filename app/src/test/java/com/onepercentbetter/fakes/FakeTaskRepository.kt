@@ -6,6 +6,7 @@ import com.onepercentbetter.task.api.TaskRepository
 import kotlinx.coroutines.flow.Flow
 
 typealias TasksForDateInput = Pair<Long, Boolean>
+
 class FakeTaskRepository : TaskRepository {
     lateinit var allTasksResult: Flow<TaskListResult>
 

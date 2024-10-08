@@ -11,7 +11,9 @@ interface TokenRepository {
      * Given an [token] store this somewhere so it can be retrieved later
      *
      */
-    suspend fun storeToken(token: Token)
+    suspend fun storeToken(
+        token: Token,
+    )
 
     /**
      * Clear any cached authentication token.

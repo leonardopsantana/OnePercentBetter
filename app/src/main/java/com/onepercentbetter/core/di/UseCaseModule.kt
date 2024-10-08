@@ -2,7 +2,6 @@ package com.onepercentbetter.core.di
 
 import com.onepercentbetter.addtask.domain.usecase.AddTaskUseCase
 import com.onepercentbetter.addtask.domain.usecase.ProdAddTaskUseCase
-import com.onepercentbetter.login.domain.usecase.ProdCredentialsLoginUseCase
 import com.onepercentbetter.tasklist.domain.usecases.GetAllTasksUseCase
 import com.onepercentbetter.tasklist.domain.usecases.GetTasksForDateUseCase
 import com.onepercentbetter.tasklist.domain.usecases.ProdGetAllTasksUseCase
@@ -24,24 +23,23 @@ import dagger.hilt.components.SingletonComponent
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class UseCaseModule {
-
     @Binds
     abstract fun bindsGetAllTasksUseCase(
-        getAllTasksUseCase: ProdGetAllTasksUseCase
+        getAllTasksUseCase: ProdGetAllTasksUseCase,
     ): GetAllTasksUseCase
 
     @Binds
     abstract fun bindAddTaskUseCase(
-        addTaskUseCase: ProdAddTaskUseCase
+        addTaskUseCase: ProdAddTaskUseCase,
     ): AddTaskUseCase
 
     @Binds
     abstract fun bindGetTasksForDateUseCase(
-        getTasksForDateUseCase: ProdGetTasksForDateUseCase
+        getTasksForDateUseCase: ProdGetTasksForDateUseCase,
     ): GetTasksForDateUseCase
 
     @Binds
     abstract fun bindRescheduleTaskUseCase(
-        rescheduleTaskUseCase: ProdRescheduleTaskForDateUseCase
-    ) : RescheduleTaskUseCase
+        rescheduleTaskUseCase: ProdRescheduleTaskForDateUseCase,
+    ): RescheduleTaskUseCase
 }

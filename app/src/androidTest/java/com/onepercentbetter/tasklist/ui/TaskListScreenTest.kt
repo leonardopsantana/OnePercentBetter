@@ -4,9 +4,9 @@ import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
-import com.onepercentbetter.fakes.FakeDestinationsNavigator
 import com.onepercentbetter.destinations.AddTaskDialogDestination
 import com.onepercentbetter.destinations.AddTaskScreenDestination
+import com.onepercentbetter.fakes.FakeDestinationsNavigator
 import com.onepercentbetter.fakes.FakeRescheduleTaskUseCase
 import com.onepercentbetter.fakes.FakeTaskRepository
 import kotlinx.coroutines.flow.flowOf
@@ -14,9 +14,7 @@ import org.junit.Rule
 import org.junit.Test
 import java.time.LocalDate
 
-
 class TaskListScreenTest {
-
     @get:Rule
     val composeTestRule = createComposeRule()
 
@@ -28,18 +26,18 @@ class TaskListScreenTest {
 
         getTasksForDateUseCase.mockResultForDate(
             date = LocalDate.now(),
-            result = flowOf(Result.success(emptyList()))
+            result = flowOf(Result.success(emptyList())),
         )
 
         getTasksForDateUseCase.mockResultForDate(
             date = LocalDate.now().plusDays(1),
-            result = flowOf(Result.success(emptyList()))
+            result = flowOf(Result.success(emptyList())),
         )
 
         val viewModel = TaskListViewModel(
             getTasksForDateUseCase = getTasksForDateUseCase,
             rescheduleTaskUseCase = rescheduleTaskUseCase,
-            taskRepository = fakeTaskRepository
+            taskRepository = fakeTaskRepository,
         )
 
         val destinationsNavigator = FakeDestinationsNavigator()
@@ -48,7 +46,7 @@ class TaskListScreenTest {
             TaskListScreen(
                 navigator = destinationsNavigator,
                 viewModel = viewModel,
-                windowWidthSizeClass = WindowWidthSizeClass.Compact
+                windowWidthSizeClass = WindowWidthSizeClass.Compact,
             )
         }
 
@@ -58,8 +56,8 @@ class TaskListScreenTest {
 
         destinationsNavigator.verifyNavigatedToDirection(
             expectedDirection = AddTaskScreenDestination(
-                initDate = LocalDate.now()
-            )
+                initDate = LocalDate.now(),
+            ),
         )
 
         composeTestRule
@@ -75,13 +73,13 @@ class TaskListScreenTest {
 
         getTasksForDateUseCase.mockResultForDate(
             date = LocalDate.now(),
-            result = flowOf(Result.success(emptyList()))
+            result = flowOf(Result.success(emptyList())),
         )
 
         val viewModel = TaskListViewModel(
             getTasksForDateUseCase = getTasksForDateUseCase,
             rescheduleTaskUseCase = rescheduleTaskUseCase,
-            taskRepository = fakeTaskRepository
+            taskRepository = fakeTaskRepository,
         )
 
         val destinationsNavigator = FakeDestinationsNavigator()
@@ -90,7 +88,7 @@ class TaskListScreenTest {
             TaskListScreen(
                 navigator = destinationsNavigator,
                 viewModel = viewModel,
-                windowWidthSizeClass = WindowWidthSizeClass.Expanded
+                windowWidthSizeClass = WindowWidthSizeClass.Expanded,
             )
         }
 
@@ -100,8 +98,8 @@ class TaskListScreenTest {
 
         destinationsNavigator.verifyNavigatedToDirection(
             expectedDirection = AddTaskDialogDestination(
-                initDate = LocalDate.now()
-            )
+                initDate = LocalDate.now(),
+            ),
         )
     }
 }

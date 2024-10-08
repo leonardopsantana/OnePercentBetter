@@ -15,7 +15,6 @@ import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class AndroidPreferencesTest {
-
     @get:Rule
     val coroutinesTestRule = CoroutinesTestRule()
 

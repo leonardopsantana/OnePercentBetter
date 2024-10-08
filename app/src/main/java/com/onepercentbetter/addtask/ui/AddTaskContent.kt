@@ -54,7 +54,7 @@ fun AddTaskContent(
 ) {
     val descriptionFocusRequester = remember { FocusRequester() }
 
-    LaunchedEffect(true) {// calls only one time
+    LaunchedEffect(true) { // calls only one time
         descriptionFocusRequester.requestFocus()
     }
 
@@ -73,9 +73,9 @@ fun AddTaskContent(
         if (viewState is AddTaskViewState.Submitting) {
             CircularProgressIndicator(
                 modifier =
-                Modifier
-                    .wrapContentSize()
-                    .align(Alignment.Center),
+                    Modifier
+                        .wrapContentSize()
+                        .align(Alignment.Center),
             )
         }
     }
@@ -104,7 +104,7 @@ private fun AddTaskInputsColumn(
                 (viewState as? AddTaskViewState.Active)
                     ?.descriptionInputErrorMessage
                     ?.getString(),
-            descriptionFocusRequester = descriptionFocusRequester
+            descriptionFocusRequester = descriptionFocusRequester,
         )
         TaskDateLabel()
         TaskDateInput(
@@ -141,12 +141,12 @@ private fun SubmitButton(
 @Composable
 private fun TaskDateInput(
     value: LocalDate,
-    onValueChanged: (LocalDate) -> Unit
+    onValueChanged: (LocalDate) -> Unit,
 ) {
     OPBDatePickerInput(
         value = value,
         onValueChanged = onValueChanged,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
     )
 }
 
@@ -179,7 +179,7 @@ private fun TaskDescriptionInput(
         placeholderText = stringResource(R.string.task_input_placeholder),
         errorMessage = errorMessage,
         focusRequester = descriptionFocusRequester,
-        modifier = Modifier.testTag(ADD_TASK_DESCRIPTION_INPUT_TAG)
+        modifier = Modifier.testTag(ADD_TASK_DESCRIPTION_INPUT_TAG),
     )
 }
 
@@ -221,9 +221,9 @@ private fun AddTaskContentPreview(
             onTaskScheduleDateChanged = {},
             onSubmitClicked = {},
             modifier =
-            Modifier
-                .fillMaxSize()
-                .padding(dimensionResource(id = R.dimen.screen_padding)),
+                Modifier
+                    .fillMaxSize()
+                    .padding(dimensionResource(id = R.dimen.screen_padding)),
         )
     }
 }

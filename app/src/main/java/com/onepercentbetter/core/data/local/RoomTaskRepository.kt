@@ -13,51 +13,57 @@ import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 class RoomTaskRepository
-@Inject
-constructor(
-    private val taskDAO: TaskDAO,
-) : TaskRepository {
-    override fun fetchAllTasks(): Flow<Result<List<Task>>> {
-        return taskDAO
-            .fetchAllTasks()
-            .map { taskList ->
-                Result.success(taskList.toDomainTaskList())
-            }
+    @Inject
+    constructor(
+        private val taskDAO: TaskDAO,
+    ) : TaskRepository {
+        override fun fetchAllTasks(): Flow<Result<List<Task>>> {
+            return taskDAO
+                .fetchAllTasks()
+                .map { taskList ->
+                    Result.success(taskList.toDomainTaskList())
+                }
+        }
+
+        override fun fetchTasksForDate(
+            dateMillis: Long,
+            completed: Boolean,
+        ): Flow<TaskListResult> {
+            val localDate =
+                Instant
+                    .ofEpochMilli(dateMillis)
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDate()
+
+            return taskDAO
+                .fetchTasksForDate(localDate.toPersistableDateString(), completed)
+                .map { taskList ->
+                    Result.success(taskList.toDomainTaskList())
+                }
+        }
+
+        override suspend fun addTask(
+            task: Task,
+        ): Result<Unit> {
+            taskDAO.insertTask(task.toPersistableTask())
+
+            return Result.success(Unit)
+        }
+
+        override suspend fun deleteTask(
+            task: Task,
+        ): Result<Unit> {
+            TODO("Not yet implemented")
+        }
+
+        override suspend fun updateTask(
+            task: Task,
+        ): Result<Unit> {
+            taskDAO.updateTask(task.toPersistableTask())
+
+            return Result.success(Unit)
+        }
     }
-
-    override fun fetchTasksForDate(
-        dateMillis: Long,
-        completed: Boolean,
-    ): Flow<TaskListResult> {
-        val localDate =
-            Instant
-                .ofEpochMilli(dateMillis)
-                .atZone(ZoneId.systemDefault())
-                .toLocalDate()
-
-        return taskDAO
-            .fetchTasksForDate(localDate.toPersistableDateString(), completed)
-            .map { taskList ->
-                Result.success(taskList.toDomainTaskList())
-            }
-    }
-
-    override suspend fun addTask(task: Task): Result<Unit> {
-        taskDAO.insertTask(task.toPersistableTask())
-
-        return Result.success(Unit)
-    }
-
-    override suspend fun deleteTask(task: Task): Result<Unit> {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun updateTask(task: Task): Result<Unit> {
-        taskDAO.updateTask(task.toPersistableTask())
-
-        return Result.success(Unit)
-    }
-}
 
 private fun List<PersistableTask>.toDomainTaskList(): List<Task> {
     return this.map(PersistableTask::toTask)
@@ -75,9 +81,9 @@ private fun PersistableTask.toTask(): Task {
         id = this.id,
         description = this.description,
         scheduledDateMillis =
-        LocalDate.parse(this.scheduledDate, persistedDateFormatter)
-            .toEpochMillis(),
-            completed = this.completed,
+            LocalDate.parse(this.scheduledDate, persistedDateFormatter)
+                .toEpochMillis(),
+        completed = this.completed,
     )
 }
 

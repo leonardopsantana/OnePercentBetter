@@ -18,14 +18,18 @@ class MissingExcludePreviewAnnotationDetector : Detector(), UastScanner {
         return listOf(UMethod::class.java)
     }
 
-    override fun createUastHandler(context: JavaContext): UElementHandler? {
+    override fun createUastHandler(
+        context: JavaContext,
+    ): UElementHandler? {
         return PreviewMethodElementHandler(context)
     }
 
     private class PreviewMethodElementHandler(
         private val context: JavaContext,
     ) : UElementHandler() {
-        override fun visitMethod(node: UMethod) {
+        override fun visitMethod(
+            node: UMethod,
+        ) {
             val isPreviewMethod = node.hasAnnotation(COMPOSE_PREVIEW_ANNOTATION)
             val isExcluded = node.hasAnnotation(EXCLUDE_FROM_JACOCO_ANNOTATION)
 

@@ -14,23 +14,24 @@ data class AlertMessage(
     val onActionClicked: () -> Unit = {},
     val onDismissed: () -> Unit = {},
     val id: Long = UUID.randomUUID().mostSignificantBits,
-    val duration: Duration = Duration.SHORT
+    val duration: Duration = Duration.SHORT,
 ) {
-
     /**
      * This enum defines the various durations that an [AlertMessage] can be rendered on the screen
      */
     enum class Duration {
         SHORT,
         LONG,
-        INDEFINITE
+        INDEFINITE,
     }
 
-    override fun equals(other: Any?): Boolean {
-        return other is AlertMessage
-            && other.message == this.message
-            && other.actionText == this.actionText
-            && other.duration == this.duration
+    override fun equals(
+        other: Any?,
+    ): Boolean {
+        return other is AlertMessage &&
+            other.message == this.message &&
+            other.actionText == this.actionText &&
+            other.duration == this.duration
     }
 
     override fun hashCode(): Int {
@@ -40,8 +41,4 @@ data class AlertMessage(
         result = 31 * result + duration.hashCode()
         return result
     }
-
-
 }
-
-

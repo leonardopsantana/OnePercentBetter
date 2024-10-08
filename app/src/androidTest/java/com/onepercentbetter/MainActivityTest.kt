@@ -4,7 +4,6 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
-import androidx.compose.ui.test.onNodeWithText
 import com.onepercentbetter.login.domain.model.AuthToken
 import com.onepercentbetter.login.domain.model.RefreshToken
 import com.onepercentbetter.login.domain.model.Token
@@ -22,7 +21,6 @@ import javax.inject.Inject
 @OptIn(ExperimentalAnimationApi::class)
 @HiltAndroidTest
 class MainActivityTest {
-
     @get:Rule
     val hiltRule = HiltAndroidRule(this)
 
@@ -65,5 +63,4 @@ class MainActivityTest {
             .onNodeWithTag(TaskListScreen.TEST_TAG)
             .assertIsDisplayed()
     }
-
 }

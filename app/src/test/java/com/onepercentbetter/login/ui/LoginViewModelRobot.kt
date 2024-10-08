@@ -14,7 +14,7 @@ class LoginViewModelRobot {
 
     private val credentialsLoginUseCase = ProdCredentialsLoginUseCase(
         loginRepository = fakeLoginRepository.mock,
-        tokenRepository = fakeTokenRepository.mock
+        tokenRepository = fakeTokenRepository.mock,
     )
 
     private lateinit var viewModel: LoginViewModel
@@ -33,19 +33,21 @@ class LoginViewModelRobot {
     ) = apply {
         fakeLoginRepository.mockLoginWithCredentials(
             credentials,
-            result
+            result,
         )
     }
 
-    fun enterEmail(email: String) =
-        apply {
-            viewModel.emailChanged(email)
-        }
+    fun enterEmail(
+        email: String,
+    ) = apply {
+        viewModel.emailChanged(email)
+    }
 
-    fun enterPassword(password: String) =
-        apply {
-            viewModel.passwordChanged(password)
-        }
+    fun enterPassword(
+        password: String,
+    ) = apply {
+        viewModel.passwordChanged(password)
+    }
 
     fun clickLoginButton() =
         apply {

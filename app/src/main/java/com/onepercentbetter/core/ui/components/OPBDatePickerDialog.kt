@@ -22,8 +22,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.onepercentbetter.ExcludeFromJacocoGeneratedReport
 import com.onepercentbetter.core.ui.theme.OPBTheme
-import com.onepercentbetter.toEpochMillisUTC
-import java.time.LocalDate
 
 /**
  * This is a [Dialog] that will render a [DatePicker] and allow the user to select any date today
@@ -87,7 +85,6 @@ private fun DatePickerButtonRow(
         }
     }
 }
-
 
 @SuppressLint("MissingExcludePreviewAnnotation")
 @OptIn(ExperimentalMaterial3Api::class)

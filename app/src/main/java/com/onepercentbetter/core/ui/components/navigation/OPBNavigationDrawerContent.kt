@@ -48,7 +48,7 @@ fun OPBNavigationDrawerContent(
                             imageVector = tab.icon,
                             contentDescription = stringResource(id = tab.labelTextRes),
                         )
-                    }
+                    },
                 )
             }
         }

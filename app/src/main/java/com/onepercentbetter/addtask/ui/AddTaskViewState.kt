@@ -12,26 +12,26 @@ sealed class AddTaskViewState(
     val inputsEnabled: Boolean = true,
 ) {
     data class Initial(
-        val initDate: LocalDate = LocalDate.now()
+        val initDate: LocalDate = LocalDate.now(),
     ) : AddTaskViewState(
-        taskInput = TaskInput(
-            scheduledDate = initDate
-        ),
-    )
+            taskInput = TaskInput(
+                scheduledDate = initDate,
+            ),
+        )
 
     data class Active(
         override val taskInput: TaskInput,
-        val descriptionInputErrorMessage: UIText? = null
+        val descriptionInputErrorMessage: UIText? = null,
     ) : AddTaskViewState(
-        taskInput = taskInput,
-    )
+            taskInput = taskInput,
+        )
 
     data class Submitting(
         override val taskInput: TaskInput,
     ) : AddTaskViewState(
-        taskInput = taskInput,
-        inputsEnabled = false,
-    )
+            taskInput = taskInput,
+            inputsEnabled = false,
+        )
 
     data class SubmissionError(
         override val taskInput: TaskInput,
@@ -39,8 +39,8 @@ sealed class AddTaskViewState(
         val overrideButtonText: UIText? = null,
         val allowRetry: Boolean = false,
     ) : AddTaskViewState(
-        taskInput = taskInput,
-    )
+            taskInput = taskInput,
+        )
 
     object Completed : AddTaskViewState(
         taskInput = TaskInput(),

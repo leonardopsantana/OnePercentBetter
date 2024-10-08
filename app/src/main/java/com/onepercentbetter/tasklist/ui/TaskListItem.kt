@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -40,7 +39,7 @@ fun TaskListItem(
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface,
         ),
-        modifier = modifier
+        modifier = modifier,
     ) {
         Column(
             modifier =
@@ -79,7 +78,9 @@ private fun ButtonRow(
 }
 
 @Composable
-private fun Reschedule(onRescheduleClicked: () -> Unit) {
+private fun Reschedule(
+    onRescheduleClicked: () -> Unit,
+) {
     OPBTextButton(
         text = stringResource(R.string.reschedule),
         onClick = onRescheduleClicked,
@@ -87,7 +88,9 @@ private fun Reschedule(onRescheduleClicked: () -> Unit) {
 }
 
 @Composable
-private fun Done(onDoneClicked: () -> Unit) {
+private fun Done(
+    onDoneClicked: () -> Unit,
+) {
     OPBTextButton(
         text = stringResource(R.string.done),
         onClick = onDoneClicked,
@@ -95,7 +98,9 @@ private fun Done(onDoneClicked: () -> Unit) {
 }
 
 @Composable
-private fun TaskText(text: String) {
+private fun TaskText(
+    text: String,
+) {
     Text(
         text = text,
         modifier =

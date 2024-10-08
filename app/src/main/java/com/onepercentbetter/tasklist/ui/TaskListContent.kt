@@ -48,7 +48,6 @@ import com.onepercentbetter.core.ui.theme.OPBTheme
 import com.onepercentbetter.toEpochMillis
 import com.onepercentbetter.toEpochMillisUTC
 import com.onepercentbetter.toLocalDateUTC
-import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 const val ADD_TASK_BUTTON_TAG = "ADD_TASK_BUTTON"
@@ -85,7 +84,7 @@ fun TaskListContent(
         topBar = {
             ToolBarWithDialog(
                 viewState,
-                onDateSelected
+                onDateSelected,
             )
         },
         snackbarHost = {
@@ -102,7 +101,7 @@ fun TaskListContent(
                 RescheduleTaskDialog(
                     viewState = viewState,
                     onTaskRescheduled = onTaskRescheduled,
-                    onDismissed = onReschedulingCompleted
+                    onDismissed = onReschedulingCompleted,
                 )
 
                 TaskList(
@@ -111,9 +110,9 @@ fun TaskListContent(
                     onRescheduleClicked = onRescheduleClicked,
                     onDoneClicked = onDoneClicked,
                     modifier =
-                    Modifier
-                        .padding(paddingValues)
-                        .adaptiveWidth(),
+                        Modifier
+                            .padding(paddingValues)
+                            .adaptiveWidth(),
                 )
             }
         }
@@ -131,9 +130,9 @@ private fun TaskListLoadingContent() {
     ) {
         Material3CircularProgressIndicator(
             modifier =
-            Modifier
-                .wrapContentSize()
-                .align(Alignment.Center),
+                Modifier
+                    .wrapContentSize()
+                    .align(Alignment.Center),
         )
     }
 }
@@ -180,7 +179,7 @@ private fun TaskListSnackbar(
 private fun RescheduleTaskDialog(
     viewState: TaskListViewState,
     onTaskRescheduled: (Task, LocalDate) -> Unit,
-    onDismissed: () -> Unit
+    onDismissed: () -> Unit,
 ) {
     val taskToReschedule = viewState.taskToReschedule
 
@@ -188,9 +187,9 @@ private fun RescheduleTaskDialog(
         OPBDatePickerDialog(
             datePickerState = rememberDatePickerState(
                 initialSelectedDateMillis =
-                taskToReschedule.scheduledDateMillis
-                    .toLocalDateUTC()
-                    .toEpochMillisUTC(),
+                    taskToReschedule.scheduledDateMillis
+                        .toLocalDateUTC()
+                        .toEpochMillisUTC(),
             ),
             onDismiss = onDismissed,
             onComplete = { selectedDateMillis ->
@@ -207,7 +206,7 @@ private fun RescheduleTaskDialog(
 @Composable
 private fun ToolBarWithDialog(
     viewState: TaskListViewState,
-    onDateSelected: (LocalDate) -> Unit
+    onDateSelected: (LocalDate) -> Unit,
 ) {
     val showDatePickerDialog = remember { mutableStateOf(false) }
 
@@ -225,7 +224,7 @@ private fun ToolBarWithDialog(
                 if (selectedDateMillis != null) {
                     onDateSelected.invoke(selectedDateMillis.toLocalDateUTC())
                 }
-            }
+            },
         )
     }
 
@@ -241,18 +240,18 @@ private fun ToolBarWithDialog(
 private fun TaskListEmptyState() {
     Box(
         modifier =
-        Modifier
-            .fillMaxSize(),
+            Modifier
+                .fillMaxSize(),
     ) {
         Text(
             text = stringResource(R.string.no_tasks_scheduled_label),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.headlineMedium,
             modifier =
-            Modifier
-                .padding(32.dp)
-                .align(Alignment.Center)
-                .adaptiveWidth(),
+                Modifier
+                    .padding(32.dp)
+                    .align(Alignment.Center)
+                    .adaptiveWidth(),
         )
     }
 }
@@ -266,23 +265,25 @@ internal fun ToolbarIconButton(
 ) {
     IconButton(
         onClick = onClick,
-        modifier = Modifier.testTag(NEXT_DAY_BUTTON_TAG)
+        modifier = Modifier.testTag(NEXT_DAY_BUTTON_TAG),
     ) {
         Icon(
             icon,
             contentDescription = contentDescription,
             modifier = Modifier
-                .size(toolbarHeight)
+                .size(toolbarHeight),
         )
     }
 }
 
 @Composable
-private fun AddTaskButton(onAddButtonClicked: () -> Unit) {
+private fun AddTaskButton(
+    onAddButtonClicked: () -> Unit,
+) {
     FloatingActionButton(
         onClick = onAddButtonClicked,
         modifier = Modifier
-            .testTag(ADD_TASK_BUTTON_TAG)
+            .testTag(ADD_TASK_BUTTON_TAG),
     ) {
         Icon(
             Icons.Default.Add,
@@ -301,7 +302,7 @@ class TaskListViewStateProvider : PreviewParameterProvider<TaskListViewState> {
                         id = "$index",
                         description = "Test task: $index",
                         scheduledDateMillis =
-                        LocalDate.now().toEpochMillis(),
+                            LocalDate.now().toEpochMillis(),
                         completed = false,
                     )
                 }
@@ -312,7 +313,7 @@ class TaskListViewStateProvider : PreviewParameterProvider<TaskListViewState> {
                         id = "$index",
                         description = "Test task: $index",
                         scheduledDateMillis =
-                        LocalDate.now().toEpochMillis(),
+                            LocalDate.now().toEpochMillis(),
                         completed = true,
                     )
                 }
@@ -378,7 +379,7 @@ private fun TaskListContentPreview(
             onTaskRescheduled = { _, _ ->
             },
             onReschedulingCompleted = {},
-            onAlertMessageShown = {}
+            onAlertMessageShown = {},
         )
     }
 }

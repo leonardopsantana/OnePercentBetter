@@ -25,15 +25,21 @@ interface TaskRepository {
     /**
      * Add new [task] for the signed in user to complete.
      */
-    suspend fun addTask(task: Task): Result<Unit>
+    suspend fun addTask(
+        task: Task,
+    ): Result<Unit>
 
     /**
      * Delete the supplied [task] from the user's task list.
      */
-    suspend fun deleteTask(task: Task): Result<Unit>
+    suspend fun deleteTask(
+        task: Task,
+    ): Result<Unit>
 
     /**
      * Takes the supplied [task] and updates the backing data set for the task with same id.
      */
-    suspend fun updateTask(task: Task): Result<Unit>
+    suspend fun updateTask(
+        task: Task,
+    ): Result<Unit>
 }

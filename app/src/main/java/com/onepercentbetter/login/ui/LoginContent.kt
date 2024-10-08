@@ -224,7 +224,9 @@ private fun EmailInput(
 }
 
 @Composable
-private fun AppLogo(modifier: Modifier) {
+private fun AppLogo(
+    modifier: Modifier,
+) {
     Image(
         painter =
             painterResource(id = R.drawable.ic_brick),

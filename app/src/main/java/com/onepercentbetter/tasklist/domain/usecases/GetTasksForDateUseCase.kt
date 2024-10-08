@@ -8,5 +8,7 @@ import java.time.LocalDate
  * Fetches all tasks for a given date.
  */
 interface GetTasksForDateUseCase {
-    operator fun invoke(date: LocalDate): Flow<TaskListResult>
+    operator fun invoke(
+        date: LocalDate,
+    ): Flow<TaskListResult>
 }

@@ -37,7 +37,7 @@ class AddTaskContentTest {
         val viewState =
             AddTaskViewState.Active(
                 taskInput = TaskInput(),
-                descriptionInputErrorMessage = UIText.StringText(descriptionError)
+                descriptionInputErrorMessage = UIText.StringText(descriptionError),
             )
 
         composeTestRule.setContent {

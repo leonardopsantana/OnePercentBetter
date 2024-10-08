@@ -1,9 +1,6 @@
 package com.onepercentbetter.fakes
 
-import com.onepercentbetter.addtask.domain.model.AddTaskResult
 import com.onepercentbetter.addtask.domain.usecase.AddTaskUseCase
-import com.onepercentbetter.core.model.Task
-import io.mockk.coEvery
 import io.mockk.mockk
 
 class FakeAddTaskUseCase {

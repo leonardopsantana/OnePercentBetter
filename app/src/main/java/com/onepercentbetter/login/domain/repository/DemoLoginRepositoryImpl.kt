@@ -14,7 +14,9 @@ import javax.inject.Inject
 class DemoLoginRepositoryImpl
     @Inject
     constructor() : LoginRepository {
-        override suspend fun login(credentials: Credentials): Result<LoginResponse> {
+        override suspend fun login(
+            credentials: Credentials,
+        ): Result<LoginResponse> {
             val defaultToken =
                 Token(
                     AuthToken("DemoAuthToken"),

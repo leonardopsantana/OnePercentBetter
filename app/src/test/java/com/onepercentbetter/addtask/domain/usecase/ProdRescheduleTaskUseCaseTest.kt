@@ -9,33 +9,30 @@ import org.junit.Test
 import java.time.LocalDate
 
 class ProdRescheduleTaskUseCaseTest {
-
     private val fakeRepository = com.onepercentbetter.fakes.FakeTaskRepository()
     private val useCase = ProdRescheduleTaskForDateUseCase(
-        taskRepository = fakeRepository
+        taskRepository = fakeRepository,
     )
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun rescheduleTask() = runTest {
-        val initialTask = Task(
-            id = "TestId",
-            description = "Test task",
-            scheduledDateMillis = 0L,
-            completed = true
-        )
+    fun rescheduleTask() =
+        runTest {
+            val initialTask = Task(
+                id = "TestId",
+                description = "Test task",
+                scheduledDateMillis = 0L,
+                completed = true,
+            )
 
-        val newDate = LocalDate.now().plusDays(1)
+            val newDate = LocalDate.now().plusDays(1)
 
-        val expectedNewTask = initialTask.copy(
-            scheduledDateMillis = newDate.toEpochMillis(),
-        )
+            val expectedNewTask = initialTask.copy(
+                scheduledDateMillis = newDate.toEpochMillis(),
+            )
 
-        fakeRepository.updateTaskResults[expectedNewTask] = Result.success(Unit)
+            fakeRepository.updateTaskResults[expectedNewTask] = Result.success(Unit)
 
-        useCase.invoke(initialTask, newDate)
-    }
-
-
-
+            useCase.invoke(initialTask, newDate)
+        }
 }

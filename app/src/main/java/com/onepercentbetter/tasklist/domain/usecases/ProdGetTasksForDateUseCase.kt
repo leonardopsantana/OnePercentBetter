@@ -13,7 +13,9 @@ class ProdGetTasksForDateUseCase
     constructor(
         private val taskRepository: TaskRepository,
     ) : GetTasksForDateUseCase {
-        override fun invoke(date: LocalDate): Flow<TaskListResult> {
+        override fun invoke(
+            date: LocalDate,
+        ): Flow<TaskListResult> {
             val dateMillis = date.toEpochMillis()
 
             val incompleteTaskFlow = taskRepository.fetchTasksForDate(dateMillis, completed = false)

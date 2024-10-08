@@ -2,7 +2,6 @@ package com.onepercentbetter.login.domain.usecase
 
 import com.onepercentbetter.login.domain.model.Credentials
 import com.onepercentbetter.login.domain.model.InvalidCredentialsException
-import com.onepercentbetter.login.domain.model.LoginResponse
 import com.onepercentbetter.login.domain.model.LoginResult
 import com.onepercentbetter.login.domain.repository.LoginRepository
 import com.onepercentbetter.login.domain.repository.TokenRepository
@@ -19,7 +18,9 @@ class ProdCredentialsLoginUseCase
         private val loginRepository: LoginRepository,
         private val tokenRepository: TokenRepository,
     ) {
-        suspend fun login(credentials: Credentials): LoginResult {
+        suspend fun login(
+            credentials: Credentials,
+        ): LoginResult {
             val validationResult = validateCredentials(credentials)
 
             if (validationResult != null) {
@@ -37,7 +38,7 @@ class ProdCredentialsLoginUseCase
                 },
                 onFailure = {
                     loginResultForError(it)
-                }
+                },
             )
         }
 
@@ -46,7 +47,9 @@ class ProdCredentialsLoginUseCase
          * to log in. If not, update the current [viewState] accordingly, and return whether or not to
          * to proceed.
          */
-        private fun validateCredentials(credentials: Credentials): LoginResult.Failure.EmptyCredentials? {
+        private fun validateCredentials(
+            credentials: Credentials,
+        ): LoginResult.Failure.EmptyCredentials? {
             val emptyEmail = credentials.email.value.isEmpty()
             val emptyPassword = credentials.password.value.isEmpty()
 
@@ -64,14 +67,15 @@ class ProdCredentialsLoginUseCase
          * Checks the possible error scenarios for the [error] and maps to an appropriate
          * [LoginResult.Failure].
          */
-        private fun loginResultForError(error: Throwable) =
-            when (error) {
-                is InvalidCredentialsException -> {
-                    LoginResult.Failure.InvalidCredentials
-                }
-
-                else -> {
-                    LoginResult.Failure.Unknown
-                }
+        private fun loginResultForError(
+            error: Throwable,
+        ) = when (error) {
+            is InvalidCredentialsException -> {
+                LoginResult.Failure.InvalidCredentials
             }
+
+            else -> {
+                LoginResult.Failure.Unknown
+            }
+        }
     }

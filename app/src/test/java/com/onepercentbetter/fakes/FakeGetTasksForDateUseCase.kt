@@ -6,17 +6,18 @@ import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
 
 class FakeGetTasksForDateUseCase : GetTasksForDateUseCase {
-
     private val resultForDateMap: MutableMap<LocalDate, Flow<TaskListResult>> = mutableMapOf()
 
     fun mockResultForDate(
         date: LocalDate,
-        result: Flow<TaskListResult>
+        result: Flow<TaskListResult>,
     ) {
         resultForDateMap[date] = result
     }
 
-    override fun invoke(date: LocalDate): Flow<TaskListResult> {
+    override fun invoke(
+        date: LocalDate,
+    ): Flow<TaskListResult> {
         return resultForDateMap[date]!!
     }
 }

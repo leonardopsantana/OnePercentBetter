@@ -12,5 +12,7 @@ interface LoginRepository {
      *
      * @param: A [Result] that contains the [LoginResponse] if successful, or an error otherwise
      */
-    suspend fun login(credentials: Credentials): Result<LoginResponse>
+    suspend fun login(
+        credentials: Credentials,
+    ): Result<LoginResponse>
 }

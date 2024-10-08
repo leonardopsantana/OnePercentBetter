@@ -56,7 +56,7 @@ class TaskListViewModelTest {
             id = "TEST ID",
             description = "Test task",
             scheduledDateMillis = 0L,
-            completed = false
+            completed = false,
         )
 
         val taskList = listOf(incompleteTask)
@@ -68,7 +68,7 @@ class TaskListViewModelTest {
         testRobot
             .mockTaskListResultForDate(
                 date = LocalDate.now(),
-                result = flowOf(taskListResult)
+                result = flowOf(taskListResult),
             )
             .buildViewModel()
             .clickRescheduleButton(incompleteTask)
@@ -77,12 +77,12 @@ class TaskListViewModelTest {
                     showLoading = false,
                     incompleteTasks = listOf(incompleteTask),
                     completedTasks = emptyList(),
-                    taskToReschedule = incompleteTask
-                )
+                    taskToReschedule = incompleteTask,
+                ),
             )
             .rescheduleTaskForDate(
                 task = incompleteTask,
-                date = tomorrow
+                date = tomorrow,
             )
             .assertViewState(
                 expectedViewState = TaskListViewState(
@@ -94,15 +94,15 @@ class TaskListViewModelTest {
                         AlertMessage(
                             message = UIText.ResourceText(R.string.task_rescheduled),
                             actionText = UIText.ResourceText(R.string.undo),
-                            duration = AlertMessage.Duration.LONG
-                        )
-                    )
-                )
+                            duration = AlertMessage.Duration.LONG,
+                        ),
+                    ),
+                ),
             )
             .dismissAlertMessage()
             .assertTaskRescheduleForDate(
                 task = incompleteTask,
-                date = tomorrow
+                date = tomorrow,
             )
     }
 
@@ -112,7 +112,7 @@ class TaskListViewModelTest {
             id = "TEST ID",
             description = "Test task",
             scheduledDateMillis = 0L,
-            completed = false
+            completed = false,
         )
 
         val taskList = listOf(incompleteTask)
@@ -130,7 +130,7 @@ class TaskListViewModelTest {
         testRobot
             .mockTaskListResultForDate(
                 date = LocalDate.now(),
-                result = flowOf(taskListResult)
+                result = flowOf(taskListResult),
             )
             .buildViewModel()
             .clickRescheduleButton(incompleteTask)
@@ -139,12 +139,12 @@ class TaskListViewModelTest {
                     showLoading = false,
                     incompleteTasks = listOf(incompleteTask),
                     completedTasks = emptyList(),
-                    taskToReschedule = incompleteTask
-                )
+                    taskToReschedule = incompleteTask,
+                ),
             )
             .rescheduleTaskForDate(
                 task = incompleteTask,
-                date = yesterday
+                date = yesterday,
             )
             .assertViewState(
                 expectedViewState = TaskListViewState(
@@ -155,7 +155,7 @@ class TaskListViewModelTest {
                     alertMessages = listOf(
                         alertMessage,
                     ),
-                )
+                ),
             )
             .showAlertMessage()
             .assertViewState(
@@ -165,7 +165,7 @@ class TaskListViewModelTest {
                     completedTasks = emptyList(),
                     taskToReschedule = incompleteTask,
                     alertMessages = emptyList(),
-                )
+                ),
             )
     }
 
@@ -185,5 +185,3 @@ class TaskListViewModelTest {
 //            )
 //    }
 }
-
-

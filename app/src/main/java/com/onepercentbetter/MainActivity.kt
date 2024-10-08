@@ -2,8 +2,8 @@
 
 package com.onepercentbetter
 
-import android.os.Bundle
 import android.R
+import android.os.Bundle
 import android.view.View
 import android.view.ViewTreeObserver
 import androidx.activity.compose.setContent
@@ -44,11 +44,12 @@ import dagger.hilt.android.AndroidEntryPoint
 @ExperimentalAnimationApi
 @AndroidEntryPoint
 class MainActivity : FragmentActivity() {
-
     private val sessionViewModel: SessionViewModel by viewModels()
 
     @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(
+        savedInstanceState: Bundle?,
+    ) {
         super.onCreate(savedInstanceState)
 
         keepSplashScreenVisibleWhileInitializing()
@@ -94,7 +95,7 @@ class MainActivity : FragmentActivity() {
                 exitTransition = {
                     fadeOut()
                 },
-            )
+            ),
         )
 
         val navController = navigationEngine.rememberNavController()
@@ -132,7 +133,7 @@ class MainActivity : FragmentActivity() {
                         }
                     },
                 )
-            }
+            },
         )
     }
 
@@ -164,7 +165,7 @@ class MainActivity : FragmentActivity() {
                         true
                     }
                 }
-            }
+            },
         )
     }
 

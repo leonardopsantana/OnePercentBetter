@@ -27,7 +27,9 @@ object DataModule {
     }
 
     @Provides
-    fun provideTaskDAO(database: OPBDatabase): TaskDAO {
+    fun provideTaskDAO(
+        database: OPBDatabase,
+    ): TaskDAO {
         return database.taskDao()
     }
 

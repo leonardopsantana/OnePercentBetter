@@ -48,7 +48,7 @@ fun OPBTextField(
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     onFocusChanged: (FocusState) -> Unit = {},
     placeholderText: String? = null,
-    focusRequester: FocusRequester = FocusRequester()
+    focusRequester: FocusRequester = FocusRequester(),
 ) {
     val labelComposable: (@Composable () -> Unit)? =
         labelText?.let {

@@ -16,7 +16,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
  * the user to create a new task.
  */
 @Destination(
-    navArgsDelegate = AddTaskNavArguments::class
+    navArgsDelegate = AddTaskNavArguments::class,
 )
 @Composable
 fun AddTaskScreen(

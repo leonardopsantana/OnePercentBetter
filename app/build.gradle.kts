@@ -181,3 +181,27 @@ protobuf {
         }
     }
 }
+
+tasks.named("lintKotlinDebug") {
+    mustRunAfter("kspDebugKotlin")
+}
+
+tasks.named("lintKotlinRelease") {
+    mustRunAfter("kspReleaseKotlin")
+}
+
+tasks.lintKotlinDebug {
+    exclude { it.file.path.contains("build/")}
+}
+
+tasks.lintKotlinRelease {
+    exclude { it.file.path.contains("build/")}
+}
+
+tasks.formatKotlinDebug {
+    exclude { it.file.path.contains("build/")}
+}
+
+tasks.formatKotlinRelease {
+    exclude { it.file.path.contains("build/")}
+}

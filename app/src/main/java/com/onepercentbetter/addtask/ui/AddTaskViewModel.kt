@@ -22,9 +22,8 @@ import javax.inject.Inject
 @HiltViewModel
 class AddTaskViewModel @Inject constructor(
     private val addTaskUseCase: AddTaskUseCase,
-    private val savedStateHandle: SavedStateHandle
+    private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
-
     /**
      * Even though this screen can be navigated to using either AddTaskDialogDestination, or
      * AddTaskScreenDestination, because they both have same typesafe nav arguments delegate of
@@ -35,12 +34,14 @@ class AddTaskViewModel @Inject constructor(
 
     private val _viewState: MutableStateFlow<AddTaskViewState> = MutableStateFlow(
         AddTaskViewState.Initial(
-            initDate = args.initDate
-        )
+            initDate = args.initDate,
+        ),
     )
     val viewState = _viewState.asStateFlow()
 
-    fun onTaskDescriptionChanged(newDescription: String) {
+    fun onTaskDescriptionChanged(
+        newDescription: String,
+    ) {
         val currentInput = _viewState.value.taskInput
         val newInput =
             currentInput.copy(
@@ -49,11 +50,13 @@ class AddTaskViewModel @Inject constructor(
         _viewState.value =
             AddTaskViewState.Active(
                 taskInput = newInput,
-                descriptionInputErrorMessage = null
+                descriptionInputErrorMessage = null,
             )
     }
 
-    fun onTaskScheduleDateChanged(newDate: LocalDate) {
+    fun onTaskScheduleDateChanged(
+        newDate: LocalDate,
+    ) {
         val currentInput = _viewState.value.taskInput
         val newInput =
             currentInput.copy(
@@ -64,8 +67,8 @@ class AddTaskViewModel @Inject constructor(
             AddTaskViewState.Active(
                 taskInput = newInput,
                 descriptionInputErrorMessage =
-                (_viewState.value as? AddTaskViewState.Active)
-                    ?.descriptionInputErrorMessage
+                    (_viewState.value as? AddTaskViewState.Active)
+                        ?.descriptionInputErrorMessage,
             )
     }
 
@@ -75,8 +78,8 @@ class AddTaskViewModel @Inject constructor(
                 id = UUID.randomUUID().toString(),
                 description = _viewState.value.taskInput.description,
                 scheduledDateMillis =
-                _viewState.value.taskInput.scheduledDate
-                    .toEpochMillis(),
+                    _viewState.value.taskInput.scheduledDate
+                        .toEpochMillis(),
                 completed = false,
             )
 
@@ -103,7 +106,7 @@ class AddTaskViewModel @Inject constructor(
                     is AddTaskResult.Failure.Unknown -> {
                         AddTaskViewState.SubmissionError(
                             taskInput = _viewState.value.taskInput,
-                            errorMessage = UIText.StringText("Unable to add task")
+                            errorMessage = UIText.StringText("Unable to add task"),
                         )
                     }
 
@@ -120,13 +123,15 @@ class AddTaskViewModel @Inject constructor(
     }
 }
 
-private fun AddTaskResult.Failure.InvalidInput.toViewState(taskInput: TaskInput): AddTaskViewState {
+private fun AddTaskResult.Failure.InvalidInput.toViewState(
+    taskInput: TaskInput,
+): AddTaskViewState {
     return AddTaskViewState.Active(
         taskInput = taskInput,
         descriptionInputErrorMessage =
-        UIText.ResourceText(R.string.err_empty_task_description)
-            .takeIf {
-                this.emptyDescription
-            }
+            UIText.ResourceText(R.string.err_empty_task_description)
+                .takeIf {
+                    this.emptyDescription
+                },
     )
 }

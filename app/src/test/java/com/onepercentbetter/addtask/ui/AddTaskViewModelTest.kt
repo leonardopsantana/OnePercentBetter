@@ -1,24 +1,14 @@
 package com.onepercentbetter.addtask.ui
 
 import com.onepercentbetter.CoroutinesTestRule
-import com.onepercentbetter.R
-import com.onepercentbetter.addtask.domain.model.AddTaskResult
-import com.onepercentbetter.addtask.domain.model.TaskInput
-import com.onepercentbetter.core.model.Task
-import com.onepercentbetter.core.ui.components.UIText
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
-import java.time.Instant
 import java.time.LocalDate
-import java.time.ZoneId
-import java.time.ZonedDateTime
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class AddTaskViewModelTest {
     private val testRobot = AddTaskViewModelRobot()
-
 
     @get:Rule
     val coroutineTestRule = CoroutinesTestRule()
@@ -34,7 +24,6 @@ class AddTaskViewModelTest {
             .buildViewModel()
             .assertViewState(expectedViewState)
     }
-
 
 //    @Test
 //    fun submitWithEmptyDescription() {
