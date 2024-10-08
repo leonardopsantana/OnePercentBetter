@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -45,6 +46,7 @@ fun OPBTextField(
     errorMessage: String? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     enabled: Boolean = true,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     onFocusChanged: (FocusState) -> Unit = {},
     placeholderText: String? = null,
@@ -83,6 +85,7 @@ fun OPBTextField(
             isError = (errorMessage != null),
             visualTransformation = visualTransformation,
             enabled = enabled,
+            keyboardActions = keyboardActions,
             keyboardOptions = keyboardOptions,
             placeholder = placeholderComposable,
         )

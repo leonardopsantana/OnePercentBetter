@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
@@ -29,6 +30,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
@@ -130,6 +132,7 @@ private fun LogoInputsColumn(
             onTextChanged = onPasswordChanged,
             errorMessage = (viewState as? LoginViewState.Active)?.passwordInputErrorMessage?.getString(),
             enabled = viewState.inputsEnabled,
+            onDone = onLoginClicked,
         )
 
         if (viewState is LoginViewState.SubmissionError) {
@@ -189,7 +192,14 @@ private fun PasswordInput(
     errorMessage: String?,
     onTextChanged: (String) -> Unit,
     enabled: Boolean,
+    onDone: () -> Unit,
 ) {
+    val keyboardActions = KeyboardActions(
+        onDone = {
+            onDone.invoke()
+        },
+    )
+
     OPBTextField(
         text = text,
         onTextChanged = onTextChanged,
@@ -203,7 +213,9 @@ private fun PasswordInput(
         keyboardOptions =
             KeyboardOptions(
                 keyboardType = KeyboardType.Password,
+                imeAction = ImeAction.Done,
             ),
+        keyboardActions = keyboardActions
     )
 }
 
@@ -290,8 +302,8 @@ class LoginViewStateProvider : PreviewParameterProvider<LoginViewState> {
                 LoginViewState.Active(
                     credentials = activeCredentials,
                     emailInputErrorMessage = UIText.StringText("Please enter an email."),
-                    passwordInputErrorMessage = UIText.StringText("Please enter a password"),
-                ),
+                    passwordInputErrorMessage = UIText.StringText("Please enter a password")
+                )
             )
         }
 }
