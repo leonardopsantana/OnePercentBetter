@@ -10,7 +10,7 @@ import java.time.LocalDate
 import java.time.ZoneId
 import javax.inject.Inject
 
-class ProdAddTaskUseCase @Inject
+class AddTaskUseCaseImpl @Inject
     constructor(
         private val taskRepository: TaskRepository,
         private val userPreferences: UserPreferences,

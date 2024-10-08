@@ -12,14 +12,14 @@ import java.time.LocalDate
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
-class ProdAddTaskUseCaseTest {
+class AddTaskUseCaseImplTest {
     private val fakeTaskRepository = FakeTaskRepository()
     private val userPreferences = UserPreferences(
         preferences = FakePreferences(),
     )
 
     private val useCase =
-        ProdAddTaskUseCase(
+        AddTaskUseCaseImpl(
             taskRepository = fakeTaskRepository,
             userPreferences = userPreferences,
         )

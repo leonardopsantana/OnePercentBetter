@@ -1,7 +1,7 @@
 package com.onepercentbetter.core.di
 
 import com.onepercentbetter.addtask.domain.usecase.AddTaskUseCase
-import com.onepercentbetter.addtask.domain.usecase.ProdAddTaskUseCase
+import com.onepercentbetter.addtask.domain.usecase.AddTaskUseCaseImpl
 import com.onepercentbetter.tasklist.domain.usecases.GetAllTasksUseCase
 import com.onepercentbetter.tasklist.domain.usecases.GetTasksForDateUseCase
 import com.onepercentbetter.tasklist.domain.usecases.ProdGetAllTasksUseCase
@@ -30,7 +30,7 @@ abstract class UseCaseModule {
 
     @Binds
     abstract fun bindAddTaskUseCase(
-        addTaskUseCase: ProdAddTaskUseCase,
+        addTaskUseCase: AddTaskUseCaseImpl,
     ): AddTaskUseCase
 
     @Binds
