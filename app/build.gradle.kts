@@ -4,6 +4,7 @@ plugins {
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
     alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlinter)
 }
 
 kotlin {
@@ -82,23 +83,23 @@ android {
         }
     }
 
-    testOptions {
-        unitTests.all {
-            kover {
-                isDisabled = false
-//                excludes = listOf(
-//                        "dagger.hilt.internal.aggregatedroot.codegen.*",
-//                        "hilt_aggregated_deps.*",
-//                        "com.adammcneilly.toa.core.di.*",
-//                        "com.adammcneilly.toa.core.ui.theme.*",
-//                        ".*ComposableSingletons.*",
-//                        ".*Hilt.*",
-//                        ".*BuildConfig.*",
-//                        ".*_Factory.*",
-//                )
-            }
-        }
-    }
+//    testOptions {
+//        unitTests.all {
+//            kover {
+//                isDisabled = false
+////                excludes = listOf(
+////                        "dagger.hilt.internal.aggregatedroot.codegen.*",
+////                        "hilt_aggregated_deps.*",
+////                        "com.adammcneilly.toa.core.di.*",
+////                        "com.adammcneilly.toa.core.ui.theme.*",
+////                        ".*ComposableSingletons.*",
+////                        ".*Hilt.*",
+////                        ".*BuildConfig.*",
+////                        ".*_Factory.*",
+////                )
+//            }
+//        }
+//    }
 
     applicationVariants.forEach { variant ->
         kotlin.sourceSets {
