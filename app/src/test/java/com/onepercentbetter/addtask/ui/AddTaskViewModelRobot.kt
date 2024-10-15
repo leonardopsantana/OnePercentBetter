@@ -2,24 +2,28 @@ package com.onepercentbetter.addtask.ui
 
 import androidx.lifecycle.SavedStateHandle
 import com.google.common.truth.Truth.assertThat
+import com.onepercentbetter.addtask.domain.model.AddTaskResult
+import com.onepercentbetter.core.model.Task
 import com.onepercentbetter.fakes.FakeAddTaskUseCase
 import io.mockk.every
 import io.mockk.mockk
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
+import kotlinx.coroutines.test.TestDispatcher
 
 class AddTaskViewModelRobot {
     private val fakeAddTaskUseCase = FakeAddTaskUseCase()
     private val mockSaveStateHandle: SavedStateHandle = mockk(relaxed = true)
     private lateinit var viewModel: AddTaskViewModel
 
-    fun buildViewModel() =
+    fun buildViewModel(dispatcher: TestDispatcher) =
         apply {
             viewModel =
                 AddTaskViewModel(
                     addTaskUseCase = fakeAddTaskUseCase.mock,
                     savedStateHandle = mockSaveStateHandle,
+                    ioDispatcher = dispatcher
                 )
         }
 
@@ -31,10 +35,13 @@ class AddTaskViewModelRobot {
         } returns date
     }
 
-//    fun mockResultForTask(result: AddTaskResult) =
-//        apply {
-//            fakeAddTaskUseCase.mockResultForTask(result)
-//        }
+    fun mockResultForTask(
+        task: Task,
+        result: AddTaskResult,
+    ) =
+        apply {
+            fakeAddTaskUseCase.mockResultForTask(task, result)
+        }
 
     fun enterDescription(
         newDescription: String,
@@ -60,7 +67,8 @@ class AddTaskViewModelRobot {
     fun assertViewState(
         expectedViewState: AddTaskViewState,
     ) = apply {
-        val actualViewState = viewModel.viewState.value
-        assertThat(actualViewState).isEqualTo(expectedViewState)
+        viewModel.viewState.value.let {
+            assertThat(it).isEqualTo(expectedViewState)
+        }
     }
 }

@@ -1,8 +1,8 @@
 package com.onepercentbetter.fakes
 
-import com.onepercentbetter.preferences.Preferences
+import com.onepercentbetter.core.datastore.Preferences
 
-class FakePreferences : Preferences {
+class FakePreferences : com.onepercentbetter.core.datastore.Preferences {
     private val storedInts: MutableMap<String, Int?> = mutableMapOf()
     private val storedBooleans: MutableMap<String, Boolean?> = mutableMapOf()
 

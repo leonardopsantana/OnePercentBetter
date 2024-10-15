@@ -1,5 +1,6 @@
 package com.onepercentbetter.core.ui.components
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -9,6 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
@@ -18,11 +20,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.onepercentbetter.R
 import com.onepercentbetter.core.ui.theme.ButtonShape
-import com.onepercentbetter.toEpochMillisUTC
-import com.onepercentbetter.toLocalDateUTC
+import com.onepercentbetter.core.model.toEpochMillisUTC
+import com.onepercentbetter.core.model.toLocalDateUTC
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -42,7 +45,13 @@ fun OPBDatePickerInput(
 ) {
     val showDatePicker = remember { mutableStateOf(false) }
 
-//    val contentColor = MaterialTheme.colorScheme.onSurface.enabled(enabled)
+    val contentColor = MaterialTheme.colorScheme.onSurface.enabled(enabled)
+
+    val borderWidth = if (enabled) {
+        1.dp
+    } else {
+        Dp.Hairline
+    }
 
     val datePickerState = rememberDatePickerState(
         initialSelectedDateMillis = value.toEpochMillisUTC(),
@@ -69,21 +78,21 @@ fun OPBDatePickerInput(
     ) {
         Box(
             modifier = Modifier
-//                .border(
-//                    width = 1.dp,
-// //                    color = contentColor,
-//                    shape = ButtonShape,
-//                )
+                .border(
+                    width = 1.dp,
+                     color = contentColor,
+                    shape = ButtonShape,
+                )
                 .clip(ButtonShape)
                 .clickable {
                     showDatePicker.value = true
                 },
         ) {
-//            DateAndIcon(
-//                value = value,
-//                textColor = MaterialTheme.colorScheme.onBackground,
-//                iconColorToUse = MaterialTheme.colorScheme.onSurface.copy(alpha = TextFieldDefaults.IconOpacity),
-//            )
+            DateAndIcon(
+                value = value,
+                textColor = contentColor,
+                iconColorToUse = contentColor,
+            )
         }
     }
 }
@@ -117,3 +126,22 @@ private fun LocalDate.toUIString(): String {
     val formatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy")
     return formatter.format(this)
 }
+
+/**
+ * Modifies the alpha value of this [Color] based on whether it should
+ * represent an [enabled] state or not.
+ */
+private fun Color.enabled(
+    enabled: Boolean,
+): Color {
+    val alphaToUse = if (enabled) {
+        ENABLED_CONTENT_ALPHA
+    } else {
+        DISABLED_CONTENT_ALPHA
+    }
+
+    return this.copy(alpha = alphaToUse)
+}
+
+private const val ENABLED_CONTENT_ALPHA = 1F
+private const val DISABLED_CONTENT_ALPHA = 0.38F

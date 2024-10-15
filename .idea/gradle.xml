@@ -11,9 +11,10 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/core-data" />
+            <option value="$PROJECT_DIR$/core-database" />
+            <option value="$PROJECT_DIR$/core-datastore" />
             <option value="$PROJECT_DIR$/core-model" />
             <option value="$PROJECT_DIR$/lint-checks" />
-            <option value="$PROJECT_DIR$/task-api" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

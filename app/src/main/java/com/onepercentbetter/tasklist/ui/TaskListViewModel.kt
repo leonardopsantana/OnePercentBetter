@@ -6,7 +6,7 @@ import com.onepercentbetter.R
 import com.onepercentbetter.core.model.Task
 import com.onepercentbetter.core.ui.AlertMessage
 import com.onepercentbetter.core.ui.components.UIText
-import com.onepercentbetter.task.api.TaskRepository
+import com.onepercentbetter.repository.task.TaskRepository
 import com.onepercentbetter.tasklist.domain.usecases.GetTasksForDateUseCase
 import com.onepercentbetter.tasklist.domain.usecases.RescheduleTaskUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

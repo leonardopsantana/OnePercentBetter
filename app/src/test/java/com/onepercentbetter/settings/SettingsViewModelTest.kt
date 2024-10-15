@@ -1,18 +1,18 @@
 package com.onepercentbetter.settings
 
 import com.google.common.truth.Truth.assertThat
-import com.onepercentbetter.CoroutinesTestRule
+import com.onepercentbetter.InstantTaskCoroutinesExecutorRule
 import com.onepercentbetter.fakes.FakePreferences
-import com.onepercentbetter.preferences.UserPreferences
+import com.onepercentbetter.core.datastore.UserPreferences
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
 
 class SettingsViewModelTest {
     @get:Rule
-    val coroutinesTestRule = CoroutinesTestRule()
+    val instantTaskCoroutinesExecutorRule = InstantTaskCoroutinesExecutorRule()
 
-    private val userPreferences = UserPreferences(
+    private val userPreferences = com.onepercentbetter.core.datastore.UserPreferences(
         preferences = FakePreferences(),
     )
 

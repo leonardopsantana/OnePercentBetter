@@ -1,10 +1,10 @@
 package com.onepercentbetter.login.domain.usecase
 
-import com.onepercentbetter.login.domain.model.Credentials
+import com.onepercentbetter.core.model.Credentials
 import com.onepercentbetter.login.domain.model.InvalidCredentialsException
 import com.onepercentbetter.login.domain.model.LoginResult
-import com.onepercentbetter.login.domain.repository.LoginRepository
-import com.onepercentbetter.login.domain.repository.TokenRepository
+import com.onepercentbetter.repository.login.LoginRepository
+import com.onepercentbetter.core.datastore.token.TokenRepository
 import javax.inject.Inject
 
 /**
@@ -16,7 +16,7 @@ class ProdCredentialsLoginUseCase
     @Inject
     constructor(
         private val loginRepository: LoginRepository,
-        private val tokenRepository: TokenRepository,
+        private val tokenRepository: com.onepercentbetter.core.datastore.token.TokenRepository,
     ) {
         suspend fun login(
             credentials: Credentials,

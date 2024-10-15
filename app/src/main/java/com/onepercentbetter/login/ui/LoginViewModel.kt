@@ -4,10 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.onepercentbetter.R
 import com.onepercentbetter.core.ui.components.UIText
-import com.onepercentbetter.login.domain.model.Credentials
-import com.onepercentbetter.login.domain.model.Email
+import com.onepercentbetter.core.model.Credentials
+import com.onepercentbetter.core.model.Email
 import com.onepercentbetter.login.domain.model.LoginResult
-import com.onepercentbetter.login.domain.model.Password
+import com.onepercentbetter.core.model.Password
 import com.onepercentbetter.login.domain.usecase.ProdCredentialsLoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel

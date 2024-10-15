@@ -1,7 +1,7 @@
 package com.onepercentbetter.preferences
 
 import android.content.SharedPreferences
-import com.onepercentbetter.CoroutinesTestRule
+import com.onepercentbetter.InstantTaskCoroutinesExecutorRule
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
@@ -16,12 +16,12 @@ import org.junit.Test
 @OptIn(ExperimentalCoroutinesApi::class)
 class AndroidPreferencesTest {
     @get:Rule
-    val coroutinesTestRule = CoroutinesTestRule()
+    val instantTaskCoroutinesExecutorRule = InstantTaskCoroutinesExecutorRule()
 
     private val mockSharedPreferences: SharedPreferences = mockk()
     private val mockEditor: SharedPreferences.Editor = mockk()
 
-    private val androidPreferences = AndroidPreferences(
+    private val androidPreferences = com.onepercentbetter.core.datastore.AndroidPreferences(
         sharedPreferences = mockSharedPreferences,
     )
 

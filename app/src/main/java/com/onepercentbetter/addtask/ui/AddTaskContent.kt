@@ -111,6 +111,7 @@ private fun AddTaskInputsColumn(
         TaskDateInput(
             value = viewState.taskInput.scheduledDate,
             onValueChanged = onTaskScheduleDateChanged,
+            enabled = viewState.inputsEnabled,
         )
         if (viewState is AddTaskViewState.SubmissionError) {
             Text(
@@ -143,11 +144,13 @@ private fun SubmitButton(
 private fun TaskDateInput(
     value: LocalDate,
     onValueChanged: (LocalDate) -> Unit,
+    enabled: Boolean,
 ) {
     OPBDatePickerInput(
         value = value,
         onValueChanged = onValueChanged,
         modifier = Modifier.fillMaxWidth(),
+        enabled = enabled
     )
 }
 

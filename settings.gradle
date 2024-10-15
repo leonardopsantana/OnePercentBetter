@@ -2,5 +2,6 @@ rootProject.name = "One Percenter Better"
 include ':app'
 include ':core-data'
 include ':core-model'
-include ':task-api'
 include ':lint-checks'
+include ':core-database'
+include ':core-datastore'

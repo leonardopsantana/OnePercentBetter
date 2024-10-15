@@ -1,6 +1,6 @@
 package com.onepercentbetter.tasklist.ui
 
-import com.onepercentbetter.CoroutinesTestRule
+import com.onepercentbetter.InstantTaskCoroutinesExecutorRule
 import com.onepercentbetter.R
 import com.onepercentbetter.core.model.Task
 import com.onepercentbetter.core.ui.AlertMessage
@@ -16,7 +16,7 @@ class TaskListViewModelTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @get:Rule
-    val coroutinesTestRule = CoroutinesTestRule()
+    val instantTaskCoroutinesExecutorRule = InstantTaskCoroutinesExecutorRule()
 //
 //    @Test
 //    fun successfulLoad() {

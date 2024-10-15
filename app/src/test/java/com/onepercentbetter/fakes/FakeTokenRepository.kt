@@ -1,12 +1,12 @@
 package com.onepercentbetter.fakes
 
-import com.onepercentbetter.login.domain.model.Token
-import com.onepercentbetter.login.domain.repository.TokenRepository
+import com.onepercentbetter.core.model.Token
+import com.onepercentbetter.core.datastore.token.TokenRepository
 import io.mockk.coVerify
 import io.mockk.mockk
 
 class FakeTokenRepository {
-    val mock: TokenRepository = mockk(
+    val mock: com.onepercentbetter.core.datastore.token.TokenRepository = mockk(
         relaxUnitFun = true,
     )
 

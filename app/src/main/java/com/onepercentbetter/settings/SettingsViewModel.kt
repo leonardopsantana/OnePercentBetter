@@ -2,7 +2,7 @@ package com.onepercentbetter.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.onepercentbetter.preferences.UserPreferences
+import com.onepercentbetter.core.datastore.UserPreferences
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,7 +15,7 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
-    private val userPreferences: UserPreferences,
+    private val userPreferences: com.onepercentbetter.core.datastore.UserPreferences,
 ) : ViewModel() {
     private val _state = MutableStateFlow(SettingsViewState())
     val state = _state.asStateFlow()

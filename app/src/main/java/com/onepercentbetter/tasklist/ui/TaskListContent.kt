@@ -45,9 +45,9 @@ import com.onepercentbetter.core.ui.components.OPBDatePickerDialog
 import com.onepercentbetter.core.ui.components.UIText
 import com.onepercentbetter.core.ui.components.getString
 import com.onepercentbetter.core.ui.theme.OPBTheme
-import com.onepercentbetter.toEpochMillis
-import com.onepercentbetter.toEpochMillisUTC
-import com.onepercentbetter.toLocalDateUTC
+import com.onepercentbetter.core.model.toEpochMillis
+import com.onepercentbetter.core.model.toEpochMillisUTC
+import com.onepercentbetter.core.model.toLocalDateUTC
 import java.time.LocalDate
 
 const val ADD_TASK_BUTTON_TAG = "ADD_TASK_BUTTON"

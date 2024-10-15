@@ -2,7 +2,7 @@ package com.onepercentbetter.fakes
 
 import com.onepercentbetter.core.model.Task
 import com.onepercentbetter.task.api.TaskListResult
-import com.onepercentbetter.task.api.TaskRepository
+import com.onepercentbetter.repository.task.TaskRepository
 import kotlinx.coroutines.flow.Flow
 
 typealias TasksForDateInput = Pair<Long, Boolean>

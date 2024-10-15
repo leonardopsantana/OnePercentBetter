@@ -46,9 +46,9 @@ import com.onepercentbetter.core.ui.components.UIText
 import com.onepercentbetter.core.ui.components.VerticalSpacer
 import com.onepercentbetter.core.ui.components.getString
 import com.onepercentbetter.core.ui.theme.OPBTheme
-import com.onepercentbetter.login.domain.model.Credentials
-import com.onepercentbetter.login.domain.model.Email
-import com.onepercentbetter.login.domain.model.Password
+import com.onepercentbetter.core.model.Credentials
+import com.onepercentbetter.core.model.Email
+import com.onepercentbetter.core.model.Password
 
 private const val APP_LOGO_WIDTH_PERCENTAGE = 0.75F
 
@@ -232,6 +232,9 @@ private fun EmailInput(
         labelText = stringResource(R.string.email),
         errorMessage = errorMessage,
         enabled = enabled,
+        keyboardOptions = KeyboardOptions.Default.copy(
+            imeAction = ImeAction.Next,
+        ),
     )
 }
 

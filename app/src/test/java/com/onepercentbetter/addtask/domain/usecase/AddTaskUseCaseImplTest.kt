@@ -5,7 +5,7 @@ import com.onepercentbetter.addtask.domain.model.AddTaskResult
 import com.onepercentbetter.core.model.Task
 import com.onepercentbetter.fakes.FakePreferences
 import com.onepercentbetter.fakes.FakeTaskRepository
-import com.onepercentbetter.preferences.UserPreferences
+import com.onepercentbetter.core.datastore.UserPreferences
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import java.time.LocalDate
@@ -14,7 +14,7 @@ import java.time.ZonedDateTime
 
 class AddTaskUseCaseImplTest {
     private val fakeTaskRepository = FakeTaskRepository()
-    private val userPreferences = UserPreferences(
+    private val userPreferences = com.onepercentbetter.core.datastore.UserPreferences(
         preferences = FakePreferences(),
     )
 

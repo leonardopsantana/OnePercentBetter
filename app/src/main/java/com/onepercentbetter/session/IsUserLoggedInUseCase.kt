@@ -1,6 +1,6 @@
 package com.onepercentbetter.session
 
-import com.onepercentbetter.login.domain.repository.TokenRepository
+import com.onepercentbetter.core.datastore.token.TokenRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -10,7 +10,7 @@ import javax.inject.Inject
  * on this device.
  */
 class IsUserLoggedInUseCase @Inject constructor(
-    private val tokenRepository: TokenRepository,
+    private val tokenRepository: com.onepercentbetter.core.datastore.token.TokenRepository,
 ) {
     fun isUserLoggedIn(): Flow<Boolean> {
         return tokenRepository

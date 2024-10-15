@@ -2,9 +2,9 @@ package com.onepercentbetter.tasklist.ui
 
 import com.onepercentbetter.R
 import com.onepercentbetter.core.model.Task
+import com.onepercentbetter.core.model.getSuffixForDayOfMonth
 import com.onepercentbetter.core.ui.AlertMessage
 import com.onepercentbetter.core.ui.components.UIText
-import com.onepercentbetter.core.utils.getStSuffixForDayOfMonth
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -47,7 +47,7 @@ data class TaskListViewState(
                 isTomorrow -> UIText.ResourceText(R.string.tomorrow)
                 else -> {
                     val uiDateFormat = "MMM dd"
-                    val suffix = selectedDate.getStSuffixForDayOfMonth()
+                    val suffix = selectedDate.getSuffixForDayOfMonth()
 
                     val dateString = DateTimeFormatter.ofPattern(uiDateFormat).format(selectedDate)
 

@@ -1,6 +1,6 @@
 package com.onepercentbetter.login.ui
 
-import com.onepercentbetter.CoroutinesTestRule
+import com.onepercentbetter.InstantTaskCoroutinesExecutorRule
 import org.junit.Before
 import org.junit.Rule
 
@@ -8,7 +8,7 @@ class LoginViewModelTest {
     private lateinit var testRobot: LoginViewModelRobot
 
     @get:Rule
-    val coroutinesTestRule = CoroutinesTestRule()
+    val instantTaskCoroutinesExecutorRule = InstantTaskCoroutinesExecutorRule()
 
     @Before
     fun setUp() {

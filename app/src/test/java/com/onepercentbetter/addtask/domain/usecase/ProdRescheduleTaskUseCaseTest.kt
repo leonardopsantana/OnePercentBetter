@@ -2,7 +2,7 @@ package com.onepercentbetter.addtask.domain.usecase
 
 import com.onepercentbetter.core.model.Task
 import com.onepercentbetter.tasklist.domain.usecases.ProdRescheduleTaskForDateUseCase
-import com.onepercentbetter.toEpochMillis
+import com.onepercentbetter.core.model.toEpochMillis
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Test

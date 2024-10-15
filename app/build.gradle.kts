@@ -1,13 +1,9 @@
-import com.google.protobuf.gradle.id
-import com.google.protobuf.gradle.protobuf
-
 plugins {
     id("com.android.application")
     id("kotlin-android")
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
     alias(libs.plugins.ksp)
-    id("com.google.protobuf").version("0.9.4")
 }
 
 kotlin {
@@ -135,7 +131,7 @@ dependencies {
     implementation(libs.androidx.compose.material3.windowsizeclass)
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.tooling.preview)
-    implementation(libs.androidx.datastore)
+
     implementation(libs.androidx.ktx.core)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.material)
@@ -145,12 +141,12 @@ dependencies {
     implementation(libs.androidx.window)
     implementation(libs.bundles.accompanist)
     implementation(libs.compose.destinations.animations.core)
-    implementation(libs.google.protobuf.javalite)
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.compose)
     implementation(project(":core-data"))
     implementation(project(":core-model"))
-    implementation(project(":task-api"))
+    implementation(project(":core-database"))
+    implementation(project(":core-datastore"))
     kapt(libs.hilt.compiler)
     kaptAndroidTest(libs.hilt.android.compiler)
     ksp(libs.androidx.room.compiler)
@@ -161,25 +157,7 @@ dependencies {
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.mockk)
-}
-
-protobuf {
-    protoc {
-        artifact = "com.google.protobuf:protoc:3.21.12"
-    }
-
-    // Generates the java Protobuf-lite code for the Protobufs in this project. See
-    // https://github.com/google/protobuf-gradle-plugin#customizing-protobuf-compilation
-    // for more information.
-    generateProtoTasks {
-        all().forEach {
-            it.builtins {
-                id("java") {
-                    option("lite")
-                }
-            }
-        }
-    }
+    testImplementation(libs.viewmodel.test)
 }
 
 tasks.named("lintKotlinDebug") {
