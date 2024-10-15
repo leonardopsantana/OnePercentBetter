@@ -14,9 +14,9 @@ plugins {
     id("kotlin-android")
     id("kotlin-kapt")
     id("kotlin-parcelize")
-    id("com.streamplayer.dokka")
-    id("com.streamplayer.kover")
-    id("com.streamplayer.detekt")
+    id("com.onepercentbetter.dokka")
+    id("com.onepercentbetter.kover")
+    id("com.onepercentbetter.detekt")
 }
 val catalog: VersionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
 

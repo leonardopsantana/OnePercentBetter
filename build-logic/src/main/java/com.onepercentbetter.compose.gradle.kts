@@ -4,7 +4,7 @@ import extensions.getLibrary
 import extensions.setupCompose
 
 plugins {
-    id("com.streamplayer.android-library")
+    id("com.onepercentbetter.android-library")
 }
 
 val libs: VersionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")

@@ -38,6 +38,7 @@ dokka = "1.9.10"
 kover = "0.7.5"
 detekt = "1.23.6"
 androidxCoreKtx = "1.13.1"
+coveralls = "2.12.2"
 
 [libraries]
 kotlin_gradle_plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -110,4 +111,5 @@ hilt-plugin = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka"}
 kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+#coveralls = { id = "gradle.plugin.org.kt3k.gradle.plugin:coveralls-gradle-plugin", version.ref = "coveralls" }
 
