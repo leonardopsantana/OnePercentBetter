@@ -1,3 +1,9 @@
+@file:Suppress("UnstableApiUsage")
+
+//plugins {
+//    id("com.onepercentbetter.application")
+//}
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -9,6 +15,7 @@ plugins {
 
 android {
     namespace = "com.onepercentbetter"
+    compileSdk = libs.versions.compileSdk.get().toInt()
 }
 
 dependencies {

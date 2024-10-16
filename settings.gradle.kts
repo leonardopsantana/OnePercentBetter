@@ -17,7 +17,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "OnePercentBetter"
 include(":app")
 include(":core-data")
 include(":core-model")
