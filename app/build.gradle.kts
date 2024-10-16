@@ -1,21 +1,9 @@
 @file:Suppress("UnstableApiUsage")
-
-//plugins {
-//    id("com.onepercentbetter.application")
-//}
-
 plugins {
-    id("com.android.application")
-    id("kotlin-android")
-    id("kotlin-kapt")
-    id("dagger.hilt.android.plugin")
     alias(libs.plugins.ksp)
     alias(libs.plugins.kotlinter)
-}
-
-android {
-    namespace = "com.onepercentbetter"
-    compileSdk = libs.versions.compileSdk.get().toInt()
+    alias(libs.plugins.hilt.plugin)
+    id("com.onepercentbetter.application")
 }
 
 dependencies {
