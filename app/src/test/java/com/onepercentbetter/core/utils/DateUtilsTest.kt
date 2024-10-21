@@ -1,6 +1,7 @@
 package com.onepercentbetter.core.utils
 
 import com.google.common.truth.Truth.assertThat
+import com.onepercentbetter.core.model.getSuffixForDayOfMonth
 import org.junit.Test
 import java.time.LocalDate
 import java.time.Month
@@ -43,6 +44,6 @@ class DateUtilsTest {
 
 private fun List<Int>.convertToSuffixes(): List<String> {
     return this.map { day ->
-        LocalDate.of(2024, Month.JANUARY, day).getStSuffixForDayOfMonth()
-    }
+            LocalDate.of(2020, Month.JANUARY, day).getSuffixForDayOfMonth()
+        }
 }

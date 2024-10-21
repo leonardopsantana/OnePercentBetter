@@ -5,7 +5,7 @@ import com.onepercentbetter.core.model.Task
 import com.onepercentbetter.fakes.FakeGetTasksForDateUseCase
 import com.onepercentbetter.fakes.FakeRescheduleTaskUseCase
 import com.onepercentbetter.fakes.FakeTaskRepository
-import com.onepercentbetter.task.api.TaskListResult
+import com.onepercentbetter.repository.task.TaskListResult
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
 

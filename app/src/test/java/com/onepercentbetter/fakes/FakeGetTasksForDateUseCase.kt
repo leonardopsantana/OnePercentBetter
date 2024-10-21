@@ -1,6 +1,6 @@
 package com.onepercentbetter.fakes
 
-import com.onepercentbetter.task.api.TaskListResult
+import com.onepercentbetter.repository.task.TaskListResult
 import com.onepercentbetter.tasklist.domain.usecases.GetTasksForDateUseCase
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate

@@ -2,8 +2,8 @@ package com.onepercentbetter.tasklist.ui
 
 import com.google.common.truth.Truth.assertThat
 import com.onepercentbetter.R
+import com.onepercentbetter.core.model.getSuffixForDayOfMonth
 import com.onepercentbetter.core.ui.components.UIText
-import com.onepercentbetter.core.utils.getStSuffixForDayOfMonth
 import org.junit.Test
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -58,7 +58,7 @@ class TaskListViewStateTest {
             )
 
         val expectedDateFormat = "MMM dd"
-        val expectedSuffix = twoDaysFromNow.getStSuffixForDayOfMonth()
+        val expectedSuffix = twoDaysFromNow.getSuffixForDayOfMonth()
         val parsedDateString = DateTimeFormatter.ofPattern(expectedDateFormat).format(twoDaysFromNow)
         val expectedDateString = "$parsedDateString$expectedSuffix"
         val expectedString = UIText.StringText(expectedDateString)
