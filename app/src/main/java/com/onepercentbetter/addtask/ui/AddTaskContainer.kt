@@ -6,7 +6,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import com.onepercentbetter.core.model.Task
+import com.onepercentbetter.core.model.toEpochMillis
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import java.util.UUID
 
 /**
  * A container for the Add Task screen. Unlike [AddTaskContent], this is a stateful composable
@@ -38,7 +41,18 @@ fun AddTaskContainer(
         viewState = viewState.value,
         onTaskDescriptionChanged = viewModel::onTaskDescriptionChanged,
         onTaskScheduleDateChanged = viewModel::onTaskScheduleDateChanged,
-        onSubmitClicked = viewModel::onSubmitButtonClicked,
+        onSubmitClicked = {
+            viewModel.onSubmitButtonClicked(
+                Task(
+                    id = UUID.randomUUID().toString(),
+                    description = viewState.value.taskInput.description,
+                    scheduledDateMillis =
+                    viewState.value.taskInput.scheduledDate
+                        .toEpochMillis(),
+                    completed = false,
+                ),
+            )
+        },
         modifier = modifier,
     )
 }

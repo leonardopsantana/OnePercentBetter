@@ -30,7 +30,7 @@ import kotlinx.coroutines.flow.update
 class AddTaskViewModel @Inject constructor(
     private val addTaskUseCase: AddTaskUseCase,
     private val savedStateHandle: SavedStateHandle,
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
     /**
      * Even though this screen can be navigated to using either AddTaskDialogDestination, or
@@ -84,32 +84,20 @@ class AddTaskViewModel @Inject constructor(
             )
     }
 
-    fun onSubmitButtonClicked() {
-        val taskToCreate =
-            Task(
-                id = UUID.randomUUID().toString(),
-                description = _viewState.value.taskInput.description,
-                scheduledDateMillis =
-                _viewState.value.taskInput.scheduledDate
-                    .toEpochMillis(),
-                completed = false,
-            )
-
+    fun onSubmitButtonClicked(task: Task) {
         viewModelScope.launch {
             val canRetry = (_viewState.value as? AddTaskViewState.SubmissionError)?.allowRetry
 
             addTaskUseCase.invoke(
-                task = taskToCreate,
+                task = task,
                 ignoreTaskLimits = canRetry == true,
-            ).flowOn(ioDispatcher)
-                .onStart {
-                    onLoading()
-                }
-////                .catchFailure {
-////                    println(">>>> ${it.errorMessage}")
-////                }
+            ).flowOn(ioDispatcher).onStart {
+                onLoading()
+            }
+//                .catchFailure {
+//                    println(">>>> ${it.errorMessage}")
+//                }
                 .collect { result ->
-                    result
                     _viewState.update {
                         when (result) {
                             is AddTaskResult.Success -> {
@@ -144,9 +132,11 @@ class AddTaskViewModel @Inject constructor(
     }
 
     private fun onLoading() {
-        _viewState.update { AddTaskViewState.Submitting(
-            _viewState.value.taskInput
-        ) }
+        _viewState.update {
+            AddTaskViewState.Submitting(
+                _viewState.value.taskInput,
+            )
+        }
     }
 }
 

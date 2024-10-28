@@ -1,99 +1,104 @@
 package com.onepercentbetter.addtask.ui
 
 import com.onepercentbetter.InstantTaskCoroutinesExecutorRule
-import com.onepercentbetter.addtask.domain.model.TaskInput
-import com.onepercentbetter.core.model.Task
-import java.time.Instant
-import org.junit.Rule
-import org.junit.Test
-import java.time.LocalDate
-import java.time.ZoneId
-import kotlinx.coroutines.test.runTest
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.onepercentbetter.R
 import com.onepercentbetter.addtask.domain.model.AddTaskResult
-import com.onepercentbetter.core.ui.components.UIText
+import com.onepercentbetter.addtask.domain.model.TaskInput
+import com.onepercentbetter.core.assertViewStates
+import com.onepercentbetter.core.model.Task
 import com.onepercentbetter.core.model.toEpochMillis
+import com.onepercentbetter.core.ui.components.UIText
+import io.mockk.every
+import io.mockk.mockkStatic
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneId
+import java.util.UUID
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
+import org.junit.Rule
+import org.junit.Test
 
 @ExperimentalCoroutinesApi
 class AddTaskViewModelTest {
     private val testRobot = AddTaskViewModelRobot()
 
     @get:Rule
-    val executorRule = InstantTaskCoroutinesExecutorRule()
-
-    @get:Rule
-    val rule = InstantTaskExecutorRule()
+    val coroutinesTestRule = InstantTaskCoroutinesExecutorRule()
 
     @Test
-    fun createWithInitialDateFromSaveStateHandle() {
+    fun `GIVEN an initial date, WHEN adding a task THEN assert state IS Initial`() = runTest {
+        //GIVEN
         val initialDate = LocalDate.now().plusDays(1)
 
         val expectedViewState = AddTaskViewState.Initial(initialDate)
 
         testRobot
             .mockInitialDate(initialDate)
-            .buildViewModel(executorRule.dispatcher)
-            .assertViewState(expectedViewState)
+            .buildViewModel(coroutinesTestRule.dispatcher)
+            .assertViewStates(
+                stateUnderTest = testRobot.viewModel.viewState,
+                //WHEN
+                action = {},
+                //THEN
+                expectedViewStates = listOf(expectedViewState),
+            )
     }
 
     @Test
-    fun `GIVEN an empty description, WHEN adding a task THEN do not allow it`() {
+    fun `GIVEN an empty description, WHEN adding a task THEN assert state IS active with input error message`() =
         runTest {
-            val now = LocalDate.now()
-
+            //GIVEN
+            val initialDate = LocalDate.now()
             val taskToSubmit = Task(
-                id = "Testing",
+                id = UUID.randomUUID().toString(),
                 description = "",
-                scheduledDateMillis = now.toEpochMillis(),
+                scheduledDateMillis = initialDate.toEpochMillis(),
                 completed = false,
             )
 
+            val taskInput = TaskInput(
+                description = taskToSubmit.description,
+                scheduledDate = Instant.ofEpochMilli(taskToSubmit.scheduledDateMillis)
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDate(),
+            )
+
             testRobot
-                .mockInitialDate(now)
-                .buildViewModel(executorRule.dispatcher)
+                .mockInitialDate(initialDate)
+                .buildViewModel(coroutinesTestRule.dispatcher)
                 .mockResultForTask(
                     taskToSubmit,
                     AddTaskResult.Failure.InvalidInput(
                         emptyDescription = true,
-                        scheduledDateInPast = false
-                    )
+                        scheduledDateInPast = false,
+                    ),
                 )
-                .enterDescription(taskToSubmit.description)
-                .assertViewState(
-                    AddTaskViewState.Active(
-                        taskInput = TaskInput(
-                            description = taskToSubmit.description,
-                            scheduledDate = Instant.ofEpochMilli(taskToSubmit.scheduledDateMillis)
-                                .atZone(ZoneId.systemDefault())
-                                .toLocalDate(),
+                .assertViewStates(
+                    stateUnderTest = testRobot.viewModel.viewState,
+                    //WHEN
+                    action = {
+                        enterDescription(taskToSubmit.description)
+                        selectDate(taskToSubmit.scheduledDateMillis)
+                        clickSubmit(taskToSubmit)
+                    },
+                    //THEN
+                    expectedViewStates = listOf(
+                        AddTaskViewState.Initial(
+                            initDate = initialDate,
                         ),
-                        descriptionInputErrorMessage = null,
-                    ),
-                )
-                .selectDate(taskToSubmit.scheduledDateMillis)
-                .assertViewState(
-                    AddTaskViewState.Active(
-                        taskInput = TaskInput(
-                            description = taskToSubmit.description,
-                            scheduledDate = Instant.ofEpochMilli(taskToSubmit.scheduledDateMillis)
-                                .atZone(ZoneId.systemDefault())
-                                .toLocalDate(),
+                        AddTaskViewState.Active(
+                            taskInput = taskInput.copy(scheduledDate = initialDate),
+                            descriptionInputErrorMessage = null,
                         ),
-                        descriptionInputErrorMessage = null,
+                        AddTaskViewState.Submitting(
+                            taskInput = taskInput,
+                        ),
+                        AddTaskViewState.Active(
+                            taskInput = taskInput,
+                            descriptionInputErrorMessage = UIText.ResourceText(R.string.err_empty_task_description),
+                        ),
                     ),
                 )
-                .clickSubmit()
-                .assertViewState(AddTaskViewState.Active(
-                    taskInput = TaskInput(
-                        description = taskToSubmit.description,
-                        scheduledDate = Instant.ofEpochMilli(taskToSubmit.scheduledDateMillis)
-                            .atZone(ZoneId.systemDefault())
-                            .toLocalDate(),
-                    ),
-                    descriptionInputErrorMessage = UIText.ResourceText(R.string.err_empty_task_description),
-                ))
         }
-    }
 }

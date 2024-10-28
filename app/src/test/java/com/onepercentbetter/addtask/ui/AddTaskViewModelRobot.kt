@@ -1,7 +1,6 @@
 package com.onepercentbetter.addtask.ui
 
 import androidx.lifecycle.SavedStateHandle
-import com.google.common.truth.Truth.assertThat
 import com.onepercentbetter.addtask.domain.model.AddTaskResult
 import com.onepercentbetter.core.model.Task
 import com.onepercentbetter.fakes.FakeAddTaskUseCase
@@ -13,17 +12,17 @@ import java.time.ZoneId
 import kotlinx.coroutines.test.TestDispatcher
 
 class AddTaskViewModelRobot {
-    private val fakeAddTaskUseCase = FakeAddTaskUseCase()
+    private var addTaskUseCase = FakeAddTaskUseCase()
     private val mockSaveStateHandle: SavedStateHandle = mockk(relaxed = true)
-    private lateinit var viewModel: AddTaskViewModel
+    lateinit var viewModel: AddTaskViewModel
 
     fun buildViewModel(dispatcher: TestDispatcher) =
         apply {
             viewModel =
                 AddTaskViewModel(
-                    addTaskUseCase = fakeAddTaskUseCase.mock,
+                    addTaskUseCase = addTaskUseCase.mock,
                     savedStateHandle = mockSaveStateHandle,
-                    ioDispatcher = dispatcher
+                    ioDispatcher = dispatcher,
                 )
         }
 
@@ -40,7 +39,7 @@ class AddTaskViewModelRobot {
         result: AddTaskResult,
     ) =
         apply {
-            fakeAddTaskUseCase.mockResultForTask(task, result)
+            addTaskUseCase.mockResultForTask(task, result)
         }
 
     fun enterDescription(
@@ -59,16 +58,9 @@ class AddTaskViewModelRobot {
         viewModel.onTaskScheduleDateChanged(scheduledDate)
     }
 
-    fun clickSubmit() =
+    fun clickSubmit(task: Task) =
         apply {
-            viewModel.onSubmitButtonClicked()
+            viewModel.onSubmitButtonClicked(task)
         }
 
-    fun assertViewState(
-        expectedViewState: AddTaskViewState,
-    ) = apply {
-        viewModel.viewState.value.let {
-            assertThat(it).isEqualTo(expectedViewState)
-        }
-    }
 }
