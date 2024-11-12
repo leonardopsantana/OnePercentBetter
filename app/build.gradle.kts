@@ -1,7 +1,7 @@
 @file:Suppress("UnstableApiUsage")
+
 plugins {
     alias(libs.plugins.ksp)
-    alias(libs.plugins.kotlinter)
     alias(libs.plugins.hilt.plugin)
     id("com.onepercentbetter.application")
 }
@@ -55,28 +55,4 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.mockk)
     testImplementation(libs.viewmodel.test)
-}
-
-tasks.named("lintKotlinDebug") {
-    mustRunAfter("kspDebugKotlin")
-}
-
-tasks.named("lintKotlinRelease") {
-    mustRunAfter("kspReleaseKotlin")
-}
-
-tasks.lintKotlinDebug {
-    exclude { it.file.path.contains("build/")}
-}
-
-tasks.lintKotlinRelease {
-    exclude { it.file.path.contains("build/")}
-}
-
-tasks.formatKotlinDebug {
-    exclude { it.file.path.contains("build/")}
-}
-
-tasks.formatKotlinRelease {
-    exclude { it.file.path.contains("build/")}
 }

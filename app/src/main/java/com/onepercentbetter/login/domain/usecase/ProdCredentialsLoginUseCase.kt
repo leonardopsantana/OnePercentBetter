@@ -1,10 +1,10 @@
 package com.onepercentbetter.login.domain.usecase
 
+import com.onepercentbetter.core.datastore.token.TokenRepository
 import com.onepercentbetter.core.model.Credentials
 import com.onepercentbetter.login.domain.model.InvalidCredentialsException
 import com.onepercentbetter.login.domain.model.LoginResult
 import com.onepercentbetter.repository.login.LoginRepository
-import com.onepercentbetter.core.datastore.token.TokenRepository
 import javax.inject.Inject
 
 /**

@@ -38,7 +38,6 @@ class SessionViewModel @Inject constructor(
                         SessionState.LOGGED_OUT
                     }
                 }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
     }
 }

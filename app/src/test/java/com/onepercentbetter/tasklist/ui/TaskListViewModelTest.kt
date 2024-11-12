@@ -69,8 +69,7 @@ class TaskListViewModelTest {
             .mockTaskListResultForDate(
                 date = LocalDate.now(),
                 result = flowOf(taskListResult),
-            )
-            .buildViewModel()
+            ).buildViewModel()
             .clickRescheduleButton(incompleteTask)
             .assertViewState(
                 expectedViewState = TaskListViewState(
@@ -79,12 +78,10 @@ class TaskListViewModelTest {
                     completedTasks = emptyList(),
                     taskToReschedule = incompleteTask,
                 ),
-            )
-            .rescheduleTaskForDate(
+            ).rescheduleTaskForDate(
                 task = incompleteTask,
                 date = tomorrow,
-            )
-            .assertViewState(
+            ).assertViewState(
                 expectedViewState = TaskListViewState(
                     showLoading = false,
                     incompleteTasks = emptyList(),
@@ -98,8 +95,7 @@ class TaskListViewModelTest {
                         ),
                     ),
                 ),
-            )
-            .dismissAlertMessage()
+            ).dismissAlertMessage()
             .assertTaskRescheduleForDate(
                 task = incompleteTask,
                 date = tomorrow,
@@ -131,8 +127,7 @@ class TaskListViewModelTest {
             .mockTaskListResultForDate(
                 date = LocalDate.now(),
                 result = flowOf(taskListResult),
-            )
-            .buildViewModel()
+            ).buildViewModel()
             .clickRescheduleButton(incompleteTask)
             .assertViewState(
                 expectedViewState = TaskListViewState(
@@ -141,12 +136,10 @@ class TaskListViewModelTest {
                     completedTasks = emptyList(),
                     taskToReschedule = incompleteTask,
                 ),
-            )
-            .rescheduleTaskForDate(
+            ).rescheduleTaskForDate(
                 task = incompleteTask,
                 date = yesterday,
-            )
-            .assertViewState(
+            ).assertViewState(
                 expectedViewState = TaskListViewState(
                     showLoading = false,
                     incompleteTasks = listOf(incompleteTask),
@@ -156,8 +149,7 @@ class TaskListViewModelTest {
                         alertMessage,
                     ),
                 ),
-            )
-            .showAlertMessage()
+            ).showAlertMessage()
             .assertViewState(
                 expectedViewState = TaskListViewState(
                     showLoading = false,

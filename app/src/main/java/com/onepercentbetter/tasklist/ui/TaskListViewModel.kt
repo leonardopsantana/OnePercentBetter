@@ -43,8 +43,7 @@ class TaskListViewModel
             _viewState
                 .map { viewState ->
                     viewState.selectedDate
-                }
-                .distinctUntilChanged()
+                }.distinctUntilChanged()
                 .flatMapLatest { selectedDate ->
                     _viewState.update {
                         it.copy(
@@ -57,19 +56,17 @@ class TaskListViewModel
                     getTasksForDateUseCase.invoke(
                         date = selectedDate,
                     )
-                }
-                .onEach { result ->
+                }.onEach { result ->
                     _viewState.update {
                         getViewStateTaskListResults(result)
                     }
-                }
-                .launchIn(viewModelScope)
+                }.launchIn(viewModelScope)
         }
 
         private fun getViewStateTaskListResults(
             result: Result<List<Task>>,
-        ): TaskListViewState {
-            return result.fold(
+        ): TaskListViewState =
+            result.fold(
                 onSuccess = { tasks ->
                     val (complete, incomplete) =
                         tasks.partition { task ->
@@ -89,7 +86,6 @@ class TaskListViewModel
                     )
                 },
             )
-        }
 
         fun onDoneButtonClicked(
             task: Task,

@@ -55,7 +55,8 @@ fun AddTaskContent(
 ) {
     val descriptionFocusRequester = remember { FocusRequester() }
 
-    LaunchedEffect(true) { // calls only one time
+    LaunchedEffect(true) {
+        // calls only one time
         descriptionFocusRequester.requestFocus()
     }
 
@@ -150,7 +151,7 @@ private fun TaskDateInput(
         value = value,
         onValueChanged = onValueChanged,
         modifier = Modifier.fillMaxWidth(),
-        enabled = enabled
+        enabled = enabled,
     )
 }
 

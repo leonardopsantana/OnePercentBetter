@@ -1,7 +1,7 @@
 package com.onepercentbetter.fakes
 
-import com.onepercentbetter.core.model.Token
 import com.onepercentbetter.core.datastore.token.TokenRepository
+import com.onepercentbetter.core.model.Token
 import io.mockk.coVerify
 import io.mockk.mockk
 

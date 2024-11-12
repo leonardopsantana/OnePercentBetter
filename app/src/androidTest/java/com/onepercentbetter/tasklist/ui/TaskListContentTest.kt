@@ -23,7 +23,8 @@ class TaskListContentTest {
             id = "Test ID",
             description = "Text Task",
             scheduledDateMillis =
-                ZonedDateTime.now()
+                ZonedDateTime
+                    .now()
                     .toInstant()
                     .toEpochMilli(),
             completed = false,

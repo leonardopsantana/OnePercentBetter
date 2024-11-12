@@ -1,13 +1,13 @@
 package com.onepercentbetter.login.domain.usecase
 
-import com.onepercentbetter.fakes.FakeLoginRepository
-import com.onepercentbetter.fakes.FakeTokenRepository
 import com.onepercentbetter.core.model.AuthToken
 import com.onepercentbetter.core.model.Credentials
 import com.onepercentbetter.core.model.Email
 import com.onepercentbetter.core.model.Password
 import com.onepercentbetter.core.model.RefreshToken
 import com.onepercentbetter.core.model.Token
+import com.onepercentbetter.fakes.FakeLoginRepository
+import com.onepercentbetter.fakes.FakeTokenRepository
 import org.junit.Before
 
 class ProdCredentialsLoginUseCaseTest {

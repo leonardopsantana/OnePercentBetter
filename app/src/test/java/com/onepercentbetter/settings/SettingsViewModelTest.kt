@@ -2,8 +2,8 @@ package com.onepercentbetter.settings
 
 import com.google.common.truth.Truth.assertThat
 import com.onepercentbetter.InstantTaskCoroutinesExecutorRule
-import com.onepercentbetter.fakes.FakePreferences
 import com.onepercentbetter.core.datastore.UserPreferences
+import com.onepercentbetter.fakes.FakePreferences
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test

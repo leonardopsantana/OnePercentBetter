@@ -1,13 +1,12 @@
 package com.onepercentbetter.login.ui
 
 import com.onepercentbetter.InstantTaskCoroutinesExecutorRule
+import com.onepercentbetter.R
 import com.onepercentbetter.core.model.Credentials
 import com.onepercentbetter.core.model.Email
 import com.onepercentbetter.core.model.Password
 import com.onepercentbetter.core.ui.components.UIText
-import com.onepercentbetter.login.domain.model.InvalidCredentialsException
 import kotlinx.coroutines.test.runTest
-import com.onepercentbetter.R
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -186,32 +185,32 @@ class LoginViewModelTest {
 //                )
         }
 
-
     @Test
-    fun testClearErrorsAfterInput() = runTest {
-        val credentials = Credentials()
-        val testEmail = "leonardopontes.santana@mail.com"
-        val testPassword = "Hunter2"
+    fun testClearErrorsAfterInput() =
+        runTest {
+            val credentials = Credentials()
+            val testEmail = "leonardopontes.santana@mail.com"
+            val testPassword = "Hunter2"
 
-        val initialState = LoginViewState.Initial
-        val submittingState = LoginViewState.Submitting(
-            credentials = credentials,
-        )
-        val invalidInputsState = LoginViewState.Active(
-            credentials = credentials,
-            emailInputErrorMessage = UIText.ResourceText(R.string.error_empty_email),
-            passwordInputErrorMessage = UIText.ResourceText(R.string.error_empty_password),
-        )
-        val emailInputState = LoginViewState.Active(
-            credentials = Credentials(email = Email(testEmail)),
-            emailInputErrorMessage = null,
-            passwordInputErrorMessage = UIText.ResourceText(R.string.error_empty_password),
-        )
-        val passwordInputState = LoginViewState.Active(
-            credentials = Credentials(email = Email(testEmail), password = Password(testPassword)),
-            emailInputErrorMessage = null,
-            passwordInputErrorMessage = null,
-        )
+            val initialState = LoginViewState.Initial
+            val submittingState = LoginViewState.Submitting(
+                credentials = credentials,
+            )
+            val invalidInputsState = LoginViewState.Active(
+                credentials = credentials,
+                emailInputErrorMessage = UIText.ResourceText(R.string.error_empty_email),
+                passwordInputErrorMessage = UIText.ResourceText(R.string.error_empty_password),
+            )
+            val emailInputState = LoginViewState.Active(
+                credentials = Credentials(email = Email(testEmail)),
+                emailInputErrorMessage = null,
+                passwordInputErrorMessage = UIText.ResourceText(R.string.error_empty_password),
+            )
+            val passwordInputState = LoginViewState.Active(
+                credentials = Credentials(email = Email(testEmail), password = Password(testPassword)),
+                emailInputErrorMessage = null,
+                passwordInputErrorMessage = null,
+            )
 
 //        testRobot
 //            .buildViewModel()
@@ -229,5 +228,5 @@ class LoginViewModelTest {
 //                    //                    passwordInputState,
 //                ),
 //            )
-    }
+        }
 }

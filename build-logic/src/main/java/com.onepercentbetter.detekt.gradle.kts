@@ -1,3 +1,5 @@
+import io.gitlab.arturbosch.detekt.Detekt
+
 plugins {
     id("io.gitlab.arturbosch.detekt")
 }
@@ -12,5 +14,10 @@ detekt {
         "src/main/kotlin",
         "src/test/kotlin"
     )
+}
 
+tasks.withType<Detekt>().configureEach {
+    reports {
+        md.required.set(true)
+    }
 }

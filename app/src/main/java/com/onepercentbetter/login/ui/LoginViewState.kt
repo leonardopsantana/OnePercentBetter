@@ -1,7 +1,7 @@
 package com.onepercentbetter.login.ui
 
-import com.onepercentbetter.core.ui.components.UIText
 import com.onepercentbetter.core.model.Credentials
+import com.onepercentbetter.core.ui.components.UIText
 
 /**
  * A sealed class defining all possible states of our login screen.

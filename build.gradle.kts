@@ -9,7 +9,6 @@ plugins {
     alias(libs.plugins.dokka) apply false
     alias(libs.plugins.kover) apply false
     alias(libs.plugins.hilt.plugin) apply false
-    alias(libs.plugins.kotlinter) apply false
 }
 
 tasks.register("clean", Delete::class) {

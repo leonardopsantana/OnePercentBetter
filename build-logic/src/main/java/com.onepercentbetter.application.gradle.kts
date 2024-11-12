@@ -17,6 +17,7 @@ plugins {
     id("com.onepercentbetter.dokka")
     id("com.onepercentbetter.kover")
     id("com.onepercentbetter.detekt")
+    id("com.onepercentbetter.ktlint")
 }
 val catalog: VersionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
 

@@ -17,7 +17,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.Dialog
 import com.onepercentbetter.ExcludeFromJacocoGeneratedReport
 import com.onepercentbetter.core.ui.theme.OPBTheme
-import java.time.LocalDate
 
 /**
  * This is a [Dialog] that will render a [DatePicker] and allow the user to select any date today

@@ -1,9 +1,9 @@
 package com.onepercentbetter.login.ui
 
-import com.onepercentbetter.fakes.FakeLoginRepository
-import com.onepercentbetter.fakes.FakeTokenRepository
 import com.onepercentbetter.core.model.Credentials
 import com.onepercentbetter.core.model.LoginResponse
+import com.onepercentbetter.fakes.FakeLoginRepository
+import com.onepercentbetter.fakes.FakeTokenRepository
 import com.onepercentbetter.login.domain.usecase.ProdCredentialsLoginUseCase
 
 class LoginViewModelRobot {

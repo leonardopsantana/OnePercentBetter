@@ -8,16 +8,14 @@ import com.onepercentbetter.core.assertViewStates
 import com.onepercentbetter.core.model.Task
 import com.onepercentbetter.core.model.toEpochMillis
 import com.onepercentbetter.core.ui.components.UIText
-import io.mockk.every
-import io.mockk.mockkStatic
-import java.time.Instant
-import java.time.LocalDate
-import java.time.ZoneId
-import java.util.UUID
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneId
+import java.util.UUID
 
 @ExperimentalCoroutinesApi
 class AddTaskViewModelTest {
@@ -27,28 +25,29 @@ class AddTaskViewModelTest {
     val coroutinesTestRule = InstantTaskCoroutinesExecutorRule()
 
     @Test
-    fun `GIVEN an initial date, WHEN adding a task THEN assert state IS Initial`() = runTest {
-        //GIVEN
-        val initialDate = LocalDate.now().plusDays(1)
+    fun `GIVEN an initial date, WHEN adding a task THEN assert state IS Initial`() =
+        runTest {
+            // GIVEN
+            val initialDate = LocalDate.now().plusDays(1)
 
-        val expectedViewState = AddTaskViewState.Initial(initialDate)
+            val expectedViewState = AddTaskViewState.Initial(initialDate)
 
-        testRobot
-            .mockInitialDate(initialDate)
-            .buildViewModel(coroutinesTestRule.dispatcher)
-            .assertViewStates(
-                stateUnderTest = testRobot.viewModel.viewState,
-                //WHEN
-                action = {},
-                //THEN
-                expectedViewStates = listOf(expectedViewState),
-            )
-    }
+            testRobot
+                .mockInitialDate(initialDate)
+                .buildViewModel(coroutinesTestRule.dispatcher)
+                .assertViewStates(
+                    stateUnderTest = testRobot.viewModel.viewState,
+                    // WHEN
+                    action = {},
+                    // THEN
+                    expectedViewStates = listOf(expectedViewState),
+                )
+        }
 
     @Test
     fun `GIVEN an empty description, WHEN adding a task THEN assert state IS active with input error message`() =
         runTest {
-            //GIVEN
+            // GIVEN
             val initialDate = LocalDate.now()
             val taskToSubmit = Task(
                 id = UUID.randomUUID().toString(),
@@ -59,7 +58,8 @@ class AddTaskViewModelTest {
 
             val taskInput = TaskInput(
                 description = taskToSubmit.description,
-                scheduledDate = Instant.ofEpochMilli(taskToSubmit.scheduledDateMillis)
+                scheduledDate = Instant
+                    .ofEpochMilli(taskToSubmit.scheduledDateMillis)
                     .atZone(ZoneId.systemDefault())
                     .toLocalDate(),
             )
@@ -73,16 +73,15 @@ class AddTaskViewModelTest {
                         emptyDescription = true,
                         scheduledDateInPast = false,
                     ),
-                )
-                .assertViewStates(
+                ).assertViewStates(
                     stateUnderTest = testRobot.viewModel.viewState,
-                    //WHEN
+                    // WHEN
                     action = {
                         enterDescription(taskToSubmit.description)
                         selectDate(taskToSubmit.scheduledDateMillis)
                         clickSubmit(taskToSubmit)
                     },
-                    //THEN
+                    // THEN
                     expectedViewStates = listOf(
                         AddTaskViewState.Initial(
                             initDate = initialDate,

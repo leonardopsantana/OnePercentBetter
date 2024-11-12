@@ -11,20 +11,18 @@ import com.onepercentbetter.core.di.IoDispatcher
 import com.onepercentbetter.core.model.Task
 import com.onepercentbetter.core.ui.components.UIText
 import com.onepercentbetter.destinations.AddTaskScreenDestination
-import com.onepercentbetter.core.model.toEpochMillis
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.launch
-import java.time.LocalDate
-import java.util.UUID
-import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import java.time.LocalDate
+import javax.inject.Inject
 
 @HiltViewModel
 class AddTaskViewModel @Inject constructor(
@@ -79,21 +77,25 @@ class AddTaskViewModel @Inject constructor(
             AddTaskViewState.Active(
                 taskInput = newInput,
                 descriptionInputErrorMessage =
-                (_viewState.value as? AddTaskViewState.Active)
-                    ?.descriptionInputErrorMessage,
+                    (_viewState.value as? AddTaskViewState.Active)
+                        ?.descriptionInputErrorMessage,
             )
     }
 
-    fun onSubmitButtonClicked(task: Task) {
+    fun onSubmitButtonClicked(
+        task: Task,
+    ) {
         viewModelScope.launch {
             val canRetry = (_viewState.value as? AddTaskViewState.SubmissionError)?.allowRetry
 
-            addTaskUseCase.invoke(
-                task = task,
-                ignoreTaskLimits = canRetry == true,
-            ).flowOn(ioDispatcher).onStart {
-                onLoading()
-            }
+            addTaskUseCase
+                .invoke(
+                    task = task,
+                    ignoreTaskLimits = canRetry == true,
+                ).flowOn(ioDispatcher)
+                .onStart {
+                    onLoading()
+                }
 //                .catchFailure {
 //                    println(">>>> ${it.errorMessage}")
 //                }
@@ -142,12 +144,12 @@ class AddTaskViewModel @Inject constructor(
 
 private fun AddTaskResult.Failure.InvalidInput.toViewState(
     taskInput: TaskInput,
-): AddTaskViewState {
-    return AddTaskViewState.Active(
+): AddTaskViewState =
+    AddTaskViewState.Active(
         taskInput = taskInput,
-        descriptionInputErrorMessage = UIText.ResourceText(R.string.err_empty_task_description)
+        descriptionInputErrorMessage = UIText
+            .ResourceText(R.string.err_empty_task_description)
             .takeIf {
                 this.emptyDescription
             },
     )
-}

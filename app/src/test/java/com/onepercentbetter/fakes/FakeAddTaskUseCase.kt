@@ -2,7 +2,6 @@ package com.onepercentbetter.fakes
 
 import com.onepercentbetter.addtask.domain.model.AddTaskResult
 import com.onepercentbetter.addtask.domain.usecase.AddTaskUseCase
-import com.onepercentbetter.addtask.domain.usecase.AddTaskUseCaseImpl
 import com.onepercentbetter.core.model.Task
 import io.mockk.coEvery
 import io.mockk.mockk
@@ -13,12 +12,12 @@ class FakeAddTaskUseCase {
 
     fun mockResultForTask(
         task: Task,
-        result: AddTaskResult
+        result: AddTaskResult,
     ) {
         coEvery {
             mock.invoke(
                 task = task,
-                ignoreTaskLimits = false
+                ignoreTaskLimits = false,
             )
         } returns flowOf(result)
     }

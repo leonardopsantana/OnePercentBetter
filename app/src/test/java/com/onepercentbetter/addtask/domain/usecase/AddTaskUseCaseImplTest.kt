@@ -2,10 +2,10 @@ package com.onepercentbetter.addtask.domain.usecase
 
 import com.google.common.truth.Truth.assertThat
 import com.onepercentbetter.addtask.domain.model.AddTaskResult
+import com.onepercentbetter.core.datastore.UserPreferences
 import com.onepercentbetter.core.model.Task
 import com.onepercentbetter.fakes.FakePreferences
 import com.onepercentbetter.fakes.FakeTaskRepository
-import com.onepercentbetter.core.datastore.UserPreferences
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import java.time.LocalDate
@@ -32,7 +32,8 @@ class AddTaskUseCaseImplTest {
                     id = "Testing",
                     description = "",
                     scheduledDateMillis =
-                        ZonedDateTime.now()
+                        ZonedDateTime
+                            .now()
                             .toInstant()
                             .toEpochMilli(),
                     completed = false,
@@ -57,7 +58,8 @@ class AddTaskUseCaseImplTest {
                     id = "Testing",
                     description = "    ",
                     scheduledDateMillis =
-                        ZonedDateTime.now()
+                        ZonedDateTime
+                            .now()
                             .toInstant()
                             .toEpochMilli(),
                     completed = false,
@@ -82,7 +84,9 @@ class AddTaskUseCaseImplTest {
                     id = "Testing",
                     description = "Some description",
                     scheduledDateMillis =
-                        LocalDate.now().minusDays(1)
+                        LocalDate
+                            .now()
+                            .minusDays(1)
                             .atStartOfDay()
                             .atZone(ZoneId.systemDefault())
                             .toInstant()
@@ -113,7 +117,8 @@ class AddTaskUseCaseImplTest {
                     id = "Some ID",
                     description = "   Testing      ",
                     scheduledDateMillis =
-                        ZonedDateTime.now()
+                        ZonedDateTime
+                            .now()
                             .toInstant()
                             .toEpochMilli(),
                     completed = false,
@@ -144,7 +149,8 @@ class AddTaskUseCaseImplTest {
             val taskToSubmit = Task(
                 id = "Testing",
                 description = "Test",
-                scheduledDateMillis = ZonedDateTime.now()
+                scheduledDateMillis = ZonedDateTime
+                    .now()
                     .toInstant()
                     .toEpochMilli(),
                 completed = false,

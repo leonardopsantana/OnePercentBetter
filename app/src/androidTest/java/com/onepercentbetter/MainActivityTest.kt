@@ -4,10 +4,10 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
+import com.onepercentbetter.core.datastore.token.TokenRepository
 import com.onepercentbetter.core.model.AuthToken
 import com.onepercentbetter.core.model.RefreshToken
 import com.onepercentbetter.core.model.Token
-import com.onepercentbetter.core.datastore.token.TokenRepository
 import com.onepercentbetter.login.ui.LoginScreen
 import com.onepercentbetter.tasklist.ui.TaskListScreen
 import dagger.hilt.android.testing.HiltAndroidRule

@@ -39,6 +39,9 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.onepercentbetter.ExcludeFromJacocoGeneratedReport
 import com.onepercentbetter.R
+import com.onepercentbetter.core.model.Credentials
+import com.onepercentbetter.core.model.Email
+import com.onepercentbetter.core.model.Password
 import com.onepercentbetter.core.ui.components.OPBTextField
 import com.onepercentbetter.core.ui.components.PrimaryButton
 import com.onepercentbetter.core.ui.components.SecondaryButton
@@ -46,9 +49,6 @@ import com.onepercentbetter.core.ui.components.UIText
 import com.onepercentbetter.core.ui.components.VerticalSpacer
 import com.onepercentbetter.core.ui.components.getString
 import com.onepercentbetter.core.ui.theme.OPBTheme
-import com.onepercentbetter.core.model.Credentials
-import com.onepercentbetter.core.model.Email
-import com.onepercentbetter.core.model.Password
 
 private const val APP_LOGO_WIDTH_PERCENTAGE = 0.75F
 
@@ -109,8 +109,7 @@ private fun LogoInputsColumn(
                 .padding(
                     start = contentPadding.calculateStartPadding(LocalLayoutDirection.current),
                     end = contentPadding.calculateEndPadding(LocalLayoutDirection.current),
-                )
-                .verticalScroll(rememberScrollState()),
+                ).verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         VerticalSpacer(height = contentPadding.calculateTopPadding())
@@ -215,7 +214,7 @@ private fun PasswordInput(
                 keyboardType = KeyboardType.Password,
                 imeAction = ImeAction.Done,
             ),
-        keyboardActions = keyboardActions
+        keyboardActions = keyboardActions,
     )
 }
 
@@ -305,8 +304,8 @@ class LoginViewStateProvider : PreviewParameterProvider<LoginViewState> {
                 LoginViewState.Active(
                     credentials = activeCredentials,
                     emailInputErrorMessage = UIText.StringText("Please enter an email."),
-                    passwordInputErrorMessage = UIText.StringText("Please enter a password")
-                )
+                    passwordInputErrorMessage = UIText.StringText("Please enter a password"),
+                ),
             )
         }
 }

@@ -3,11 +3,11 @@ package com.onepercentbetter.login.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.onepercentbetter.R
-import com.onepercentbetter.core.ui.components.UIText
 import com.onepercentbetter.core.model.Credentials
 import com.onepercentbetter.core.model.Email
-import com.onepercentbetter.login.domain.model.LoginResult
 import com.onepercentbetter.core.model.Password
+import com.onepercentbetter.core.ui.components.UIText
+import com.onepercentbetter.login.domain.model.LoginResult
 import com.onepercentbetter.login.domain.usecase.ProdCredentialsLoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -113,20 +113,16 @@ class LoginViewModel
 
 private fun Credentials.withUpdatedEmail(
     email: String,
-): Credentials {
-    return this.copy(email = Email(email))
-}
+): Credentials = this.copy(email = Email(email))
 
 private fun Credentials.withUpdatedPassword(
     password: String,
-): Credentials {
-    return this.copy(password = Password(password))
-}
+): Credentials = this.copy(password = Password(password))
 
 private fun LoginResult.Failure.EmptyCredentials.toActiveLoginViewState(
     credentials: Credentials,
-): LoginViewState {
-    return LoginViewState.Active(
+): LoginViewState =
+    LoginViewState.Active(
         credentials = credentials,
         emailInputErrorMessage =
             UIText.ResourceText(R.string.error_empty_email).takeIf {
@@ -137,4 +133,3 @@ private fun LoginResult.Failure.EmptyCredentials.toActiveLoginViewState(
                 this.emptyPassword
             },
     )
-}

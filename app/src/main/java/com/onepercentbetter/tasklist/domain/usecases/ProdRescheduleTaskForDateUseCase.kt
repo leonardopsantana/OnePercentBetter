@@ -1,8 +1,8 @@
 package com.onepercentbetter.tasklist.domain.usecases
 
 import com.onepercentbetter.core.model.Task
-import com.onepercentbetter.repository.task.TaskRepository
 import com.onepercentbetter.core.model.toEpochMillis
+import com.onepercentbetter.repository.task.TaskRepository
 import java.time.LocalDate
 import javax.inject.Inject
 

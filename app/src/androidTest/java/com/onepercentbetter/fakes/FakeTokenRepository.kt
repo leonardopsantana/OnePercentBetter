@@ -1,7 +1,7 @@
 package com.onepercentbetter.fakes
 
-import com.onepercentbetter.core.model.Token
 import com.onepercentbetter.core.datastore.token.TokenRepository
+import com.onepercentbetter.core.model.Token
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -23,7 +23,5 @@ class FakeTokenRepository @Inject constructor() : com.onepercentbetter.core.data
         tokenFlow.emit(null)
     }
 
-    override fun observeToken(): Flow<Token?> {
-        return tokenFlow
-    }
+    override fun observeToken(): Flow<Token?> = tokenFlow
 }

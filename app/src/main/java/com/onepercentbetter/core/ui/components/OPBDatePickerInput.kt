@@ -23,9 +23,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.onepercentbetter.R
-import com.onepercentbetter.core.ui.theme.ButtonShape
 import com.onepercentbetter.core.model.toEpochMillisUTC
 import com.onepercentbetter.core.model.toLocalDateUTC
+import com.onepercentbetter.core.ui.theme.ButtonShape
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -80,10 +80,9 @@ fun OPBDatePickerInput(
             modifier = Modifier
                 .border(
                     width = 1.dp,
-                     color = contentColor,
+                    color = contentColor,
                     shape = ButtonShape,
-                )
-                .clip(ButtonShape)
+                ).clip(ButtonShape)
                 .clickable {
                     showDatePicker.value = true
                 },

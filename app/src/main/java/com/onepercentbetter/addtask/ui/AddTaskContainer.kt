@@ -47,8 +47,8 @@ fun AddTaskContainer(
                     id = UUID.randomUUID().toString(),
                     description = viewState.value.taskInput.description,
                     scheduledDateMillis =
-                    viewState.value.taskInput.scheduledDate
-                        .toEpochMillis(),
+                        viewState.value.taskInput.scheduledDate
+                            .toEpochMillis(),
                     completed = false,
                 ),
             )
