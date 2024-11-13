@@ -32,7 +32,7 @@ danger(args) {
     }
 }
 
-fun GitHub.warnWorkInProgress() {
+fun warnWorkInProgress() {
     if ("WIP" in pullRequest.title) {
         warn(
             ":construction: PR is marked with Work in Progress (WIP)",
