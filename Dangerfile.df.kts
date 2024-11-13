@@ -27,5 +27,15 @@ danger(args) {
         if (deletions > additions) {
             message("🎉 Code Cleanup!")
         }
+
+        warnWorkInProgress()
+    }
+}
+
+fun GitHub.warnWorkInProgress() {
+    if ("WIP" in pullRequest.title) {
+        warn(
+            ":construction: PR is marked with Work in Progress (WIP)",
+        )
     }
 }
