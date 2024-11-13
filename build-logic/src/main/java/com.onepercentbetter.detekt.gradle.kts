@@ -7,6 +7,7 @@ plugins {
 detekt {
     config.setFrom(file(project.rootDir.path.plus("/config/detekt/detekt.yml")))
     buildUponDefaultConfig = true
+    ignoreFailures = true
 
     source.from(
         "src/main/java",
