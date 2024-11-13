@@ -23,11 +23,11 @@ jobs:
         with:
           ruby-version: 3.0
 
-      - name: Danger Checks
-        run: |
-          gem install bundler
-          bundle install
-          bundle exec danger
+#      - name: Danger Checks
+#        run: |
+#          gem install bundler
+#          bundle install
+#          bundle exec danger
 
       - name: Danger # And Danger action
         uses: docker://ghcr.io/danger/danger-kotlin:1.0.0
