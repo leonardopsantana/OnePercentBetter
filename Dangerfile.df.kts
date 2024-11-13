@@ -5,8 +5,7 @@ import systems.danger.kotlin.*
 import java.io.File
 import io.github.ackeecz.danger.detekt.DetektPlugin  
 import systems.danger.kotlin.*  
-import java.io.File  
-  
+
 register.plugin(DetektPlugin)  
   
 danger(args) {  

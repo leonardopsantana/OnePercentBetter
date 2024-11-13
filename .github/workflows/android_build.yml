@@ -24,6 +24,11 @@ jobs:
       - name: Static Analysis
         run: ./gradlew ktlint detekt
 
+      - name: Danger Checks
+        uses: danger/kotlin@1.3.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 #      - name: Danger Checks
 #        run: |
 #          gem install bundler
@@ -32,7 +37,7 @@ jobs:
       - name: Danger # And Danger action
         uses: docker://ghcr.io/danger/danger-kotlin:1.0.0
         with:
-          args: --dangerfile config/danger/dangerfile.df.kts # Note I have config located like this
+          args: --dangerfile config/danger/Dangerfile.df.kts # Note I have config located like this
         env:
           DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Extracted automatically
