@@ -27,10 +27,5 @@ danger(args) {
         if (deletions > additions) {
             message("🎉 Code Cleanup!")
         }
-
-        if (headerIndex >= 0) {
-            val message = lines.subList(headerIndex, lines.size).joinToString("\n")
-            message(message)
-        }
     }
 }
