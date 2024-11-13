@@ -7,6 +7,8 @@ import java.io.File
 import systems.danger.kotlin.models.github.GitHub
 import xyz.pavelkorolev.danger.detekt.DetektPlugin
 
+register.plugin(DetektPlugin)
+
 danger(args) {
     warnDetekt()
     onGitHub {
