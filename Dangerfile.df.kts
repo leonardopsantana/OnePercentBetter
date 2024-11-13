@@ -4,7 +4,7 @@
 // Editing this file: https://github.com/danger/kotlin?tab=readme-ov-file#autocomplete-and-syntax-highlighting-in-intellij-idea-or-android-studio
 import systems.danger.kotlin.*
 import java.io.File
-import systems.danger.kotlin.models.github.*
+import systems.danger.kotlin.models.github.GitHub
 import xyz.pavelkorolev.danger.detekt.DetektPlugin
 
 danger(args) {
