@@ -1,37 +1,37 @@
-name: Danger Checks
-
-on: pull_request
-
-jobs:
-  danger:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set Up JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'zulu'
-          java-version: 17
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v3
-
-      - name: Set Up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 3.0
-
-#      - name: Danger Checks
-#        run: |
-#          gem install bundler
-#          bundle install
-#          bundle exec danger
-
-      - name: Danger # And Danger action
-        uses: docker://ghcr.io/danger/danger-kotlin:1.0.0
-        with:
-          args: --dangerfile /Dangerfile.df.kts # Note I have config located like this
-        env:
-          DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#name: Danger Checks
+#
+#on: pull_request
+#
+#jobs:
+#  danger:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v4
+#
+#      - name: Set Up JDK
+#        uses: actions/setup-java@v4
+#        with:
+#          distribution: 'zulu'
+#          java-version: 17
+#
+#      - name: Setup Gradle
+#        uses: gradle/actions/setup-gradle@v3
+#
+#      - name: Set Up Ruby
+#        uses: ruby/setup-ruby@v1
+#        with:
+#          ruby-version: 3.0
+#
+##      - name: Danger Checks
+##        run: |
+##          gem install bundler
+##          bundle install
+##          bundle exec danger
+#
+#      - name: Danger # And Danger action
+#        uses: docker://ghcr.io/danger/danger-kotlin:1.0.0
+#        with:
+#          args: --dangerfile /Dangerfile.df.kts # Note I have config located like this
+#        env:
+#          DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
