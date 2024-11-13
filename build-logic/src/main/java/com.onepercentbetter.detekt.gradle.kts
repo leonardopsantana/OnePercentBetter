@@ -19,5 +19,6 @@ detekt {
 tasks.withType<Detekt>().configureEach {
     reports {
         md.required.set(true)
+        xml.required.set(true)
     }
 }
