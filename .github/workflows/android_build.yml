@@ -24,6 +24,11 @@ jobs:
       - name: Static Analysis
         run: ./gradlew ktlint detekt
 
+      - name: Danger Checks
+        run: |
+          gem install bundler
+          bundle install
+
       - name: Danger # And Danger action
         uses: docker://ghcr.io/danger/danger-kotlin:1.0.0
         with:
