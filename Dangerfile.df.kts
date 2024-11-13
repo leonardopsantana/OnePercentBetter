@@ -1,5 +1,5 @@
 @file:DependsOn("xyz.pavelkorolev.danger.detekt:plugin:1.2.0")
-@file:Suppress("MagicNumber", "WildcardImport", "ForbiddenComment")
+//@file:Suppress("MagicNumber", "WildcardImport", "ForbiddenComment")
 
 // Editing this file: https://github.com/danger/kotlin?tab=readme-ov-file#autocomplete-and-syntax-highlighting-in-intellij-idea-or-android-studio
 import systems.danger.kotlin.*
@@ -40,7 +40,7 @@ danger(args) {
 }
 
 fun warnDetekt() {
-    val file = File("build/reports/detekt/report.sarif")
+    val file = File("build/reports/detekt/detekt.md")
     if (!file.exists()) {
         warn(
             "🙈 No detekt report found",
