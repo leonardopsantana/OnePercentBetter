@@ -28,14 +28,10 @@ danger(args) {
             message("🎉 Code Cleanup!")
         }
 
-        warnWorkInProgress()
-    }
-}
-
-fun warnWorkInProgress() {
-    if ("WIP" in pullRequest.title) {
-        warn(
-            ":construction: PR is marked with Work in Progress (WIP)",
-        )
+        if ("WIP" in pullRequest.title) {
+            warn(
+                ":construction: PR is marked with Work in Progress (WIP)",
+            )
+        }
     }
 }
