@@ -32,7 +32,7 @@ jobs:
       - name: Danger # And Danger action
         uses: docker://ghcr.io/danger/danger-kotlin:1.0.0
         with:
-          args: --dangerfile /Dangerfile.df.kts # Note I have config located like this
+          args: --dangerfile config/danger/dangerfile.df.kts # Note I have config located like this
         env:
           DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Extracted automatically
