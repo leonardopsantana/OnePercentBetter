@@ -18,3 +18,7 @@ koverReport {
         }
     }
 }
+
+tasks.register("coverageReport") {
+    dependsOn(":app:koverHtmlReportDebug")
+}

@@ -23,3 +23,5 @@ include(":core-model")
 include(":lint-checks")
 include(":core-database")
 include(":core-datastore")
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")

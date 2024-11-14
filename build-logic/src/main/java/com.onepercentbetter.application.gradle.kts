@@ -44,6 +44,4 @@ dependencies {
     dokkaPlugin(libs.getLibrary("dokka"))
 }
 
-tasks.register("coverageReport") {
-    dependsOn(":app:koverHtmlReportDebug")
-}
+

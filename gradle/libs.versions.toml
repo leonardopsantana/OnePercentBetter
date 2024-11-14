@@ -1,20 +1,20 @@
 [versions]
 accompanist = "0.36.0"
-activityCompose = "1.9.2"
-androidxTestJunit = "1.2.1"
-appCompat = "1.7.0"
+activity_compose = "1.9.2"
+androidx_test_junit = "1.2.1"
+app_compat = "1.7.0"
 android_gradle_plugin = "8.3.2"
 dokka = "1.9.10"
 compose = "1.5.15"
-composeBom = "2024.09.03"
-composeDestinations = "1.10.2"
-composeNavigation = "2.8.2"
-coreKtx = "1.13.1"
+compose_bom = "2024.09.03"
+compose_destinations = "1.10.2"
+compose_navigation = "2.8.2"
+core_ktx = "1.13.1"
 coroutines = "1.8.1"
-dataStore = "1.1.1"
+data_store = "1.1.1"
 espresso = "3.6.1"
 hilt = "2.52"
-hiltNavigationCompose = "1.2.0"
+hilt_navigation_compose = "1.2.0"
 junit = "4.13.2"
 ksp = "1.9.25-1.0.20"
 lifecycle = "2.8.6"
@@ -24,74 +24,70 @@ protobuf = "3.25.5"
 room = "2.6.1"
 truth = "1.4.4"
 turbine = "1.1.0"
-windowManager = "1.3.0"
+window_manager = "1.3.0"
 androidx_core_testing = "2.2.0"
 kotlin = "1.9.25"
 jacoco = "0.2.1"
 ktlint = "1.4.0"
 kover = "0.7.5"
 detekt = "1.23.6"
-androidxCoreKtx = "1.13.1"
+androidx_core_ktx = "1.13.1"
 coveralls = "2.12.2"
+core_library_desugaring = "2.1.2"
 
 [libraries]
 kotlin_gradle_plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 android_gradle_plugin = { group = "com.android.tools.build", name = "gradle", version.ref = "android_gradle_plugin" }
 ktlint = { module = "com.pinterest.ktlint:ktlint-cli", version.ref = "ktlint" }
-detekt-gradle-plugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
+detekt_gradle_plugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
 
-#Kover
-kover-gradle-plugin = { module = "org.jetbrains.kotlinx:kover-gradle-plugin", version.ref = "kover" }
+# Kover
+kover_gradle_plugin = { module = "org.jetbrains.kotlinx:kover-gradle-plugin", version.ref = "kover" }
 
 # Kotlin
 kotlin_stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk7", version.ref = "kotlin" }
 kotlin_reflect = { group = "org.jetbrains.kotlin", name = "kotlin-reflect", version.ref = "kotlin" }
 
-androidx_core = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCoreKtx" }
-accompanist-navigation-animation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "accompanist" }
-accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
-androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
-androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appCompat" }
-androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
-androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
-androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
-androidx-compose-material3-windowsizeclass = { group = "androidx.compose.material3", name = "material3-window-size-class" }
-androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
-androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
-androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
-androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
-androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
-androidx-datastore = { module = "androidx.datastore:datastore", version.ref = "dataStore" }
-androidx-ktx-core = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
-androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
-androidx-material = { module = "com.google.android.material:material", version.ref = "material" }
-androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "composeNavigation" }
-androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
-androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
-androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
-androidx-test-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
-androidx-test-junit = { module = "androidx.test.ext:junit", version.ref = "androidxTestJunit" }
-androidx-window = { module = "androidx.window:window", version.ref = "windowManager" }
-cash-turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
-compose-destinations-animations-core = { module = "io.github.raamcosta.compose-destinations:animations-core", version.ref = "composeDestinations" }
-compose-destinations-ksp = { module = "io.github.raamcosta.compose-destinations:ksp", version.ref = "composeDestinations" }
-google-protobuf-javalite = { module = "com.google.protobuf:protobuf-javalite", version.ref = "protobuf" }
-google-truth = { module = "com.google.truth:truth", version.ref = "truth" }
+androidx_core = { group = "androidx.core", name = "core-ktx", version.ref = "androidx_core_ktx" }
+accompanist_navigation_animation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "accompanist" }
+accompanist_systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
+androidx_appcompat = { module = "androidx.appcompat:appcompat", version.ref = "app_compat" }
+androidx_compose_bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose_bom" }
+androidx_compose_material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx_compose_material3_windowsizeclass = { group = "androidx.compose.material3", name = "material3-window-size-class" }
+androidx_compose_ui_test_junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidx_compose_ui_test_manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+androidx_compose_ui_tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx_datastore = { module = "androidx.datastore:datastore", version.ref = "data_store" }
+androidx_lifecycle_runtime_ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
+androidx_navigation_compose = { module = "androidx.navigation:navigation-compose", version.ref = "compose_navigation" }
+androidx_room_compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+androidx_room_ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+androidx_room_runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+androidx_test_espresso_core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
+androidx_test_junit = { module = "androidx.test.ext:junit", version.ref = "androidx_test_junit" }
+androidx_window = { module = "androidx.window:window", version.ref = "window_manager" }
+cash_turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
+compose_destinations_animations_core = { module = "io.github.raamcosta.compose-destinations:animations-core", version.ref = "compose_destinations" }
+compose_destinations_ksp = { module = "io.github.raamcosta.compose-destinations:ksp", version.ref = "compose_destinations" }
+google_protobuf_javalite = { module = "com.google.protobuf:protobuf-javalite", version.ref = "protobuf" }
+google_truth = { module = "com.google.truth:truth", version.ref = "truth" }
+core_library_desugaring = { module = "com.android.tools:desugar_jdk_libs", version.ref = "core_library_desugaring" }
 
-#hilt
-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
-hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
-hilt-android-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
+# Hilt
+hilt_android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt_android_compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
+hilt_android_testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
+hilt_compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
+hilt_navigation_compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt_navigation_compose" }
 junit = { module = "junit:junit", version.ref = "junit" }
-viewmodel-test = { group = "androidx.arch.core", name = "core-testing", version.ref = "androidx_core_testing" }
-kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+viewmodel_test = { group = "androidx.arch.core", name = "core-testing", version.ref = "androidx_core_testing" }
+kotlinx_coroutines_test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 dokka = { group = "org.jetbrains.dokka", name = "android-documentation-plugin", version.ref = "dokka" }
 
 [bundles]
-accompanist = ["accompanist-systemuicontroller"]
+accompanist = ["accompanist_systemuicontroller"]
 
 [plugins]
 android_application = { id = "com.android.application", version.ref = "android_gradle_plugin" }
@@ -99,8 +95,7 @@ android_library = { id = "com.android.library", version.ref = "android_gradle_pl
 kotlin_android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 jacoco = { id = "com.mxalbert.gradle.jacoco-android", version.ref = "jacoco" }
-hilt-plugin = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+hilt_plugin = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
-#coveralls = { id = "gradle.plugin.org.kt3k.gradle.plugin:coveralls-gradle-plugin", version.ref = "coveralls" }
-
+# coveralls = { id = "gradle.plugin.org.kt3k.gradle.plugin:coveralls-gradle-plugin", version.ref = "coveralls" }
